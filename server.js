@@ -37,7 +37,15 @@ app.set('view engine','ejs');
 
 //Rutas
 app.get('/',(req,res) =>{
-  res.render('dashboard');
+  res.render('dashboard.ejs');
+});
+
+app.get('/listarProfesores',(req,res) =>{
+  let query = "SELECT * FROM profesor";
+  con.query(query,function(error,rows,fields){
+    if(error) throw error;
+    res.render('listarProfesores.ejs',{title:"Profesores",datos:rows});
+  });
 });
 
 //Fin Rutas
