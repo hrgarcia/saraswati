@@ -6,7 +6,7 @@
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Panel principal del sistema
+    Listado de profesores
   </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -35,6 +35,12 @@
             <a class="nav-link" href="listarProfesores">
               <i class="material-icons">school</i>
               <p>Listar profesores</p>
+            </a>
+          </li>
+          <li class="nav-item active  ">
+            <a class="nav-link" href="agregarProfesor">
+              <i class="material-icons">school</i>
+              <p>Agregar profesor</p>
             </a>
           </li>
 
@@ -116,7 +122,47 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Profesores</h4>
+                  <p class="card-category">Listado de profesores cargados en el sistema</p>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          Dni
+                        </th>
+                        <th>
+                          Nombre
+                        </th>
+                        <th>
+                          Apellido
+                        </th>
+                        <th>
+                          Email
+                        </th>
+                      </thead>
+                      <tbody>
+                        <% datos.forEach(function(profesor){ %>
+                          <tr>
+                            <td><%- profesor['nombre'] %></td>
+                            <td><%- profesor['apellido'] %></td>
+                            <td><%- profesor['dni'] %></td>
+                            <td><%- profesor['email'] %></td>
+                          </tr>
+                        <% }); %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
 
+          </div>
         </div>
       </div>
       <footer class="footer">

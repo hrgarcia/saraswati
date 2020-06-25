@@ -21,7 +21,7 @@ var con = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "mydb2"
+  database: "saraswatidb"
 });
 
 con.connect(function(error){
@@ -37,7 +37,15 @@ app.set('view engine','ejs');
 
 //Rutas
 app.get('/',(req,res) =>{
+  res.render('login.ejs');
+});
+
+app.get('/dashboard',(req,res) =>{
   res.render('dashboard.ejs');
+});
+
+app.get('/agregarProfesor',(req,res) =>{
+  res.render('agregarProfesor.ejs');
 });
 
 app.get('/listarProfesores',(req,res) =>{
@@ -47,6 +55,17 @@ app.get('/listarProfesores',(req,res) =>{
     res.render('listarProfesores.ejs',{title:"Profesores",datos:rows});
   });
 });
+
+app.post('/crearProfesor', urlencodedParser, function (req, res) {
+  let nombre = req.body.nombre;
+  let apellido = req.body.apellido;
+  let dni = req.body.dni;
+  //let query = "INSERT INTO profesor (dni,nombre,apellido) VALUES (dni,nombre,apellido);";
+  //con.query(query,function(error,rows,fields){
+  //  if(error) throw error;
+  //  res.render('/');
+  //});
+})
 
 //Fin Rutas
 

@@ -6,7 +6,7 @@
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Panel principal del sistema
+    Agregar profesor
   </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -35,6 +35,12 @@
             <a class="nav-link" href="listarProfesores">
               <i class="material-icons">school</i>
               <p>Listar profesores</p>
+            </a>
+          </li>
+          <li class="nav-item active  ">
+            <a class="nav-link" href="agregarProfesor">
+              <i class="material-icons">school</i>
+              <p>Agregar profesor</p>
             </a>
           </li>
 
@@ -116,7 +122,35 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Agregar profesor</h4>
+                      <p class="category">Complete el formulario para agregar un nuevo profesor</p>
+                  </div>
+                  <div class="card-body">
+                    <form action="/crearProfesor" method="POST">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Ingrese nombre</label>
+                        <input type="text" name="nombre" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nombre por aqui">
+                      </div>
+                      <div class="form-check">
+                          <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="">
+                              Option one is this
+                              <span class="form-check-sign">
+                                  <span class="check"></span>
+                              </span>
+                          </label>
+                      </div>
+                    
+                      <button type="submit" class="btn btn-primary">Cargar</button>
+                    </form>  
+                  </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <footer class="footer">
