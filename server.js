@@ -57,14 +57,24 @@ app.get('/listarProfesores',(req,res) =>{
 });
 
 app.post('/crearProfesor', urlencodedParser, function (req, res) {
-  let nombre = req.body.nombre;
-  let apellido = req.body.apellido;
-  let dni = req.body.dni;
-  //let query = "INSERT INTO profesor (dni,nombre,apellido) VALUES (dni,nombre,apellido);";
-  //con.query(query,function(error,rows,fields){
-  //  if(error) throw error;
-  //  res.render('/');
-  //});
+  let usuario = req.body.usuario;
+	let nombre = req.body.nombre;
+	let apellido = req.body.apellido;
+	let dni = req.body.dni;
+	let telefono = req.body.telefono;
+	let email = req.body.email;
+	let genero = req.body.genero;
+	let nacimiento = req.body.nacimiento;
+	let ingreso = req.body.ingreso;
+  let estado = req.body.estado;
+  
+	let query = "INSERT INTO profesor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES ('"+usuario+"','"+nombre+"','"+apellido+"','"+dni+"','"+telefono+"','"+email+"','"+genero+"','"+nacimiento+"','"+ingreso+"','"+estado+"');";
+	con.query(query, function(error,rows,fields){
+    if(error) throw error;
+    //verificar porque datos no funciona si recargo la pagina listarProfesores luego de hacer un insert
+    //res.render('listarProfesores.ejs');
+		res.render('dashboard.ejs');
+	})
 })
 
 //Fin Rutas

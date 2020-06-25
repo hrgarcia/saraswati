@@ -129,25 +129,53 @@
                       <h4 class="card-title">Agregar profesor</h4>
                       <p class="category">Complete el formulario para agregar un nuevo profesor</p>
                   </div>
+                  <!-- Formulario de Profesor -->
                   <div class="card-body">
                     <form action="/crearProfesor" method="POST">
                       <div class="form-group">
-                        <label for="exampleInputEmail1">Ingrese nombre</label>
-                        <input type="text" name="nombre" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nombre por aqui">
+                        <label for="exampleInputEmail1">ingrese un usuario</label>
+                        <input type="email" name="usuario" class="form-control">
                       </div>
-                      <div class="form-check">
-                          <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" value="">
-                              Option one is this
-                              <span class="form-check-sign">
-                                  <span class="check"></span>
-                              </span>
-                          </label>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Nombre de/la profe</label>
+                        <input type="text" name="nombre" class="form-control">
                       </div>
-                    
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Apellido del/la profe</label>
+                        <input type="text" name="apellido" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Dni del/la profe</label>
+                        <input type="text" name="dni" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">telefono del/la profe</label>
+                        <input type="text" name="telefono" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">email del/la profe</label>
+                        <input type="text" name="email" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">genero del/la profe</label>
+                        <input type="text" name="genero" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">nacimiento del/la profe</label>
+                        <input type="text" name="nacimiento" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">fecha de ingreso del/la profe</label>
+                        <input type="text" name="ingreso" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">estado del/la profe</label>
+                        <input type="text" name="estado" class="form-control">
+                      </div>
                       <button type="submit" class="btn btn-primary">Cargar</button>
                     </form>  
                   </div>
+                  <!-- termina el Formulario de Profesor -->
               </div>
             </div>
           </div>
