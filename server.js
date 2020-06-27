@@ -56,19 +56,19 @@ app.get('/listarProfesores',(req,res) =>{
   });
 });
 
-app.post('/crearProfesor', urlencodedParser, function (req, res) {
-  let usuario = req.body.usuario;
-	let nombre = req.body.nombre;
-	let apellido = req.body.apellido;
+app.post('/createTeacher', urlencodedParser, function (req, res) {
+  let user = req.body.user;
+	let name = req.body.name;
+	let lastName = req.body.lastName;
 	let dni = req.body.dni;
-	let telefono = req.body.telefono;
+	let telephone = req.body.telephone;
 	let email = req.body.email;
-	let genero = req.body.genero;
-	let nacimiento = req.body.nacimiento;
-	let ingreso = req.body.ingreso;
-  let estado = req.body.estado;
+	let gender = req.body.gender;
+	let birth = req.body.birth;
+	let entry = req.body.entry;
+  let state = req.body.state;
   
-	let query = "INSERT INTO profesor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES ('"+usuario+"','"+nombre+"','"+apellido+"','"+dni+"','"+telefono+"','"+email+"','"+genero+"','"+nacimiento+"','"+ingreso+"','"+estado+"');";
+	let query = "INSERT INTO profesor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES ('"+user+"','"+name+"','"+lastName+"','"+dni+"','"+telephone+"','"+email+"','"+gender+"','"+birth+"','"+entry+"','"+state+"');";
 	con.query(query, function(error,rows,fields){
     if(error) throw error;
     //verificar porque datos no funciona si recargo la pagina listarProfesores luego de hacer un insert
@@ -77,6 +77,11 @@ app.post('/crearProfesor', urlencodedParser, function (req, res) {
 	})
 })
 
+app.post('/loginValidation', urlencodedParser,function(req,res){
+  console.log("hola");
+  //validar utilizando select y if
+  res.render('dashboard.ejs');
+})
 //Fin Rutas
 
 app.listen(2500,() =>{
