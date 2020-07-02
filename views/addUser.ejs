@@ -6,7 +6,7 @@
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Panel principal del sistema
+    Agregar Usuario
   </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -38,17 +38,12 @@
             </a>
           </li>
           <li class="nav-item active  ">
-            <a class="nav-link" href="addTeacher">
+            <a class="nav-link" href="agregarProfesor">
               <i class="material-icons">school</i>
               <p>Agregar profesor</p>
             </a>
           </li>
-          <li class="nav-item active  ">
-            <a class="nav-link" href="addUser">
-              <i class="material-icons">school</i>
-              <p>Agregar usuario</p>
-            </a>
-          </li>
+
           <li class="nav-item active-pro ">
             <a class="nav-link" href="./upgrade.html">
               <i class="material-icons">unarchive</i>
@@ -127,7 +122,31 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Agregar profesor</h4>
+                      <p class="category">Complete el formulario para agregar un nuevo profesor</p>
+                  </div>
+                  <!-- Formulario de Profesor -->
+                  <div class="card-body">
+                    <form action="/createUser" method="POST">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">ingrese un usuario</label>
+                        <input type="text" name="username" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">ingrese contraseña</label>
+                        <input type="text" name="password" class="form-control">
+                      </div>
+                      <button type="submit" class="btn btn-primary">Cargar</button>
+                    </form>  
+                  </div>
+                  <!-- termina el Formulario de Profesor -->
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <footer class="footer">
