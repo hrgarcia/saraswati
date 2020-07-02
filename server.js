@@ -104,27 +104,25 @@ app.post('/createUser', urlencodedParser, function (req, res) {
 });
 
 //seguir despues de hacer la encriptacion en DB
-app.post('/login', function(req, res) {
+app.post('/login', function(req, res){
 	let username = req.body.username;
 	let password = req.body.password;
 
 	if(username && password){
-		let query = 'SELECT * FROM usuario WHERE nombre = ? AND pass = ?';
-		con.query(query, [username, password], function(error, results, fields) {
+		let query = 'SELECT * FROM usuario WHERE nombre = ?';
+		con.query(query, [username], function(error, results, fields) {
 			if(results.length > 0){
-				req.session.loggedin = true;
-				req.session.username = username;
-				res.redirect('/dashboard');
+				bcrypt.compare(password, results[0]['pass'], function (err, result) {
+					if(result == true){
+						res.redirect('/dashboard');
+					} 
+					else{
+						//aca iria el toats
+						res.redirect('/');
+					}
+				})
 			}
-			else{
-				res.send('Usuario y/o contraseña ingresadas son incorrectas');
-			}			
-			res.end();
-		});
-	} 
-	else{
-		res.send('Porfavor ingerese un usuario y contraseña');
-		res.end();
+		})
 	}
 });
 //Fin Rutas
