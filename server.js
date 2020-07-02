@@ -1,11 +1,22 @@
 const express = require('express');
 const mysql = require('mysql');
 const path = require('path');
+<<<<<<< HEAD
+=======
+const app = express();
+var session = require('express-session');
+>>>>>>> Modificaciones del server
 const bodyParser = require('body-parser')
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 const app = express();
 
+
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -68,6 +79,7 @@ app.get('/listarProfesores',(req,res) =>{
 	});
 });
 
+<<<<<<< HEAD
 app.post('/createTeacher', urlencodedParser, function (req, res) {
 	let user = req.body.user;
 	let name = req.body.name;
@@ -79,6 +91,41 @@ app.post('/createTeacher', urlencodedParser, function (req, res) {
 	let birth = req.body.birth;
 	let entry = req.body.entry;
 	let state = req.body.state;
+=======
+app.post('/login', function(req, res) {
+	var username = req.body.nombre;
+	var password = req.body.pass;
+	if (username && password) {
+    let query = 'SELECT * FROM usuario WHERE nombre = ? AND pass = ?';
+		con.query(query, [username, password], function(error, results, fields) {
+			if (results.length > 0) {
+				req.session.loggedin = true;
+        req.session.username = username;
+				res.redirect('/dashboard');
+      } 
+      else {
+				res.send('Credenciales incorrectas!');
+			}			
+			res.end();
+		});
+  }
+  else{
+		res.send('Por favor ingrese los campos requeridos!');
+		res.end();
+	}
+});
+
+app.post('/crearProfesor', urlencodedParser, function (req, res) {
+  let nombre = req.body.nombre;
+  let apellido = req.body.apellido;
+  let dni = req.body.dni;
+  //let query = "INSERT INTO profesor (dni,nombre,apellido) VALUES (dni,nombre,apellido);";
+  //con.query(query,function(error,rows,fields){
+  //  if(error) throw error;
+  //  res.render('/');
+  //});
+})
+>>>>>>> Modificaciones del server
 
 	let query = "INSERT INTO profesor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?);";
 	con.query(query,[user,name,lastName,dni,telephone,email,gender,birth,entry,state], function(error,rows,fields){
@@ -127,6 +174,12 @@ app.post('/login', function(req, res){
 });
 //Fin Rutas
 
+<<<<<<< HEAD
 app.listen(2500,() => {
 	console.log("El servidor corriendo en el puerto 2500");
 });
+=======
+app.listen(2500,() =>{
+  console.log("El servidor corriendo en el puerto 2500");
+});
+>>>>>>> Modificaciones del server
