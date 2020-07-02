@@ -3,6 +3,7 @@ const mysql = require('mysql');
 const path = require('path');
 const bodyParser = require('body-parser')
 const session = require('express-session');
+const bcrypt = require('bcrypt');
 const app = express();
 
 // parse application/x-www-form-urlencoded
@@ -79,8 +80,8 @@ app.post('/createTeacher', urlencodedParser, function (req, res) {
 	let entry = req.body.entry;
 	let state = req.body.state;
 
-	let query = "INSERT INTO profesor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES ('"+user+"','"+name+"','"+lastName+"','"+dni+"','"+telephone+"','"+email+"','"+gender+"','"+birth+"','"+entry+"','"+state+"');";
-	con.query(query, function(error,rows,fields){
+	let query = "INSERT INTO profesor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?);";
+	con.query(query,[user,name,lastName,dni,telephone,email,gender,birth,entry,state], function(error,rows,fields){
     if(error) throw error;
     //verificar porque datos no funciona si recargo la pagina listarProfesores luego de hacer un insert
     //res.render('listarProfesores.ejs');
@@ -90,13 +91,16 @@ app.post('/createTeacher', urlencodedParser, function (req, res) {
 
 app.post('/createUser', urlencodedParser, function (req, res) {
 	let username = req.body.username;
-	let password = req.body.password;
+	let salt = 10; //valor aleatorio
 
-	let query = "INSERT INTO usuario (nombre,pass) VALUES (?,?);";
-	con.query(query,[username,password], function(error,rows,fields){
-    if(error) throw error;
-	res.render('dashboard.ejs');
-	});
+	bcrypt.hash(req.body.password, salt, (err, encrypted) => {
+		let password = encrypted;
+		let query = "INSERT INTO usuario (nombre,pass) VALUES (?,?);";
+		con.query(query,[username,password], function(error,rows,fields){
+		if(error) throw error;
+		res.render('dashboard.ejs');
+		});
+	})
 });
 
 //seguir despues de hacer la encriptacion en DB
