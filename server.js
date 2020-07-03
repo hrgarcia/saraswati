@@ -6,18 +6,11 @@ var session = require('express-session');
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt');
 
-//Manejador de rutas manejado en archivo separado
-var indexRouter = require('./routes/index');
-
 app.use(session({
 	secret: 'secret',
 	resave: true,
 	saveUninitialized: true
 }));
-
-//Utilización de las rutas externas
-app.use('/', indexRouter);
-
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -56,7 +49,9 @@ app.set('view engine','ejs');
 
 
 //Rutas
-
+app.get('/',(req,res) =>{
+	res.render('login.ejs');
+});
 
 app.get('/dashboard',(req,res) =>{
 	res.render('dashboard.ejs');
