@@ -4,16 +4,20 @@ const path = require('path');
 const app = express();
 var session = require('express-session');
 const bodyParser = require('body-parser')
-const session = require('express-session');
 const bcrypt = require('bcrypt');
-const app = express();
 
+//Manejador de rutas manejado en archivo separado
+var indexRouter = require('./routes/index');
 
 app.use(session({
 	secret: 'secret',
 	resave: true,
 	saveUninitialized: true
 }));
+
+//Utilización de las rutas externas
+app.use('/', indexRouter);
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -52,9 +56,7 @@ app.set('view engine','ejs');
 
 
 //Rutas
-app.get('/',(req,res) =>{
-	res.render('login.ejs');
-});
+
 
 app.get('/dashboard',(req,res) =>{
 	res.render('dashboard.ejs');
@@ -76,40 +78,18 @@ app.get('/listarProfesores',(req,res) =>{
 	});
 });
 
-app.post('/login', function(req, res) {
-	var username = req.body.nombre;
-	var password = req.body.pass;
-	if (username && password) {
-    let query = 'SELECT * FROM usuario WHERE nombre = ? AND pass = ?';
-		con.query(query, [username, password], function(error, results, fields) {
-			if (results.length > 0) {
-				req.session.loggedin = true;
-        req.session.username = username;
-				res.redirect('/dashboard');
-      } 
-      else {
-				res.send('Credenciales incorrectas!');
-			}			
-			res.end();
-		});
-  }
-  else{
-		res.send('Por favor ingrese los campos requeridos!');
-		res.end();
-	}
-});
 
 app.post('/crearProfesor', urlencodedParser, function (req, res) {
-  let nombre = req.body.nombre;
-  let apellido = req.body.apellido;
-  let dni = req.body.dni;
-  let query = "INSERT INTO profesor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?);";
+	let nombre = req.body.nombre;
+	let apellido = req.body.apellido;
+	let dni = req.body.dni;
+	let query = "INSERT INTO profesor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?);";
 	con.query(query,[user,name,lastName,dni,telephone,email,gender,birth,entry,state], function(error,rows,fields){
     if(error) throw error;
     //verificar porque datos no funciona si recargo la pagina listarProfesores luego de hacer un insert
     //res.render('listarProfesores.ejs');
 	res.render('dashboard.ejs');
-  });
+	});
 })
 
 
@@ -127,28 +107,31 @@ app.post('/createUser', urlencodedParser, function (req, res) {
 	})
 });
 
-//seguir despues de hacer la encriptacion en DB
-app.post('/login', function(req, res){
-	let username = req.body.username;
-	let password = req.body.password;
-
-	if(username && password){
-		let query = 'SELECT * FROM usuario WHERE nombre = ?';
-		con.query(query, [username], function(error, results, fields) {
-			if(results.length > 0){
-				bcrypt.compare(password, results[0]['pass'], function (err, result) {
-					if(result == true){
-						res.redirect('/dashboard');
-					} 
-					else{
-						//aca iria el toats
-						res.redirect('/');
-					}
-				})
-			}
-		})
+app.post('/login', function(req, res) {
+	var username = req.body.nombre;
+	var password = req.body.pass;
+	if (username && password) {
+    	let query = 'SELECT * FROM usuario WHERE nombre = ? AND pass = ?';
+		con.query(query, [username, password], function(error, results, fields) {
+		if (results.length > 0) {
+			req.session.loggedin = true;
+			req.session.username = username;
+			res.redirect('/dashboard');
+		} 
+		else {
+			res.send('Credenciales incorrectas!');
+		}			
+		res.end();
+		});
+	}
+	else{
+		res.send('Por favor ingrese los campos requeridos!');
+		res.end();
 	}
 });
+
+
+
 //Fin Rutas
 
 app.listen(2500,() => {
