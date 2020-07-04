@@ -2,7 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const path = require('path');
 const app = express();
-var session = require('express-session');
+const session = require('express-session');
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt');
 
@@ -75,9 +75,16 @@ app.get('/listarProfesores',(req,res) =>{
 
 
 app.post('/crearProfesor', urlencodedParser, function (req, res) {
-	let nombre = req.body.nombre;
-	let apellido = req.body.apellido;
+	let user = req.body.user;
+	let name = req.body.lastName;
 	let dni = req.body.dni;
+	let telephone = req.body.telephone;
+	let email = req.body.email;
+	let gender = req.body.gender;
+	let birth = req.body.birth;
+	let entry = req.body.entry;
+	let state = req.body.state;
+	
 	let query = "INSERT INTO profesor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?);";
 	con.query(query,[user,name,lastName,dni,telephone,email,gender,birth,entry,state], function(error,rows,fields){
     if(error) throw error;
@@ -92,6 +99,7 @@ app.post('/createUser', urlencodedParser, function (req, res) {
 	let username = req.body.username;
 	let salt = 10; //valor aleatorio
 
+	//agarro la password ingresada y le aplico la encriptacion, para luego subir eso a la DB
 	bcrypt.hash(req.body.password, salt, (err, encrypted) => {
 		let password = encrypted;
 		let query = "INSERT INTO usuario (nombre,pass) VALUES (?,?);";
