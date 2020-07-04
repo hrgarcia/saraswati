@@ -57,11 +57,11 @@ app.get('/dashboard',(req,res) =>{
 	res.render('dashboard.ejs');
 });
 
-app.get('/addTeacher',(req,res) =>{
+app.get('/agregarProfesor',(req,res) =>{
 	res.render('addTeacher.ejs');
 });
 
-app.get('/addUser',(req,res) =>{
+app.get('/agregarUsuario',(req,res) =>{
 	res.render('addUser.ejs');
 });
 
@@ -70,6 +70,14 @@ app.get('/listarProfesores',(req,res) =>{
 	con.query(query,function(error,rows,fields){
     if(error) throw error;
     res.render('listarProfesores.ejs',{title:"Profesores",datos:rows});
+	});
+});
+
+app.get('/listarUsuarios',(req,res) =>{
+	let query = "SELECT * FROM usuario";
+	con.query(query,function(error,rows,fields){
+    if(error) throw error;
+    res.render('listarUsuarios.ejs',{title:"Usuario",datos:rows});
 	});
 });
 
@@ -110,26 +118,26 @@ app.post('/createUser', urlencodedParser, function (req, res) {
 	})
 });
 
-app.post('/login', function(req, res) {
-	var username = req.body.nombre;
-	var password = req.body.pass;
-	if (username && password) {
-    	let query = 'SELECT * FROM usuario WHERE nombre = ? AND pass = ?';
-		con.query(query, [username, password], function(error, results, fields) {
-		if (results.length > 0) {
-			req.session.loggedin = true;
-			req.session.username = username;
-			res.redirect('/dashboard');
-		} 
-		else {
-			res.send('Credenciales incorrectas!');
-		}			
-		res.end();
+//comparo la contraseña ingresada a la que esta encriptda en la DB para poder acceder al dashboard
+app.post('/login', function(req, res){
+	let username = req.body.username;
+	let password = req.body.password;
+
+	if(username && password){
+		let query = 'SELECT * FROM usuario WHERE nombre = ?';
+		con.query(query, [username], function(error, results, fields) {
+			if(results.length > 0){
+				bcrypt.compare(password, results[0]['pass'], function (err, result) {
+					if(result == true){
+						res.redirect('/dashboard');
+					} 
+					else{
+						//aca iria el toats (credenciales incorrectas)
+						res.redirect('/');
+					}
+				});
+			}
 		});
-	}
-	else{
-		res.send('Por favor ingrese los campos requeridos!');
-		res.end();
 	}
 });
 
