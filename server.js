@@ -118,7 +118,7 @@ app.post('/createUser', urlencodedParser, function (req, res) {
 	})
 });
 
-//comparo la contraseña ingresada a la que esta encriptda en la DB para poder acceder al dashboard
+//Comparo la contraseña ingresada a la que esta encriptda en la DB para poder acceder al dashboard
 app.post('/login', function(req, res){
 	let username = req.body.username;
 	let password = req.body.password;
@@ -128,7 +128,7 @@ app.post('/login', function(req, res){
 		con.query(query, [username], function(error, results, fields) {
 			if(results.length > 0){
 				bcrypt.compare(password, results[0]['pass'], function (err, result) {
-					if(result == true){
+					if(result){
 						res.redirect('/dashboard');
 					} 
 					else{
