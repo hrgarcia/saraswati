@@ -54,7 +54,10 @@ app.get('/',(req,res) =>{
 });
 
 app.get('/dashboard',(req,res) =>{
-	res.render('dashboard.ejs');
+	if(req.session.loggein){
+		res.render('dashboard.ejs');
+	}
+	//toast de que no te registraste
 });
 
 app.get('/agregarProfesor',(req,res) =>{
@@ -124,11 +127,13 @@ app.post('/login', function(req, res){
 	let password = req.body.password;
 
 	if(username && password){
-		let query = 'SELECT * FROM usuario WHERE nombre = ?';
+		let query = 'SELECT * FROM usuario WHERE nombreUsuario = ?';
 		con.query(query, [username], function(error, results, fields) {
 			if(results.length > 0){
 				bcrypt.compare(password, results[0]['pass'], function (err, result) {
 					if(result){
+						req.session.loggein = true;
+						req.session.username = username;
 						res.redirect('/dashboard');
 					} 
 					else{
