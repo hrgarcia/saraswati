@@ -11,6 +11,8 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
+
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -27,6 +29,12 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
+
+//hacemos que la variable Rol sea global
+app.use(function(req, res, next) {
+	res.locals.rol = req.session.rol;
+	next();
+});
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
@@ -108,13 +116,18 @@ app.post('/crearProfesor', urlencodedParser, function (req, res) {
 
 app.post('/createUser', urlencodedParser, function (req, res) {
 	let username = req.body.username;
+	let name = req.body.name;
+	let lastName = req.body.lastName;
+	let rol = req.body.rol;
+	let avatar = req.body.avatar;
+
 	let salt = 10; //valor aleatorio
 
 	//agarro la password ingresada y le aplico la encriptacion, para luego subir eso a la DB
 	bcrypt.hash(req.body.password, salt, (err, encrypted) => {
 		let password = encrypted;
-		let query = "INSERT INTO usuario (nombre,pass) VALUES (?,?);";
-		con.query(query,[username,password], function(error,rows,fields){
+		let query = "INSERT INTO usuario (nombreUsuario,pass,nombre,apellido,rol,avatar) VALUES (?,?,?,?,?,?);";
+		con.query(query,[username,password,name,lastName,rol,avatar], function(error,rows,fields){
 		if(error) throw error;
 		res.render('dashboard.ejs');
 		});
@@ -128,13 +141,17 @@ app.post('/login', function(req, res){
 
 	if(username && password){
 		let query = 'SELECT * FROM usuario WHERE nombreUsuario = ?';
-		con.query(query, [username], function(error, results, fields) {
-			if(results.length > 0){
-				bcrypt.compare(password, results[0]['pass'], function (err, result) {
-					if(result){
+		con.query(query, [username], function(error, rows, fields) {
+			if(rows.length > 0){
+				bcrypt.compare(password, rows[0]['pass'], function (err, row) {
+					if(row){
 						req.session.loggein = true;
 						req.session.username = username;
-						res.redirect('/dashboard');
+						
+						res.locals.rol = rows[0]['rol'].split(',');
+						req.session.rol = rows[0]['rol'].split(',');
+						
+						res.render('dashboard.ejs');
 					} 
 					else{
 						//aca iria el toats (credenciales incorrectas)
