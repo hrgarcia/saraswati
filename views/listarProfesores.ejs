@@ -35,30 +35,72 @@
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
-									<table class="table">
+									<!-----tabla profesores------>
+									<table class="table table-bordered ">
 										<thead class=" text-primary">
-											<th>
-												Dni
-											</th>
-											<th>
-												Nombre
-											</th>
-											<th>
-												Apellido
-											</th>
-											<th>
-												Email
-											</th>
+											<tr>
+												<th>
+													# 
+												</th>
+												<th>
+													Dni
+												</th>
+												<th>
+													Nombre
+												</th>
+												<th>
+													Apellido
+												</th>
+												<th>
+													Telefono
+												</th>
+												<th>
+													Email
+												</th>
+												<th>
+													Genero
+												</th>
+												<th>
+													Nacimiento
+												</th>
+												<th>
+													Ingreso
+												</th>
+												<th>
+													Estado
+												</th>
+												<th class="text-right">Acciones</th>
+											</tr>
 										</thead>
 										<tbody>
+										<!------cargo los datos de la db hacia la tabla------>	
 											<% datos.forEach(function(profesor){ %>
-											<tr>
-												<td><%- profesor['nombre'] %></td>
-												<td><%- profesor['apellido'] %></td>
-												<td><%- profesor['dni'] %></td>
-												<td><%- profesor['email'] %></td>
-											</tr>
-											<% }); %>
+												<tr>
+													<!---modificar esto para que aparezca el numero segun el profe creado--->
+													<td>1</td>
+													<td><%- profesor['dni'] %></td>
+													<td><%- profesor['nombre'] %></td>
+													<td><%- profesor['apellido'] %></td>
+													<td><%- profesor['telefono'] %></td>
+													<td><%- profesor['email'] %></td>
+													<td><%- profesor['genero'] %></td>
+													<td><%- profesor['nacimiento'] %></td>
+													<td><%- profesor['ingreso'] %></td>
+													<td><%- profesor['estado'] %></td>
+
+													<!-----botones para las acciones--->
+													<td class="td-actions text-right">
+														<button type="button" rel="tooltip" data-placement="right" title="Perfil del profesor"class="btn btn-info">
+															<i class="material-icons">person</i>
+														</button>
+														<button type="button" rel="tooltip" data-placement="right" title="Retirar profesor"class="btn btn-success">
+															<i class="material-icons">edit</i>
+														</button>
+														
+														<button type="button" rel="tooltip" data-placement="right" title="Retirar profesor" class="btn btn-danger">
+															<i class="material-icons">close</i>
+												</tr>
+												<% }); %>
 										</tbody>
 									</table>
 								</div>
