@@ -5,6 +5,7 @@ const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt');
+const toastr = require('toastr');
 
 app.use(session({
 	secret: 'secret',
@@ -68,6 +69,11 @@ app.get('/dashboard',(req,res) =>{
 	//toast de que no te registraste
 });
 
+app.get('/logout',(req,res) =>{
+	req.session.destroy();
+	res.render('login.ejs');
+});
+
 app.get('/agregarProfesor',(req,res) =>{
 	res.render('addTeacher.ejs');
 });
@@ -107,8 +113,6 @@ app.post('/crearProfesor', urlencodedParser, function (req, res) {
 	let query = "INSERT INTO profesor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?);";
 	con.query(query,[user,name,lastName,dni,telephone,email,gender,birth,entry,state], function(error,rows,fields){
     if(error) throw error;
-    //verificar porque datos no funciona si recargo la pagina listarProfesores luego de hacer un insert
-    //res.render('listarProfesores.ejs');
 	res.render('dashboard.ejs');
 	});
 })
@@ -121,6 +125,7 @@ app.post('/createUser', urlencodedParser, function (req, res) {
 	let rol = req.body.rol;
 	let avatar = req.body.avatar;
 
+	//let cosa = document.querySelector('#hook');
 	let salt = 10; //valor aleatorio
 
 	//agarro la password ingresada y le aplico la encriptacion, para luego subir eso a la DB
@@ -162,8 +167,6 @@ app.post('/login', function(req, res){
 		});
 	}
 });
-
-
 
 //Fin Rutas
 

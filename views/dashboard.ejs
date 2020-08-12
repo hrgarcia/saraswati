@@ -18,6 +18,7 @@
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<!-- CSS Files -->
 	<link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+	<link href="/stylesheets/toastr.css" rel="stylesheet"/>
 </head>
 
 <body class="">
@@ -32,6 +33,11 @@
 		<%- include('fragment/footer'); -%>
 	</div>
 	<%- include('fragment/scripts'); -%>
+	<script src="/javascripts/toastr.js"></script>"></script>
+	<script >
+		toastr.success('Are u sure about that?');
+		toastr.options.progressBar = true;
+	</script>
 </body>
 
 </html>
