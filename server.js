@@ -36,7 +36,6 @@ app.use(function(req, res, next) {
 	res.locals.rol = req.session.rol;
 	next();
 });
-
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 var con = mysql.createConnection({
@@ -63,7 +62,7 @@ app.get('/',(req,res) =>{
 });
 
 app.get('/dashboard',(req,res) =>{
-	if(req.session.loggein){
+	if(req.session.loggedin){
 		res.render('dashboard.ejs');
 	}
 	//toast de que no te registraste
@@ -71,7 +70,7 @@ app.get('/dashboard',(req,res) =>{
 
 app.get('/logout',(req,res) =>{
 	req.session.destroy();
-	res.render('login.ejs');
+	res.redirect('/');
 });
 
 app.get('/agregarProfesor',(req,res) =>{
@@ -118,14 +117,24 @@ app.post('/crearProfesor', urlencodedParser, function (req, res) {
 })
 
 
-app.post('/createUser', urlencodedParser, function (req, res) {
+app.post('/crearUsuario', urlencodedParser, function (req, res) {
 	let username = req.body.username;
 	let name = req.body.name;
 	let lastName = req.body.lastName;
-	let rol = req.body.rol;
 	let avatar = req.body.avatar;
 
-	//let cosa = document.querySelector('#hook');
+	let checks = [check1 = req.body.check1,
+		check2 = req.body.check2,
+		check3 = req.body.check3,
+		check4 = req.body.check4];
+	
+	let rol ='';
+	for (let i = 0; i < 4; i++) {
+		if(checks[i] != undefined){
+			rol += checks[i] + ',';
+		}
+	}
+
 	let salt = 10; //valor aleatorio
 
 	//agarro la password ingresada y le aplico la encriptacion, para luego subir eso a la DB
@@ -150,17 +159,16 @@ app.post('/login', function(req, res){
 			if(rows.length > 0){
 				bcrypt.compare(password, rows[0]['pass'], function (err, row) {
 					if(row){
-						req.session.loggein = true;
-						req.session.username = username;
+						req.session.loggedin = true;
 						
 						res.locals.rol = rows[0]['rol'].split(',');
 						req.session.rol = rows[0]['rol'].split(',');
-						
+
 						res.render('dashboard.ejs');
 					} 
 					else{
 						//aca iria el toats (credenciales incorrectas)
-						res.redirect('/');
+						res.render('login.ejs');
 					}
 				});
 			}

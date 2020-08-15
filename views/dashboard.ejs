@@ -35,8 +35,12 @@
 	<%- include('fragment/scripts'); -%>
 	<script src="/javascripts/toastr.js"></script>"></script>
 	<script >
-		toastr.success('Are u sure about that?');
+
+		//ver como solucionar lo de la variable global
 		toastr.options.progressBar = true;
+		toastr.options.closeMethod = 'fadeOut';
+		toastr.options.closeDuration = 300;
+		toastr.success('bienvenido');
 	</script>
 </body>
 

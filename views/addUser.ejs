@@ -35,33 +35,27 @@
 							</div>
 							<!-- Formulario de usuario -->
 							<div class="card-body">
-								<form action="/createUser" method="POST">
+								<form action="/crearUsuario" method="POST">
 									<div class="form-group">
 										<label for="exampleInputEmail1">ingrese un usuario</label>
-										<input type="text" name="username" class="form-control">
+										<input type="text" name="username" class="form-control" required>
 									</div>
 									<div class="form-group">
 										<label for="exampleInputEmail1">ingrese contraseña</label>
-										<input type="text" name="password" class="form-control">
+										<input type="text" name="password" class="form-control" required>
 									</div>
 									<div class="form-group">
 										<label for="exampleInputEmail1">ingrese nombre</label>
-										<input type="text" name="name" class="form-control">
+										<input type="text" name="name" class="form-control" required>
 									</div>
 									<div class="form-group">
 										<label for="exampleInputEmail1">ingrese apellido</label>
-										<input type="text" name="lastName" class="form-control">
+										<input type="text" name="lastName" class="form-control" required>
 									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">ingrese rol</label>
-										<input type="text" name="rol" class="form-control">
-									</div>
-
-
 									<div class="checkboxs">
 										<div class="form-check">
 											<label class="form-check-label">
-												<input class="form-check-input" type="checkbox" value="administrador">
+												<input class="form-check-input" type="checkbox" name="check1" value="administrador">
 												Administrador
 												<span class="form-check-sign">
 													<span class="check"></span>
@@ -70,7 +64,7 @@
 										</div>
 										<div class="form-check">
 											<label class="form-check-label">
-												<input class="form-check-input" type="checkbox" value="preceptor">
+												<input class="form-check-input" type="checkbox" name="check2" value="preceptor">
 												Preceptor
 												<span class="form-check-sign">
 													<span class="check"></span>
@@ -79,7 +73,7 @@
 										</div>
 										<div class="form-check">
 											<label class="form-check-label">
-												<input class="form-check-input" type="checkbox" value="profesor">
+												<input class="form-check-input" type="checkbox" name="check3" value="profesor">
 												Profesor
 												<span class="form-check-sign">
 													<span class="check"></span>
@@ -88,7 +82,7 @@
 										</div>
 										<div class="form-check">
 											<label class="form-check-label">
-												<input class="form-check-input" type="checkbox" value="estudiante">
+												<input class="form-check-input" type="checkbox" name="check4" value="estudiante">
 												Estudiante
 												<span class="form-check-sign">
 													<span class="check"></span>
@@ -96,8 +90,6 @@
 											</label>
 										</div>
 									</div>
-
-
 									<div class="form-group">
 										<label for="exampleInputEmail1">ingrese avatar</label>
 										<input type="text" name="avatar" class="form-control">
