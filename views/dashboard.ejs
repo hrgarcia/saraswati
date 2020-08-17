@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<!-- CSS Files -->
 	<link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
-	<link href="/stylesheets/toastr.css" rel="stylesheet"/>
+	<link href="/stylesheets/toastr.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -26,21 +26,25 @@
 	<div class="main-panel">
 		<%- include('fragment/navbar'); -%>
 		<!--  contenido   -->
+		<div id="1" style="visibility: hidden"><%-username%></div>
 		<div class="content">
 			<div class="container-fluid">
 			</div>
 		</div>
 		<%- include('fragment/footer'); -%>
 	</div>
+	
 	<%- include('fragment/scripts'); -%>
 	<script src="/javascripts/toastr.js"></script>"></script>
-	<script >
-
-		//ver como solucionar lo de la variable global
+	<script>
 		toastr.options.progressBar = true;
 		toastr.options.closeMethod = 'fadeOut';
 		toastr.options.closeDuration = 300;
-		toastr.success('bienvenido');
+
+		let id = document.getElementById("1");
+		window.onload = () => {
+			toastr.success('bienvenido ' + id.innerHTML);
+		}
 	</script>
 </body>
 

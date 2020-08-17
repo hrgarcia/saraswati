@@ -7,13 +7,6 @@ const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt');
 const toastr = require('toastr');
 
-app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
-
-
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -34,6 +27,7 @@ app.use(session({
 //hacemos que la variable Rol sea global
 app.use(function(req, res, next) {
 	res.locals.rol = req.session.rol;
+	res.locals.username = req.session.username;
 	next();
 });
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -65,7 +59,6 @@ app.get('/dashboard',(req,res) =>{
 	if(req.session.loggedin){
 		res.render('dashboard.ejs');
 	}
-	//toast de que no te registraste
 });
 
 app.get('/logout',(req,res) =>{
@@ -164,10 +157,13 @@ app.post('/login', function(req, res){
 						res.locals.rol = rows[0]['rol'].split(',');
 						req.session.rol = rows[0]['rol'].split(',');
 
+						res.locals.username = username;
+						req.session.username = username;
+
 						res.render('dashboard.ejs');
 					} 
 					else{
-						//aca iria el toats (credenciales incorrectas)
+						//aca iria el toastr (credenciales incorrectas)
 						res.render('login.ejs');
 					}
 				});
@@ -177,7 +173,6 @@ app.post('/login', function(req, res){
 });
 
 //Fin Rutas
-
 app.listen(2500,() => {
 	console.log("El servidor corriendo en el puerto 2500");
 });
