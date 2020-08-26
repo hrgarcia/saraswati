@@ -2844,7 +2844,8 @@ select.form-control-lg:not([size]):not([multiple]),
 
 .btn:not(:disabled):not(.disabled) {
   cursor: pointer;
-  font-family: cursive;
+  font-size: 15px;
+  font-family: 'Inconsolata', monospace;
 }
 
 .btn:not(:disabled):not(.disabled):active,
@@ -9646,7 +9647,8 @@ a.text-dark:focus {
   color: #fff;
   /* background-color: #186ed1;
   border-color: #0a1fd8; */
-  background: linear-gradient(60deg, #0560e9, #48b7e2);
+  background: linear-gradient(60deg, #f79823, #ff2d2d);
+
   box-shadow: 0 2px 2px 0 rgba(0, 188, 212, 0.14), 0 3px 1px -2px rgba(0, 188, 212, 0.2), 0 1px 5px 0 rgba(0, 188, 212, 0.12);
 }
 
@@ -17036,7 +17038,7 @@ label {
   line-height: 1.42857;
   color: #030303;
   font-weight: 500;
-  font-family: cursive;
+  font-family: 'Inconsolata', monospace;
 }
 
 /*           Animations              */
@@ -17372,7 +17374,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
   border-radius: 6px;
   color: #333333;
   background: #fff;
-  border-color: #2d8ae67a;
+  border-color: #3711ff42;
   border-style: solid;
   width: 100%;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
@@ -17524,7 +17526,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .card.bg-primary,
 .card.card-rotate.bg-primary .front,
 .card.card-rotate.bg-primary .back {
-  background: linear-gradient(60deg, #0560e9, #0caceb);
+  background: linear-gradient(60deg, #f79823, #ff2d2d);
 }
 
 .card .card-header-info .card-icon,
@@ -17892,7 +17894,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .card [class*="card-header-"] .card-text .card-title {
   color: #fff;
   margin-top: 0;
-  font-family: cursive;
+  font-family: 'Inconsolata', monospace;
 }
 
 .card [class*="card-header-"] .ct-chart .card-title {
