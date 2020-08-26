@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-08-2020 a las 01:39:37
+-- Tiempo de generación: 26-08-2020 a las 19:07:01
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.5
 
@@ -20,6 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `saraswatidb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `materia`
+--
+
+CREATE TABLE `materia` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `imagen` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `horasCatedra` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `profesor_usuario` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -45,14 +59,7 @@ CREATE TABLE `profesor` (
 --
 
 INSERT INTO `profesor` (`usuario`, `nombre`, `apellido`, `dni`, `telefono`, `email`, `genero`, `nacimiento`, `ingreso`, `estado`) VALUES
-('', '', '', '', '', '', '', '', '', ''),
-('dreamallica@gmail.com', 'hector', 'garcia', '30883670', '3518282838', 'dreamallica@gmail.com', 'masculino', 'por ahi', 'por ahi', 'por ahi'),
-('dwa', 'undefined', 'undefined', 'undefine', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
-('juan@gmail.com', 'juan', 'capetini', '58893480', '35199998775', 'juan@gmail.com', 'masculino', '23/03/1995', '25 febrero 2015', 'suplente'),
-('juan2@gmail.com', 'Juan', 'Perez', '78555532', '35111111116', 'juan2@gmail.com', 'masculino', '23/03/1995', '25/02/2015', 'titular'),
-('juan25@gmail.com', 'wdawwa', 'dwawa', 'dwawa', 'dwaaw', 'dwawa', 'awdwa', 'dwadaw', 'dwaaw', 'dawdwa'),
-('juan3@gmail.com', 'wdaawd', 'awdwadw', '13213123', '', '', '', '', '', ''),
-('juan34@gmail.com', '', '', '', '', '', '', '', '', '');
+('hrgarcia', 'hector', 'garcia', '23146758', '3514467884', 'dreamallica@gmail.com', 'masculino', '23/09/2000', '07/03/2015', 'titular');
 
 -- --------------------------------------------------------
 
@@ -63,8 +70,16 @@ INSERT INTO `profesor` (`usuario`, `nombre`, `apellido`, `dni`, `telefono`, `ema
 CREATE TABLE `rol` (
   `id` int(50) NOT NULL,
   `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `nombre_usuario` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+  `nombreUsuario` varchar(50) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `rol`
+--
+
+INSERT INTO `rol` (`id`, `nombre`, `nombreUsuario`) VALUES
+(3, 'profesor', 'hrgarcia'),
+(4, 'preceptor', 'hrgarcia');
 
 -- --------------------------------------------------------
 
@@ -75,9 +90,6 @@ CREATE TABLE `rol` (
 CREATE TABLE `usuario` (
   `nombreUsuario` varchar(11) COLLATE utf8_spanish_ci NOT NULL,
   `pass` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `apellido` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `rol` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `avatar` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -85,13 +97,19 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`nombreUsuario`, `pass`, `nombre`, `apellido`, `rol`, `avatar`) VALUES
-('juan55', '$2b$10$IDfwWxZitSh9TQ99qfuwUOP83cxr50Yo.3f9X0Ll5oSCLrTZGMR/m', 'juan', 'pereti', 'administrador', 0),
-('juanP2', '$2b$10$WtXStaWrcNAxEArh2xJ.sejjQpbg9LAIlYG9nANBO/bENScfkut8i', 'juan2', 'pepe', 'estudiante', 0);
+INSERT INTO `usuario` (`nombreUsuario`, `pass`, `avatar`) VALUES
+('hrgarcia', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', 0);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `materia`
+--
+ALTER TABLE `materia`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `profesor_usuario` (`profesor_usuario`);
 
 --
 -- Indices de la tabla `profesor`
@@ -104,7 +122,7 @@ ALTER TABLE `profesor`
 --
 ALTER TABLE `rol`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `nombre_usuario` (`nombre_usuario`);
+  ADD KEY `nombre_usuario` (`nombreUsuario`);
 
 --
 -- Indices de la tabla `usuario`
@@ -113,14 +131,30 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`nombreUsuario`);
 
 --
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `rol`
+--
+ALTER TABLE `rol`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `materia`
+--
+ALTER TABLE `materia`
+  ADD CONSTRAINT `materia_ibfk_1` FOREIGN KEY (`profesor_usuario`) REFERENCES `profesor` (`usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `rol`
 --
 ALTER TABLE `rol`
-  ADD CONSTRAINT `rol_ibfk_1` FOREIGN KEY (`nombre_usuario`) REFERENCES `usuario` (`nombreUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `rol_ibfk_1` FOREIGN KEY (`nombreUsuario`) REFERENCES `usuario` (`nombreUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

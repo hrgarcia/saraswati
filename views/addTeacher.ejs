@@ -21,7 +21,6 @@
 </head>
 
 <body class="">
-	<%- include('fragment/sidebar'); -%>
 	<div class="main-panel">
 		<%- include('fragment/navbar'); -%>
 		<div class="content">
@@ -35,10 +34,18 @@
 							</div>
 							<!-- Formulario de Profesor -->
 							<div class="card-body">
-								<form action="/createTeacher" method="POST">
+								<form action="/crearProfesor" method="POST">
 									<div class="form-group">
 										<label for="exampleInputEmail1">ingrese un usuario</label>
 										<input type="text" name="user" class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label for="exampleInputEmail1">ingrese una contraseña</label>
+										<input type="text" name="password" class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label for="exampleInputEmail1">ingrese un avatar</label>
+										<input type="text" name="avatar" class="form-control" required>
 									</div>
 									<div class="form-group">
 										<label for="exampleInputEmail1">Nombre de/la profe</label>
