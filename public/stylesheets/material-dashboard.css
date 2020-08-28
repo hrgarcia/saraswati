@@ -13618,6 +13618,7 @@ select.form-control {
 .has-success .form-control-feedback {
   color: #4caf50;
   opacity: 1;
+  
 }
 
 .has-danger .form-control-feedback {
@@ -14446,7 +14447,7 @@ h2.title {
 }
 
 .text-primary {
-  color: #9c27b0 !important;
+  color: #67077f !important;
 }
 
 .text-danger {
@@ -17521,9 +17522,12 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 }
 
 .card .card-header-primary .card-icon,
-.card .card-header-primary .card-text,
+.card .card-header-primary .card-text
+{
+  background: linear-gradient(60deg, #f79823, #ff2d2d);
+}
 .card .card-header-primary:not(.card-header-icon):not(.card-header-text),
-.card.bg-primary,
+.card.bg-primary
 .card.card-rotate.bg-primary .front,
 .card.card-rotate.bg-primary .back {
   background: linear-gradient(60deg, #FA584D, #5190f8);
@@ -17577,13 +17581,13 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .card .card-header-primary .card-icon,
 .card .card-header-primary:not(.card-header-icon):not(.card-header-text),
 .card .card-header-primary .card-text {
-  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4);
+  box-shadow:-11px 11px 20px 0px rgb(49 56 255 / 0%), 20px -15px 10px -5px rgb(67 7 195 / 20%)
 }
 
 .card .card-header-danger .card-icon,
 .card .card-header-danger:not(.card-header-icon):not(.card-header-text),
 .card .card-header-danger .card-text {
-  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(244, 67, 54, 0.4);
+  box-shadow:-11px 11px 20px 0px rgb(49 56 255 / 0%), 20px -15px 10px -5px rgb(67 7 195 / 20%);
 }
 
 .card .card-header-rose .card-icon,
