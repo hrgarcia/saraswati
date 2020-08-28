@@ -78,6 +78,10 @@ app.get('/agregarUsuario', (req, res) => {
 	res.render('addUser.ejs');
 });
 
+app.get('/agregarPreceptor', (req, res) => {
+	res.render('addPreceptor.ejs');
+});
+
 app.get('/listarProfesores', (req, res) => {
 	let query = "SELECT * FROM profesor";
 	con.query(query, function (error, rows, fields) {
@@ -131,6 +135,50 @@ app.post('/crearProfesor', urlencodedParser, function (req, res) {
 			res.render('dashboard.ejs');
 		});
 	});
+
+	let query3 = "INSERT INTO rol (nombre,nombreUsuario) VALUES (profesor,?);";
+	con.query(query3, [user], function (error, rows, fields) {
+		if (error) throw error;
+		res.render('dashboard.ejs');
+	});
+})
+
+app.post('/crearPreceptor', urlencodedParser, function (req, res) {
+	//datos de usuario
+	let user = req.body.user;
+	let avatar = req.body.avatar
+	let salt = 10; //valor estandar
+
+	//datos del preceptor
+	let name = req.body.name;
+	let lastName = req.body.lastName
+	let dni = req.body.dni;
+	let telephone = req.body.telephone;
+	let email = req.body.email;
+	let gender = req.body.gender;
+	let birth = req.body.birth;
+	let entry = req.body.entry;
+	let state = req.body.state;
+
+	// let query = "INSERT INTO preceptor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?);";
+	// con.query(query, [user, name, lastName, dni, telephone, email, gender, birth, entry, state], function (error, rows, fields) {
+	// 	if (error) throw error;
+	// });
+
+	bcrypt.hash(req.body.password, salt, (err, encrypted) => {
+		let password = encrypted;
+		let query2 = "INSERT INTO usuario (nombreUsuario,pass,avatar) VALUES (?,?,?);";
+		con.query(query2, [user, password, avatar], function (error, rows, fields) {
+			if (error) throw error;
+			res.render('dashboard.ejs');
+		});
+	});
+	
+	let query3 = "INSERT INTO rol (nombre,nombreUsuario) VALUES (profesor,?);";
+	con.query(query3, [user], function (error, rows, fields) {
+		if (error) throw error;
+		res.render('dashboard.ejs');
+	});
 })
 
 //Comparo la contraseña ingresada a la que esta encriptda en la DB para poder acceder al dashboard
@@ -144,20 +192,21 @@ app.post('/login', function (req, res) {
 			if (rows.length > 0) {
 				bcrypt.compare(password, rows[0]['pass'], function (err, row) {
 					if (row) {
-						req.session.loggedin = true;
-						let query2 = 'SELECT nombre FROM rol INNER JOIN usuario ON rol.nombreUsuario = usuario.nombreUsuario';
-						con.query(query2, function (error, rows, fields) {
+						req.session.loggedin = true; 
+						let query2 = 'SELECT nombre FROM rol INNER JOIN usuario ON ? = rol.nombreUsuario AND rol.nombreUsuario = usuario.nombreUsuario ';
+						con.query(query2,[username], function (error, rows, fields) {
 							let arrRol = [];
 							for (let i = 0; i < rows.length; i++) {
 								arrRol.push(rows[i].nombre);
 							}
+
 							res.locals.rol = arrRol;
 							req.session.rol = arrRol;
 
 							res.locals.username = username;
 							req.session.username = username;
 
-							res.render('dashboard.ejs');
+							//res.render('dashboard.ejs');
 						});
 					}
 				});
