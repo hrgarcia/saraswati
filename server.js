@@ -104,6 +104,16 @@ app.get('/listarUsuarios', (req, res) => {
 	});
 });
 
+app.get('/listarMaterias', (req, res) => {
+	let query = "SELECT nombre FROM materia WHERE ? = materia.profesor_usuario";
+	con.query(query,[res.locals.username], function (error, rows, fields) {
+		if (error) throw error;
+		res.render('listSubjects.ejs', {
+			title: "Subjects",
+			datos: rows
+		});	
+	});
+});
 
 app.post('/crearProfesor', urlencodedParser, function (req, res) {
 	//datos de usuario
@@ -206,7 +216,7 @@ app.post('/login', function (req, res) {
 							res.locals.username = username;
 							req.session.username = username;
 
-							//res.render('dashboard.ejs');
+							res.render('dashboard.ejs');
 						});
 					}
 				});
