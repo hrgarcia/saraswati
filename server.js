@@ -78,6 +78,16 @@ app.get('/agregarUsuario', (req, res) => {
 	res.render('addUser.ejs');
 });
 
+app.get('/agregarMateria', (req, res) => {
+	let query = "SELECT usuario FROM profesor";
+	con.query(query, function (error, rows, fields) {
+		res.render('addSubject.ejs', {
+			title: "Teachers",
+			datos: rows
+		});
+	});
+});
+
 app.get('/agregarPreceptor', (req, res) => {
 	res.render('addPreceptor.ejs');
 });
@@ -86,7 +96,7 @@ app.get('/listarProfesores', (req, res) => {
 	let query = "SELECT * FROM profesor";
 	con.query(query, function (error, rows, fields) {
 		if (error) throw error;
-		res.render('listarProfesores.ejs', {
+		res.render('listTeacher.ejs', {
 			title: "Profesores",
 			datos: rows
 		});
@@ -97,7 +107,7 @@ app.get('/listarUsuarios', (req, res) => {
 	let query = "SELECT * FROM usuario";
 	con.query(query, function (error, rows, fields) {
 		if (error) throw error;
-		res.render('listarUsuarios.ejs', {
+		res.render('listUser.ejs', {
 			title: "Usuario",
 			datos: rows
 		});
@@ -115,10 +125,24 @@ app.get('/listarMaterias', (req, res) => {
 	});
 });
 
+app.post('/crearMateria', (req, res) => {
+	let id = req.body.id;
+	let name = req.body.name;
+	let image = req.body.image;
+	let teachingHours = req.body.teachingHours
+	let teacherUser = req.body.teacherUser;
+
+	let query = "INSERT INTO materia (id,nombre,imagen,horasCatedra,profesor_usuario) VALUES (?,?,?,?,?);"
+	con.query(query,[id,name,image,teachingHours,teacherUser], function (error, rows, fields) {
+		if (error) throw error;
+		res.render('dashboard.ejs');	
+	});
+});
+
 app.post('/crearProfesor', urlencodedParser, function (req, res) {
 	//datos de usuario
 	let user = req.body.user;
-	let avatar = req.body.avatar
+	let avatar = req.body.avatar;
 	let salt = 10; //valor estandar
 
 	//datos de profe
@@ -146,17 +170,17 @@ app.post('/crearProfesor', urlencodedParser, function (req, res) {
 		});
 	});
 
-	let query3 = "INSERT INTO rol (nombre,nombreUsuario) VALUES (profesor,?);";
-	con.query(query3, [user], function (error, rows, fields) {
-		if (error) throw error;
-		res.render('dashboard.ejs');
-	});
+	// let query3 = "INSERT INTO rol (nombre,nombreUsuario) VALUES ('profesor',?);";
+	// con.query(query3, [user], function (error, rows, fields) {
+	// 	if (error) throw error;
+	// 	res.render('dashboard.ejs');
+	// });
 })
 
 app.post('/crearPreceptor', urlencodedParser, function (req, res) {
 	//datos de usuario
 	let user = req.body.user;
-	let avatar = req.body.avatar
+	let avatar = req.body.avatar;
 	let salt = 10; //valor estandar
 
 	//datos del preceptor
@@ -184,11 +208,11 @@ app.post('/crearPreceptor', urlencodedParser, function (req, res) {
 		});
 	});
 	
-	let query3 = "INSERT INTO rol (nombre,nombreUsuario) VALUES (profesor,?);";
-	con.query(query3, [user], function (error, rows, fields) {
-		if (error) throw error;
-		res.render('dashboard.ejs');
-	});
+	// let query3 = "INSERT INTO rol (nombre,nombreUsuario) VALUES (profesor,?);";
+	// con.query(query3, [user], function (error, rows, fields) {
+	// 	if (error) throw error;
+	// 	res.render('dashboard.ejs');
+	// });
 })
 
 //Comparo la contraseña ingresada a la que esta encriptda en la DB para poder acceder al dashboard
