@@ -126,14 +126,13 @@ app.get('/listarMaterias', (req, res) => {
 });
 
 app.post('/crearMateria', (req, res) => {
-	let id = req.body.id;
 	let name = req.body.name;
 	let image = req.body.image;
 	let teachingHours = req.body.teachingHours
 	let teacherUser = req.body.teacherUser;
 
-	let query = "INSERT INTO materia (id,nombre,imagen,horasCatedra,profesor_usuario) VALUES (?,?,?,?,?);"
-	con.query(query,[id,name,image,teachingHours,teacherUser], function (error, rows, fields) {
+	let query = "INSERT INTO materia (nombre,imagen,horasCatedra,profesor_usuario) VALUES (?,?,?,?);"
+	con.query(query,[name,image,teachingHours,teacherUser], function (error, rows, fields) {
 		if (error) throw error;
 		res.render('dashboard.ejs');	
 	});
