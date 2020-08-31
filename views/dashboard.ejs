@@ -25,10 +25,11 @@
 	<link href="/stylesheets/toastr.css" rel="stylesheet" />
 	<!-- Animate css -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
-  />
+	/>
 </head>
 
-<body class="">
+<body>
+	
 	<%- include('fragment/sidebar'); -%>
 	<div class="main-panel">
 		<%- include('fragment/navbar'); -%>
@@ -37,13 +38,14 @@
 		<div class="content">
 			<div class="container-fluid">
 				<!--Contenido principal acá -->
+				
 			</div>
 		</div>
 		<%- include('fragment/footer'); -%>
 	</div>
-	
 	<%- include('fragment/scripts'); -%>
-	<script src="/javascripts/toastr.js"></script>"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/javascripts/toastr.js"></script>
 	<script>
 		toastr.options.progressBar = true;
 		toastr.options.closeMethod = 'fadeOut';
