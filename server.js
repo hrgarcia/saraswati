@@ -61,7 +61,14 @@ app.get('/', (req, res) => {
 
 app.get('/dashboard', (req, res) => {
 	if (req.session.loggedin) {
-		res.render('dashboard.ejs');
+		let query = "SELECT nombre FROM materia WHERE ? = materia.profesor_usuario";
+		con.query(query, [res.locals.username], function (error, rows, fields) {
+			if (error) throw error;
+			res.render('dashboard.ejs', {
+				title: "Subjects",
+				datos: rows
+			});
+		});
 	}
 });
 
@@ -111,17 +118,6 @@ app.get('/listarUsuarios', (req, res) => {
 			title: "Usuario",
 			datos: rows
 		});
-	});
-});
-
-app.get('/listarMaterias', (req, res) => {
-	let query = "SELECT nombre FROM materia WHERE ? = materia.profesor_usuario";
-	con.query(query,[res.locals.username], function (error, rows, fields) {
-		if (error) throw error;
-		res.render('listSubjects.ejs', {
-			title: "Subjects",
-			datos: rows
-		});	
 	});
 });
 
@@ -239,7 +235,14 @@ app.post('/login', function (req, res) {
 							res.locals.username = username;
 							req.session.username = username;
 
-							res.render('dashboard.ejs');
+							let query3 = "SELECT nombre FROM materia WHERE ? = materia.profesor_usuario";
+							con.query(query3, [res.locals.username], function (error, rows, fields) {
+								if (error) throw error;
+								res.render('dashboard.ejs', {
+									title: "Subjects",
+									datos: rows
+								});
+							});
 						});
 					}
 				});

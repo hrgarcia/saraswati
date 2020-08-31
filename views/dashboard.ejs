@@ -38,7 +38,19 @@
 		<div class="content">
 			<div class="container-fluid">
 				<!--Contenido principal acá -->
-				
+				<div class="row">
+					<div class="col-md-12">
+						<% datos.forEach(function(Subjects){ %>
+							<div class="card" style="width: 18rem;">
+								<img class="card-img-top" src="..." alt="imagen de materia">
+								<div class="card-body">
+									<h5 class="card-title"><%-Subjects['nombre']%></h5>
+									<a href="#" class="btn btn-primary">(Accion)</a>
+								</div>
+							</div>
+						<% }); %>
+					</div>
+				</div>
 			</div>
 		</div>
 		<%- include('fragment/footer'); -%>
