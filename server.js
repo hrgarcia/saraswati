@@ -3,7 +3,7 @@ const mysql = require('mysql');
 const path = require('path');
 const app = express();
 const session = require('express-session');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const toastr = require('toastr');
 
@@ -121,6 +121,7 @@ app.get('/listarUsuarios', (req, res) => {
 	});
 });
 
+// Creación de materia
 app.post('/crearMateria', (req, res) => {
 	let name = req.body.name;
 	let image = req.body.image;
@@ -164,12 +165,6 @@ app.post('/crearProfesor', urlencodedParser, function (req, res) {
 			res.render('dashboard.ejs');
 		});
 	});
-
-	// let query3 = "INSERT INTO rol (nombre,nombreUsuario) VALUES ('profesor',?);";
-	// con.query(query3, [user], function (error, rows, fields) {
-	// 	if (error) throw error;
-	// 	res.render('dashboard.ejs');
-	// });
 })
 
 app.post('/crearPreceptor', urlencodedParser, function (req, res) {
@@ -189,11 +184,6 @@ app.post('/crearPreceptor', urlencodedParser, function (req, res) {
 	let entry = req.body.entry;
 	let state = req.body.state;
 
-	// let query = "INSERT INTO preceptor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?);";
-	// con.query(query, [user, name, lastName, dni, telephone, email, gender, birth, entry, state], function (error, rows, fields) {
-	// 	if (error) throw error;
-	// });
-
 	bcrypt.hash(req.body.password, salt, (err, encrypted) => {
 		let password = encrypted;
 		let query2 = "INSERT INTO usuario (nombreUsuario,pass,avatar) VALUES (?,?,?);";
@@ -202,12 +192,6 @@ app.post('/crearPreceptor', urlencodedParser, function (req, res) {
 			res.render('dashboard.ejs');
 		});
 	});
-	
-	// let query3 = "INSERT INTO rol (nombre,nombreUsuario) VALUES (profesor,?);";
-	// con.query(query3, [user], function (error, rows, fields) {
-	// 	if (error) throw error;
-	// 	res.render('dashboard.ejs');
-	// });
 })
 
 //Comparo la contraseña ingresada a la que esta encriptda en la DB para poder acceder al dashboard
