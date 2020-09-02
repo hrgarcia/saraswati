@@ -61,7 +61,7 @@ app.get('/', (req, res) => {
 
 app.get('/dashboard', (req, res) => {
 	if (req.session.loggedin) {
-		let query = "SELECT nombre FROM materia WHERE ? = materia.profesor_usuario";
+		let query = "SELECT * FROM materia WHERE ? = materia.profesor_usuario";
 		con.query(query, [res.locals.username], function (error, rows, fields) {
 			if (error) throw error;
 			res.render('dashboard.ejs', {
@@ -219,7 +219,7 @@ app.post('/login', function (req, res) {
 							res.locals.username = username;
 							req.session.username = username;
 
-							let query3 = "SELECT nombre FROM materia WHERE ? = materia.profesor_usuario";
+							let query3 = "SELECT * FROM materia WHERE ? = materia.profesor_usuario";
 							con.query(query3, [res.locals.username], function (error, rows, fields) {
 								if (error) throw error;
 								res.render('dashboard.ejs', {
