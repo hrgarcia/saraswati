@@ -16,6 +16,7 @@
     <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
 
     <link href="/stylesheets/login.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
 </head>
 
 <body>
@@ -25,22 +26,23 @@
         <div class="col-md-4">
         <div class="card">
             <div class="card-header card-header-text card-header-primary" >
-            <div class="card-text" >
-                <h3 class="card-title">Login</h3>
+            <div class="card-text animate__animated animate__backInDown" >
+                <h3 class="card-title ">Login</h3>
+                
             </div>
             </div>
             <div class="card-body">
                 <form action="/login" method="POST" class="text-center">
-                    <label for="">Ingrese su usuario</label>
+                    <label for="" class="animate__animated animate__bounceInLeft">Ingrese su usuario</label>
                     <br>
                     <input type="text" name="username" required>
                     <br>
-                    <label for="">Ingrese su contraseña</label>
+                    <label for="" class="animate__animated animate__bounceInRight">Ingrese su contraseña</label>
                     <br>
                     <input type="password" name="password" required> 
                     <br>
                     <br>
-                    <button type="submit" class="btn btn-info">Ingresar</button>
+                    <button type="submit" class="btn btn-info  animate__animated animate__backInLeft">Ingresar</button>
                 </form>
             </div>
         </div>
