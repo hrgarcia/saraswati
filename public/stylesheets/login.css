@@ -8,3 +8,26 @@
 body{
     background-image: url(/images/tre.jpg);
 }
+.animate__animated.animate__backInDown{
+    --animate-delay: 1.5s;
+    --animate-duration: 8s;
+    --animate-repeat: 2;
+
+}
+.animate__animated.animate__backInLeft{
+    --animate-delay: 1.5s;
+    --animate-duration: 8s;
+    --animate-repeat: 2;
+
+}
+
+.animate__animated.animate__bounceInRight{
+    --animate-delay: 1.5s;
+    --animate-duration: 8s;
+    --animate-repeat: 2;
+}
+.animate__animated.animate__bounceInLeft{
+    --animate-delay: 1.5s;
+    --animate-duration: 8s;
+    --animate-repeat: 2;
+}
