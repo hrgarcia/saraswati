@@ -219,14 +219,7 @@ app.post('/login', function (req, res) {
 							res.locals.username = username;
 							req.session.username = username;
 
-							let query3 = "SELECT * FROM materia WHERE ? = materia.profesor_usuario";
-							con.query(query3, [res.locals.username], function (error, rows, fields) {
-								if (error) throw error;
-								res.render('dashboard.ejs', {
-									title: "Subjects",
-									datos: rows
-								});
-							});
+							res.redirect('/dashboard');
 						});
 					}
 				});

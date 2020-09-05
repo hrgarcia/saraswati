@@ -1,109 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link
-      rel="apple-touch-icon"
-      sizes="76x76"
-      href="../assets/img/apple-icon.png"
-    />
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Panel principal del sistema</title>
-    <meta
-      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-      name="viewport"
-    />
-    <!--     Fonts and icons     -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
-    />
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+<head>
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
+	<link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Panel principal del sistema</title>
+	<meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+	<!--     Fonts and icons     -->
+	<link rel="stylesheet" type="text/css"
+		href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 
-    <!-- Nuestros estilos -->
-    <link rel="stylesheet" href="/stylesheets/style.css" />
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css" />
 
-    <!-- Estilos de las tarjetas de los espacios curriculares -->
-    <link rel="stylesheet" href="/stylesheets/cardsStyle.css" />
+	<!-- Nuestros estilos -->
+	<link rel="stylesheet" href="/stylesheets/style.css" />
 
-    <!-- CSS Files -->
-    <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
-    <link href="/stylesheets/toastr.css" rel="stylesheet" />
-    <!-- Animate css -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
-    />
-  </head>
+	<!-- Estilos de las tarjetas de los espacios curriculares -->
+	<link rel="stylesheet" href="/stylesheets/cardsStyle.css" />
 
-  <body>
-    <%- include('fragment/sidebar'); -%>
-    <div class="main-panel">
-      <%- include('fragment/navbar'); -%>
-      <!--  contenido   -->
-      <div id="1" style="visibility: hidden"><%-username%></div>
-      <div class="content">
-        <div class="container-fluid">
-          <!--Contenido principal acá -->
-          <div class="row">
-            <div class="col-md-12">
-			  <% datos.forEach(function(Subjects){ %>
-              <div class="blog-card">
-                <div class="meta">
-                  <div
-                    class="photo"
-                    style="background-image: url(<%- Subjects['imagen']%>)">
-                  </div>
-                  <ul class="details">
-                    <li class="author"><a href="#"></a>García Héctor</li>
-                    <li class="date">Aug. 24, 2015</li>
-                    <li class="tags">
-                      <ul>
-                        <li><a href="#">Learn</a></li>
-                        <li><a href="#">Code</a></li>
-                        <li><a href="#">HTML</a></li>
-                        <li><a href="#">CSS</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
-                <div class="description">
-				  <h1><%- Subjects['nombre']%></h1>
-                  <h2><%- Subjects['ciclo']%></h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad
-                    eum dolorum architecto obcaecati enim dicta praesentium,
-                    quam nobis! Neque ad aliquam facilis numquam. Veritatis,
-                    sit.
-                  </p>
-                  <p class="read-more">
-                    <a href="#">Ingresar</a>
-                  </p>
-                </div>
-			  </div>
-			  <% }); %>
-            </div>
-          </div>
-        </div>
-      </div>
-      <%- include('fragment/footer'); -%>
-    </div>
-    <%- include('fragment/scripts'); -%>
-    <script src="/js/jquery.min.js"></script>
-    <script src="/javascripts/toastr.js"></script>
-    <script>
-      toastr.options.progressBar = true;
-      toastr.options.closeMethod = "fadeOut";
-      toastr.options.closeDuration = 300;
+	<!-- CSS Files -->
+	<link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+	<link href="/stylesheets/toastr.css" rel="stylesheet" />
+	<!-- Animate css -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+</head>
 
-      let id = document.getElementById("1");
-      window.onload = () => {
-        toastr.success("bienvenido " + id.innerHTML);
-      };
-    </script>
-  </body>
+<body>
+	<%- include('fragment/sidebar'); -%>
+	<div class="main-panel">
+		<%- include('fragment/navbar'); -%>
+		<!--  contenido   -->
+		<div id="1" style="visibility: hidden"><%-username%></div>
+		<div class="content">
+			<div class="container-fluid">
+				<!--Contenido principal acá -->
+				<div class="row">
+					<div class="col-md-12">
+						<% datos.forEach(function(Subjects){ %>
+							<div class="blog-card">
+								<div class="meta">
+									<div class="photo" style="background-image: url('<%-Subjects.imagen%>');"></div>
+									<ul class="details">
+										<li class="author"><a href="#"></a>García Héctor</li>
+										<li class="date">Aug. 24, 2015</li>
+										<li class="tags">
+											<ul>
+												<li><a href="#">Learn</a></li>
+												<li><a href="#">Code</a></li>
+												<li><a href="#">HTML</a></li>
+												<li><a href="#">CSS</a></li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+								<div class="description">
+									<h1><%- Subjects['nombre']%></h1>
+									<h2><%- Subjects['ciclo']%></h2>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad
+										eum dolorum architecto obcaecati enim dicta praesentium,
+										quam nobis! Neque ad aliquam facilis numquam. Veritatis,
+										sit.
+									</p>
+									<p class="read-more">
+										<a href="#">Ingresar</a>
+									</p>
+								</div>
+							</div>
+						<% }); %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%- include('fragment/footer'); -%>
+	</div>
+	<%- include('fragment/scripts'); -%>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/javascripts/toastr.js"></script>
+	<script>
+		toastr.options.progressBar = true;
+		toastr.options.closeMethod = "fadeOut";
+		toastr.options.closeDuration = 300;
+		
+		let id = document.getElementById("1");
+		let flag = true;
+		window.onload = () => {
+			if(flag){
+				flag = !flag;
+				toastr.success("bienvenido " + id.innerHTML);
+			}
+		};
+	</script>
+</body>
+
 </html>
