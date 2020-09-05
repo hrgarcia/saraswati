@@ -6,6 +6,30 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const toastr = require('toastr');
+const multer  = require('multer');
+const sharp = require('sharp');
+
+
+// sirve para obtener el nombre del archivo
+const storage = multer.diskStorage({
+
+    filename: function(req, file, cb){
+		cb(null, file.originalname);
+	}});
+
+// upload contiene storage y verifica que el contenido de storage venga del archivo formularioImagen.ejs, limita su subida a 1 MB y que sea el formato apropiado
+var uploads = multer({
+	storage : storage,
+	limits: { fileSize: 1 * 1024 * 1024}, 
+	fileFilter: function (req, file, cb) {
+	if(path.extname(file.originalname) !== '.png' && path.extname(file.originalname) !== '.jpg' && path.extname(file.originalname) !== '.gif' && path.extname(file.originalname) !== '.jpeg') {
+		console.log("no es una imagen");
+	}
+	else{
+		cb(null, true);
+	}
+
+}}).single('avatar');
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
@@ -72,6 +96,10 @@ app.get('/dashboard', (req, res) => {
 	}
 });
 
+app.get('/formularioImagen', (req, res) => {
+    res.render('formularioImagen.ejs');
+});
+
 app.get('/logout', (req, res) => {
 	req.session.destroy();
 	res.redirect('/');
@@ -120,6 +148,21 @@ app.get('/listarUsuarios', (req, res) => {
 		});
 	});
 });
+
+//Redimensionar las imágenes del avatar
+app.post('/subirFotos', uploads, function(req, res, next){
+    let width = 800;
+    let heigth = 600;
+
+    sharp(req.file.path)
+    .resize(width, heigth)
+    .toFile('public/images/icons/avatar_'+req.file.originalname, function (err) {
+        if(!err) {
+            console.log("El archivo se subio correctamente");
+        res.end();
+        }
+    })
+})
 
 // Creación de materia
 app.post('/crearMateria', (req, res) => {
