@@ -6,7 +6,8 @@
     min-height: 100%;
 }
 body{
-    background-image: url(/images/tre.jpg);
+    background-image: url(/images/FondoLogin.jpg);
+    background-repeat: repeat;
 }
 .animate__animated.animate__backInDown{
     --animate-delay: 1.5s;

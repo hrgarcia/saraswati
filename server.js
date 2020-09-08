@@ -5,9 +5,9 @@ const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const toastr = require('toastr');
 const multer  = require('multer');
 const sharp = require('sharp');
+const validator = require('validator');
 
 
 // sirve para obtener el nombre del archivo
