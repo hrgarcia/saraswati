@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -8,7 +9,8 @@
     <title>Login</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -24,15 +26,13 @@
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-        <div class="card">
-            <div class="card-header card-header-text card-header-primary" >
-            <div class="card-text animate__animated animate__backInDown" >
-                <h3 class="card-title ">Login</h3>
-                
-            </div>
-            </div>
-            <div class="card-body">
-                <form action="/login" method="POST" class="text-center">
+            <div class="card">
+                <div class="card-header card-header-text card-header-primary">
+                    <div class="card-text animate__animated animate__backInDown">
+                        <h3 class="card-title ">Login</h3>
+                    </div>
+                </div>
+                <form id="LoginF" data-parsley-validate="" class="text-center">
                     <label for="" class="animate__animated animate__bounceInLeft">Ingrese su usuario</label>
                     <br>
                     <input type="text" name="username" required>
@@ -41,21 +41,28 @@
                     <br>
                     <input type="password" name="password" required> 
                     <br>
-                    <br>
                     <button type="submit" class="btn btn-info  animate__animated animate__backInLeft">Ingresar</button>
                 </form>
             </div>
         </div>
-        </div>
     </div>
-    <div class="col-md-4"></div>
-</body> 
+
+    <script src="/javascripts/core/jquery.min.js"></script>
+    <script src="/javascripts/parsley.min.js"></script>
+    <script src="/javascripts/es.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#LoginF').parsley().on('field:validated', function () {
+                    var ok = $('.parsley-error').length === 0;
+                    $('.bs-callout-info').toggleClass('hidden', !ok);
+                    $('.bs-callout-warning').toggleClass('hidden', ok);
+                })
+                .on('form:submit', function () {
+                    return false; // Don't submit form for this demo
+                });
+        });
+    </script>
+</body>
+
 </html>
-
-
-
-
-
-
-
-

@@ -268,11 +268,13 @@ app.post('/login', function (req, res) {
 				});
 			}
 			else{
+				console.log("credenciales incorrectas");
 				//aca iria el toastr (credenciales incorrectas)
 			}
 		});
 	}
 	else{
+		console.log("ingresa lgo");
 		//aca iria el toastr (si o si tenes que escribir un usuario y contraseña)
 	}
 });
