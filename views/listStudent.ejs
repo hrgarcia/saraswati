@@ -7,7 +7,7 @@
 	<link rel="icon" type="image/png" href="../assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>
-		Listado de Usuarios
+		Listado de Estudiantes
 	</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<!--     Fonts and icons     -->
@@ -30,28 +30,20 @@
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-header card-header-primary">
-								<h4 class="card-title ">Usuarios</h4>
-								<p class="card-category">Listado de Usuarios cargados en el sistema</p>
+								<h4 class="card-title ">Estudiantes de </h4>
+								<p class="card-category">Listado de Estudiantes cargados en el sistema</p>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
-									<table class="table">
-										<thead class=" text-primary">
-											<th>
-												Usuario
-											</th>
-											<th>
-												Contraseña
-											</th>
-										</thead>
-										<tbody>
-											<% data.forEach(function(usuario){ %>
+                                    <!-- Insertar Tabla de estudiantes -->
+									<table class="table">  
+                                        <% data.forEach(function(Student){ %>
 											<tr>
-												<td><%- usuario['nombre'] %></td>
-												<td><%- usuario['pass'] %></td>
+												<td><%- Student['nombre'] %></td>
+												<td><%- Student['apellido'] %></td>
 											</tr>
-											<% }); %>
-										</tbody>
+										<% }); %>
+										<!--Contenido principal acá -->
 									</table>
 								</div>
 							</div>

@@ -38,38 +38,41 @@
 		<div class="content">
 			<div class="container-fluid">
 				<!--Contenido principal acá -->
-						<div class="container">
-							<div class="row">
-						<% datos.forEach(function(Subjects){ %>
-								  <div class="col-sm">
-									<div class="blog-card">
-										<div class="meta">
-											<div class="photo" style="background-image: url('<%-Subjects.imagen%>');"></div>
-											<ul class="details">
-												<li class="fab fa-creative-commons-by"><a href="#"></a>García Héctor</li>
-												<li class="far fa-clock">Aug. 24, 2015</li>
-											</ul>
-										</div>
-										<div class="description">
-											<h1><%- Subjects['nombre']%></h1>
-											<h2><%- Subjects['ciclo']%></h2>
-											<p>
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad
-												eum dolorum architecto obcaecati enim dicta praesentium,
-												quam nobis! Neque ad aliquam facilis numquam.
-											</p>
-											<button type="button" class="btn btn-success">Ingresar</button>
-										</div>
+				<div class="container">
+					<div class="row">
+						<% data.forEach(function(Subjects){ %>
+						<div class="col-sm">
+							<div class="blog-card">
+								<div class="meta">
+									<div class="photo" style="background-image: url('<%-Subjects.imagen%>');"></div>
+									<ul class="details">
+										<li class="fab fa-creative-commons-by"><a href="#"></a>García Héctor</li>
+										<li class="far fa-clock">Aug. 24, 2015</li>
+										<li class= "course"> <%- Subjects['curso_descripcion']%> </li>
+									</ul>
+								</div>
+								<div class="description">
+									<h1><%- Subjects['nombre']%></h1>
+									<h2><%- Subjects['ciclo']%></h2>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad
+										eum dolorum architecto obcaecati enim dicta praesentium,
+										quam nobis! Neque ad aliquam facilis numquam.
+									</p>
+									<form action="/estudianteMateria" method="POST">
+										<button type="submit" name="course" value="<%- Subjects['curso_descripcion']%>" class="btn btn-info  animate__animated animate__backInLeft">Ingresar</button>
+									</form>
 									</div>
-									</div>
+							</div>
+						</div>
 						<% }); %>
 					</div>
 				</div>
-				</div>
-				</div>
 			</div>
 		</div>
-		<%- include('fragment/footer'); -%>
+	</div>
+	</div>
+	<%- include('fragment/footer'); -%>
 	</div>
 	<%- include('fragment/scripts'); -%>
 	<script src="/js/jquery.min.js"></script>
@@ -78,11 +81,13 @@
 		toastr.options.progressBar = true;
 		toastr.options.closeMethod = "fadeOut";
 		toastr.options.closeDuration = 300;
-		
+
 		let id = document.getElementById("1");
+
+		
 		let flag = true;
 		window.onload = () => {
-			if(flag){
+			if (flag) {
 				flag = !flag;
 				toastr.success("bienvenido " + id.innerHTML);
 			}
