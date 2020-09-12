@@ -9,7 +9,6 @@ const multer  = require('multer');
 const sharp = require('sharp');
 const validator = require('validator');
 
-
 // sirve para obtener el nombre del archivo
 const storage = multer.diskStorage({
 
@@ -90,7 +89,7 @@ app.get('/dashboard', (req, res) => {
 			if (error) throw error;
 			res.render('dashboard.ejs', {
 				title: "Subjects",
-				datos: rows
+				data: rows
 			});
 		});
 	}
@@ -118,7 +117,7 @@ app.get('/agregarMateria', (req, res) => {
 	con.query(query, function (error, rows, fields) {
 		res.render('addSubject.ejs', {
 			title: "Teachers",
-			datos: rows
+			data: rows
 		});
 	});
 });
@@ -133,7 +132,7 @@ app.get('/listarProfesores', (req, res) => {
 		if (error) throw error;
 		res.render('listTeacher.ejs', {
 			title: "Profesores",
-			datos: rows
+			data: rows
 		});
 	});
 });
@@ -144,7 +143,20 @@ app.get('/listarUsuarios', (req, res) => {
 		if (error) throw error;
 		res.render('listUser.ejs', {
 			title: "Usuario",
-			datos: rows
+			data: rows
+		});
+	});
+});
+
+//Devuelve todos los estudiante de la materia seleccionada
+app.post('/estudianteMateria', (req, res) => {
+	let course = req.body.course;
+	let query = "SELECT * FROM estudiante WHERE estudiante.descripcion_curso = ?";
+	con.query(query, [course], function (error, rows, fields) {
+		if (error) throw error;
+		res.render('listStudent.ejs', {
+			title: "Student",
+			data: rows
 		});
 	});
 });
