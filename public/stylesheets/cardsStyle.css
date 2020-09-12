@@ -102,7 +102,7 @@ body {
 }
 .blog-card .description {
   padding: 1rem;
-  background: #fff;
+  background:linear-gradient(60deg, #ef672aa8, #0261fdc4);
   position: relative;
   z-index: 1;
 }
