@@ -1,0 +1,48 @@
+.fondo{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(/videos/404-fondo.gif) 50%;
+    background-size: cover;
+    opacity: 90%;
+}
+
+
+.mensajes{
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-90%);
+}
+
+.mensajes h1
+{
+    font-family: sans-serif;
+    margin-top: 150px;
+    font-size: 220px;
+    font-weight: 800;
+    color:red;
+    letter-spacing: 20px;
+
+}
+
+.mensajes h2
+{
+    margin-top: -15px;
+    color: black;
+    font-size: 25px;
+
+}
+
+
+.botones
+{
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(120%);
+}

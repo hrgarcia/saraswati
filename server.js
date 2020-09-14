@@ -291,6 +291,10 @@ app.post('/login', function (req, res) {
 	}
 });
 
+app.use(function(req, res, next) {
+	res.status(404).render('404');
+});
+
 //Fin Rutas
 app.listen(2500, () => {
 	console.log("El servidor corriendo en el puerto 2500");
