@@ -17529,7 +17529,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .card.bg-primary
 .card.card-rotate.bg-primary .front,
 .card.card-rotate.bg-primary .back {
-  background: linear-gradient(60deg, #ef672a, #2a7aff);
+  background: linear-gradient(60deg, #fd4e00, #2a7aff);
 }
 
 .card .card-header-info .card-icon,
@@ -17565,7 +17565,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .card.bg-danger,
 .card.card-rotate.bg-danger .front,
 .card.card-rotate.bg-danger .back {
-  background: linear-gradient(60deg, #ef672a, #2a7aff);
+  background: linear-gradient(60deg,#fd4e00, #2a7aff);
 }
 
 .card .card-header-rose .card-icon,
