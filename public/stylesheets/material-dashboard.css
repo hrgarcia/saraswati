@@ -60,6 +60,26 @@ body {
   text-align: left;
   background-color: #fafafa;
 }
+.custom-shape-divider-top-1600208582 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1600208582 svg {
+    position: relative;
+    display: block;
+    width: calc(148% + 1.3px);
+    height: 150px;
+}
+
+.custom-shape-divider-top-1600208582 .shape-fill {
+    fill: #F8501A;
+}
+
 
 [tabindex="-1"]:focus {
   outline: 0 !important;
