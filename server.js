@@ -98,6 +98,15 @@ app.get('/dashboard', (req, res) => {
 app.get('/formularioImagen', (req, res) => {
     res.render('formularioImagen.ejs');
 });
+app.get('/profile', (req, res) => {
+	let query = "SELECT * FROM usuario";
+	con.query(query, function (error, rows, fields){
+		if (error) throw error;
+			res.render('profile.ejs',{
+				title: "Perfil",
+				data: rows});
+	});
+});
 
 app.get('/logout', (req, res) => {
 	req.session.destroy();
