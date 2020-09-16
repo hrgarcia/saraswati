@@ -32,3 +32,8 @@ body{
     --animate-duration: 8s;
     --animate-repeat: 2;
 }
+.animate__animated.animate__bounce{
+    --animate-delay: 1.1s;
+    --animate-duration: 5s;
+    --animate-repeat: 1;
+}
