@@ -1,0 +1,1 @@
+//Utilizar ES6 en lo posible
