@@ -4877,8 +4877,8 @@ tbody.collapse.show {
 .card-header {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
-  background-color: #fff;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee00;
+
 }
 
 .card-header:first-child {
@@ -14402,10 +14402,11 @@ h2,
 
 h3,
 .h3 {
-  font-size: 1.5625rem;
+  font-size: 2rem;
   line-height: 1.4em;
   margin: 20px 0 10px;
 }
+
 
 h4,
 .h4 {
@@ -14442,7 +14443,7 @@ h6,
 .footer-big h4 a,
 .media .media-heading,
 .media .media-heading a {
-  color: #3C4858;
+  color: #020202;
   text-decoration: none;
 }
 
