@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <!-- CSS Files -->
     <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
-
     <link href="/stylesheets/login.css" rel="stylesheet" />
+    <link href="/stylesheets/parsley.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
 </head>
 
@@ -40,11 +40,11 @@
                         <form id="LoginF" action="/login" method="POST" data-parsley-validate="" class="text-center">
                             <label for="" class="animate__animated animate__bounceInLeft">Ingrese su usuario</label>
                             <br>
-                            <input type="text" name="username" required>
+                            <input type="text" name="username" data-parsley-required>
                             <br>
                             <label for="" class="animate__animated animate__bounceInRight">Ingrese su contraseña</label>
                             <br>
-                            <input type="password" name="password" required> 
+                            <input type="password" name="password" data-parsley-required> 
                             <br>
                             <br>
                             <button type="submit" class="btn btn-info  animate__animated animate__backInLeft">Ingresar</button>
