@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt');
 const multer  = require('multer');
 const sharp = require('sharp');
 const validator = require('validator');
+const teacherFunctions = require('./external/teacherFunctions');
 
 // sirve para obtener el nombre del archivo
 const storage = multer.diskStorage({
@@ -98,6 +99,11 @@ app.get('/dashboard', (req, res) => {
 app.get('/formularioImagen', (req, res) => {
     res.render('formularioImagen.ejs');
 });
+
+app.get('/loadLearnings', (req, res) => {
+    res.render('loadLearning.ejs');
+});
+
 app.get('/profile', (req, res) => {
 	let query = "SELECT * FROM usuario";
 	con.query(query, function (error, rows, fields){
@@ -230,6 +236,11 @@ app.post('/crearProfesor', urlencodedParser, function (req, res) {
 		});
 	});
 })
+
+app.post('/loadLearning', (req, res) => {
+	teacherFunctions.loadLearnings(req.body.aprendizajes);
+});
+
 
 app.post('/crearPreceptor', urlencodedParser, function (req, res) {
 	//datos de usuario

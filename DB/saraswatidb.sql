@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-09-2020 a las 21:16:08
+-- Tiempo de generación: 18-09-2020 a las 20:04:48
 -- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.2.33
+-- Versión de PHP: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,18 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `aprendizajes`
+--
+
+CREATE TABLE `aprendizajes` (
+  `id` int(50) NOT NULL,
+  `descripcion` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `id_materia` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `curso`
 --
 
@@ -36,8 +48,8 @@ CREATE TABLE `curso` (
 --
 
 INSERT INTO `curso` (`descripcion`) VALUES
-('1'),
-('5');
+('aprendiendo a programar'),
+('formacion para la vida y el trabajo');
 
 -- --------------------------------------------------------
 
@@ -56,14 +68,6 @@ CREATE TABLE `estudiante` (
   `telefono` int(10) NOT NULL,
   `descripcion_curso` varchar(50) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `estudiante`
---
-
-INSERT INTO `estudiante` (`dni`, `nombre`, `apellido`, `genero`, `fecha_nacimiento`, `legajo`, `email`, `telefono`, `descripcion_curso`) VALUES
-(23555441, 'pepito', 'perez', 'masculino', '0000-00-00', '654684684', 'pepe@defasf.com', 1635465, '1'),
-(58222111, 'marcela', 'perez', 'femenino', '1958-01-11', '146545641', 'marce@defasf.com', 54541, '1');
 
 -- --------------------------------------------------------
 
@@ -85,8 +89,8 @@ CREATE TABLE `materia` (
 --
 
 INSERT INTO `materia` (`id`, `nombre`, `imagen`, `horasCatedra`, `profesor_usuario`, `curso_descripcion`) VALUES
-(1, 'entornos digitales', '/images/entornos.jpg', '72', 'hrgarcia', '1'),
-(2, 'fvt', '/images/estructura.jpg', '13', 'hrgarcia', '5');
+(1, 'programación 1', '0', '72', 'hrgarcia', 'aprendiendo a programar'),
+(2, 'fvt', '0', '13', 'lmazzola', 'formacion para la vida y el trabajo');
 
 -- --------------------------------------------------------
 
@@ -161,6 +165,13 @@ INSERT INTO `usuario` (`nombreUsuario`, `pass`, `avatar`) VALUES
 --
 
 --
+-- Indices de la tabla `aprendizajes`
+--
+ALTER TABLE `aprendizajes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_materia` (`id_materia`);
+
+--
 -- Indices de la tabla `curso`
 --
 ALTER TABLE `curso`
@@ -205,6 +216,12 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `aprendizajes`
+--
+ALTER TABLE `aprendizajes`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
@@ -219,6 +236,12 @@ ALTER TABLE `rol`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `aprendizajes`
+--
+ALTER TABLE `aprendizajes`
+  ADD CONSTRAINT `aprendizajes_ibfk_1` FOREIGN KEY (`id_materia`) REFERENCES `materia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `estudiante`
