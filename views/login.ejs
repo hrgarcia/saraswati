@@ -22,33 +22,42 @@
 <body>
 
     <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header card-header-text card-header-primary">
-                    <div class="card-text animate__animated animate__backInDown">
-                        <h3 class="card-title ">Login</h3>
+        <div class="col-md-2"></div>
+        <div class="col-md-7" >
+            <center> <img src="/images/logo-sinfondo.png" height="190px" width="650px"  ></center>
+            <div class="page">
+                <br>
+                <div class="container">
+                    <div class="left">
+                            <div  >
+                                <h3 class="card-tittle " align="center" >Login</h3>
+                            </div>
+                    </div>
+                    <div class="right">
+                    <div class="form">
+                        <form id="LoginF" action="/login" method="POST" data-parsley-validate="" class="text-center">
+                            <label for="" class="animate__animated animate__bounceInLeft">Ingrese su usuario</label>
+                            <br>
+                            <input type="text" name="username" required>
+                            <br>
+                            <label for="" class="animate__animated animate__bounceInRight">Ingrese su contraseña</label>
+                            <br>
+                            <input type="password" name="password" required> 
+                            <br>
+                            <br>
+                            <button type="submit" class="btn btn-info  animate__animated animate__backInLeft">Ingresar</button>
+                        </form>
+                    </div>
                     </div>
                 </div>
-                <img src="/images/LogoLogin.png" height="100" class="animate__animated animate__bounce" >
-                <div class="card-body">
-                    <form id="LoginF" action="/login" method="POST" data-parsley-validate="" class="text-center">
-                        <label for="" class="animate__animated animate__bounceInLeft">Ingrese su usuario</label>
-                        <br>
-                        <input type="text" name="username" required>
-                        <br>
-                        <label for="" class="animate__animated animate__bounceInRight">Ingrese su contraseña</label>
-                        <br>
-                        <input type="password" name="password" required> 
-                        <br>
-                        <br>
-                        <button type="submit" class="btn btn-info  animate__animated animate__backInLeft">Ingresar</button>
-                    </form>
-                </div>
-                
             </div>
         </div>
+        <div class="col-md-3"></div>
     </div>
+
+
+
+
 
     <script src="/javascripts/core/jquery.min.js"></script>
     <script src="/javascripts/parsley.min.js"></script>
