@@ -26,7 +26,17 @@
 		<div class="content">
 			<div class="container-fluid">
 				<div class="row">
-
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header card-header-primary">
+								<h4 class="card-title ">Estudiantes de </h4>
+								<p class="card-category">Listado de Estudiantes cargados en el sistema</p>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+                                    <!-- Insertar Tabla de estudiantes -->
+									<table class="table">  
+										
 
 
 					<table id="example" class="display" style="width:100%">
@@ -510,25 +520,6 @@
 						</tfoot>
 					</table>
 					  
-
-					<div class="col-md-12">
-						<div class="card">
-							<div class="card-header card-header-primary">
-								<h4 class="card-title ">Estudiantes de </h4>
-								<p class="card-category">Listado de Estudiantes cargados en el sistema</p>
-							</div>
-
-
-							<div class="card-body">
-								<div class="table-responsive">
-                                    <!-- Insertar Tabla de estudiantes -->
-									<table class="table">  
-                                        <% data.forEach(function(Student){ %>
-											<tr>
-												<td><%- Student['nombre'] %></td>
-												<td><%- Student['apellido'] %></td>
-											</tr>
-										<% }); %>
 										<!--Contenido principal acá -->
 									</table>
 								</div>
@@ -544,12 +535,8 @@
 
 	<script>
 		$(document).ready(function() {
-			$('#example').DataTable({
-        "scrollY":        "200px",
-        "scrollCollapse": true,
-        "paging":         false
-    } );
-		});
+    $('table.display').DataTable();
+} );
 	</script>
 </body>
 </html>
