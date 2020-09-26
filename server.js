@@ -153,7 +153,7 @@ app.get('/listarProfesores', (req, res) => {
 });
 
 app.get('/listarUsuarios', (req, res) => {
-	let query = "SELECT * FROM usuario";
+	let query = "SELECT * FROM usuario, materia";
 	con.query(query, function (error, rows, fields) {
 		if (error) throw error;
 		res.render('listUser.ejs', {

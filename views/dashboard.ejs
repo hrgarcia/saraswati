@@ -56,18 +56,17 @@
 									<div class="meta">
 										<div class="photo" style="background-image: url('<%-Subjects.imagen%>');"></div>
 										<ul class="details">
-											<li class="fab fa-creative-commons-by"><a href="#"></a>García Héctor</li>
-											<li class="far fa-clock">Aug. 24, 2015</li>
-											<li class= "course"> <%- Subjects['curso_descripcion']%> </li>
+											<li class="fab fa-creative-commons-by"><a href="#"> <%- Subjects['profesor_usuario']%></a></li>
+											<br>
+											<li class="far fa-clock"><%- Subjects['horasCatedra']%> horas catedras</li>
+											
 										</ul>
 										</div>
 									<div class="description">
 										<h1><%- Subjects['nombre']%></h1>
 										<h2><%- Subjects['ciclo']%></h2>
 										<p>
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad
-											eum dolorum architecto obcaecati enim dicta praesentium,
-											quam nobis! Neque ad aliquam facilis numquam.
+											<%- Subjects['curso_descripcion']%>
 										</p>
 										<form action="/estudianteMateria" method="POST">
 											<button type="submit" name="course" value="<%- Subjects['curso_descripcion']%>" class="btn btn-info  animate__animated animate__backInLeft">Ingresar</button>
