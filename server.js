@@ -252,7 +252,6 @@ app.post('/loadLearning', (req, res) => {
 	teacherFunctions.loadLearnings(req.body.aprendizajes);
 });
 
-
 app.post('/crearPreceptor', urlencodedParser, function (req, res) {
 	//datos de usuario
 	let user = req.body.user;
