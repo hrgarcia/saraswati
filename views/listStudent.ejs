@@ -21,6 +21,7 @@
 
 <body class="">
 	<%- include('fragment/sidebar'); -%>
+<<<<<<< HEAD
 	<div class="main-panel">
 		<%- include('fragment/navbar'); -%>
 		<div class="content">
@@ -517,17 +518,70 @@
 						</tfoot>
 					</table>
 
+=======
+		<div class="main-panel">
+			<%- include('fragment/navbar'); -%>
+				<div class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-header card-header-primary">
+										<h4 class="card-title ">Estudiantes de </h4>
+										<p class="card-category">Listado de Estudiantes cargados en el sistema</p>
+									</div>
+									<div class="card-body">
+										<div class="table-responsive">
+										<!-- Insertar Tabla de estudiantes -->
+											<table id="example" class="display" style="width:100%">
+												<thead>
+													<tr>
+														<th>Nombre y Apellido</th>
+														<th>Curso</th>
+														<th>Ciclo</th>
+														<th>Email</th>
+														<th>Progreso</th>
+														<th>Genero</th>
+													</tr>
+												</thead>
+													<tbody>	
+														<% data.forEach(function(Student){ %>												
+															<tr>
+																<td><%- Student['nombre']%> <%- Student['apellido']%> </td>
+																<td><%-Student['descripcion_curso']%></td>
+																<td>(completar)</td>
+																<td><%-Student['email']%></td>
+																<td>(completar)</td>
+																<td><%-Student['genero']%></td>
+															</tr>
+														<% }); %>
+													</tbody>												
+												<tfoot>
+													<tr>
+														<th>Nombre y Apellido</th>
+														<th>Curso</th>
+														<th>Ciclo</th>
+														<th>Email</th>
+														<th>Progreso</th>
+														<th>Genero</th>
+
+													</tr>
+												</tfoot>
+											</table>
+										<!--Contenido principal acá -->	
+										</div>
+									</div>
+>>>>>>> 4a8cfc03692e30c3ae27bda66403354248685836
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			<%- include('fragment/footer'); -%>
 		</div>
-		<%- include('fragment/footer'); -%>
-	</div>
 	<%- include('fragment/scripts'); -%>
 	<script>
+<<<<<<< HEAD
 		$(document).ready(function(){
     		$('#example').DataTable({
     			"language": {
@@ -540,6 +594,18 @@
     		}
 );
 			
+=======
+		$(document).ready(function() {
+    		$('#example').DataTable({
+				"language": {
+            		"lengthMenu": "Mostrar _MENU_ alumnos",
+            		"zeroRecords": "No hay alumnos Ingresados",
+            		"info": "_PAGE_ of _PAGES_",
+            		"infoEmpty": "?",
+					"infoFiltered": "(filtered from _MAX_ total records)"
+				}
+        	});
+>>>>>>> 4a8cfc03692e30c3ae27bda66403354248685836
 		});
 	</script>
 </body>
