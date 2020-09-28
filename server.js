@@ -164,6 +164,16 @@ app.get('/listarUsuarios', (req, res) => {
 	});
 });
 
+app.get('/myProfile', (req, res) => {
+    let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
+    con.query(query, [res.locals.username] , function (error, rows, fields){
+        if (error) throw error;
+            res.render('myProfile.ejs',{
+                title: "Perfil",
+                data: rows});
+    });
+});
+
 //Devuelve todos los estudiante de la materia seleccionada
 app.post('/estudianteMateria', (req, res) => {
 	let course = req.body.course;
