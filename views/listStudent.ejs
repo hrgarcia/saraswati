@@ -35,10 +35,7 @@
 							<div class="card-body">
 								<div class="table-responsive">
                                     <!-- Insertar Tabla de estudiantes -->
-									<table class="table">  
 										
-
-
 					<table id="example" class="display" style="width:100%">
 						<thead>
 							<tr>
@@ -519,9 +516,7 @@
 							</tr>
 						</tfoot>
 					</table>
-					  
-										<!--Contenido principal acá -->
-									</table>
+
 								</div>
 							</div>
 						</div>
@@ -532,11 +527,20 @@
 		<%- include('fragment/footer'); -%>
 	</div>
 	<%- include('fragment/scripts'); -%>
-
 	<script>
-		$(document).ready(function() {
-    $('table.display').DataTable();
-} );
+		$(document).ready(function(){
+    		$('#example').DataTable({
+    			"language": {
+    			    "lengthMenu": "Display _MENU_ records per page",
+    				"zeroRecords": "Nothing found - sorry",
+    			    "info": "Mostrando _PAGE_ de _PAGES_",
+    			    "infoEmpty": "No records available",
+    			    "infoFiltered": "(filtered from _MAX_ total records)"
+    			}
+    		}
+);
+			
+		});
 	</script>
 </body>
 </html>
