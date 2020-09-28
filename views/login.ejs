@@ -15,10 +15,12 @@
     <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
 
     <link href="/stylesheets/login.css" rel="stylesheet" />
+    <link href="/stylesheets/parsley.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
 </head>
 
 <body>
+<<<<<<< HEAD
     <form class="form-signin" action="/login" method="POST" data-parsley-validate="">
         <img class="mb-4 animate__animated animate__bounce animate__repeat-2" src="/images/logo-sinfondo.png" alt="" width="300 " height="100">
         <small style="font-weight: bold;">Complete los campos para ingresar al sistema</small>
@@ -28,6 +30,36 @@
             <label>
                 <input type="checkbox" value="remember-me"> Recordarme
             </label>
+=======
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-7" >
+            <center> <img src="/images/logo-sinfondo.png" height="190px" width="650px"  ></center>
+            <div class="page">
+                <br>
+                <div class="container">
+                    <div class="left">
+                            <div  >
+                                <h3 class="card-tittle " align="center" >Login</h3>
+                            </div>
+                    </div>
+                    <div class="right">
+                    <div class="form">
+                        <form id="LoginF" action="/login" method="POST" data-parsley-validate="" class="text-center">
+                            <label for="" class="animate__animated animate__bounceInLeft">Ingrese su usuario</label>
+                            <br>
+                            <input type="text" name="username" required>
+                            <label for="" class="animate__animated animate__bounceInRight">Ingrese su contraseña</label>
+                            <br>
+                            <input type="password" name="password" required> 
+                            <button type="submit" class="btn btn-info  animate__animated animate__backInLeft">Ingresar</button>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+>>>>>>> a98aa12cf20960ecb3d2f7153ac15a80aac46b06
         </div>
         <button class="btn btn-lg btn-primary btn-block" style="background: #00357C;text-shadow: 1px 1px 1px #000;" type="submit">Ingresar</button>
         <br>

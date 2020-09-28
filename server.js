@@ -85,9 +85,10 @@ app.get('/', (req, res) => {
 
 app.get('/dashboard', (req, res) => {
 	if (req.session.loggedin) {
-		let query = "SELECT * FROM materia WHERE ? = materia.profesor_usuario";
+		let query = "SELECT * FROM materia  INNER JOIN profesor ON materia.profesor_usuario = profesor.usuario AND ? = materia.profesor_usuario";
 		con.query(query, [res.locals.username], function (error, rows, fields) {
 			if (error) throw error;
+			console.log(rows);
 			res.render('dashboard.ejs', {
 				title: "Subjects",
 				data: rows
