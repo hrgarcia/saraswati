@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-09-2020 a las 20:04:12
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.9
+-- Tiempo de generación: 28-09-2020 a las 20:48:12
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -48,8 +48,8 @@ CREATE TABLE `curso` (
 --
 
 INSERT INTO `curso` (`descripcion`) VALUES
-('aprendiendo a programar'),
-('formacion para la vida y el trabajo');
+('quinto año'),
+('sexto año');
 
 -- --------------------------------------------------------
 
@@ -74,8 +74,8 @@ CREATE TABLE `estudiante` (
 --
 
 INSERT INTO `estudiante` (`dni`, `nombre`, `apellido`, `genero`, `fecha_nacimiento`, `legajo`, `email`, `telefono`, `descripcion_curso`) VALUES
-(13212311, 'marcos', 'piccotto', 'M', '0000-00-00', 'ñdakñsdk', 'marquitos@gmail.com', 1321241, 'formacion para la vida y el trabajo'),
-(44475315, 'German', 'Sampaolesi', 'M', '2002-12-25', 'dasjdakldl', 'sampaolesig@gmail.com', 132312312, 'formacion para la vida y el trabajo');
+(13212311, 'marcos', 'piccotto', 'M', '0000-00-00', 'ñdakñsdk', 'marquitos@gmail.com', 1321241, 'quinto año'),
+(44475315, 'German', 'Sampaolesi', 'M', '2002-12-25', 'dasjdakldl', 'sampaolesig@gmail.com', 132312312, 'quinto año');
 
 -- --------------------------------------------------------
 
@@ -97,8 +97,8 @@ CREATE TABLE `materia` (
 --
 
 INSERT INTO `materia` (`id`, `nombre`, `imagen`, `horasCatedra`, `profesor_usuario`, `curso_descripcion`) VALUES
-(1, 'programación 1', './images/entornos.jpg', '72', 'hrgarcia', 'aprendiendo a programar'),
-(2, 'fvt', '/public/images/estructura.jpg', '13', 'lmazzola', 'formacion para la vida y el trabajo');
+(1, 'programación 1', './images/entornos.jpg', '72', 'hrgarcia', 'sexto año'),
+(2, 'fvt', '/public/images/estructura.jpg', '13', 'lmazzola', 'quinto año');
 
 -- --------------------------------------------------------
 
