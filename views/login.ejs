@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -20,49 +19,23 @@
 </head>
 
 <body>
-
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-7" >
-            <center> <img src="/images/logo-sinfondo.png" height="190px" width="650px"  ></center>
-            <div class="page">
-                <br>
-                <div class="container">
-                    <div class="left">
-                            <div  >
-                                <h3 class="card-tittle " align="center" >Login</h3>
-                            </div>
-                    </div>
-                    <div class="right">
-                    <div class="form">
-                        <form id="LoginF" action="/login" method="POST" data-parsley-validate="" class="text-center">
-                            <label for="" class="animate__animated animate__bounceInLeft">Ingrese su usuario</label>
-                            <br>
-                            <input type="text" name="username" required>
-                            <br>
-                            <label for="" class="animate__animated animate__bounceInRight">Ingrese su contraseña</label>
-                            <br>
-                            <input type="password" name="password" required> 
-                            <br>
-                            <br>
-                            <button type="submit" class="btn btn-info  animate__animated animate__backInLeft">Ingresar</button>
-                        </form>
-                    </div>
-                    </div>
-                </div>
-            </div>
+    <form class="form-signin" action="/login" method="POST" data-parsley-validate="">
+        <img class="mb-4 animate__animated animate__bounce animate__repeat-2" src="/images/logo-sinfondo.png" alt="" width="300 " height="100">
+        <small style="font-weight: bold;">Complete los campos para ingresar al sistema</small>
+        <input type="text" id="inputEmail" name="username" class="form-control" placeholder="Ingrese usuario" required autofocus>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Ingrese contraseña" required>
+        <div class="checkbox mb-2">
+            <label>
+                <input type="checkbox" value="remember-me"> Recordarme
+            </label>
         </div>
-        <div class="col-md-3"></div>
-    </div>
-
-
-
-
+        <button class="btn btn-lg btn-primary btn-block" style="background: #00357C;text-shadow: 1px 1px 1px #000;" type="submit">Ingresar</button>
+        <br>
+        <small>&copy; Escuela experimental proA sede capital - 2020 </small>
+    </form>
 
     <script src="/javascripts/core/jquery.min.js"></script>
     <script src="/javascripts/parsley.min.js"></script>
-    <script src="/javascripts/es.js"></script>
-
     <script type="text/javascript">
         $(function () {
             $('#LoginF').parsley().on('field:validated', function () {
@@ -76,5 +49,4 @@
         });
     </script>
 </body>
-
 </html>
