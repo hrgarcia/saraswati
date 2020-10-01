@@ -1,23 +1,61 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
         <title>Estadisticas</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
         <!--     Fonts and icons     -->
         <link rel="stylesheet" type="text/css"
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css" />
         <!-- Iconos Font Awesome -->
         <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
-        <!-- Bootstrap -->
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <!-- Nuestros estilos -->
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+
         <!-- CSS Files -->
         <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+        <link href="/stylesheets/toastr.css" rel="stylesheet" />
+        <!-- Animate css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
     </head>
     <body>
         <%- include('fragment/sidebar'); -%>
         <div class="main-panel">
-            <title>estaa</title>
             <%- include('fragment/navbar'); -%>
-        </div>
+            <br>
+            <br>
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>   
     </body>
+    <script>
+        var ctx= document.getElementById("myChart").getContext("2d");
+        var myChart= new Chart(ctx,{
+            type:"pie",
+            data:{
+                labels:['En proceso','Aprobados','Pendientes'],
+                datasets:[{
+                        label:'Num datos',
+                        data:[10,9,15],
+                        backgroundColor:[
+                            'rgb(66, 134, 244,0.5)',
+                            'rgb(74, 135, 72,0.5)',
+                            'rgb(229, 89, 50,0.5)'
+                        ]
+                }]
+            },
+            options:{
+                scales:{
+                    yAxes:[{
+                            ticks:{
+                                beginAtZero:true
+                            }
+                    }]
+                }
+            }
+        });
+    </script>
 </html>
