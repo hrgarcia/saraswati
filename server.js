@@ -142,6 +142,10 @@ app.get('/agregarPreceptor', (req, res) => {
 	res.render('addPreceptor.ejs');
 });
 
+app.get('/estadisticas', (req, res) => {
+	res.render('statistics.ejs');
+});
+
 app.get('/listarProfesores', (req, res) => {
 	let query = "SELECT * FROM profesor";
 	con.query(query, function (error, rows, fields) {
