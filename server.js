@@ -88,7 +88,6 @@ app.get('/dashboard', (req, res) => {
 		let query = "SELECT * FROM materia  INNER JOIN profesor ON materia.profesor_usuario = profesor.usuario AND ? = materia.profesor_usuario";
 		con.query(query, [res.locals.username], function (error, rows, fields) {
 			if (error) throw error;
-			console.log(rows);
 			res.render('dashboard.ejs', {
 				title: "Subjects",
 				data: rows
@@ -181,8 +180,8 @@ app.get('/myProfile', (req, res) => {
 //Devuelve todos los estudiante de la materia seleccionada
 app.post('/estudianteMateria', (req, res) => {
 	let course = req.body.course;
-	let query = "SELECT * FROM estudiante WHERE estudiante.descripcion_curso = ?";
-	con.query(query, [course], function (error, rows, fields) {
+	let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.curso_descripcion = ? AND estudiante.descripcion_curso = ?";
+	con.query(query, [course,course], function (error, rows, fields) {
 		if (error) throw error;
 		res.render('listStudent.ejs', {
 			title: "Student",

@@ -29,8 +29,10 @@
 							<div class="col-md-12">
 								<div class="card">
 									<div class="card-header card-header-primary">
-										<h4 class="card-title ">Estudiantes de </h4>
-										<p class="card-category">Listado de Estudiantes cargados en el sistema</p>
+										<% data.forEach(function(Student){ %>
+											<h4 class="card-title ">Estudiantes de <%- Student['nombreMateria']%></h4>
+											<p class="card-category">Listado de Estudiantes cargados en el sistema</p>
+										<% }); %>
 									</div>
 									<div class="card-body">
 										<div class="table-responsive">
@@ -38,23 +40,29 @@
 											<table id="example" class="display" style="width:100%">
 												<thead>
 													<tr>
-														<th>Nombre y Apellido</th>
+														<th>Nombre</th>
+														<th>Apellido</th>
 														<th>Curso</th>
 														<th>Ciclo</th>
 														<th>Email</th>
 														<th>Progreso</th>
 														<th>Genero</th>
+														<th>Fecha de nacimiento</th>
+														<th>Legajo</th>
 													</tr>
 												</thead>
 													<tbody>	
 														<% data.forEach(function(Student){ %>												
 															<tr>
-																<td><%- Student['nombre']%> <%- Student['apellido']%> </td>
+																<td><%- Student['nombre']%></td>
+																<td><%- Student['apellido']%></td>
 																<td><%-Student['descripcion_curso']%></td>
 																<td>(completar)</td>
 																<td><%-Student['email']%></td>
 																<td>(completar)</td>
 																<td><%-Student['genero']%></td>
+																<td><%-Student['fecha_nacimiento']%></td>
+																<td><%-Student['legajo']%></td>
 															</tr>
 														<% }); %>
 													</tbody>												
@@ -82,6 +90,7 @@
 			<%- include('fragment/footer'); -%>
 		</div>
 	<%- include('fragment/scripts'); -%>
+	
 	<script>
 
 		$(document).ready(function(){
@@ -91,13 +100,19 @@
 					"zeroRecords": "No encontramos nada",
 					"info": "Mostrando página _PAGE_ de _PAGES_",
 					"infoEmpty": "No records available",
-					"infoFiltered": "(filtrando de _MAX_ alumnos totales)"
+					"infoFiltered": "(filtrando de _MAX_ alumnos totales)",
+					"sSearch": "Buscar:",
+					"sLoadingRecords": "Cargando...",
+					"oPaginate": {
+						"sFirst":    "Primero",
+						"sLast":     "Último",
+						"sNext":     "Siguiente",
+						"sPrevious": "Anterior"
+					}
 				}
-			}
-);
-			
-
+			});
 		});
+
 	</script>
 </body>
 </html>
