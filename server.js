@@ -31,6 +31,25 @@ var uploads = multer({
 
 }}).single('avatar');
 
+const storageAprendizajes = multer.diskStorage({
+
+    filename: function(req, file, cb){
+		cb(null, file.originalname);
+	}});
+
+// upload contiene storage y verifica que el contenido de storage venga del archivo formularioImagen.ejs, limita su subida a 1 MB y que sea el formato apropiado
+var aprendizajesExcel = multer({
+	storage : storageAprendizajes,
+	fileFilter: function (req, file, cb) {
+	if(path.extname(file.originalname) !== '.xlsx') {
+		console.log("no es un excel");
+	}
+	else{
+		cb(null, true);
+	}
+
+}}).single('aprendizajes');
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
 	extended: false
@@ -251,8 +270,8 @@ app.post('/crearProfesor', urlencodedParser, function (req, res) {
 	});
 })
 
-app.post('/loadLearning', (req, res) => {
-	teacherFunctions.loadLearnings(req.body.aprendizajes);
+app.post('/loadLearning', aprendizajesExcel, function(req, res, next){
+    teacherFunctions.loadLearnings(req.file.path, con);
 });
 
 app.post('/crearPreceptor', urlencodedParser, function (req, res) {

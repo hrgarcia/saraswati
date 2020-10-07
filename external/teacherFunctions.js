@@ -1,40 +1,19 @@
-//Utilizar ES6 en lo posible
 module.exports = {
-	loadLearnings: loadLearnings
+    loadLearnings: loadLearnings
 }
 
-const multer  = require('multer');
 const xlsx = require('xlsx');
 
-const storage = multer.diskStorage({
+function loadLearnings(excel, con) {
+    const workBook = xlsx.readFile(excel);
+    const sheet = workBook.SheetNames[0];
+    const dataExcel = xlsx.utils.sheet_to_json(workBook.Sheets[sheet]);
 
-	filename: function(req, file, cb){
-		cb(null, file.originalname);
-	}
-});
-
-var uploads = multer({
-	storage : storage, 
-	fileFilter: function (req, file, cb) {
-	if(path.extname(file.originalname) !== '.xlsx') {
-		console.log("no es un excel");
-	}
-	else{
-		cb(null, true);
-	}
-	
-}}).single('aprendizajes');
-
-
-function loadLearnings(excel) {
-	const workBook = xlsx.readFile(uploads);
-	const sheet = workBook.SheetNames[0];
-	const dataExcel = XLSX.utils.sheet_to_json(workBook.Sheets[sheet]);
-
-	dataExcel.map(item => {
-        let query = "INSERT INTO aprendizaje (descripcion) VALUES (item);"
-		con.query(query,[description], function (error, rows, fields) {
-			if (error) throw error;
-		});
-	});
+    dataExcel.map(item => {
+        console.log(item);
+        let query = "INSERT INTO aprendizajes (descripcion, id_materia) VALUES (?,?);"
+        con.query(query,[item.Aprendizaje,"2"], function (error, rows, fields) {
+            if (error) throw error;
+        });
+    });
 }
