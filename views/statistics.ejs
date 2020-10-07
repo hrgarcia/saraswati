@@ -21,6 +21,8 @@
         <link href="/stylesheets/toastr.css" rel="stylesheet" />
         <!-- Animate css -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+        
+
     </head>
     <body>
         <%- include('fragment/sidebar'); -%>
@@ -28,34 +30,37 @@
             <%- include('fragment/navbar'); -%>
             <br>
             <br>
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <canvas id="myChart" width="400" height="200px"></canvas>
         </div>   
     </body>
-    <script>
-        var ctx= document.getElementById("myChart").getContext("2d");
-        var myChart= new Chart(ctx,{
-            type:"pie",
-            data:{
-                labels:['En proceso','Aprobados','Pendientes'],
-                datasets:[{
-                        label:'Num datos',
-                        data:[10,9,15],
-                        backgroundColor:[
-                            'rgb(66, 134, 244,0.5)',
-                            'rgb(74, 135, 72,0.5)',
-                            'rgb(229, 89, 50,0.5)'
-                        ]
-                }]
-            },
-            options:{
-                scales:{
-                    yAxes:[{
-                            ticks:{
-                                beginAtZero:true
-                            }
+    <div class="grafico">
+        <script>
+            var ctx= document.getElementById("myChart").getContext("2d");
+            var myChart= new Chart(ctx,{
+                type:"pie",
+                data:{
+                    labels:['En proceso','Aprobados','Pendientes'],
+                    datasets:[{
+                            label:'Num datos',
+                            data:[10,9,15],
+                            backgroundColor:[
+                                'rgb(66, 134, 244,0.5)',
+                                'rgb(74, 135, 72,0.5)',
+                                'rgb(229, 89, 50,0.5)'
+                            ]
                     }]
+                },
+                options:{
+                    scales:{
+                        yAxes:[{
+                                ticks:{
+                                    beginAtZero:true
+                                }
+                        }]
+                    }
                 }
-            }
-        });
-    </script>
+            });
+        </script>
+    </div>
+
 </html>
