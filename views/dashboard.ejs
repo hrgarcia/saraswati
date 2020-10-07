@@ -38,16 +38,23 @@
 				<path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
 			</svg>
 		</div> 
+		<ul id="pictures-demo">
+			<li title="This is caption 1 <a href='#link'>Even with links!</a>">
+				<img src="/images/estructura.jpg" alt="demo1_1">
+			</li>
+			<li title="This is caption 2">
+				<img src="/images/estructura.jpg"  alt="demo1_2">
+			</li>
+			<li title="And this is some very long caption for slide 3. Yes, really long.">
+				<img src="/images/estructura.jpg" alt="demo1_3">
+			</li>
+		</ul>
 		<!--  contenido   -->
 		<div id="1" style="visibility: hidden"><%-username%></div>
 		<div class="content">
 			<div class="container-fluid">
 				<!--Contenido principal acá -->
 				<div class="container">
-					<br>
-					<br>
-					<br>
-					<br>
 					<br>
 					<br>
 					<br>
@@ -91,6 +98,9 @@
 
 	<script src="/javascripts/plugins/jquery-3.5.1.js"></script>
 	<script src="/javascripts/toastr.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="/javascripts/slippry.min.js"></script>
+	<link rel="stylesheet" href="/stylesheets/slippry.css" />
 	<script>
 		toastr.options.progressBar = true;
 		toastr.options.closeMethod = "fadeOut";
@@ -106,6 +116,29 @@
 				toastr.success("bienvenido " + id.innerHTML);
 			}
 		};
+	</script>
+
+	<script>
+		jQuery('#pictures-demo').slippry({
+  			// general elements & wrapper
+  		slippryWrapper: '<div class="sy-box pictures-slider" />', // wrapper to wrap everything, including pager
+
+  		// options
+ 		 adaptiveHeight: false, // height of the sliders adapts to current slide
+ 		 captions: false, // Position: overlay, below, custom, false
+
+  		// pager
+		pager: false,
+
+  		// controls
+		controls: false,
+		autoHover: false,
+
+  		// transitions
+  		transition: 'kenburns', // fade, horizontal, kenburns, false
+		kenZoom: 140,
+  		speed: 2000 // time the transition takes (ms)
+});
 	</script>
 </body>
 
