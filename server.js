@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const multer  = require('multer');
 const sharp = require('sharp');
-const validator = require('validator');
 const teacherFunctions = require('./external/teacherFunctions');
 
 // sirve para obtener el nombre del archivo
@@ -73,6 +72,7 @@ app.use(session({
 app.use(function (req, res, next) {
 	res.locals.rol = req.session.rol;
 	res.locals.username = req.session.username;
+	res.locals.toastrFlag = req.session.toastrFlag;
 	next();
 });
 var urlencodedParser = bodyParser.urlencoded({
@@ -325,6 +325,9 @@ app.post('/login', function (req, res) {
 
 							res.locals.username = username;
 							req.session.username = username;
+
+							res.locals.toastrFlag = true;
+							req.session.toastrFlag = true;
 
 							res.redirect('/dashboard');
 						});

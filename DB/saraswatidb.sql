@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-09-2020 a las 20:48:12
+-- Tiempo de generación: 08-10-2020 a las 03:21:16
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.5
 
@@ -62,10 +62,10 @@ CREATE TABLE `estudiante` (
   `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `apellido` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `genero` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `fecha_nacimiento` date NOT NULL,
+  `fecha_nacimiento` varchar(55) COLLATE utf8_spanish_ci NOT NULL,
   `legajo` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `email` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `telefono` int(10) NOT NULL,
+  `telefono` varchar(13) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion_curso` varchar(50) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -74,8 +74,9 @@ CREATE TABLE `estudiante` (
 --
 
 INSERT INTO `estudiante` (`dni`, `nombre`, `apellido`, `genero`, `fecha_nacimiento`, `legajo`, `email`, `telefono`, `descripcion_curso`) VALUES
-(13212311, 'marcos', 'piccotto', 'M', '0000-00-00', 'ñdakñsdk', 'marquitos@gmail.com', 1321241, 'quinto año'),
-(44475315, 'German', 'Sampaolesi', 'M', '2002-12-25', 'dasjdakldl', 'sampaolesig@gmail.com', 132312312, 'quinto año');
+(13212311, 'marcos', 'piccotto', 'M', '0000-00-00', 'ñdakñsdk', 'marquitos@gmail.com', '1321241', 'sexto año'),
+(31232132, 'juan', 'pereti', 'm', '2002-12-25', 'adwadw', 'juanp@gmail.com', '2323232', 'sexto año'),
+(44475315, 'German', 'Sampaolesi', 'M', '2002-12-25', 'dasjdakldl', 'sampaolesig@gmail.com', '132312312', 'quinto año');
 
 -- --------------------------------------------------------
 
@@ -85,7 +86,7 @@ INSERT INTO `estudiante` (`dni`, `nombre`, `apellido`, `genero`, `fecha_nacimien
 
 CREATE TABLE `materia` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `nombreMateria` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `imagen` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `horasCatedra` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `profesor_usuario` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
@@ -96,7 +97,7 @@ CREATE TABLE `materia` (
 -- Volcado de datos para la tabla `materia`
 --
 
-INSERT INTO `materia` (`id`, `nombre`, `imagen`, `horasCatedra`, `profesor_usuario`, `curso_descripcion`) VALUES
+INSERT INTO `materia` (`id`, `nombreMateria`, `imagen`, `horasCatedra`, `profesor_usuario`, `curso_descripcion`) VALUES
 (1, 'programación 1', './images/entornos.jpg', '72', 'hrgarcia', 'sexto año'),
 (2, 'fvt', '/public/images/estructura.jpg', '13', 'lmazzola', 'quinto año');
 

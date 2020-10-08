@@ -51,6 +51,7 @@
 		</ul>
 		<!--  contenido   -->
 		<div id="1" style="visibility: hidden"><%-username%></div>
+		<h1 id="2" style="visibility: hidden"><%-toastrFlag%></h1>
 		<div class="content">
 			<div class="container-fluid">
 				<!--Contenido principal acá -->
@@ -100,15 +101,14 @@
 		toastr.options.progressBar = true;
 		toastr.options.closeMethod = "fadeOut";
 		toastr.options.closeDuration = 300;
-
-		let id = document.getElementById("1");
-
 		
-		let flag = true;
+		let usernameToastr = document.getElementById("1");
+		let toastrFlag = document.getElementById("2");
+
 		window.onload = () => {
-			if (flag) {
-				flag = !flag;
-				toastr.success("bienvenido " + id.innerHTML);
+			if (toastrFlag.innerHTML) {
+				toastrFlag.innerHTML = false;
+				toastr.success("bienvenido " + usernameToastr.innerHTML);
 			}
 		};
 	</script>

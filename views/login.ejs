@@ -21,7 +21,7 @@
 
 <body>
 
-    <form class="form-signin" action="/login" method="POST" data-parsley-validate="">
+    <form id="loginF" class="form-signin" action="/login" method="POST" data-parsley-validate="">
         <img class="mb-4 animate__animated animate__bounce animate__repeat-2" src="/images/logo-sinfondo.png" alt="" width="300 " height="100">
         <small style="font-weight: bold;">Complete los campos para ingresar al sistema</small>
         <input type="text" id="inputEmail" name="username" class="form-control" placeholder="Ingrese usuario" required autofocus>
@@ -41,7 +41,7 @@
     <script src="/javascripts/es.js"></script>
     <script type="text/javascript">
         $(function () {
-            $('#LoginF').parsley().on('field:validated', function () {
+            $('#loginF').parsley().on('field:validated', function () {
                     var ok = $('.parsley-error').length === 0;
                     $('.bs-callout-info').toggleClass('hidden', !ok);
                     $('.bs-callout-warning').toggleClass('hidden', ok);
