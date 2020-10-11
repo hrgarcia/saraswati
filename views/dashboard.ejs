@@ -4,6 +4,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
 	<title>Panel principal del sistema</title>
 	<meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
 	<!--     Fonts and icons     -->
@@ -79,6 +80,34 @@
 										<form action="/estudianteMateria" method="POST">
 											<button type="submit" name="course" value="<%- Subjects['curso_descripcion']%>" class="btn btn-info  animate__animated animate__backInLeft" style="float: right;">Ingresar</button>
 										</form>
+
+										<div class="main-panel" style="float: left;">
+											<canvas id="myChart" width="400" height="200px"></canvas>
+										</div>
+
+										<div class="grafico" >
+											<script>
+												var ctx= document.getElementById("myChart").getContext("2d");
+												var myChart= new Chart(ctx,{
+													type:"pie",
+													data:{
+														
+														datasets:[{
+															label:'Num datos',
+															data:[10,9,15],
+															backgroundColor:[
+																'rgb(66, 134, 244,0.5)',
+																'rgb(74, 135, 72,0.5)',
+																'rgb(229, 89, 50,0.5)'
+																]
+															}]
+														},
+														
+													}
+												);
+											</script>
+										</div>
+
 									</div>
 								</div>
 							</div>
