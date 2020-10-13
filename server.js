@@ -164,6 +164,10 @@ app.get('/estadisticas', (req, res) => {
 	res.render('statistics.ejs');
 });
 
+app.get('/datatable', (req, res) => {
+	res.render('datatable.ejs');
+});
+
 app.get('/listarProfesores', (req, res) => {
 	let query = "SELECT * FROM profesor";
 	con.query(query, function (error, rows, fields) {

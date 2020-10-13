@@ -1323,7 +1323,7 @@ input[type=file] > input[type=button]::-moz-focus-inner {
 }
 .fresh-table[class*=full-color-] .fixed-table-toolbar .btn, .fresh-table[class*=toolbar-color-] .fixed-table-toolbar .btn {
   border-color: rgba(255, 255, 255, 0.8);
-  color: rgba(255, 255, 255, 0.8);
+  color: #000000;
 }
 .fresh-table[class*=full-color-] .fixed-table-toolbar .btn:hover, .fresh-table[class*=full-color-] .fixed-table-toolbar .btn:focus, .fresh-table[class*=full-color-] .fixed-table-toolbar .btn:active, .fresh-table[class*=full-color-] .fixed-table-toolbar .btn.active, .open > .fresh-table[class*=full-color-] .fixed-table-toolbar .btn.dropdown-toggle, .fresh-table[class*=toolbar-color-] .fixed-table-toolbar .btn:hover, .fresh-table[class*=toolbar-color-] .fixed-table-toolbar .btn:focus, .fresh-table[class*=toolbar-color-] .fixed-table-toolbar .btn:active, .fresh-table[class*=toolbar-color-] .fixed-table-toolbar .btn.active, .open > .fresh-table[class*=toolbar-color-] .fixed-table-toolbar .btn.dropdown-toggle {
   background-color: transparent;
@@ -1387,7 +1387,7 @@ input[type=file] > input[type=button]::-moz-focus-inner {
 }
 .fresh-table[class*=full-color-] .btn {
   border-color: rgba(255, 255, 255, 0.8);
-  color: rgba(255, 255, 255, 0.8);
+  color: #000000;
 }
 .fresh-table[class*=full-color-] .btn:hover, .fresh-table[class*=full-color-] .btn:focus, .fresh-table[class*=full-color-] .btn:active, .fresh-table[class*=full-color-] .btn.active, .open > .fresh-table[class*=full-color-] .btn.dropdown-toggle {
   background-color: transparent;
@@ -1607,6 +1607,16 @@ input[type=file] > input[type=button]::-moz-focus-inner {
 }
 .fresh-table .fa {
   min-width: 18px;
+}
+
+th{
+  color:#ffffff;
+  text-shadow: 0.4px 0.4px #000000;
+}
+
+td{
+  color:#ffffff;
+  text-shadow: 0.4px 0.4px #000000;
 }
 
 /*# sourceMappingURL=fresh-bootstrap-table.css.map */
