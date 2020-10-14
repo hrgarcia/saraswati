@@ -1,5 +1,4 @@
 const express = require('express');
-const mysql = require('mysql');
 const path = require('path');
 const app = express();
 const session = require('express-session');
@@ -8,6 +7,7 @@ const bcrypt = require('bcrypt');
 const multer  = require('multer');
 const sharp = require('sharp');
 const teacherFunctions = require('./external/teacherFunctions');
+const conection = require('./config/db');
 
 // sirve para obtener el nombre del archivo
 const storage = multer.diskStorage({
@@ -79,17 +79,7 @@ var urlencodedParser = bodyParser.urlencoded({
 	extended: false
 })
 
-var con = mysql.createConnection({
-	host: "localhost",
-	user: "root",
-	password: "",
-	database: "saraswatidb"
-});
-
-con.connect(function (error) {
-	if (error) throw error;
-	console.log("Conectado a la DB");
-});
+var con = conection.connection();
 
 //Configuración
 app.set('views', __dirname + '/views');
