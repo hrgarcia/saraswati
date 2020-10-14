@@ -1,0 +1,27 @@
+
+<div class="grafico" >
+    <script>
+        var canvas = document.createElement("canvas");
+        var ctx= canvas.getContext("2d");
+        var myChart= new Chart(ctx,{
+            type:"pie",
+            data:{
+                labels:['En proceso','Aprobados','Pendientes'],
+                datasets:[{
+                    label:'Num datos',
+                    data:[10,9,15],
+                    backgroundColor:[
+                        'rgb(66, 134, 244,0.5)',
+                        'rgb(74, 135, 72,0.5)',
+                        'rgb(229, 89, 50,0.5)'
+                        ]
+                    }]
+                },
+            }
+        );
+        for (var i = 0; i < document.getElementsByClassName("charts").length; i++) {
+            document.getElementsByClassName("charts")[i].appendChild(canvas);
+        }
+
+    </script>
+</div>

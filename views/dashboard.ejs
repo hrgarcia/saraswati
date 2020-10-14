@@ -65,49 +65,23 @@
 									<div class="meta">
 										<div class="photo" style="background-image: url('<%-Subjects.imagen%>');"></div>
 										<ul class="details">
-											<li class="fab fa-creative-commons-by">Profesor: <%- Subjects['nombre']%> <%- Subjects['apellido']%></a></li>
+											<li class="fas fa-address-book">  Profesor: <%- Subjects['nombre']%> <%- Subjects['apellido']%></a></li>
 											<br>
-											<li class="far fa-clock"><%- Subjects['horasCatedra']%> horas catedras</li>
+											<br>
+											<li class="fas fa-stopwatch">  <%- Subjects['horasCatedra']%> horas catedras</li>
 											
 										</ul>
 										</div>
-									<div class="description">
+									<div class="description" >
 										<h1><%- Subjects['nombreMateria']%></h1>
 										<h2><%- Subjects['ciclo']%></h2>
 										<p>
 											<%- Subjects['curso_descripcion']%>
 										</p>
-										<form action="/estudianteMateria" method="POST">
-											<button type="submit" name="course" value="<%- Subjects['curso_descripcion']%>" class="btn btn-info  animate__animated animate__backInLeft" style="float: right;">Ingresar</button>
+										<form class="charts" action="/estudianteMateria" method="POST">
+											<%- include('fragment/chart'); -%>
+											<button type="submit" name="course" value="<%- Subjects['curso_descripcion']%>" class="btn btn-info  animate__animated animate__backInLeft" style="float: right; bottom:-10px;; border-radius: 100%;"> <i class="fas fa-door-open" style="font-size: 30px;"></i> </button>
 										</form>
-
-										<div class="main-panel" style="float: left;">
-											<canvas id="myChart" width="400" height="200px"></canvas>
-										</div>
-
-										<div class="grafico" >
-											<script>
-												var ctx= document.getElementById("myChart").getContext("2d");
-												var myChart= new Chart(ctx,{
-													type:"pie",
-													data:{
-														
-														datasets:[{
-															label:'Num datos',
-															data:[10,9,15],
-															backgroundColor:[
-																'rgb(66, 134, 244,0.5)',
-																'rgb(74, 135, 72,0.5)',
-																'rgb(229, 89, 50,0.5)'
-																]
-															}]
-														},
-														
-													}
-												);
-											</script>
-										</div>
-
 									</div>
 								</div>
 							</div>
