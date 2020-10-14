@@ -187,6 +187,16 @@ app.get('/myProfile', (req, res) => {
             res.render('myProfile.ejs',{
                 title: "Perfil",
                 data: rows});
+	});	
+});
+
+app.get('/edit', (req, res) => {
+    let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
+    con.query(query, [res.locals.username] , function (error, rows, fields){
+        if (error) throw error;
+            res.render('edit.ejs',{
+                title: "Perfil",
+                data: rows});
     });
 });
 
