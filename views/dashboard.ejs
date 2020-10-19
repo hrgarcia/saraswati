@@ -82,7 +82,10 @@
 										</p>
 										<form class="charts" action="/estudianteMateria" method="POST">
 											<%- include('fragment/chart'); -%>
-											<button type="submit" name="course" value="<%- Subjects['curso_descripcion']%>" class="btn btn-info  animate__animated animate__backInLeft" style="float: right; bottom:-10px;; border-radius: 100%;"> <i class="fas fa-door-open" style="font-size: 30px;"></i> </button>
+											<button type="submit" name="course" value="<%- Subjects['curso_descripcion']%>" class="right_triangle" > 
+												<i id = "name1" class="fas fa-door-closed"  style="font-size: 30px; padding-left: 17px !important; float: left;" ></i> 
+												<i id = "name2" class="fas fa-door-open"  style="font-size: 30px; padding-left: 17px !important; float: left;" ></i> 
+											</button>
 										</form>
 									</div>
 								</div>
