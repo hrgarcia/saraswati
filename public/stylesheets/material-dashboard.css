@@ -13859,7 +13859,7 @@ fieldset[disabled] .form-group .form-control {
 
 .navbar .navbar-brand {
   position: relative;
-  color: inherit;
+  color: red;
   height: 50px;
   font-size: 1.125rem;
   line-height: 30px;
@@ -14049,6 +14049,7 @@ fieldset[disabled] .form-group .form-control {
   top: 0px;
   position: relative;
   margin-right: 3px;
+  color:white;
 }
 
 .navbar .collapse .navbar-nav .nav-item .nav-link .notification {
