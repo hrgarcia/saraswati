@@ -37,14 +37,6 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
     <link href='https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:700,100,400|Roboto:400,700|Playfair+Display+SC:400,700' rel='stylesheet' type='text/css'>
 	
-	<!-- Favicon -->
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-	<link rel="manifest" href="/site.webmanifest">
-	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-	<meta name="msapplication-TileColor" content="#da532c">
-	<meta name="theme-color" content="#ffffff">
 </head>
 
 <body>
@@ -58,8 +50,35 @@
 			<%- include('fragment/navbar'); -%>
 			<div class="container">
 				<!--Contenido principal acá -->
-				<div class="container">
-					
+					<% data.forEach(function(Subjects){ %>
+						<div class="col-md">
+							<div class="blog-card">
+								<div class="meta">
+									<div class="photo" style="background-image: url('<%-Subjects.imagen%>');"></div>
+									<ul class="details">
+										<li class="fas fa-address-book">  Profesor: <%- Subjects['nombre']%> <%- Subjects['apellido']%></a></li>
+										<br>
+										<br>
+										<li class="fas fa-stopwatch">  <%- Subjects['horasCatedra']%> horas catedras</li>
+										
+									</ul>
+									</div>
+								<div class="description" >
+									<h1><%- Subjects['nombreMateria']%></h1>
+									<h2><%- Subjects['ciclo']%></h2>
+									<p>
+										<%- Subjects['curso_descripcion']%>
+									</p>
+									<form class="charts" action="/estudianteMateria" method="POST">
+										<%- include('fragment/chart'); -%>
+										<button type="submit" name="course" value="<%- Subjects['curso_descripcion']%>" class="right_triangle" > 
+											<i id = "name1" class="fas fa-door-closed"  style="font-size: 30px; padding-left: 17px !important; float: left;" ></i> 
+											<i id = "name2" class="fas fa-door-open"  style="font-size: 30px; padding-left: 17px !important; float: left;" ></i> 
+										</button>
+									</form>
+								</div>
+							</div>
+					<% }); %>
 
 					<div class="container">
 						<div class="row align-items-start">
