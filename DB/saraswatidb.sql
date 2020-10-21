@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-10-2020 a las 03:21:16
+-- Tiempo de generación: 21-10-2020 a las 20:00:57
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.5
 
@@ -74,8 +74,16 @@ CREATE TABLE `estudiante` (
 --
 
 INSERT INTO `estudiante` (`dni`, `nombre`, `apellido`, `genero`, `fecha_nacimiento`, `legajo`, `email`, `telefono`, `descripcion_curso`) VALUES
+(88887, 'kiara', 'berenjena', 'f', '13/12/2003', 'feesfes', 'kiara@gmail.com', '323232', 'sexto año'),
+(323232, 'kaka', 'estebanez', 'm', '13/12/2003', 'fesfes', 'kaka@mail.com', '232323', 'sexto año'),
+(434343, 'jade', 'yuta', 'f', '13/12/2003', 'kpok,p', 'jade@gmail.com', '0989898', 'sexto año'),
+(654654, 'iara', 'lele', 'f', '13/12/2003', 'iojoi', 'iara@gmail.com', '8783728', 'sexto año'),
+(999999, 'karol', 'GG', 'f', '13/12/2003', 'bddfr', 'karol@gmail.com', '3232', 'sexto año'),
+(3453232, 'jere', 'lomo', 'm', '13/12/2003', 'frfr', 'jere@gmail.com', '3232', 'sexto año'),
+(6726372, 'pepe', 'cuarto', 'm', '13/12/2003', 'fekoesps', 'pepe@gmail.com', '323232', 'sexto año'),
 (13212311, 'marcos', 'piccotto', 'M', '0000-00-00', 'ñdakñsdk', 'marquitos@gmail.com', '1321241', 'sexto año'),
 (31232132, 'juan', 'pereti', 'm', '2002-12-25', 'adwadw', 'juanp@gmail.com', '2323232', 'sexto año'),
+(34455129, 'ramon', 'peruti', 'm', '13/12/2003', 'sdawda', 'ramon@gmail.com', '323232', 'sexto año'),
 (44475315, 'German', 'Sampaolesi', 'M', '2002-12-25', 'dasjdakldl', 'sampaolesig@gmail.com', '132312312', 'quinto año');
 
 -- --------------------------------------------------------
