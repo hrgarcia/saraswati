@@ -40,7 +40,7 @@
 										<thead class=" text-primary">
 											<tr>
 												<th>
-													# 
+													#
 												</th>
 												<th>
 													Dni
@@ -73,7 +73,7 @@
 											</tr>
 										</thead>
 										<tbody>
-										<!------cargo los datos de la db hacia la tabla------>	
+											<!------cargo los datos de la db hacia la tabla------>
 											<% data.forEach(function(profesor){ %>
 												<tr>
 													<!---modificar esto para que aparezca el numero segun el profe creado--->
@@ -90,17 +90,21 @@
 
 													<!-----botones para las acciones--->
 													<td class="td-actions text-right">
-														<button type="button" rel="tooltip" data-placement="right" title="Perfil del profesor"class="btn btn-info">
+														<button type="button" rel="tooltip" data-placement="right"
+															title="Perfil del profesor" class="btn btn-info">
 															<i class="material-icons">person</i>
 														</button>
-														<button type="button" rel="tooltip" data-placement="right" title="Retirar profesor"class="btn btn-success">
+														<button type="button" rel="tooltip" data-placement="right"
+															title="Retirar profesor" class="btn btn-success">
 															<i class="material-icons">edit</i>
 														</button>
-														
-														<button type="button" rel="tooltip" data-placement="right" title="Retirar profesor" class="btn btn-danger">
+														<button type="button" rel="tooltip" data-placement="right"
+															title="Retirar profesor" class="btn btn-danger">
 															<i class="material-icons">close</i>
+														</button>
+													</td>
 												</tr>
-												<% }); %>
+											<% }); %>
 										</tbody>
 									</table>
 								</div>

@@ -46,10 +46,10 @@
 										</thead>
 										<tbody>
 											<% data.forEach(function(usuario){ %>
-											<tr>
-												<td><%- usuario['nombre'] %></td>
-												<td><%- usuario['pass'] %></td>
-											</tr>
+												<tr>
+													<td><%- usuario['nombre'] %></td>
+													<td><%- usuario['pass'] %></td>
+												</tr>
 											<% }); %>
 										</tbody>
 									</table>
@@ -64,4 +64,5 @@
 	</div>
 	<%- include('fragment/scripts'); -%>
 </body>
+
 </html>

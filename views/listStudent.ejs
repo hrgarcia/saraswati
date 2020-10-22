@@ -46,109 +46,108 @@
 		<div class="content">
 			<div class="container-fluid">
 				<!--Contenido principal acá -->
-					<div class="row">
-						<div class="col-md-12">
-								<div class="container fresh-table full-color-red">
-									<table id="fresh-table" class="table">
-										<thead>
-											<th data-field="name" data-sortable="true">Nombre</th>
-											<th data-field="surname" data-sortable="true">Apellido</th>
-											<th data-field="birt">Fecha de nacimiento</th>
-											<th data-field="legajo">legajo</th>
-											<th data-field="email">email</th>
-											<th data-field="telephone">telefono</th>
-											<th data-field="genero">genero</th>
-											<th data-field="actions" data-formatter="operateFormatter"
-												data-events="operateEvents">
-												Actions</th>
-										</thead>
-										<tbody>
-											<% data.forEach(function(Student){ %>
-												<tr>
-													<td><%-Student['nombre']%></td>
-													<td><%-Student['apellido']%></td>
-													<td><%-Student['fecha_nacimiento']%></td>
-													<td><%-Student['legajo']%></td> 								
-													<td><%-Student['email']%></td>
-													<td><%-Student['telefono']%></td>
-													<td><%-Student['genero']%></td>
-													<td></td>
-												</tr>
-												<% }); %>
-										</tbody>
-									</table>
-								</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="container fresh-table full-color-red">
+							<table id="fresh-table" class="table">
+								<thead>
+									<th data-field="name" data-sortable="true">Nombre</th>
+									<th data-field="surname" data-sortable="true">Apellido</th>
+									<th data-field="birt">Fecha de nacimiento</th>
+									<th data-field="legajo">legajo</th>
+									<th data-field="email">email</th>
+									<th data-field="telephone">telefono</th>
+									<th data-field="genero">genero</th>
+									<th data-field="actions" data-formatter="operateFormatter"
+										data-events="operateEvents">
+										Actions</th>
+								</thead>
+								<tbody>
+									<% data.forEach(function(Student){ %>
+									<tr>
+										<td><%-Student['nombre']%></td>
+										<td><%-Student['apellido']%></td>
+										<td><%-Student['fecha_nacimiento']%></td>
+										<td><%-Student['legajo']%></td>
+										<td><%-Student['email']%></td>
+										<td><%-Student['telefono']%></td>
+										<td><%-Student['genero']%></td>
+										<td></td>
+									</tr>
+									<% }); %>
+								</tbody>
+							</table>
 						</div>
-						<%- include('fragment/footer'); -%>
 					</div>
 				</div>
-					<%- include('fragment/scripts'); -%>
-					<script src="/javascripts/plugins/jquery-3.5.1.js"></script>
-					<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-					<script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
-					<script type="text/javascript">
-						var $table = $('#fresh-table')
-						var $alertBtn = $('#alertBtn')
+			</div>
+		</div>
+		<%- include('fragment/footer'); -%>
+	</div>
 
-						window.operateEvents = {
-							'click .like': function (e, value, row, index) {
-								alert('You click like icon, row: ' + JSON.stringify(row))
-								console.log(value, row, index)
-							},
-							'click .edit': function (e, value, row, index) {
-								alert('You click edit icon, row: ' + JSON.stringify(row))
-								console.log(value, row, index)
-							},
-							'click .remove': function (e, value, row, index) {
-								$table.bootstrapTable('remove', {
-									field: 'id',
-									values: [row.id]
-								})
-							}
-						}
+	<%- include('fragment/scripts'); -%>
 
-						function operateFormatter(value, row, index) {
-							return [
-								'<a rel="tooltip" title="Like" class="table-action like" href="javascript:void(0)" title="Like">',
-								'<i class="fa fa-heart"></i>',
-								'</a>',
-								'<a rel="tooltip" title="Edit" class="table-action edit" href="javascript:void(0)" title="Edit">',
-								'<i class="fa fa-edit"></i>',
-								'</a>',
-								'<a rel="tooltip" title="Remove" class="table-action remove" href="javascript:void(0)" title="Remove">',
-								'<i class="fa fa-remove"></i>',
-								'</a>'
-							].join('')
-						}
+	<script src="/javascripts/plugins/jquery-3.5.1.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
+	<script type="text/javascript">
+		var $table = $('#fresh-table')
+		var $alertBtn = $('#alertBtn')
+		window.operateEvents = {
+			'click .like': function (e, value, row, index) {
+				alert('You click like icon, row: ' + JSON.stringify(row))
+				console.log(value, row, index)
+			},
+			'click .edit': function (e, value, row, index) {
+				alert('You click edit icon, row: ' + JSON.stringify(row))
+				console.log(value, row, index)
+			},
+			'click .remove': function (e, value, row, index) {
+				$table.bootstrapTable('remove', {
+					field: 'id',
+					values: [row.id]
+				})
+			}
+		}
 
-						$(function () {
-							$table.bootstrapTable({
-								classes: 'table table-hover table-striped',
-								toolbar: '.toolbar',
-
-								search: true,
-								showRefresh: true,
-								showToggle: true,
-								showColumns: true,
-								pagination: true,
-								striped: true,
-								sortable: true,
-								pageSize: 8,
-								pageList: [8, 10, 25, 50, 100],
-
-								formatShowingRows: function (pageFrom, pageTo, totalRows) {
-									return ''
-								},
-								formatRecordsPerPage: function (pageNumber) {
-									return pageNumber + ' rows visible'
-								}
-							})
-
-							$alertBtn.click(function () {
-								alert('You pressed on Alert')
-							})
-						})
-					</script>
+		function operateFormatter(value, row, index) {
+			return [
+				'<a rel="tooltip" title="Like" class="table-action like" href="javascript:void(0)" title="Like">',
+				'<i class="fa fa-heart"></i>',
+				'</a>',
+				'<a rel="tooltip" title="Edit" class="table-action edit" href="javascript:void(0)" title="Edit">',
+				'<i class="fa fa-edit"></i>',
+				'</a>',
+				'<a rel="tooltip" title="Remove" class="table-action remove" href="javascript:void(0)" title="Remove">',
+				'<i class="fa fa-remove"></i>',
+				'</a>'
+			].join('')
+		}
+		$(function () {
+			$table.bootstrapTable({
+				classes: 'table table-hover table-striped',
+				toolbar: '.toolbar',
+				search: true,
+				showRefresh: true,
+				showToggle: true,
+				showColumns: true,
+				pagination: true,
+				striped: true,
+				sortable: true,
+				pageSize: 8,
+				pageList: [8, 10, 25, 50, 100],
+				formatShowingRows: function (pageFrom, pageTo, totalRows) {
+					return ''
+				},
+				formatRecordsPerPage: function (pageNumber) {
+					return pageNumber + ' Filas visibles'
+				}
+			})
+			$alertBtn.click(function () {
+				alert('You pressed on Alert')
+			})
+		})
+	</script>
 </body>
 
 </html>
