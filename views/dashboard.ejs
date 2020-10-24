@@ -28,13 +28,15 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 
 	<!-- Cards 2.0  -->
-	<link href="/stylesheets/hipster_cards.css" rel="stylesheet"/>
+	<link href="/stylesheets/hipster_cards.css" rel="stylesheet" />
 	<link href="/stylesheets/demo.css" rel="stylesheet" />
 
 	<!--     Cards 2.0 Fonts and icons     -->
-    <link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link href='https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:700,100,400|Roboto:400,700|Playfair+Display+SC:400,700' rel='stylesheet' type='text/css'>
+	<link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link
+		href='https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:700,100,400|Roboto:400,700|Playfair+Display+SC:400,700'
+		rel='stylesheet' type='text/css'>
 	<%- include('fragment/background'); -%>
 </head>
 
@@ -45,60 +47,67 @@
 		<div id="1" style="visibility: hidden"><%-username%></div>
 		<div id="2" style="visibility: hidden"><%-toastrFlag%></div>
 
+
 		<div class="content">
 			<%- include('fragment/navbar'); -%>
 			<div class="container">
 				<!--Contenido principal acá -->
+				<button onclick="createPdf()">Create PDF</button>
 				<% data.forEach(function(Subjects){ %>
-					<div class="col-md">
-						<div class="blog-card">
-							<div class="meta">
-								<div class="photo" style="background-image: url('<%-Subjects.imagen%>');"></div>
-									<ul class="details">
-										<li class="fas fa-address-book">  Profesor: <%- Subjects['nombre']%> <%- Subjects['apellido']%></a></li>
-										<br>
-										<br>
-										<li class="fas fa-stopwatch">  <%- Subjects['horasCatedra']%> horas catedras</li>
-										
-									</ul>
-								</div>
-								<div class="description" >
-									<h1><%- Subjects['nombreMateria']%></h1>
-									<h2><%- Subjects['ciclo']%></h2>
-									<p>
-										<%- Subjects['curso_descripcion']%>
-									</p>
-									<form class="charts" action="/estudianteMateria" method="POST">
-										<%- include('fragment/chart'); -%>
-										<button type="submit" name="course" value="<%- Subjects['curso_descripcion']%>" class="right_triangle" > 
-											<i id = "name1" class="fas fa-door-closed"  style="font-size: 30px; padding-left: 17px !important; float: left;" ></i> 
-											<i id = "name2" class="fas fa-door-open"  style="font-size: 30px; padding-left: 17px !important; float: left;" ></i> 
-										</button>
-									</form>
-								</div>
+				<div class="col-md">
+					<div class="blog-card">
+						<div class="meta">
+							<div class="photo" style="background-image: url('<%-Subjects.imagen%>');"></div>
+							<ul class="details">
+								<li class="fas fa-address-book"> Profesor: <%- Subjects['nombre']%>
+									<%- Subjects['apellido']%></a></li>
+								<br>
+								<br>
+								<li class="fas fa-stopwatch"> <%- Subjects['horasCatedra']%> horas catedras</li>
+
+							</ul>
+						</div>
+						<div class="description">
+							<h1><%- Subjects['nombreMateria']%></h1>
+							<h2><%- Subjects['ciclo']%></h2>
+							<p>
+								<%- Subjects['curso_descripcion']%>
+							</p>
+							<form class="charts" action="/estudianteMateria" method="POST">
+								<%- include('fragment/chart'); -%>
+								<button type="submit" name="course" value="<%- Subjects['curso_descripcion']%>"
+									class="right_triangle">
+									<i id="name1" class="fas fa-door-closed"
+										style="font-size: 30px; padding-left: 17px !important; float: left;"></i>
+									<i id="name2" class="fas fa-door-open"
+										style="font-size: 30px; padding-left: 17px !important; float: left;"></i>
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<% }); %>
+
+			<div class="container">
+				<div class="row align-items-start">
+					<div class="col">
+						<div class="card card-with-border card-just-text" data-background="color" data-color="black">
+							<div class="content">
+								<h4 class="title">"Sólo podemos ver poco del futuro, pero lo suficiente para darnos
+									cuenta de que hay mucho que hacer"</h4>
+								<p class="description">- Alan Turing</p>
 							</div>
 						</div>
 					</div>
-				<% }); %>
-
-				<div class="container">
-					<div class="row align-items-start">
-						<div class="col">
-							<div class="card card-with-border card-just-text" data-background="color" data-color="black" >
-								<div class="content">
-									<h4 class="title">"Sólo podemos ver poco del futuro, pero lo suficiente para darnos cuenta de que hay mucho que hacer"</h4>
-									<p class="description">- Alan Turing</p>
-								</div>
-							</div>
-						</div>
 					<div class="col">
 						<div class="card" data-background="image" data-src="/images/pic.jpg">
 							<div class="header">
 								<div class="category">
-									<h6 class="label label-danger">	Ciclo básico</h6>
+									<h6 class="label label-danger"> Ciclo básico</h6>
 								</div>
 							</div>
-					
+
 							<div class="content">
 								<h4 class="title title-uppercase">
 									<a href="">Entornos digitales</a>
@@ -106,7 +115,7 @@
 								<p class="description">Acá puede ir el gráfico de torta?</p>
 							</div>
 							<div class="filter">
-					
+
 							</div>
 						</div>
 					</div>
@@ -117,7 +126,7 @@
 									<h6 class="label label-danger">Ciclo orientado</h6>
 								</div>
 							</div>
-					
+
 							<div class="content">
 								<h4 class="title title-uppercase">
 									<a href="">Programación IV</a>
@@ -125,7 +134,7 @@
 								<p class="description">Acá puede ir el gráfico de torta?</p>
 							</div>
 							<div class="filter">
-					
+
 							</div>
 						</div>
 					</div>
@@ -134,7 +143,7 @@
 		</div>
 		<%- include('fragment/footer'); -%>
 	</div>
-	
+
 	<%- include('fragment/scripts'); -%>
 
 	<script src="/javascripts/plugins/jquery-3.5.1.js"></script>
@@ -143,12 +152,14 @@
 	<script src="/javascripts/slippry.min.js"></script>
 	<script src="/javascripts/hipster-cards.js"></script>
 	<script src="/javascripts/cardsDemo.js"></script>
+	<script src="https://unpkg.com/pdf-lib@1.4.0"></script>
+	<script src="https://unpkg.com/downloadjs@1.4.7"></script>
 	<link rel="stylesheet" href="/stylesheets/slippry.css" />
 	<script>
 		toastr.options.progressBar = true;
 		toastr.options.closeMethod = "fadeOut";
 		toastr.options.closeDuration = 300;
-		
+
 		let usernameToastr = document.getElementById("1");
 		let toastrFlag = document.getElementById("2");
 
@@ -158,6 +169,58 @@
 				toastr.success("bienvenido " + usernameToastr.innerHTML);
 			}
 		};
+	</script>
+	<script>
+		const {
+			PDFDocument,
+			StandardFonts,
+			rgb
+		} = PDFLib
+
+
+		async function createPdf() {
+			// Create a new PDFDocument
+			const pngUrl = '/favicon/android-chrome-192x192.png';
+			const pngImageBytes = await fetch(pngUrl).then((res) => res.arrayBuffer());
+			const pdfDoc = await PDFDocument.create();
+
+
+			const pngImage = await pdfDoc.embedPng(pngImageBytes)
+			const pngDims = pngImage.scale(0.25);
+			// Embed the Times Roman font
+			const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
+
+			// Add a blank page to the document
+			const page = pdfDoc.addPage();
+
+			// Get the width and height of the page
+			const {
+				width,
+				height
+			} = page.getSize();
+
+
+			// Draw a string of text toward the top of the page
+			const fontSize = 20;
+			page.drawImage(pngImage, {
+				x: page.getWidth() - 25 - pngDims.width / 2,
+				y: page.getHeight() -30 - pngDims.height / 2,
+				width: pngDims.width,
+				height: pngDims.height,
+			});
+			page.drawText('Estimado * usted tiene * espacios curriculares:', {
+				x: 10,
+				y: height - 5 * fontSize,
+				size: fontSize,
+				font: timesRomanFont,
+				color: rgb(0, 0.53, 0.71),
+			});
+			// Serialize the PDFDocument to bytes (a Uint8Array)
+			const pdfBytes = await pdfDoc.save();
+
+			// Trigger the browser to download the PDF document
+			download(pdfBytes, "pruebaPDF.pdf", "application/pdf");
+		}
 	</script>
 </body>
 
