@@ -14854,8 +14854,8 @@ h2.title {
 .dropdown-menu a:hover,
 .dropdown-menu a:focus,
 .dropdown-menu a:active {
-  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4);
-  background-color: #9c27b0;
+  box-shadow: 5px 4px 20px 0px rgba(0, 0, 0, 0.14), -1px 6px 10px -5px rgb(14 71 216 / 52%);
+  background-color:  #004ea5;
   color: #FFFFFF;
 }
 
@@ -15315,9 +15315,14 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .sidebar .nav li .dropdown-menu a:hover,
 .sidebar .nav li .dropdown-menu a:focus,
 .sidebar .nav li.active>[data-toggle="collapse"] {
-  background-color: rgba(200, 200, 200, 0.2);
+  background-color: rgba(223, 7, 7, 0.2);
   color: #3C4858;
   box-shadow: none;
+
+}
+
+.dropdown-item:hover{
+  background-color: yellow;
 }
 
 .sidebar .nav li.active>[data-toggle="collapse"] i {
@@ -15376,6 +15381,9 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   text-transform: capitalize;
   font-size: 13px;
   padding: 10px 15px;
+}
+a:hover {
+  background-color: #3c73a5;
 }
 
 .sidebar .sidebar-background {
