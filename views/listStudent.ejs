@@ -38,7 +38,7 @@
 </head>
 
 <body>
-	
+
 	<%- include('fragment/sidebar'); -%>
 	<div class="main-panel">
 		<%- include('fragment/navbar'); -%>
@@ -85,52 +85,123 @@
 			</div>
 		</div>
 		<!-- VENTANA EMERGENTE DE APRENDIZAJES EN PROCESO -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-	Aprendizajes estudiante
-</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#hola">
+			Aprendizajes estudiante
+		</button>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Aprendizajes</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+		<div class="modal fade bd-example-modal-lg" id="hola" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Aprendizajes</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="card text-white bg-danger mb-3" style="max-width: 18rem; top: -120px;">
+									<div class="card-header">Aprobado</div>
+									<div id="listApproved"class="card-body">
+										<div class="list-group-item">
+											<p class="fas fa-bars bg-danger mb-3"> hola</p>
+										</div>
+										<div class="list-group-item">
+											<p class="fas fa-bars bg-danger mb-3"> chau</p>
+										</div>
+										<div class="list-group-item">
+											<p class="fas fa-bars bg-danger mb-3"> dwa</p>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="card text-white bg-danger mb-3" style="max-width: 18rem;top: -120px;">
+									<div class="card-header">En proceso</div>
+									<div id="listProgress"class="card-body">
+										<div class="list-group-item">
+											<p class="fas fa-bars bg-danger mb-3"> hola</p>
+										</div>
+										<div class="list-group-item">
+											<p class="fas fa-bars bg-danger mb-3"> chau</p>
+										</div>
+										<div class="list-group-item">
+											<p class="fas fa-bars bg-danger mb-3"> dwa</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="card text-white bg-danger mb-3" style="max-width: 18rem;top: -120px;">
+									<div class="card-header">Pendiente</div>
+									<div id="listPending"class="card-body">
+										<div class="list-group-item">
+											<p class="fas fa-bars bg-danger mb-3"> hola</p>
+										</div>
+										<div class="list-group-item">
+											<p class="fas fa-bars bg-danger mb-3"> chau</p>
+										</div>
+										<div class="list-group-item">
+											<p class="fas fa-bars bg-danger mb-3"> dwa</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-		<div class="modal-body">
-			<div class="row">
-				<div class="col-md-4">
-					<div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-						<div class="card-header">Aprobado</div>
-						<div class="card-body"></div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-						<div class="card-header">En proceso</div>
-						<div class="card-body"></div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-						<div class="card-header">Pendiente</div>
-						<div class="card-body"></div>
-					</div>
-				</div>
-			</div>
-		
 		</div>
-		</div>
-	</div>
-</div>
 		<%- include('fragment/footer'); -%>
 	</div>
 	<%- include('fragment/scripts'); -%>
-
+	<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 	<script src="/javascripts/plugins/jquery-3.5.1.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
+	<script type="text/javascript">
+		const listApproved = document.getElementById("listApproved");
+		const listProgress = document.getElementById("listProgress");
+		const listPending = document.getElementById("listPending");
+		
+		Sortable.create(listApproved, {
+			group: {
+				name: "statuslearning"
+			},
+			animation: 150,
+			easing:"cubic-bezier(0.895,0.03,0.685,0.22)",
+			store:{
+				set: function(sortable){
+					const order = sortable.toArray();
+					localStorage.setItem('statusLearning',order.join('|'))
+				},
+
+				get: function(sortable){
+					const order = localStorage.getItem('statusLearning');
+					return order ? order.split('|') : [];
+				}
+			}
+		});
+		Sortable.create(listProgress, {
+			group: {
+				name: "statuslearning"
+			},
+			animation: 150,
+			easing:"cubic-bezier(0.895,0.03,0.685,0.22)"
+		});
+
+		Sortable.create(listPending, {
+			group: {
+				name: "statuslearning"
+			},
+			animation: 150,
+			easing:"cubic-bezier(0.895,0.03,0.685,0.22)"
+		});
+		
+	</script>
 	<script type="text/javascript">
 		var $table = $('#fresh-table')
 		var $alertBtn = $('#alertBtn')
@@ -140,7 +211,7 @@
 				console.log(value, row, index)
 			},
 			'click .edit': function (e, value, row, index) {
-				
+
 				alert('You click edit icon, row: ' + JSON.stringify(row))
 				console.log(value, row, index)
 			},
