@@ -85,8 +85,8 @@
 			</div>
 		</div>
 		<!-- VENTANA EMERGENTE DE APRENDIZAJES EN PROCESO -->
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#hola">
-			Aprendizajes estudiante
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#hola" >
+			Aprendizajes del Estudiante
 		</button>
 
 		<div class="modal fade bd-example-modal-lg" id="hola" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -103,52 +103,45 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="card text-white bg-danger mb-3" style="max-width: 18rem; top: -120px;">
-									<div class="card-header">Aprobado</div>
-									<div id="listApproved"class="card-body">
-										<div class="list-group-item">
-											<p class="fas fa-bars bg-danger mb-3"> hola</p>
-										</div>
-										<div class="list-group-item">
-											<p class="fas fa-bars bg-danger mb-3"> chau</p>
-										</div>
-										<div class="list-group-item">
-											<p class="fas fa-bars bg-danger mb-3"> dwa</p>
-										</div>
-										
-									</div>
-								</div>
+                                    <div class="card-header">Pendiente</div>
+                                    <div id="listPending"class="card-body">
+                                        <% data2.forEach(function(Learnings){ %>
+                                            <% if(Learnings['estado'] === "pendiente"){%>
+                                                <div class="list-group-item">
+                                                    <p class="fas fa-bars bg-danger mb-3"> <%-Learnings['descripcion']%> </p>
+                                                </div>
+                                            <% } %>
+                                        <% }); %>
+                                    </div>
+                                </div>
 							</div>
 							<div class="col-md-4">
-								<div class="card text-white bg-danger mb-3" style="max-width: 18rem;top: -120px;">
-									<div class="card-header">En proceso</div>
-									<div id="listProgress"class="card-body">
-										<div class="list-group-item">
-											<p class="fas fa-bars bg-danger mb-3"> hola</p>
-										</div>
-										<div class="list-group-item">
-											<p class="fas fa-bars bg-danger mb-3"> chau</p>
-										</div>
-										<div class="list-group-item">
-											<p class="fas fa-bars bg-danger mb-3"> dwa</p>
-										</div>
-									</div>
-								</div>
+								<div class="card text-white bg-danger mb-3" style="max-width: 18rem; top: -120px;">
+                                    <div class="card-header">Proceso</div>
+                                    <div id="listProgress"class="card-body">
+                                        <% data2.forEach(function(Learnings){ %>
+                                            <% if(Learnings['estado'] === "proceso"){%>
+                                                <div class="list-group-item">
+                                                    <p class="fas fa-bars bg-danger mb-3"> <%-Learnings['descripcion']%> </p>
+                                                </div>
+                                            <% } %>
+                                        <% }); %>
+                                    </div>
+                                </div>
 							</div>
 							<div class="col-md-4">
-								<div class="card text-white bg-danger mb-3" style="max-width: 18rem;top: -120px;">
-									<div class="card-header">Pendiente</div>
-									<div id="listPending"class="card-body">
-										<div class="list-group-item">
-											<p class="fas fa-bars bg-danger mb-3"> hola</p>
-										</div>
-										<div class="list-group-item">
-											<p class="fas fa-bars bg-danger mb-3"> chau</p>
-										</div>
-										<div class="list-group-item">
-											<p class="fas fa-bars bg-danger mb-3"> dwa</p>
-										</div>
-									</div>
-								</div>
+								<div class="card text-white bg-danger mb-3" style="max-width: 18rem; top: -120px;">
+                                    <div class="card-header">Pendiente</div>
+                                    <div id="listApproved"class="card-body">
+                                        <% data2.forEach(function(Learnings){ %>
+                                            <% if(Learnings['estado'] === "aprobado"){%>
+                                                <div class="list-group-item">
+                                                    <p class="fas fa-bars bg-danger mb-3"> <%-Learnings['descripcion']%> </p>
+                                                </div>
+                                            <% } %>
+                                        <% }); %>
+                                    </div>
+                                </div>
 							</div>
 						</div>
 					</div>

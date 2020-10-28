@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-10-2020 a las 20:00:57
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.5
+-- Tiempo de generación: 28-10-2020 a las 17:36:48
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,8 +30,22 @@ SET time_zone = "+00:00";
 CREATE TABLE `aprendizajes` (
   `id` int(50) NOT NULL,
   `descripcion` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `id_materia` int(50) NOT NULL
+  `id_materia` int(50) NOT NULL,
+  `estado` varchar(50) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `aprendizajes`
+--
+
+INSERT INTO `aprendizajes` (`id`, `descripcion`, `id_materia`, `estado`) VALUES
+(1, 'Manejo de EMMET', 1, 'pendiente'),
+(2, 'Configuracion de entorno en ionic 4', 1, 'pendiente'),
+(3, 'Configuracion de capacitor', 1, 'pendiente'),
+(4, 'Manejo de Camara en capacitor', 1, 'pendiente'),
+(5, 'Administrando contenidos con el sistema de grillas', 1, 'proceso'),
+(6, 'Utilización de tecnologías nativas con Capacitor', 1, 'proceso'),
+(7, 'Utilización de componentes de Ionic', 1, 'aprobado');
 
 -- --------------------------------------------------------
 
@@ -84,7 +98,7 @@ INSERT INTO `estudiante` (`dni`, `nombre`, `apellido`, `genero`, `fecha_nacimien
 (13212311, 'marcos', 'piccotto', 'M', '0000-00-00', 'ñdakñsdk', 'marquitos@gmail.com', '1321241', 'sexto año'),
 (31232132, 'juan', 'pereti', 'm', '2002-12-25', 'adwadw', 'juanp@gmail.com', '2323232', 'sexto año'),
 (34455129, 'ramon', 'peruti', 'm', '13/12/2003', 'sdawda', 'ramon@gmail.com', '323232', 'sexto año'),
-(44475315, 'German', 'Sampaolesi', 'M', '2002-12-25', 'dasjdakldl', 'sampaolesig@gmail.com', '132312312', 'quinto año');
+(44475315, 'German', 'Sampaolesi', 'M', '2002-12-25', 'dasjdakldl', 'sampaolesig@gmail.com', '132312312', 'sexto año');
 
 -- --------------------------------------------------------
 
@@ -236,7 +250,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `aprendizajes`
 --
 ALTER TABLE `aprendizajes`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`

@@ -202,15 +202,25 @@ app.get('/edit', (req, res) => {
 
 //Devuelve todos los estudiante de la materia seleccionada
 app.post('/estudianteMateria', (req, res) => {
-	let course = req.body.course;
-	let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.curso_descripcion = ? AND estudiante.descripcion_curso = ?";
-	con.query(query, [course,course], function (error, rows, fields) {
-		if (error) throw error;
-		res.render('listStudent.ejs', {
-			title: "Student",
-			data: rows
-		});
-	});
+    // Query para pasar los aprendizajes
+    let learningRows;
+    let queryLearning = "SELECT descripcion, id_materia, estado FROM aprendizajes INNER JOIN materia ON  materia.id = aprendizajes.id_materia";
+    con.query(queryLearning, [], function (error, rows, fields) {
+        if (error) throw error;
+        learningRows = rows;
+    });
+
+    let course = req.body.course;
+    let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.curso_descripcion = ? AND estudiante.descripcion_curso = ? ";
+    con.query(query, [course,course], function (error, rows, fields) {
+        if (error) throw error;
+        res.render('listStudent.ejs', {
+            title: "Student",
+            data: rows,
+            title: "Learnings",
+            data2: learningRows
+        });
+    });
 });
 
 //Redimensionar las imágenes del avatar

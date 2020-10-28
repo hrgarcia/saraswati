@@ -12,7 +12,7 @@ function loadLearnings(excel, con) {
     dataExcel.map(item => {
         console.log(item);
         let query = "INSERT INTO aprendizajes (descripcion, id_materia) VALUES (?,?);"
-        con.query(query,[item.Aprendizaje,"2"], function (error, rows, fields) {
+        con.query(query,[item.aprendizaje,"2"], function (error, rows, fields) {
             if (error) throw error;
         });
     });
