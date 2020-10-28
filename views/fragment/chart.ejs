@@ -1,11 +1,10 @@
-<div class="grafico">
+<div class="charts" style="position: absolute; top: 10px; right: 0; width: 100px; height: 200px;"> </div>
     <script>
         var canvas = document.createElement("canvas");
         var ctx = canvas.getContext("2d");
         var myChart = new Chart(ctx, {
             type: "pie",
             data: {
-                labels: ['En proceso', 'Aprobados', 'Pendientes'],
                 datasets: [{
                     label: 'Num datos',
                     data: [10, 9, 15],
@@ -21,4 +20,3 @@
             document.getElementsByClassName("charts")[i].appendChild(canvas);
         }
     </script>
-</div>

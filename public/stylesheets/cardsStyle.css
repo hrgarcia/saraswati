@@ -173,16 +173,14 @@ body {
 }
 
 .right_triangle{
-  float: right;
+  position: relative;
+  left: 73%;
   border-radius:100% 0% 0% 0%;
   font-family: Arial;
   color: #ffffff;
   font-size: 20px;
   padding: 12px;
   text-decoration: none;
-  -webkit-box-shadow: 5px 5px 3px #666666;
-  -moz-box-shadow: 5px 5px 3px #666666;
-  box-shadow: 5px 5px 3px #666666;
   text-shadow: 0px 0px 0px #666666;
   border: solid #b50303 4px;
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#f42626), to(#560404));

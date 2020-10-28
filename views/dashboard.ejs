@@ -55,90 +55,37 @@
 				<button onclick="createPdf()">Create PDF</button>
 				<% data.forEach(function(Subjects){ %>
 				<div class="col-md">
-					<div class="blog-card">
-						<div class="meta">
-							<div class="photo" style="background-image: url('<%-Subjects.imagen%>');"></div>
-							<ul class="details">
-								<li class="fas fa-address-book"> Profesor: <%- Subjects['nombre']%>
-									<%- Subjects['apellido']%></a></li>
-								<br>
-								<br>
-								<li class="fas fa-stopwatch"> <%- Subjects['horasCatedra']%> horas catedras</li>
 
-							</ul>
-						</div>
-						<div class="description">
-							<h1><%- Subjects['nombreMateria']%></h1>
-							<h2><%- Subjects['ciclo']%></h2>
-							<p>
-								<%- Subjects['curso_descripcion']%>
-							</p>
-							<form class="charts" action="/estudianteMateria" method="POST">
-								<%- include('fragment/chart'); -%>
-								<button type="submit" name="course" value="<%- Subjects['curso_descripcion']%>"
-									class="right_triangle">
-									<i id="name1" class="fas fa-door-closed"
-										style="font-size: 30px; padding-left: 17px !important; float: left;"></i>
-									<i id="name2" class="fas fa-door-open"
-										style="font-size: 30px; padding-left: 17px !important; float: left;"></i>
-								</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			<% }); %>
-
-			<div class="container">
-				<div class="row align-items-start">
-					<div class="col">
-						<div class="card card-with-border card-just-text" data-background="color" data-color="black">
-							<div class="content">
-								<h4 class="title">"Sólo podemos ver poco del futuro, pero lo suficiente para darnos
-									cuenta de que hay mucho que hacer"</h4>
-								<p class="description">- Alan Turing</p>
-							</div>
-						</div>
-					</div>
-					<div class="col">
-						<div class="card" data-background="image" data-src="/images/pic.jpg">
+						<div class="card" style="background-image: url('<%-Subjects.imagen%>');">
 							<div class="header">
-								<div class="category">
-									<h6 class="label label-danger"> Ciclo básico</h6>
+								<div class="content">
+									<h4 class="title title-uppercase" style="color: rgb(255, 255, 255);"> <%- Subjects['nombreMateria']%> </h4>
+									<h6 class="label label-danger" style="color: rgb(255, 255, 255);" ><%- Subjects['curso_descripcion']%></h6>
+									<br>
+									<br>
+									<li class="fas fa-address-book" style="color: rgb(255, 255, 255);"> 
+										Profesor: <%- Subjects['nombre']%> <%- Subjects['apellido']%></a ></li>
+									<br>
+									<li class="fas fa-stopwatch" style="color: rgb(255, 255, 255);"> <%- Subjects['horasCatedra']%> horas catedras</li>
 								</div>
 							</div>
-
-							<div class="content">
-								<h4 class="title title-uppercase">
-									<a href="">Entornos digitales</a>
-								</h4>
-								<p class="description">Acá puede ir el gráfico de torta?</p>
-							</div>
-							<div class="filter">
-
-							</div>
-						</div>
-					</div>
-					<div class="col">
-						<div class="card" data-background="image" data-src="/images/lifestyle-1.jpg">
-							<div class="header">
-								<div class="category">
-									<h6 class="label label-danger">Ciclo orientado</h6>
+							<div class="category">
+								<div class="content">
+									<form action="/estudianteMateria" method="POST">
+										<button type="submit" name="course" value="<%- Subjects['curso_descripcion']%>" class="right_triangle">
+											<i id="name1" class="fas fa-door-closed" style="font-size: 30px; padding-left: 17px !important; float: left; position: relative; top: 1px; "></i>
+											<i id="name2" class="fas fa-door-open" style="font-size: 30px; padding-left: 17px !important; float: left; position: relative; top: 1px;"></i>
+										</button>
+									</form>
 								</div>
 							</div>
-
-							<div class="content">
-								<h4 class="title title-uppercase">
-									<a href="">Programación IV</a>
-								</h4>
-								<p class="description">Acá puede ir el gráfico de torta?</p>
-							</div>
+							<%- include('fragment/chart'); -%>
 							<div class="filter">
-
 							</div>
 						</div>
-					</div>
+
 				</div>
+				<% }); %>
 			</div>
 		</div>
 		<%- include('fragment/footer'); -%>
