@@ -6495,7 +6495,7 @@ button.bg-warning:focus {
 }
 
 .bg-danger {
-  background-color: #f44336 !important;
+  background-color: #36f45f00 !important;
 }
 
 a.bg-danger:hover,
