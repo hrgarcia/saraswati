@@ -815,7 +815,7 @@ h6,
   font-family: inherit;
   font-weight: 400;
   line-height: 1.2;
-  color: inherit;
+  color: white;
 }
 
 h1,
@@ -5610,9 +5610,9 @@ tbody.collapse.show {
   font-size: 1.5rem;
   font-weight: 500;
   line-height: 1;
-  color: #000000;
+  color: white;
   text-shadow: 0 1px 0 #ffffff;
-  opacity: .5;
+  
 }
 
 .close:hover,
@@ -5836,7 +5836,7 @@ button.close {
   align-items: flex-start;
   justify-content: space-between;
   padding: 1rem;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid #aa3333;
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
 }
