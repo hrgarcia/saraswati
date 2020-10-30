@@ -39,7 +39,6 @@
 </head>
 
 <body>
-
 	<%- include('fragment/sidebar'); -%>
 	<div class="main-panel">
 		<%- include('fragment/navbar'); -%>
@@ -86,11 +85,8 @@
 			</div>
 		</div>
 		<!-- VENTANA EMERGENTE DE APRENDIZAJES EN PROCESO -->
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#hola" >
-			Aprendizajes del Estudiante
-		</button>
 
-		<div class="modal fade bd-example-modal-lg" id = "hola" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+		<div class="modal fade bd-example-modal-lg" id = "learningsStudent" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 			aria-hidden="true">
 			<div class="modal-dialog modal-lg" >
 				<div class="modal-content" id = "modal" > 
@@ -206,8 +202,6 @@
 			},
 			'click .edit': function (e, value, row, index) {
 
-				alert('You click edit icon, row: ' + JSON.stringify(row))
-				console.log(value, row, index)
 			},
 			'click .remove': function (e, value, row, index) {
 				$table.bootstrapTable('remove', {
@@ -222,7 +216,7 @@
 				'<a rel="tooltip" title="Like" class="table-action like" href="javascript:void(0)" title="Like">',
 				'<i class="fa fa-heart"></i>',
 				'</a>',
-				'<a rel="tooltip" title="Edit" class="table-action edit" href="javascript:void(0)" title="Edit">',
+				'<a rel="tooltip" title="Edit" class="table-action edit" href="javascript:void(0)" title="Edit" data-toggle="modal" data-target="#learningsStudent">',
 				'<i class="fa fa-edit"></i>',
 				'</a>',
 				'<a rel="tooltip" title="Remove" class="table-action remove" href="javascript:void(0)" title="Remove">',
