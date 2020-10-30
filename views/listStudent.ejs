@@ -23,6 +23,7 @@
 
 	<link rel="stylesheet" href="/stylesheets/datatable.css" />
 
+	<link rel="stylesheet" href="/stylesheets/modal.css" />
 
 	<link rel="stylesheet" href="/stylesheets/fresh-bootstrap-table.css" />
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
@@ -89,22 +90,22 @@
 			Aprendizajes del Estudiante
 		</button>
 
-		<div class="modal fade bd-example-modal-lg" id="hola" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+		<div class="modal fade bd-example-modal-lg" id = "hola" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 			aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
+			<div class="modal-dialog modal-lg" >
+				<div class="modal-content" id = "modal" > 
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Aprendizajes</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" >
 						<div class="row">
 							<div class="col-md-4">
-								<div class="card text-white bg-danger mb-3" style="max-width: 18rem; top: -120px;">
-                                    <div class="card-header">Pendiente</div>
-                                    <div id="listPending"class="card-body">
+								<div class="card text-white bg-danger mb-3"  style="max-width: 18rem; top: -120px;">
+                                    <div class="cardheader">Pendiente</div>
+                                    <div id="listPending"class="cardcolor">
                                         <% data2.forEach(function(Learnings){ %>
                                             <% if(Learnings['estado'] === "pendiente"){%>
                                                 <div class="list-group-item">
@@ -117,8 +118,8 @@
 							</div>
 							<div class="col-md-4">
 								<div class="card text-white bg-danger mb-3" style="max-width: 18rem; top: -120px;">
-                                    <div class="card-header">Proceso</div>
-                                    <div id="listProgress"class="card-body">
+                                    <div class="cardheader">Proceso</div>
+                                    <div id="listProgress"class="cardcolor">
                                         <% data2.forEach(function(Learnings){ %>
                                             <% if(Learnings['estado'] === "proceso"){%>
                                                 <div class="list-group-item">
@@ -131,8 +132,8 @@
 							</div>
 							<div class="col-md-4">
 								<div class="card text-white bg-danger mb-3" style="max-width: 18rem; top: -120px;">
-                                    <div class="card-header">Pendiente</div>
-                                    <div id="listApproved"class="card-body">
+                                    <div class="cardheader">Pendiente</div>
+                                    <div id="listApproved"class="cardcolor">
                                         <% data2.forEach(function(Learnings){ %>
                                             <% if(Learnings['estado'] === "aprobado"){%>
                                                 <div class="list-group-item">
