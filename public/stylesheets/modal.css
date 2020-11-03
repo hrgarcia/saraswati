@@ -6,14 +6,7 @@
     border: #167df133 5px solid;
     background: linear-gradient(60deg, #0c6cc5d7, #022650);
 }
-/* .cardcolor{
-    background: linear-gradient(60deg, #0c6cc5d7, #022650);
-}
-.cardheader{
-    background: linear-gradient(60deg, #235f96, #021f40);
-    padding: 0.75rem 1.25rem;
 
-} */
 .container {
     display: flex;
     justify-content: center;
