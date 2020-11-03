@@ -35,11 +35,11 @@
 	<link href="/stylesheets/toastr.css" rel="stylesheet" />
 	<!-- Animate css -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+	<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 	<%- include('fragment/background'); -%>
 </head>
 
 <body>
-
 	<%- include('fragment/sidebar'); -%>
 	<div class="main-panel">
 		<%- include('fragment/navbar'); -%>
@@ -86,11 +86,8 @@
 			</div>
 		</div>
 		<!-- VENTANA EMERGENTE DE APRENDIZAJES EN PROCESO -->
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#hola" >
-			Aprendizajes del Estudiante
-		</button>
 
-		<div class="modal fade bd-example-modal-lg" id = "hola" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+		<div class="modal fade bd-example-modal-lg" id = "learningsStudent" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 			aria-hidden="true">
 			<div class="modal-dialog modal-lg" >
 				<div class="modal-content" id = "modal" > 
@@ -102,8 +99,8 @@
 					</div>
 					<div class="modal-body" >
 						<div class="row">
-							<div class="col-md-4">
-								<div class="card text-white bg-danger mb-3"  style="max-width: 18rem; top: -120px;">
+							<div class="col-md-4 ">
+								<div class=" text-white bg-danger mb-3 carta"  style="max-width: 18rem; top: -120px;">
                                     <div class="cardheader">Pendiente</div>
                                     <div id="listPending"class="cardcolor">
                                         <% data2.forEach(function(Learnings){ %>
@@ -113,11 +110,12 @@
                                                 </div>
                                             <% } %>
                                         <% }); %>
-                                    </div>
-                                </div>
+									</div>
+								</div>
+								
 							</div>
 							<div class="col-md-4">
-								<div class="card text-white bg-danger mb-3" style="max-width: 18rem; top: -120px;">
+								<div class=" text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px;">
                                     <div class="cardheader">Proceso</div>
                                     <div id="listProgress"class="cardcolor">
                                         <% data2.forEach(function(Learnings){ %>
@@ -131,7 +129,7 @@
                                 </div>
 							</div>
 							<div class="col-md-4">
-								<div class="card text-white bg-danger mb-3" style="max-width: 18rem; top: -120px;">
+								<div class=" text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px;">
                                     <div class="cardheader">Pendiente</div>
                                     <div id="listApproved"class="cardcolor">
                                         <% data2.forEach(function(Learnings){ %>
@@ -142,10 +140,24 @@
                                             <% } %>
                                         <% }); %>
                                     </div>
-                                </div>
+								</div>
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<button class="custom-btn btn-2">Resetear</button>
+							</div>
+							<div class="col-md-4">
+								<button class="custom-btn btn-2">Agregar</button>
+							</div>
+							<div class="col-md-4">
+								<button class="custom-btn btn-2">Guardar</button>
 							</div>
 						</div>
 					</div>
+
+					
 				</div>
 			</div>
 		</div>
@@ -206,8 +218,6 @@
 			},
 			'click .edit': function (e, value, row, index) {
 
-				alert('You click edit icon, row: ' + JSON.stringify(row))
-				console.log(value, row, index)
 			},
 			'click .remove': function (e, value, row, index) {
 				$table.bootstrapTable('remove', {
@@ -222,7 +232,7 @@
 				'<a rel="tooltip" title="Like" class="table-action like" href="javascript:void(0)" title="Like">',
 				'<i class="fa fa-heart"></i>',
 				'</a>',
-				'<a rel="tooltip" title="Edit" class="table-action edit" href="javascript:void(0)" title="Edit">',
+				'<a rel="tooltip" title="Edit" class="table-action edit" href="javascript:void(0)" title="Edit" data-toggle="modal" data-target="#learningsStudent">',
 				'<i class="fa fa-edit"></i>',
 				'</a>',
 				'<a rel="tooltip" title="Remove" class="table-action remove" href="javascript:void(0)" title="Remove">',
