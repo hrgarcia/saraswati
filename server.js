@@ -158,6 +158,10 @@ app.get('/datatable', (req, res) => {
 	res.render('datatable.ejs');
 });
 
+app.get('/form', (req, res) => {
+	res.render('form.ejs');
+});
+
 app.get('/listarProfesores', (req, res) => {
 	let query = "SELECT * FROM profesor";
 	con.query(query, function (error, rows, fields) {
