@@ -53,8 +53,9 @@
 			<div class="container">
 				<!--Contenido principal acá -->
 				<button onclick="createPdf()">Create PDF</button>
-				<% data.forEach(function(Subjects){ %>
-				<div class="col-md">
+				<div class="form-row">
+					<% data.forEach(function(Subjects){ %>
+					<div class="col-md-4">
 
 						<div class="card" style="background-image: url('<%-Subjects.imagen%>');">
 							<div class="header">
@@ -83,9 +84,9 @@
 							<div class="filter">
 							</div>
 						</div>
-
+					</div>
+					<% }); %>
 				</div>
-				<% }); %>
 			</div>
 		</div>
 		<%- include('fragment/footer'); -%>

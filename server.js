@@ -158,6 +158,10 @@ app.get('/datatable', (req, res) => {
 	res.render('datatable.ejs');
 });
 
+app.get('/form', (req, res) => {
+	res.render('form.ejs');
+});
+
 app.get('/listarProfesores', (req, res) => {
 	let query = "SELECT * FROM profesor";
 	con.query(query, function (error, rows, fields) {
@@ -204,7 +208,7 @@ app.get('/edit', (req, res) => {
 app.post('/estudianteMateria', (req, res) => {
     // Query para pasar los aprendizajes
     let learningRows;
-    let queryLearning = "SELECT descripcion, id_materia, estado FROM aprendizajes INNER JOIN materia ON  materia.id = aprendizajes.id_materia";
+    let queryLearning = "SELECT descripcion, id_materia FROM aprendizajes INNER JOIN materia ON  materia.id = aprendizajes.id_materia";
     con.query(queryLearning, [], function (error, rows, fields) {
         if (error) throw error;
         learningRows = rows;

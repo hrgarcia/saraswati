@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-10-2020 a las 17:36:48
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.9
+-- Tiempo de generación: 04-11-2020 a las 02:26:58
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,22 +30,21 @@ SET time_zone = "+00:00";
 CREATE TABLE `aprendizajes` (
   `id` int(50) NOT NULL,
   `descripcion` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `id_materia` int(50) NOT NULL,
-  `estado` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+  `id_materia` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `aprendizajes`
 --
 
-INSERT INTO `aprendizajes` (`id`, `descripcion`, `id_materia`, `estado`) VALUES
-(1, 'Manejo de EMMET', 1, 'pendiente'),
-(2, 'Configuracion de entorno en ionic 4', 1, 'pendiente'),
-(3, 'Configuracion de capacitor', 1, 'pendiente'),
-(4, 'Manejo de Camara en capacitor', 1, 'pendiente'),
-(5, 'Administrando contenidos con el sistema de grillas', 1, 'proceso'),
-(6, 'Utilización de tecnologías nativas con Capacitor', 1, 'proceso'),
-(7, 'Utilización de componentes de Ionic', 1, 'aprobado');
+INSERT INTO `aprendizajes` (`id`, `descripcion`, `id_materia`) VALUES
+(1, 'Manejo de EMMET', 1),
+(2, 'Configuracion de entorno en ionic 4', 1),
+(3, 'Configuracion de capacitor', 1),
+(4, 'Manejo de Camara en capacitor', 1),
+(5, 'Administrando contenidos con el sistema de grillas', 1),
+(6, 'Utilización de tecnologías nativas con Capacitor', 1),
+(7, 'Utilización de componentes de Ionic', 1);
 
 -- --------------------------------------------------------
 
@@ -62,8 +61,12 @@ CREATE TABLE `curso` (
 --
 
 INSERT INTO `curso` (`descripcion`) VALUES
+('cuarto año'),
+('primer año'),
 ('quinto año'),
-('sexto año');
+('segundo año'),
+('sexto año'),
+('tercer año');
 
 -- --------------------------------------------------------
 
@@ -103,13 +106,39 @@ INSERT INTO `estudiante` (`dni`, `nombre`, `apellido`, `genero`, `fecha_nacimien
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `estudiantemateria`
+--
+
+CREATE TABLE `estudiantemateria` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `estado` varchar(13) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `estudiante_dni` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `estudiantemateria`
+--
+
+INSERT INTO `estudiantemateria` (`id`, `descripcion`, `estado`, `estudiante_dni`) VALUES
+(1, 'Manejo de EMMET', 'pendiente', 44475315),
+(2, 'Configuracion de entorno en ionic 4', 'pendiente', 44475315),
+(3, 'Configuracion de capacitor', 'pendiente', 44475315),
+(4, 'Manejo de Camara en capacitor', 'pendiente', 44475315),
+(5, 'Administrando contenidos con el sistema de grillas', 'pendiente', 44475315),
+(6, 'Utilización de tecnologías nativas con Capacitor 	', 'proceso', 44475315),
+(7, 'Utilización de componentes de Ionic', 'aprobado', 44475315);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `materia`
 --
 
 CREATE TABLE `materia` (
   `id` int(11) NOT NULL,
   `nombreMateria` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `imagen` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `imagen` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `horasCatedra` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `profesor_usuario` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `curso_descripcion` varchar(50) COLLATE utf8_spanish_ci NOT NULL
@@ -120,8 +149,13 @@ CREATE TABLE `materia` (
 --
 
 INSERT INTO `materia` (`id`, `nombreMateria`, `imagen`, `horasCatedra`, `profesor_usuario`, `curso_descripcion`) VALUES
-(1, 'programación 1', './images/entornos.jpg', '72', 'hrgarcia', 'sexto año'),
-(2, 'fvt', '/public/images/estructura.jpg', '13', 'lmazzola', 'quinto año');
+(1, 'programación 4', './images/espacios/sexto_año/programacion_4.jpg', '72', 'hrgarcia', 'sexto año'),
+(2, 'fvt', '/public/images/estructura.jpg', '13', 'lmazzola', 'quinto año'),
+(11, 'programacion 3', '/images/espacios/quinto_año/programacion_3.jpg', '65', 'hrgarcia', 'quinto año'),
+(12, 'robotica', '/images/espacios/quinto_año/robotica.jpg', '32', 'hrgarcia', 'quinto año'),
+(13, 'estructuras de almacenamiento de datos 1', '/images/espacios/tercer_año/estructuras_de_almacenamiento_de_datos_1.jpg', '43', 'hrgarcia', 'tercer año'),
+(14, 'programacion 1', '/images/espacios/tercer_año/programacion_1.jpg', '53', 'hrgarcia', 'tercer año'),
+(17, 'estructuras y almacenamiento de datos II', '/images/espacios/cuarto_año/estructuras_y_almacenamiento_de_datos_II.jpg', '32', 'hrgarcia', 'cuarto año');
 
 -- --------------------------------------------------------
 
@@ -216,6 +250,13 @@ ALTER TABLE `estudiante`
   ADD KEY `descripcion_curso` (`descripcion_curso`);
 
 --
+-- Indices de la tabla `estudiantemateria`
+--
+ALTER TABLE `estudiantemateria`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `estudiante_id` (`estudiante_dni`);
+
+--
 -- Indices de la tabla `materia`
 --
 ALTER TABLE `materia`
@@ -253,10 +294,16 @@ ALTER TABLE `aprendizajes`
   MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT de la tabla `estudiantemateria`
+--
+ALTER TABLE `estudiantemateria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -279,6 +326,12 @@ ALTER TABLE `aprendizajes`
 --
 ALTER TABLE `estudiante`
   ADD CONSTRAINT `estudiante_ibfk_1` FOREIGN KEY (`descripcion_curso`) REFERENCES `curso` (`descripcion`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `estudiantemateria`
+--
+ALTER TABLE `estudiantemateria`
+  ADD CONSTRAINT `estudiantemateria_ibfk_1` FOREIGN KEY (`estudiante_dni`) REFERENCES `estudiante` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `materia`
