@@ -208,7 +208,7 @@ app.get('/edit', (req, res) => {
 app.post('/estudianteMateria', (req, res) => {
     // Query para pasar los aprendizajes
     let learningRows;
-    let queryLearning = "SELECT descripcion, id_materia, estado FROM aprendizajes INNER JOIN materia ON  materia.id = aprendizajes.id_materia";
+    let queryLearning = "SELECT descripcion, id_materia FROM aprendizajes INNER JOIN materia ON  materia.id = aprendizajes.id_materia";
     con.query(queryLearning, [], function (error, rows, fields) {
         if (error) throw error;
         learningRows = rows;
