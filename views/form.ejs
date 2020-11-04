@@ -11,12 +11,16 @@
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css"
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link href="/stylesheets/themify-icons.css" rel="stylesheet">
+
     <!-- Iconos Font Awesome -->
     <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <!-- CSS Files -->
     <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <link href="/stylesheets/paper-bootstrap-wizard.css" rel="stylesheet" />
+
     <%- include('fragment/background'); -%>
 </head>
 
@@ -24,47 +28,68 @@
     <%- include('fragment/sidebar'); -%>
     <div class="main-panel">
         <%- include('fragment/navbar'); -%>
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
+        <!--   Big container   -->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
 
-                            <h4 class="card-title">Agregar materia</h4>
-                            <p class="category">Complete el formulario para agregar una nueva materia</p>
+                    <!--      Wizard container        -->
+                    <div class="wizard-container">
 
-                            <!-- Formulario de materia -->
-                            <div class="card-body">
-                                <form action="/crearMateria" method="POST">
+                        <div class="card wizard-card" data-color="orange" id="wizardProfile">
+                            <form action="" method="">
+                                <!--        You can switch " data-color="orange" "  with one of the next bright colors: "blue", "green", "orange", "red", "azure"          -->
 
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">ingrese nombre</label>
-                                        <input type="text" name="name" class="form-control" required>
+                                <div class="wizard-header text-center">
+                                    <h3 class="wizard-title">Create your profile</h3>
+                                    <p class="category">This information will let us know more about you.</p>
+                                </div>
+
+                                <div class="wizard-navigation">
+                                    <div class="progress-with-circle">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1"
+                                            aria-valuemax="3" style="width: 21%;"></div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">ingrese una imagen</label>
-                                        <input type="text" name="image" class="form-control" required>
+                                    <div class="form-row">
+                                        <div class="col-md-4">
+                                            <ul>
+                                                <li>
+                                                    <a href="#about" class="col-md-4" data-toggle="tab">
+                                                        <div class="icon-circle">
+                                                            <i class="ti-user"></i>
+                                                        </div>
+                                                        About
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#account" class="col-md-4" data-toggle="tab">
+                                                        <div class="icon-circle">
+                                                            <i class="ti-settings"></i>
+                                                        </div>
+                                                        Work
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#address" class="col-md-4" data-toggle="tab">
+                                                        <div class="icon-circle">
+                                                            <i class="ti-map"></i>
+                                                        </div>
+                                                        Address
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">ingrese las horas catedras</label>
-                                        <input type="text" name="teachingHours" class="form-control">
-                                    </div>
-                                    <label for="exampleInputEmail1">ingrese el usuario del profesor que da
-                                        clases</label>
-
-                                    <button class="btn btn-info">Cargar</button>
-                            </div>
+                                </div>
+                                <%- include('fragment/footer'); -%>
+                            </form>
                         </div>
-                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    <%- include('fragment/footer'); -%>
-    </div>
-    <%- include('fragment/scripts'); -%>
+
+        <%- include('fragment/scripts'); -%>
 </body>
 
 </html>
