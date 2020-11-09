@@ -6440,7 +6440,7 @@ button.close {
 }
 
 .bg-primary {
-  background-color: #2196f3 !important;
+  background-color: #363384 !important;
 }
 
 a.bg-primary:hover,
@@ -14484,7 +14484,7 @@ h2.title {
 }
 
 .text-info {
-  color: #00bcd4 !important;
+  color: #635ee8 !important;
 }
 
 .text-rose {
@@ -17412,7 +17412,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
   margin-bottom: 30px;
   margin-top: 130px;
   border-radius: 6px;
-  color: #333333;
+  color: #fffbfb; 
   background: #fff;
   border-color: #00000042;
   width: 100%;
