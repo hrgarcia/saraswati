@@ -1,8 +1,8 @@
 body{
     margin-top:20px;
-    color: #000000;
+    color: #0b52e0;
     text-align: left;
-    background-color: #862121de;
+    background-color: #3f87e6;
 }
 .main-body {
     padding: 15px;
@@ -16,11 +16,12 @@ body{
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: rgb(123 13 13 / 90%);
+    background: linear-gradient(60deg, #4b0101, #da3c3c);
     background-clip: border-box;
     border: 0 solid rgba(0,0,0,.125);
     border-radius: .25rem;
 }
+
 .card-body {
     position: center;
     flex: 1 1 auto;
