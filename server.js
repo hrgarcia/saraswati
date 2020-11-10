@@ -196,8 +196,12 @@ app.get('/myProfile', (req, res) => {
 
 app.get('/probando', (req, res) => {
 	let datos = ['casa','auto'];
-    res.send(datos);
-
+	//Consulta e los estudinates
+	let query = "SELECT * FROM estudianteaprendizaje"
+	con.query(query, function (error, rows, fields){
+		if (error) throw error;
+		res.send(rows);
+    });
 });
 
 app.get('/edit', (req, res) => {
