@@ -194,6 +194,12 @@ app.get('/myProfile', (req, res) => {
 	});	
 });
 
+app.get('/probando', (req, res) => {
+	let datos = ['casa','auto'];
+    res.send(datos);
+
+});
+
 app.get('/edit', (req, res) => {
     let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
     con.query(query, [res.locals.username] , function (error, rows, fields){

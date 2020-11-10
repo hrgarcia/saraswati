@@ -229,7 +229,10 @@
 				console.log(value, row, index)
 			},
 			'click .edit': function (e, value, row, index) {
-
+				console.log('Editar aprendizajes de estudiante');
+				$.ajax({url: 'probando', success:function(res){
+        			console.log('El server me devolvió', res);
+    			}});
 			},
 			'click .remove': function (e, value, row, index) {
 				$table.bootstrapTable('remove', {
