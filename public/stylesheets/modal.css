@@ -17,6 +17,15 @@
     margin: 0 auto;
     min-height: 100vh;
 }
+.fa-edit:before {
+    color: #3535dc;
+}
+.fa-remove:before {
+    color: #7d061d;
+}
+.fa-heart:before {
+    color:#1b0758;
+}
 .custom-btn {
     width: 150px;
     height: 40px;
