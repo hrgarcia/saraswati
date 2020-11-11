@@ -195,13 +195,10 @@ app.get('/myProfile', (req, res) => {
 });
 
 app.get('/probando', (req, res) => {
+	console.log(req.query.team);
 	let datos = ['casa','auto'];
-	//Consulta e los estudinates
-	let query = "SELECT * FROM estudianteaprendizaje"
-	con.query(query, function (error, rows, fields){
-		if (error) throw error;
-		res.send(rows);
-    });
+	res.send(datos);
+
 });
 
 app.get('/edit', (req, res) => {
