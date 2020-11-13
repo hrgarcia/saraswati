@@ -56,7 +56,7 @@
 									<th data-field="birt">Fecha de nacimiento
 										<i class="fa fa-calendar" aria-hidden="true"></i>
 									</th>
-									<th data-field="legajo">legajo
+									<th data-field="DNI">DNI
 										<i class="fa fa-address-card" aria-hidden="true"></i>
 									</th>
 									<th data-field="email">email
@@ -77,7 +77,7 @@
 										<td><%-Student['nombre']%></td>
 										<td><%-Student['apellido']%></td>
 										<td><%-Student['fecha_nacimiento']%></td>
-										<td><%-Student['legajo']%></td>
+										<td><%-Student['dni']%></td>
 										<td><%-Student['email']%></td>
 										<td><%-Student['telefono']%></td>
 										<td><%-Student['genero']%></td>
@@ -93,7 +93,7 @@
 		</div>
 		<!-- VENTANA EMERGENTE DE APRENDIZAJES EN PROCESO -->
 
-		<div class="modal fade bd-example-modal-lg" id = "learningsStudent" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+		<div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="true" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 			aria-hidden="true">
 			<div class="modal-dialog modal-lg" >
 				<div class="modal-content" id = "modal" > 
@@ -106,16 +106,9 @@
 					<div class="modal-body" >
 						<div class="row">
 							<div class="col-md-4 ">
-								<div class=" text-white bg-danger mb-3 carta"  style="max-width: 18rem; top: -120px;">
+								<div class=" text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px;">
                                     <div class="cardheader">Pendiente</div>
                                     <div id="listPending"class="cardcolor">
-                                        <% data2.forEach(function(Learnings){ %>
-                                            <% if(Learnings['estado'] === "pendiente"){%>
-                                                <div class="list-group-item">
-                                                    <p class="fas fa-bars bg-danger mb-3"> <%-Learnings['descripcion']%> </p>
-                                                </div>
-                                            <% } %>
-                                        <% }); %>
 									</div>
 								</div>
 								
@@ -123,28 +116,14 @@
 							<div class="col-md-4">
 								<div class=" text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px;">
                                     <div class="cardheader">Proceso</div>
-                                    <div id="listProgress"class="cardcolor">
-                                        <% data2.forEach(function(Learnings){ %>
-                                            <% if(Learnings['estado'] === "proceso"){%>
-                                                <div class="list-group-item">
-                                                    <p class="fas fa-bars bg-danger mb-3"> <%-Learnings['descripcion']%> </p>
-                                                </div>
-                                            <% } %>
-                                        <% }); %>
+                                    <div id="listProcess"class="cardcolor">
                                     </div>
                                 </div>
 							</div>
 							<div class="col-md-4">
 								<div class=" text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px;">
-                                    <div class="cardheader">Pendiente</div>
+                                    <div class="cardheader">Aprobado</div>
                                     <div id="listApproved"class="cardcolor">
-                                        <% data2.forEach(function(Learnings){ %>
-                                            <% if(Learnings['estado'] === "aprobado"){%>
-                                                <div class="list-group-item">
-                                                    <p class="fas fa-bars bg-danger mb-3"> <%-Learnings['descripcion']%> </p>
-                                                </div>
-                                            <% } %>
-                                        <% }); %>
                                     </div>
 								</div>
 								
@@ -174,8 +153,6 @@
 							</div>
 						</div>
 					</div>
-
-					
 				</div>
 			</div>
 		</div>
@@ -236,10 +213,29 @@
 				console.log(value, row, index)
 			},
 			'click .edit': function (e, value, row, index) {
-				$.get('probando', { team: "River"}, 
-    				function(res){
-						console.log('El server me devolvió', res);
-				});
+				if($('#learningsStudent').attr('data-value') == "true"){
+					$.get('obtenerAprenzidajes', { dni: row.DNI}, 
+						function(res){
+							for(let i = 0; i<res.length;i++){
+								if(res[i].estado == "aprobado"){
+									$(document).ready(function(){
+										$("#listApproved").append("<div class='list-group-item'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
+									});
+								}
+								else if(res[i].estado == "proceso"){
+									$(document).ready(function(){
+										$("#listProcess").append("<div class='list-group-item'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
+									});
+								}
+								else{
+									$(document).ready(function(){
+										$("#listPending").append("<div class='list-group-item'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
+									});
+								}
+							}
+							$('#learningsStudent').attr('data-value','false');
+					});
+				}
 			},
 			'click .remove': function (e, value, row, index) {
 				$table.bootstrapTable('remove', {

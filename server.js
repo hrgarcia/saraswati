@@ -188,16 +188,20 @@ app.get('/myProfile', (req, res) => {
     let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
     con.query(query, [res.locals.username] , function (error, rows, fields){
         if (error) throw error;
-            res.render('myProfile.ejs',{
-                title: "Perfil",
-                data: rows});
+        res.render('myProfile.ejs',{
+            title: "Perfil",
+			data: rows
+		});
 	});	
 });
 
-app.get('/probando', (req, res) => {
-	console.log(req.query.team);
-	let datos = ['casa','auto'];
-	res.send(datos);
+app.get('/obtenerAprenzidajes', (req, res) => {
+	let query = "SELECT * FROM estudianteaprendizaje WHERE estudianteaprendizaje.estudiante_dni = ?";
+    con.query(query, [req.query.dni] , function (error, rows, fields){
+		if (error) throw error;
+		res.send(rows);
+	});	
+	
 
 });
 
@@ -205,9 +209,10 @@ app.get('/edit', (req, res) => {
     let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
     con.query(query, [res.locals.username] , function (error, rows, fields){
         if (error) throw error;
-            res.render('edit.ejs',{
-                title: "Perfil",
-                data: rows});
+        res.render('edit.ejs',{
+            title: "Perfil",
+			data: rows
+		});
     });
 });
 
