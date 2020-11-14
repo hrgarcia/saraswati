@@ -56,7 +56,7 @@
 									<th data-field="birt">Fecha de nacimiento
 										<i class="fa fa-calendar" aria-hidden="true"></i>
 									</th>
-									<th data-field="DNI">DNI
+									<th data-field="dni">DNI
 										<i class="fa fa-address-card" aria-hidden="true"></i>
 									</th>
 									<th data-field="email">email
@@ -93,7 +93,7 @@
 		</div>
 		<!-- VENTANA EMERGENTE DE APRENDIZAJES EN PROCESO -->
 
-		<div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="true" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+		<div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 			aria-hidden="true">
 			<div class="modal-dialog modal-lg" >
 				<div class="modal-content" id = "modal" > 
@@ -166,7 +166,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.0/locale/bootstrap-table-es-AR.min.js"></script>
 	<script type="text/javascript">
 		const listApproved = document.getElementById("listApproved");
-		const listProgress = document.getElementById("listProgress");
+		const listProgress = document.getElementById("listProcess");
 		const listPending = document.getElementById("listPending");
 		
 		Sortable.create(listApproved, {
@@ -175,17 +175,6 @@
 			},
 			animation: 150,
 			easing:"cubic-bezier(0.895,0.03,0.685,0.22)",
-			store:{
-				set: function(sortable){
-					const order = sortable.toArray();
-					localStorage.setItem('statusLearning',order.join('|'))
-				},
-
-				get: function(sortable){
-					const order = localStorage.getItem('statusLearning');
-					return order ? order.split('|') : [];
-				}
-			}
 		});
 		Sortable.create(listProgress, {
 			group: {
@@ -213,9 +202,12 @@
 				console.log(value, row, index)
 			},
 			'click .edit': function (e, value, row, index) {
-				if($('#learningsStudent').attr('data-value') == "true"){
-					$.get('obtenerAprenzidajes', { dni: row.DNI}, 
-						function(res){
+				$.get('obtenerAprenzidajes', { dni: row.dni}, 
+					function(res){
+						if($('#learningsStudent').attr('data-value') != row.dni){
+							$("#listApproved").empty();
+							$("#listProcess").empty();
+							$("#listPending").empty();
 							for(let i = 0; i<res.length;i++){
 								if(res[i].estado == "aprobado"){
 									$(document).ready(function(){
@@ -233,9 +225,9 @@
 									});
 								}
 							}
-							$('#learningsStudent').attr('data-value','false');
-					});
-				}
+							$('#learningsStudent').attr('data-value', row.dni);
+						}
+				});
 			},
 			'click .remove': function (e, value, row, index) {
 				$table.bootstrapTable('remove', {
