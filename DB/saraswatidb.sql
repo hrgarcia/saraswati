@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-11-2020 a las 02:26:58
+-- Tiempo de generación: 16-11-2020 a las 14:08:29
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.5
 
@@ -106,10 +106,10 @@ INSERT INTO `estudiante` (`dni`, `nombre`, `apellido`, `genero`, `fecha_nacimien
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estudiantemateria`
+-- Estructura de tabla para la tabla `estudianteaprendizaje`
 --
 
-CREATE TABLE `estudiantemateria` (
+CREATE TABLE `estudianteaprendizaje` (
   `id` int(11) NOT NULL,
   `descripcion` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
   `estado` varchar(13) COLLATE utf8mb4_spanish_ci NOT NULL,
@@ -117,17 +117,19 @@ CREATE TABLE `estudiantemateria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
--- Volcado de datos para la tabla `estudiantemateria`
+-- Volcado de datos para la tabla `estudianteaprendizaje`
 --
 
-INSERT INTO `estudiantemateria` (`id`, `descripcion`, `estado`, `estudiante_dni`) VALUES
+INSERT INTO `estudianteaprendizaje` (`id`, `descripcion`, `estado`, `estudiante_dni`) VALUES
 (1, 'Manejo de EMMET', 'pendiente', 44475315),
 (2, 'Configuracion de entorno en ionic 4', 'pendiente', 44475315),
 (3, 'Configuracion de capacitor', 'pendiente', 44475315),
 (4, 'Manejo de Camara en capacitor', 'pendiente', 44475315),
 (5, 'Administrando contenidos con el sistema de grillas', 'pendiente', 44475315),
 (6, 'Utilización de tecnologías nativas con Capacitor 	', 'proceso', 44475315),
-(7, 'Utilización de componentes de Ionic', 'aprobado', 44475315);
+(7, 'Utilización de componentes de Ionic', 'aprobado', 44475315),
+(8, 'Manejo de EMMET', 'aprobado', 654654),
+(9, 'Configuracion de entorno en ionic 4', 'proceso', 654654);
 
 -- --------------------------------------------------------
 
@@ -153,7 +155,7 @@ INSERT INTO `materia` (`id`, `nombreMateria`, `imagen`, `horasCatedra`, `profeso
 (2, 'fvt', '/public/images/estructura.jpg', '13', 'lmazzola', 'quinto año'),
 (11, 'programacion 3', '/images/espacios/quinto_año/programacion_3.jpg', '65', 'hrgarcia', 'quinto año'),
 (12, 'robotica', '/images/espacios/quinto_año/robotica.jpg', '32', 'hrgarcia', 'quinto año'),
-(13, 'estructuras de almacenamiento de datos 1', '/images/espacios/tercer_año/estructuras_de_almacenamiento_de_datos_1.jpg', '43', 'hrgarcia', 'tercer año'),
+(13, 'estructuras de almacenamiento de datos I', '/images/espacios/tercer_año/estructuras_de_almacenamiento_de_datos_I.jpg', '43', 'hrgarcia', 'tercer año'),
 (14, 'programacion 1', '/images/espacios/tercer_año/programacion_1.jpg', '53', 'hrgarcia', 'tercer año'),
 (17, 'estructuras y almacenamiento de datos II', '/images/espacios/cuarto_año/estructuras_y_almacenamiento_de_datos_II.jpg', '32', 'hrgarcia', 'cuarto año');
 
@@ -250,9 +252,9 @@ ALTER TABLE `estudiante`
   ADD KEY `descripcion_curso` (`descripcion_curso`);
 
 --
--- Indices de la tabla `estudiantemateria`
+-- Indices de la tabla `estudianteaprendizaje`
 --
-ALTER TABLE `estudiantemateria`
+ALTER TABLE `estudianteaprendizaje`
   ADD PRIMARY KEY (`id`),
   ADD KEY `estudiante_id` (`estudiante_dni`);
 
@@ -294,10 +296,10 @@ ALTER TABLE `aprendizajes`
   MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT de la tabla `estudiantemateria`
+-- AUTO_INCREMENT de la tabla `estudianteaprendizaje`
 --
-ALTER TABLE `estudiantemateria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `estudianteaprendizaje`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
@@ -328,10 +330,10 @@ ALTER TABLE `estudiante`
   ADD CONSTRAINT `estudiante_ibfk_1` FOREIGN KEY (`descripcion_curso`) REFERENCES `curso` (`descripcion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `estudiantemateria`
+-- Filtros para la tabla `estudianteaprendizaje`
 --
-ALTER TABLE `estudiantemateria`
-  ADD CONSTRAINT `estudiantemateria_ibfk_1` FOREIGN KEY (`estudiante_dni`) REFERENCES `estudiante` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `estudianteaprendizaje`
+  ADD CONSTRAINT `estudianteaprendizaje_ibfk_1` FOREIGN KEY (`estudiante_dni`) REFERENCES `estudiante` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `materia`
