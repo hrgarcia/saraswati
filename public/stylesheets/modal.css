@@ -56,4 +56,7 @@
     background: linear-gradient(0deg, #022650 0%, rgba(2,126,251,1) 100%);
     
 }
-
+.cardheader{
+    margin:auto;
+    text-align:center;
+}

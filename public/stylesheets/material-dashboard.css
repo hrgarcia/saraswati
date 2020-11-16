@@ -5422,7 +5422,8 @@ tbody.collapse.show {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
   background-color: inherit;
-  border: 0 solid rgba(0, 0, 0, 0.125);
+  border: #167df15c 5px solid;
+  
 }
 
 .list-group-item:first-child {
@@ -6496,6 +6497,7 @@ button.bg-warning:focus {
 
 .bg-danger {
   background-color: #36f45f00 !important;
+  
 }
 
 a.bg-danger:hover,
