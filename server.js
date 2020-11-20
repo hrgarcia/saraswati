@@ -201,8 +201,17 @@ app.get('/obtenerAprenzidajes', (req, res) => {
 		if (error) throw error;
 		res.send(rows);
 	});	
-	
-
+});
+app.get('/guardarAprendizajes', (req, res) => {
+	console.log(req.query.state);
+	console.log(req.query.dni);
+	console.log(req.query.name);
+	console.log("---------------------");
+	// let query = "UPDATE estudianteaprendizaje SET estado = ? WHERE estudianteaprendizaje.descripcion = ? AND estudianteaprendizaje.estudiante_dni = ? AND estudianteaprendizaje.estado != ?";
+    // con.query(query, [req.query.state,req.query.name,req.query.dni,req.query.state], function (error, rows, fields){
+	// 	if (error) throw error;
+	// 	console.log(rows)
+	// });	
 });
 
 app.get('/edit', (req, res) => {

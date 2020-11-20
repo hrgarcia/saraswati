@@ -109,6 +109,7 @@
 								<div class=" text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px;">
                                     <div class="cardheader">Pendiente</div>
                                     <div id="listPending"class="cardcolor">
+										<p>hola</p>
 									</div>
 								</div>
 								
@@ -147,7 +148,7 @@
 								</button>
 							</div>
 							<div class="col-md-3">
-								<button class="custom-btn btn-2">
+								<button class="custom-btn btn-2" onclick="saveLearnings()">
 									<i class="fas fa-save"></i>
 								</button>
 							</div>
@@ -196,6 +197,24 @@
 	<script type="text/javascript">
 		var $table = $('#fresh-table')
 		var $alertBtn = $('#alertBtn')
+
+		function saveLearnings() {
+			let dni = $('#learningsStudent').attr('data-value');
+			let listLearnings = [$(".pending > p"), $(".process > p"), $(".approved > p")];
+			console.log($(".approved > p"));
+			let listStates = ["pendiente","proceso","aprobado"]
+			for (let i = 0; i < listLearnings.length; i++) {
+				for (let j = 0; j < listLearnings[i].length; j++) {
+					$.get('guardarAprendizajes', { dni: dni, name:listLearnings[i][j].innerHTML,state:listStates[i]}, 
+						function(res){
+							console.log("hola");
+						}
+					);
+				}
+			}
+			
+		}
+
 		window.operateEvents = {
 			'click .like': function (e, value, row, index) {
 				alert('You click like icon, row: ' + JSON.stringify(row))
@@ -208,20 +227,20 @@
 							$("#listApproved").empty();
 							$("#listProcess").empty();
 							$("#listPending").empty();
-							for(let i = 0; i<res.length;i++){
+							for(let i = 0; i < res.length;i++){
 								if(res[i].estado == "aprobado"){
 									$(document).ready(function(){
-										$("#listApproved").append("<div class='list-group-item'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
+										$("#listApproved").append("<div class='list-group-item approved' data-value='approve'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
 									});
 								}
 								else if(res[i].estado == "proceso"){
 									$(document).ready(function(){
-										$("#listProcess").append("<div class='list-group-item'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
+										$("#listProcess").append("<div class='list-group-item process' data-value='process'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
 									});
 								}
 								else{
 									$(document).ready(function(){
-										$("#listPending").append("<div class='list-group-item'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
+										$("#listPending").append("<div class='list-group-item pending' data-value='pending'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
 									});
 								}
 							}
