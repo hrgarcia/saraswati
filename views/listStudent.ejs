@@ -99,6 +99,7 @@
 				<div class="modal-content" id = "modal" > 
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Aprendizajes</h5>
+						<h5 class="modal-title" id="isChangedLearnState" style="text-indent:350px;">Los aprendizajes no fueron modificados</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -108,7 +109,7 @@
 							<div class="col-md-4 ">
 								<div class=" text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px;">
                                     <div class="cardheader">Pendiente</div>
-                                    <div id="listPending"class="cardcolor">
+                                    <div id="listPending"class="cardcolor pendiente">
 										<p>hola</p>
 									</div>
 								</div>
@@ -117,14 +118,14 @@
 							<div class="col-md-4">
 								<div class=" text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px;">
                                     <div class="cardheader">Proceso</div>
-                                    <div id="listProcess"class="cardcolor">
+                                    <div id="listProcess"class="cardcolor proceso">
                                     </div>
                                 </div>
 							</div>
 							<div class="col-md-4">
 								<div class=" text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px;">
                                     <div class="cardheader">Aprobado</div>
-                                    <div id="listApproved"class="cardcolor">
+                                    <div id="listApproved"class="cardcolor aprobado">
                                     </div>
 								</div>
 								
@@ -176,13 +177,49 @@
 			},
 			animation: 150,
 			easing:"cubic-bezier(0.895,0.03,0.685,0.22)",
+			onAdd: function (evt) {
+				//first time
+				if(evt.item.getAttribute('originLearn') == "" && evt.item.getAttribute('data-value') == 0){
+					evt.item.setAttribute('data-value','1');
+					evt.item.setAttribute('originLearn',evt.from.getAttribute('id'))
+					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
+					document.getElementById("isChangedLearnState").innerHTML = "Los aprendizajes fueron modificados";	
+				}
+				else if(evt.item.getAttribute('originLearn') != evt.to.getAttribute('id')){
+					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);	
+					document.getElementById("isChangedLearnState").innerHTML = "Los aprendizajes fueron modificados";
+				}
+				//come back home
+				else if(evt.item.getAttribute('originLearn') == evt.to.getAttribute('id')){
+					evt.item.setAttribute('data-value','0');
+					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);	
+				}
+			}
 		});
 		Sortable.create(listProgress, {
 			group: {
 				name: "statuslearning"
 			},
 			animation: 150,
-			easing:"cubic-bezier(0.895,0.03,0.685,0.22)"
+			easing:"cubic-bezier(0.895,0.03,0.685,0.22)",
+			onAdd: function (evt) {
+				//first time
+				if(evt.item.getAttribute('originLearn') == "" && evt.item.getAttribute('data-value') == 0){
+					evt.item.setAttribute('data-value','1');
+					evt.item.setAttribute('originLearn',evt.from.getAttribute('id'))
+					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
+					document.getElementById("isChangedLearnState").innerHTML = "Los aprendizajes fueron modificados";	
+				}
+				else if(evt.item.getAttribute('originLearn') != evt.to.getAttribute('id')){
+					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
+					document.getElementById("isChangedLearnState").innerHTML = "Los aprendizajes fueron modificados";	
+				}
+				//come back home
+				else if(evt.item.getAttribute('originLearn') == evt.to.getAttribute('id')){
+					evt.item.setAttribute('data-value','0');
+					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);	
+				}
+			}
 		});
 
 		Sortable.create(listPending, {
@@ -190,7 +227,23 @@
 				name: "statuslearning"
 			},
 			animation: 150,
-			easing:"cubic-bezier(0.895,0.03,0.685,0.22)"
+			easing:"cubic-bezier(0.895,0.03,0.685,0.22)",
+			onAdd: function (evt) {
+				if(evt.item.getAttribute('originLearn') == "" && evt.item.getAttribute('data-value') == 0){
+					evt.item.setAttribute('data-value','1');
+					evt.item.setAttribute('originLearn',evt.from.getAttribute('id'))
+					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);	
+					document.getElementById("isChangedLearnState").innerHTML = "Los aprendizajes fueron modificados";
+				}
+				else if(evt.item.getAttribute('originLearn') != evt.to.getAttribute('id')){
+					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);	
+					document.getElementById("isChangedLearnState").innerHTML = "Los aprendizajes fueron modificados";
+				}
+				else if(evt.item.getAttribute('originLearn') == evt.to.getAttribute('id')){
+					evt.item.setAttribute('data-value','0');
+					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);	
+				}
+			}
 		});
 		
 	</script>
@@ -200,19 +253,28 @@
 
 		function saveLearnings() {
 			let dni = $('#learningsStudent').attr('data-value');
-			let listLearnings = [$(".pending > p"), $(".process > p"), $(".approved > p")];
-			console.log($(".approved > p"));
-			let listStates = ["pendiente","proceso","aprobado"]
+			let listLearnings = [$(".pendiente"), $(".proceso"), $(".aprobado")];
+			let infoLearnings = {
+				"dni":dni,
+				"pendiente":[],
+				"proceso":[],
+				"aprobado":[]
+			} 
+			//chequeamos si hubieron cambios
 			for (let i = 0; i < listLearnings.length; i++) {
 				for (let j = 0; j < listLearnings[i].length; j++) {
-					$.get('guardarAprendizajes', { dni: dni, name:listLearnings[i][j].innerHTML,state:listStates[i]}, 
-						function(res){
-							console.log("hola");
-						}
-					);
+					if(listLearnings[i][j].getAttribute('data-value') == 1){
+						infoLearnings[listLearnings[i][j].classList[1]].push({"name":listLearnings[i][j].children[0].innerHTML});
+					}
 				}
 			}
-			
+			console.log(infoLearnings["pendiente"].length);
+			if(infoLearnings["pendiente"].length > 0 || infoLearnings["proceso"].length > 0 || infoLearnings["aprobado"].length > 0){
+				$.get('guardarAprendizajes', { data: infoLearnings}, 
+				function(res){
+					document.getElementById("isChangedLearnState").innerHTML = "Los aprendizajes fueron guardados";
+			});
+			}
 		}
 
 		window.operateEvents = {
@@ -230,17 +292,17 @@
 							for(let i = 0; i < res.length;i++){
 								if(res[i].estado == "aprobado"){
 									$(document).ready(function(){
-										$("#listApproved").append("<div class='list-group-item approved' data-value='approve'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
+										$("#listApproved").append("<div class='list-group-item aprobado' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
 									});
 								}
 								else if(res[i].estado == "proceso"){
 									$(document).ready(function(){
-										$("#listProcess").append("<div class='list-group-item process' data-value='process'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
+										$("#listProcess").append("<div class='list-group-item proceso' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
 									});
 								}
 								else{
 									$(document).ready(function(){
-										$("#listPending").append("<div class='list-group-item pending' data-value='pending'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
+										$("#listPending").append("<div class='list-group-item pendiente' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
 									});
 								}
 							}

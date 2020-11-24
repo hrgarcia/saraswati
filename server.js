@@ -203,15 +203,22 @@ app.get('/obtenerAprenzidajes', (req, res) => {
 	});	
 });
 app.get('/guardarAprendizajes', (req, res) => {
-	console.log(req.query.state);
-	console.log(req.query.dni);
-	console.log(req.query.name);
-	console.log("---------------------");
-	// let query = "UPDATE estudianteaprendizaje SET estado = ? WHERE estudianteaprendizaje.descripcion = ? AND estudianteaprendizaje.estudiante_dni = ? AND estudianteaprendizaje.estado != ?";
-    // con.query(query, [req.query.state,req.query.name,req.query.dni,req.query.state], function (error, rows, fields){
-	// 	if (error) throw error;
-	// 	console.log(rows)
-	// });	
+	let query = "UPDATE estudianteaprendizaje SET estado = ? WHERE estudianteaprendizaje.descripcion = ? AND estudianteaprendizaje.estudiante_dni = ?";
+	let dni=0;
+	for(let key in req.query.data) {
+		if(key == "dni"){
+			dni = req.query.data[key];
+		}
+		else{
+			for(let i = 0; i <req.query.data[key].length;i++){
+				con.query(query, [key,req.query.data[key][i].name,dni], function (error, rows, fields){
+				if (error) throw error;
+				});	
+			}
+		}
+	}
+	res.send("");
+	
 });
 
 app.get('/edit', (req, res) => {
