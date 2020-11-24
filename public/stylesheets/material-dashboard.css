@@ -6441,7 +6441,7 @@ button.close {
 }
 
 .bg-primary {
-  background-color: #363384 !important;
+  background-color: #941818 !important;
 }
 
 a.bg-primary:hover,
@@ -6639,6 +6639,7 @@ button.bg-dark:focus {
 
 .rounded-circle {
   border-radius: 50% !important;
+  border: solid 2px #f3f3f394;
 }
 
 .rounded-0 {
@@ -14486,7 +14487,7 @@ h2.title {
 }
 
 .text-info {
-  color: #635ee8 !important;
+  color: #ffffff !important;
 }
 
 .text-rose {
@@ -17057,7 +17058,8 @@ legend {
 }
 
 a {
-  color: #9c27b0;
+  color: #ffffff;
+  
 }
 
 a:hover,
