@@ -256,7 +256,7 @@ app.post('/estudianteMateria', (req, res) => {
 });
 
 //Redimensionar las imágenes del avatar
-app.post('/subirFotos', uploads, function(req, res, next){
+app.post('/subirFotos', uploads, (req, res, next) =>{
     let width = 800;
     let heigth = 600;
 
@@ -284,7 +284,7 @@ app.post('/crearMateria', (req, res) => {
 	});
 });
 
-app.post('/crearProfesor', urlencodedParser, function (req, res) {
+app.post('/crearProfesor', urlencodedParser, (req, res) => {
 	//datos de usuario
 	let user = req.body.user;
 	let avatar = req.body.avatar;
@@ -316,11 +316,11 @@ app.post('/crearProfesor', urlencodedParser, function (req, res) {
 	});
 })
 
-app.post('/loadLearning', aprendizajesExcel, function(req, res, next){
+app.post('/loadLearning', aprendizajesExcel, (req, res, next) =>{
     teacherFunctions.loadLearnings(req.file.path, con);
 });
 
-app.post('/crearPreceptor', urlencodedParser, function (req, res) {
+app.post('/crearPreceptor', urlencodedParser, (req, res) => {
 	//datos de usuario
 	let user = req.body.user;
 	let avatar = req.body.avatar;
@@ -348,7 +348,7 @@ app.post('/crearPreceptor', urlencodedParser, function (req, res) {
 })
 
 //Comparo la contraseña ingresada a la que esta encriptda en la DB para poder acceder al dashboard
-app.post('/login', function (req, res) {
+app.post('/login', (req, res) => {
 	let username = req.body.username;
 	let password = req.body.password;
 
@@ -392,7 +392,7 @@ app.post('/login', function (req, res) {
 	}
 });
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
 	res.status(404).render('404');
 });
 

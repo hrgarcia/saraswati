@@ -291,17 +291,17 @@
 							$("#listPending").empty();
 							for(let i = 0; i < res.length;i++){
 								if(res[i].estado == "aprobado"){
-									$(document).ready(function(){
+									$(document).ready(( ) =>{
 										$("#listApproved").append("<div class='list-group-item aprobado' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
 									});
 								}
 								else if(res[i].estado == "proceso"){
-									$(document).ready(function(){
+									$(document).ready(( ) =>{
 										$("#listProcess").append("<div class='list-group-item proceso' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
 									});
 								}
 								else{
-									$(document).ready(function(){
+									$(document).ready(( ) =>{
 										$("#listPending").append("<div class='list-group-item pendiente' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
 									});
 								}
