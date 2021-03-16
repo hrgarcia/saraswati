@@ -48,30 +48,40 @@
 				<!--Contenido principal acá -->
 				<div class="row">
 					<div class="col-md-12">
-						<div class="container fresh-table full-color-red">
+						<div class="container fresh-table full-color-table">
+							<div >
+								<h4 data-value="<%- data[0].id -%>" data-value2="<%- data[0].nombreMateria -%>"  data-value3="<%- data[0].curso_descripcion -%>" id="subjectName" >Estudiantes de la materia: <%- data[0].nombreMateria -%></h4>
+							</div>
 							<table id="fresh-table" class="table">
 								<thead>
 									<th data-field="name" data-sortable="true">Nombre</th>
 									<th data-field="surname" data-sortable="true">Apellido</th>
-									<th data-field="birt">Fecha de nacimiento
+									<th data-field="birt">
 										<i class="fa fa-calendar" aria-hidden="true"></i>
+										Fecha de nacimiento	
 									</th>
-									<th data-field="dni">DNI
+									<th data-field="dni">
 										<i class="fa fa-address-card" aria-hidden="true"></i>
+										DNI	
 									</th>
-									<th data-field="email">email
+									<th data-field="email">
 										<i class="fa fa-envelope" aria-hidden="true"></i>
+										email	
 									</th>
-									<th data-field="telephone">telefono
+									<th data-field="telephone">
 										<i class="fa fa-phone" aria-hidden="true"></i>
+										telefono	
 									</th>
-									<th data-field="genero">genero</th>
+									<th data-field="genero">
+										<i class="fas fa-venus-mars"></i>
+										genero
+									</th>
 									<th data-field="actions" data-formatter="operateFormatter"
-										data-events="operateEvents">Acciones
+										data-events="operateEvents">
 										<i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+										Acciones	
 									</th>
 								</thead>
-								<tbody>
 									<% data.forEach(function(Student){ %>
 									<tr>
 										<td><%-Student['nombre']%></td>
@@ -110,7 +120,6 @@
 								<div class=" text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px;">
                                     <div class="cardheader">Pendiente</div>
                                     <div id="listPending"class="cardcolor pendiente">
-										<p>hola</p>
 									</div>
 								</div>
 								
@@ -132,8 +141,8 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-3">
-								<button class="custom-btn btn-2">
+							<div id ="trashLearnings"class="col-md-3">
+								<button class="trash custom-btn btn-2">
 									<i class="fas fa-trash"></i>
 								</button>
 							</div>
@@ -144,7 +153,7 @@
 								
 							</div>
 							<div class="col-md-3">
-								<button class="custom-btn btn-2">
+								<button class="custom-btn btn-2" data-toggle="modal" data-target="#newLearning">
 									<i class="fas fa-plus"></i>
 								</button>
 							</div>
@@ -158,6 +167,27 @@
 				</div>
 			</div>
 		</div>
+
+		<div id ="newLearning" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 style="color:#070707" class="modal-title">Ingrese el nombre del aprendizaje</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<input type="text" name="learningName" id="inputNameLearning">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="addLearning([inputNameLearning.value])"data-dismiss="modal">Save changes</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<%- include('fragment/footer'); -%>
 	</div>
 	<%- include('fragment/scripts'); -%>
@@ -170,6 +200,7 @@
 		const listApproved = document.getElementById("listApproved");
 		const listProgress = document.getElementById("listProcess");
 		const listPending = document.getElementById("listPending");
+		var deleteLearnings = [];
 		
 		Sortable.create(listApproved, {
 			group: {
@@ -177,6 +208,7 @@
 			},
 			animation: 150,
 			easing:"cubic-bezier(0.895,0.03,0.685,0.22)",
+			chosenClass: "active",
 			onAdd: function (evt) {
 				//first time
 				if(evt.item.getAttribute('originLearn') == "" && evt.item.getAttribute('data-value') == 0){
@@ -194,6 +226,13 @@
 					evt.item.setAttribute('data-value','0');
 					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);	
 				}
+			},
+			onEnd: function (evt) {
+				if( evt.to.id == "trashLearnings"){
+					$(evt.item).remove();	
+					deleteLearnings.push(evt)
+					document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
+				}
 			}
 		});
 		Sortable.create(listProgress, {
@@ -202,6 +241,7 @@
 			},
 			animation: 150,
 			easing:"cubic-bezier(0.895,0.03,0.685,0.22)",
+			chosenClass: "active",
 			onAdd: function (evt) {
 				//first time
 				if(evt.item.getAttribute('originLearn') == "" && evt.item.getAttribute('data-value') == 0){
@@ -218,6 +258,13 @@
 				else if(evt.item.getAttribute('originLearn') == evt.to.getAttribute('id')){
 					evt.item.setAttribute('data-value','0');
 					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);	
+				}
+			},
+			onEnd: function (evt) {
+				if( evt.to.id == "trashLearnings"){
+					$(evt.item).remove();	
+					deleteLearnings.push(evt)
+					document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
 				}
 			}
 		});
@@ -228,6 +275,7 @@
 			},
 			animation: 150,
 			easing:"cubic-bezier(0.895,0.03,0.685,0.22)",
+			chosenClass: "active",
 			onAdd: function (evt) {
 				if(evt.item.getAttribute('originLearn') == "" && evt.item.getAttribute('data-value') == 0){
 					evt.item.setAttribute('data-value','1');
@@ -243,9 +291,24 @@
 					evt.item.setAttribute('data-value','0');
 					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);	
 				}
+			},
+			onEnd: function (evt) {
+				if( evt.to.id == "trashLearnings"){
+					$(evt.item).remove();	
+					deleteLearnings.push(evt)	
+					document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";				
+				}
 			}
 		});
-		
+		Sortable.create(trashLearnings, {
+			group: {
+				name: "statuslearning"
+			},
+			chosenClass: "active",
+			filter: ".trash",
+			sort: false,
+			put: false,
+		});
 	</script>
 	<script type="text/javascript">
 		var $table = $('#fresh-table')
@@ -268,13 +331,32 @@
 					}
 				}
 			}
-			console.log(infoLearnings["pendiente"].length);
 			if(infoLearnings["pendiente"].length > 0 || infoLearnings["proceso"].length > 0 || infoLearnings["aprobado"].length > 0){
-				$.get('guardarAprendizajes', { data: infoLearnings}, 
+				$.get('saveLearnings', { data: infoLearnings}, 
 				function(res){
-					document.getElementById("isChangedLearnState").innerHTML = "Los aprendizajes fueron guardados";
-			});
+					document.getElementById("isChangedLearnState").innerHTML = "Cambios guardados";
+				});
 			}
+			if(deleteLearnings.length > 0){
+				//detectar cual se borro y modificar la db
+				$.get('clearLearnings', { data: deleteLearnings[0].item.lastChild.innerHTML}, 
+				function(res){
+					document.getElementById("isChangedLearnState").innerHTML = "Cambios guardados";
+				});
+			}	
+		}
+		function addLearning(nameNewSubj) {
+			//id
+			nameNewSubj.push(document.getElementById("subjectName").getAttribute('data-value'))
+			//nombre de materia
+			nameNewSubj.push(document.getElementById("subjectName").getAttribute('data-value2'))
+			//curso
+			nameNewSubj.push(document.getElementById("subjectName").getAttribute('data-value3'))
+			$.get('addLearning', {nameNewSubj}, 
+				function(res){
+					$("#listPending").append("<div class='list-group-item pendiente' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>"+nameNewSubj[0]+"</p></div>");
+					document.getElementById("isChangedLearnState").innerHTML = "Se creo un nuevo aprendizaje";
+			});
 		}
 
 		window.operateEvents = {
@@ -283,7 +365,7 @@
 				console.log(value, row, index)
 			},
 			'click .edit': function (e, value, row, index) {
-				$.get('obtenerAprenzidajes', { dni: row.dni}, 
+				$.get('getLearnings', { dni: row.dni}, 
 					function(res){
 						if($('#learningsStudent').attr('data-value') != row.dni){
 							$("#listApproved").empty();

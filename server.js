@@ -94,8 +94,8 @@ app.get('/', (req, res) => {
 
 app.get('/dashboard', (req, res) => {
 	if (req.session.loggedin) {
-		let query = "SELECT * FROM materia  INNER JOIN profesor ON materia.profesor_usuario = profesor.usuario AND ? = materia.profesor_usuario";
-		con.query(query, [res.locals.username], function (error, rows, fields) {
+		let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.usuario AND ? = materia.profesor_usuario";
+		con.query(query, [res.locals.username], (error, rows, fields) =>   {
 			if (error) throw error;
 			res.render('dashboard.ejs', {
 				title: "Subjects",
@@ -115,7 +115,7 @@ app.get('/loadLearnings', (req, res) => {
 
 app.get('/profile', (req, res) => {
 	let query = "SELECT * FROM usuario";
-	con.query(query, function (error, rows, fields){
+	con.query(query, (error, rows, fields) =>  {
 		if (error) throw error;
 			res.render('profile.ejs',{
 				title: "Perfil",
@@ -138,7 +138,7 @@ app.get('/agregarUsuario', (req, res) => {
 
 app.get('/agregarMateria', (req, res) => {
 	let query = "SELECT usuario FROM profesor";
-	con.query(query, function (error, rows, fields) {
+	con.query(query, (error, rows, fields) =>   {
 		res.render('addSubject.ejs', {
 			title: "Teachers",
 			data: rows
@@ -164,7 +164,7 @@ app.get('/form', (req, res) => {
 
 app.get('/listarProfesores', (req, res) => {
 	let query = "SELECT * FROM profesor";
-	con.query(query, function (error, rows, fields) {
+	con.query(query, (error, rows, fields) =>   {
 		if (error) throw error;
 		res.render('listTeacher.ejs', {
 			title: "Profesores",
@@ -175,7 +175,7 @@ app.get('/listarProfesores', (req, res) => {
 
 app.get('/listarUsuarios', (req, res) => {
 	let query = "SELECT * FROM usuario, materia";
-	con.query(query, function (error, rows, fields) {
+	con.query(query, (error, rows, fields) =>   {
 		if (error) throw error;
 		res.render('listUser.ejs', {
 			title: "Usuario",
@@ -186,7 +186,7 @@ app.get('/listarUsuarios', (req, res) => {
 
 app.get('/myProfile', (req, res) => {
     let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
-    con.query(query, [res.locals.username] , function (error, rows, fields){
+    con.query(query, [res.locals.username] , (error, rows, fields) =>  {
         if (error) throw error;
         res.render('myProfile.ejs',{
             title: "Perfil",
@@ -195,14 +195,14 @@ app.get('/myProfile', (req, res) => {
 	});	
 });
 
-app.get('/obtenerAprenzidajes', (req, res) => {
+app.get('/getLearnings', (req, res) => {
 	let query = "SELECT * FROM estudianteaprendizaje WHERE estudianteaprendizaje.estudiante_dni = ?";
-    con.query(query, [req.query.dni] , function (error, rows, fields){
+    con.query(query, [req.query.dni] , (error, rows, fields) =>  {
 		if (error) throw error;
 		res.send(rows);
 	});	
 });
-app.get('/guardarAprendizajes', (req, res) => {
+app.get('/saveLearnings', (req, res) => {
 	let query = "UPDATE estudianteaprendizaje SET estado = ? WHERE estudianteaprendizaje.descripcion = ? AND estudianteaprendizaje.estudiante_dni = ?";
 	let dni=0;
 	for(let key in req.query.data) {
@@ -211,7 +211,7 @@ app.get('/guardarAprendizajes', (req, res) => {
 		}
 		else{
 			for(let i = 0; i <req.query.data[key].length;i++){
-				con.query(query, [key,req.query.data[key][i].name,dni], function (error, rows, fields){
+				con.query(query, [key,req.query.data[key][i].name,dni], (error, rows, fields) =>  {
 				if (error) throw error;
 				});	
 			}
@@ -220,10 +220,46 @@ app.get('/guardarAprendizajes', (req, res) => {
 	res.send("");
 	
 });
+app.get('/clearLearnings', (req, res) => {
+
+	let query1 = "DELETE FROM aprendizajes WHERE descripcion = ?";
+	con.query(query1, [req.query.data], (error, rows, fields) =>  {
+		if (error) throw error;
+	});	
+
+	let query2 = "DELETE FROM estudianteaprendizaje WHERE descripcion = ?";
+	con.query(query2, [req.query.data], (error, rows, fields) =>  {
+		if (error) throw error;
+	});
+
+	res.send("");
+});
+
+app.get('/addLearning', (req, res) => {
+	//creo el aprendizaje en la tabla aprendizajes
+	let query1 = "INSERT INTO aprendizajes (descripcion,id_materia) VALUES (?, ?)";
+	con.query(query1, [req.query.nameNewSubj[0],req.query.nameNewSubj[1]], (error, rows, fields) =>  {
+		if (error) throw error;
+	});	
+	//busco los dni de todos los alumnos de esta materia
+	let query2 = "SELECT dni FROM estudiante WHERE descripcion_curso = ?";
+	con.query(query2, [req.query.nameNewSubj[3]], (error, rows, fields) =>  {
+		if (error) throw error;
+		//con un for creo cada aprendizaje para cada alumno
+		for (let i = 0; i < rows.length; i++) {
+			let query3 = "INSERT INTO estudianteaprendizaje (descripcion,estado,estudiante_dni) VALUES (?,?,?)";
+			con.query(query3, [req.query.nameNewSubj[0],"pendiente",rows[i].dni], (error, rows, fields) =>  {
+				if (error) throw error;
+			});
+		}
+	});
+
+	res.send("");
+});
 
 app.get('/edit', (req, res) => {
     let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
-    con.query(query, [res.locals.username] , function (error, rows, fields){
+    con.query(query, [res.locals.username] , (error, rows, fields) =>  {
         if (error) throw error;
         res.render('edit.ejs',{
             title: "Perfil",
@@ -237,20 +273,18 @@ app.post('/estudianteMateria', (req, res) => {
     // Query para pasar los aprendizajes
     let learningRows;
     let queryLearning = "SELECT descripcion, id_materia FROM aprendizajes INNER JOIN materia ON  materia.id = aprendizajes.id_materia";
-    con.query(queryLearning, [], function (error, rows, fields) {
+    con.query(queryLearning, [], (error, rows, fields) =>   {
         if (error) throw error;
         learningRows = rows;
     });
 
     let course = req.body.course;
     let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.curso_descripcion = ? AND estudiante.descripcion_curso = ? ";
-    con.query(query, [course,course], function (error, rows, fields) {
+    con.query(query, [course,course], (error, rows, fields) =>   {
         if (error) throw error;
         res.render('listStudent.ejs', {
             title: "Student",
-            data: rows,
-            title: "Learnings",
-            data2: learningRows
+            data: rows
         });
     });
 });
@@ -278,7 +312,7 @@ app.post('/crearMateria', (req, res) => {
 	let teacherUser = req.body.teacherUser;
 
 	let query = "INSERT INTO materia (nombre,imagen,horasCatedra,profesor_usuario) VALUES (?,?,?,?);"
-	con.query(query,[name,image,teachingHours,teacherUser], function (error, rows, fields) {
+	con.query(query,[name,image,teachingHours,teacherUser], (error, rows, fields) =>   {
 		if (error) throw error;
 		res.render('dashboard.ejs');	
 	});
@@ -302,14 +336,14 @@ app.post('/crearProfesor', urlencodedParser, (req, res) => {
 	let state = req.body.state;
 
 	let query = "INSERT INTO profesor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?);";
-	con.query(query, [user, name, lastName, dni, telephone, email, gender, birth, entry, state], function (error, rows, fields) {
+	con.query(query, [user, name, lastName, dni, telephone, email, gender, birth, entry, state], (error, rows, fields) =>   {
 		if (error) throw error;
 	});
 
 	bcrypt.hash(req.body.password, salt, (err, encrypted) => {
 		let password = encrypted;
 		let query2 = "INSERT INTO usuario (nombreUsuario,pass,avatar) VALUES (?,?,?);";
-		con.query(query2, [user, password, avatar], function (error, rows, fields) {
+		con.query(query2, [user, password, avatar], (error, rows, fields) =>   {
 			if (error) throw error;
 			res.render('dashboard.ejs');
 		});
@@ -340,7 +374,7 @@ app.post('/crearPreceptor', urlencodedParser, (req, res) => {
 	bcrypt.hash(req.body.password, salt, (err, encrypted) => {
 		let password = encrypted;
 		let query2 = "INSERT INTO usuario (nombreUsuario,pass,avatar) VALUES (?,?,?);";
-		con.query(query2, [user, password, avatar], function (error, rows, fields) {
+		con.query(query2, [user, password, avatar], (error, rows, fields) =>   {
 			if (error) throw error;
 			res.render('dashboard.ejs');
 		});
@@ -354,13 +388,13 @@ app.post('/login', (req, res) => {
 
 	if (username && password) {
 		let query = 'SELECT * FROM usuario WHERE nombreUsuario = ?';
-		con.query(query, [username], function (error, rows, fields) {
+		con.query(query, [username], (error, rows, fields) =>   {
 			if (rows.length > 0) {
 				bcrypt.compare(password, rows[0]['pass'], function (err, row) {
 					if (row) {
 						req.session.loggedin = true; 
 						let query2 = 'SELECT nombre FROM rol INNER JOIN usuario ON ? = rol.nombreUsuario AND rol.nombreUsuario = usuario.nombreUsuario ';
-						con.query(query2,[username], function (error, rows, fields) {
+						con.query(query2,[username], (error, rows, fields) =>   {
 							let arrRol = [];
 							for (let i = 0; i < rows.length; i++) {
 								arrRol.push(rows[i].nombre);
@@ -387,7 +421,7 @@ app.post('/login', (req, res) => {
 		});
 	}
 	else{
-		console.log("ingresa lgo");
+		console.log("ingresa algo");
 		//aca iria el toastr (si o si tenes que escribir un usuario y contraseña)
 	}
 });
