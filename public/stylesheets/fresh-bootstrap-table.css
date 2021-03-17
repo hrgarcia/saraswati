@@ -1613,6 +1613,9 @@ td{
 .color-icon{
   color: #86bef9;
 }
-
-
+.panel-table{
+  font-size: 1.7rem;
+  font-weight: 200;
+  font-family:"Latin Modern Roman 10";
+}
 /*# sourceMappingURL=fresh-bootstrap-table.css.map */
