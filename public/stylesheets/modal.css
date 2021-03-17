@@ -18,13 +18,13 @@
     min-height: 100vh;
 }
 .fa-edit:before {
-    color: #3535dc;
+    color: #ffffffd4;;
 }
 .fa-remove:before {
-    color: #7d061d;
+    color: #ffffffd4;;
 }
 .fa-heart:before {
-    color:#1b0758;
+    color:#ffffffd4;;
 }
 .custom-btn {
     width: 150px;
