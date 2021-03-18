@@ -332,14 +332,14 @@
 				}
 			}
 			if(infoLearnings["pendiente"].length > 0 || infoLearnings["proceso"].length > 0 || infoLearnings["aprobado"].length > 0){
-				$.get('saveLearnings', { data: infoLearnings}, 
+				$.get('guardarAprendizajes', { data: infoLearnings}, 
 				function(res){
 					document.getElementById("isChangedLearnState").innerHTML = "Cambios guardados";
 				});
 			}
 			if(deleteLearnings.length > 0){
 				//detectar cual se borro y modificar la db
-				$.get('clearLearnings', { data: deleteLearnings[0].item.lastChild.innerHTML}, 
+				$.get('borrarAprendizajes', { data: deleteLearnings[0].item.lastChild.innerHTML}, 
 				function(res){
 					document.getElementById("isChangedLearnState").innerHTML = "Cambios guardados";
 				});
@@ -352,7 +352,7 @@
 			nameNewSubj.push(document.getElementById("subjectName").getAttribute('data-value2'))
 			//curso
 			nameNewSubj.push(document.getElementById("subjectName").getAttribute('data-value3'))
-			$.get('addLearning', {nameNewSubj}, 
+			$.get('agregarAprendizajes', {nameNewSubj}, 
 				function(res){
 					$("#listPending").append("<div class='list-group-item pendiente' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>"+nameNewSubj[0]+"</p></div>");
 					document.getElementById("isChangedLearnState").innerHTML = "Se creo un nuevo aprendizaje";
@@ -365,7 +365,7 @@
 				console.log(value, row, index)
 			},
 			'click .edit': function (e, value, row, index) {
-				$.get('getLearnings', { dni: row.dni}, 
+				$.get('obtenerAprendizajes', { dni: row.dni}, 
 					function(res){
 						if($('#learningsStudent').attr('data-value') != row.dni){
 							$("#listApproved").empty();

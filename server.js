@@ -9,14 +9,14 @@ const sharp = require('sharp');
 const teacherFunctions = require('./external/teacherFunctions');
 const conection = require('./config/db');
 
-// sirve para obtener el nombre del archivo
+//Obtain the name of the file
 const storage = multer.diskStorage({
 
     filename: function(req, file, cb){
 		cb(null, file.originalname);
 	}});
 
-// upload contiene storage y verifica que el contenido de storage venga del archivo formularioImagen.ejs, limita su subida a 1 MB y que sea el formato apropiado
+//Upload contains storage and verify that the storage content comes from the formImagen.ejs file, limits its upload to 1 MB and that it is the appropriate format
 var uploads = multer({
 	storage : storage,
 	limits: { fileSize: 1 * 1024 * 1024}, 
@@ -36,7 +36,6 @@ const storageAprendizajes = multer.diskStorage({
 		cb(null, file.originalname);
 	}});
 
-// upload contiene storage y verifica que el contenido de storage venga del archivo formularioImagen.ejs, limita su subida a 1 MB y que sea el formato apropiado
 var aprendizajesExcel = multer({
 	storage : storageAprendizajes,
 	fileFilter: function (req, file, cb) {
@@ -49,7 +48,7 @@ var aprendizajesExcel = multer({
 
 }}).single('aprendizajes');
 
-// parse application/x-www-form-urlencoded
+//Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
 	extended: false
 }));
@@ -68,7 +67,7 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-//hacemos que la variable Rol sea global
+//Global variables
 app.use(function (req, res, next) {
 	res.locals.rol = req.session.rol;
 	res.locals.username = req.session.username;
@@ -81,13 +80,12 @@ var urlencodedParser = bodyParser.urlencoded({
 
 var con = conection.connection();
 
-//Configuración
+//Setting
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-//Fin configuración
 
 
-//Rutas
+//Routes
 app.get('/', (req, res) => {
 	res.render('login.ejs');
 });
@@ -109,18 +107,8 @@ app.get('/formularioImagen', (req, res) => {
     res.render('formularioImagen.ejs');
 });
 
-app.get('/loadLearnings', (req, res) => {
+app.get('/cargarAprendizajes', (req, res) => {
     res.render('loadLearning.ejs');
-});
-
-app.get('/profile', (req, res) => {
-	let query = "SELECT * FROM usuario";
-	con.query(query, (error, rows, fields) =>  {
-		if (error) throw error;
-			res.render('profile.ejs',{
-				title: "Perfil",
-				data: rows});
-	});
 });
 
 app.get('/logout', (req, res) => {
@@ -184,7 +172,7 @@ app.get('/listarUsuarios', (req, res) => {
 	});
 });
 
-app.get('/myProfile', (req, res) => {
+app.get('/miPerfil', (req, res) => {
     let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
     con.query(query, [res.locals.username] , (error, rows, fields) =>  {
         if (error) throw error;
@@ -195,14 +183,15 @@ app.get('/myProfile', (req, res) => {
 	});	
 });
 
-app.get('/getLearnings', (req, res) => {
+app.get('/obtenerAprendizajes', (req, res) => {
 	let query = "SELECT * FROM estudianteaprendizaje WHERE estudianteaprendizaje.estudiante_dni = ?";
     con.query(query, [req.query.dni] , (error, rows, fields) =>  {
 		if (error) throw error;
 		res.send(rows);
 	});	
 });
-app.get('/saveLearnings', (req, res) => {
+
+app.get('/guardarAprendizajes', (req, res) => {
 	let query = "UPDATE estudianteaprendizaje SET estado = ? WHERE estudianteaprendizaje.descripcion = ? AND estudianteaprendizaje.estudiante_dni = ?";
 	let dni=0;
 	for(let key in req.query.data) {
@@ -220,7 +209,8 @@ app.get('/saveLearnings', (req, res) => {
 	res.send("");
 	
 });
-app.get('/clearLearnings', (req, res) => {
+
+app.get('/borrarAprendizajes', (req, res) => {
 
 	let query1 = "DELETE FROM aprendizajes WHERE descripcion = ?";
 	con.query(query1, [req.query.data], (error, rows, fields) =>  {
@@ -235,17 +225,17 @@ app.get('/clearLearnings', (req, res) => {
 	res.send("");
 });
 
-app.get('/addLearning', (req, res) => {
-	//creo el aprendizaje en la tabla aprendizajes
+app.get('/agregarAprendizajes', (req, res) => {
+	//I create the learning in the learning table
 	let query1 = "INSERT INTO aprendizajes (descripcion,id_materia) VALUES (?, ?)";
 	con.query(query1, [req.query.nameNewSubj[0],req.query.nameNewSubj[1]], (error, rows, fields) =>  {
 		if (error) throw error;
 	});	
-	//busco los dni de todos los alumnos de esta materia
+	//Look for the IDs of all students in this subject
 	let query2 = "SELECT dni FROM estudiante WHERE descripcion_curso = ?";
 	con.query(query2, [req.query.nameNewSubj[3]], (error, rows, fields) =>  {
 		if (error) throw error;
-		//con un for creo cada aprendizaje para cada alumno
+		//With a for I create each learning for each student
 		for (let i = 0; i < rows.length; i++) {
 			let query3 = "INSERT INTO estudianteaprendizaje (descripcion,estado,estudiante_dni) VALUES (?,?,?)";
 			con.query(query3, [req.query.nameNewSubj[0],"pendiente",rows[i].dni], (error, rows, fields) =>  {
@@ -257,7 +247,7 @@ app.get('/addLearning', (req, res) => {
 	res.send("");
 });
 
-app.get('/edit', (req, res) => {
+app.get('/editarPerfil', (req, res) => {
     let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
     con.query(query, [res.locals.username] , (error, rows, fields) =>  {
         if (error) throw error;
@@ -268,9 +258,9 @@ app.get('/edit', (req, res) => {
     });
 });
 
-//Devuelve todos los estudiante de la materia seleccionada
+//Returns all students of the selected subject
 app.post('/estudianteMateria', (req, res) => {
-    // Query para pasar los aprendizajes
+    //Query to pass the learnings
     let learningRows;
     let queryLearning = "SELECT descripcion, id_materia FROM aprendizajes INNER JOIN materia ON  materia.id = aprendizajes.id_materia";
     con.query(queryLearning, [], (error, rows, fields) =>   {
@@ -289,7 +279,7 @@ app.post('/estudianteMateria', (req, res) => {
     });
 });
 
-//Redimensionar las imágenes del avatar
+//Resize avatar images
 app.post('/subirFotos', uploads, (req, res, next) =>{
     let width = 800;
     let heigth = 600;
@@ -319,12 +309,12 @@ app.post('/crearMateria', (req, res) => {
 });
 
 app.post('/crearProfesor', urlencodedParser, (req, res) => {
-	//datos de usuario
+	//User Data
 	let user = req.body.user;
 	let avatar = req.body.avatar;
-	let salt = 10; //valor estandar
+	let salt = 10; //Standar value
 
-	//datos de profe
+	//Teacher data
 	let name = req.body.name;
 	let lastName = req.body.lastName
 	let dni = req.body.dni;
@@ -350,38 +340,11 @@ app.post('/crearProfesor', urlencodedParser, (req, res) => {
 	});
 })
 
-app.post('/loadLearning', aprendizajesExcel, (req, res, next) =>{
-    teacherFunctions.loadLearnings(req.file.path, con);
+app.post('/cargarAprenzaje', aprendizajesExcel, (req, res, next) =>{
+    teacherFunctions.cargarAprendizajes(req.file.path, con);
 });
 
-app.post('/crearPreceptor', urlencodedParser, (req, res) => {
-	//datos de usuario
-	let user = req.body.user;
-	let avatar = req.body.avatar;
-	let salt = 10; //valor estandar
-
-	//datos del preceptor
-	let name = req.body.name;
-	let lastName = req.body.lastName
-	let dni = req.body.dni;
-	let telephone = req.body.telephone;
-	let email = req.body.email;
-	let gender = req.body.gender;
-	let birth = req.body.birth;
-	let entry = req.body.entry;
-	let state = req.body.state;
-
-	bcrypt.hash(req.body.password, salt, (err, encrypted) => {
-		let password = encrypted;
-		let query2 = "INSERT INTO usuario (nombreUsuario,pass,avatar) VALUES (?,?,?);";
-		con.query(query2, [user, password, avatar], (error, rows, fields) =>   {
-			if (error) throw error;
-			res.render('dashboard.ejs');
-		});
-	});
-})
-
-//Comparo la contraseña ingresada a la que esta encriptda en la DB para poder acceder al dashboard
+//I compare the password entered to the one encrypted in the DB to be able to access the dashboard
 app.post('/login', (req, res) => {
 	let username = req.body.username;
 	let password = req.body.password;
@@ -416,13 +379,13 @@ app.post('/login', (req, res) => {
 			}
 			else{
 				console.log("credenciales incorrectas");
-				//aca iria el toastr (credenciales incorrectas)
+				//toastr (wrong credentials)
 			}
 		});
 	}
 	else{
 		console.log("ingresa algo");
-		//aca iria el toastr (si o si tenes que escribir un usuario y contraseña)
+		//toastr (you have to write a username and password)
 	}
 });
 
@@ -430,7 +393,7 @@ app.use((req, res, next) => {
 	res.status(404).render('404');
 });
 
-//Fin Rutas
+//End routes
 app.listen(2500, () => {
 	console.log("El servidor corriendo en el puerto 2500");
 });
