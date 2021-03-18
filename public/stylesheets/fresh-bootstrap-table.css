@@ -117,7 +117,10 @@
   vertical-align: bottom;
   overflow: hidden;
   text-overflow: ellipsis;
+  background-color: #1cb3f54f;
   white-space: nowrap;
+  border-radius: 4em;
+
 }
 .bootstrap-table .fixed-table-container .table thead th .sortable {
   cursor: pointer;
@@ -1604,12 +1607,15 @@ th{
 td{
   color:#ffffff;
   text-shadow: 0.4px 0.4px #000000;
+  margin-left: auto;
+  margin-right: auto;
 }
-
+.color-icon{
+  color: #86bef9;
+}
 .panel-table{
   font-size: 1.7rem;
   font-weight: 200;
   font-family:"Latin Modern Roman 10";
 }
-
 /*# sourceMappingURL=fresh-bootstrap-table.css.map */
