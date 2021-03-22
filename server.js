@@ -9,18 +9,18 @@ const sharp = require('sharp');
 const teacherFunctions = require('./external/teacherFunctions');
 const conection = require('./config/db');
 
-// sirve para obtener el nombre del archivo
+// Obtain the name of the file
 const storage = multer.diskStorage({
 
-    filename: function(req, file, cb){
+    filename: (req, file, cb) => {
 		cb(null, file.originalname);
 	}});
 
-// upload contiene storage y verifica que el contenido de storage venga del archivo formularioImagen.ejs, limita su subida a 1 MB y que sea el formato apropiado
-var uploads = multer({
+// Upload contains storage and verify that the storage content comes from the formImagen.ejs file, limits its upload to 1 MB and that it is the appropriate format
+	var uploads = multer({
 	storage : storage,
 	limits: { fileSize: 1 * 1024 * 1024}, 
-	fileFilter: function (req, file, cb) {
+	fileFilter: (req, file, cb) => {
 	if(path.extname(file.originalname) !== '.png' && path.extname(file.originalname) !== '.jpg' && path.extname(file.originalname) !== '.gif' && path.extname(file.originalname) !== '.jpeg') {
 		console.log("no es una imagen");
 	}
@@ -32,14 +32,13 @@ var uploads = multer({
 
 const storageAprendizajes = multer.diskStorage({
 
-    filename: function(req, file, cb){
+    filename: (req, file, cb) => {
 		cb(null, file.originalname);
 	}});
 
-// upload contiene storage y verifica que el contenido de storage venga del archivo formularioImagen.ejs, limita su subida a 1 MB y que sea el formato apropiado
 var aprendizajesExcel = multer({
 	storage : storageAprendizajes,
-	fileFilter: function (req, file, cb) {
+	fileFilter: (req, file, cb) => {
 	if(path.extname(file.originalname) !== '.xlsx') {
 		console.log("no es un excel");
 	}
@@ -49,14 +48,14 @@ var aprendizajesExcel = multer({
 
 }}).single('aprendizajes');
 
-// parse application/x-www-form-urlencoded
+// Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
 	extended: false
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Bootstrap requirements
+// Bootstrap requirements
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/js', express.static(__dirname + '/node_modules/popper.js/dist'));
@@ -68,8 +67,8 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-//hacemos que la variable Rol sea global
-app.use(function (req, res, next) {
+// Global variables
+app.use((req, res, next) => {
 	res.locals.rol = req.session.rol;
 	res.locals.username = req.session.username;
 	res.locals.toastrFlag = req.session.toastrFlag;
@@ -81,13 +80,13 @@ var urlencodedParser = bodyParser.urlencoded({
 
 var con = conection.connection();
 
-//Configuración
+// Settings
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-//Fin configuración
+// End Settings
 
 
-//Rutas
+// Routes 
 app.get('/', (req, res) => {
 	res.render('login.ejs');
 });
@@ -95,7 +94,7 @@ app.get('/', (req, res) => {
 app.get('/dashboard', (req, res) => {
 	if (req.session.loggedin) {
 		let query = "SELECT * FROM materia  INNER JOIN profesor ON materia.profesor_usuario = profesor.usuario AND ? = materia.profesor_usuario";
-		con.query(query, [res.locals.username], function (error, rows, fields) {
+		con.query(query, [res.locals.username], (error, rows, fields) => {
 			if (error) throw error;
 			res.render('dashboard.ejs', {
 				title: "Subjects",
@@ -109,18 +108,8 @@ app.get('/formularioImagen', (req, res) => {
     res.render('formularioImagen.ejs');
 });
 
-app.get('/loadLearnings', (req, res) => {
+app.get('/cargarAprendizajes', (req, res) => {
     res.render('loadLearning.ejs');
-});
-
-app.get('/profile', (req, res) => {
-	let query = "SELECT * FROM usuario";
-	con.query(query, function (error, rows, fields){
-		if (error) throw error;
-			res.render('profile.ejs',{
-				title: "Perfil",
-				data: rows});
-	});
 });
 
 app.get('/logout', (req, res) => {
@@ -138,7 +127,7 @@ app.get('/agregarUsuario', (req, res) => {
 
 app.get('/agregarMateria', (req, res) => {
 	let query = "SELECT usuario FROM profesor";
-	con.query(query, function (error, rows, fields) {
+	con.query(query, (error, rows, fields) => {
 		res.render('addSubject.ejs', {
 			title: "Teachers",
 			data: rows
@@ -164,7 +153,7 @@ app.get('/form', (req, res) => {
 
 app.get('/listarProfesores', (req, res) => {
 	let query = "SELECT * FROM profesor";
-	con.query(query, function (error, rows, fields) {
+	con.query(query, (error, rows, fields) => {
 		if (error) throw error;
 		res.render('listTeacher.ejs', {
 			title: "Profesores",
@@ -175,7 +164,7 @@ app.get('/listarProfesores', (req, res) => {
 
 app.get('/listarUsuarios', (req, res) => {
 	let query = "SELECT * FROM usuario, materia";
-	con.query(query, function (error, rows, fields) {
+	con.query(query, (error, rows, fields) => {
 		if (error) throw error;
 		res.render('listUser.ejs', {
 			title: "Usuario",
@@ -184,20 +173,17 @@ app.get('/listarUsuarios', (req, res) => {
 	});
 });
 
-app.get('/myProfile', (req, res) => {
+app.get('/miPerfil', (req, res) => {
     let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
-    con.query(query, [res.locals.username] , function (error, rows, fields){
+    con.query(query, [res.locals.username] , (error, rows, fields) =>  {
         if (error) throw error;
-        res.render('myProfile.ejs',{
-            title: "Perfil",
-			data: rows
-		});
 	});	
 });
 
-app.get('/obtenerAprenzidajes', (req, res) => {
+
+app.get('/obtenerAprendizajes', (req, res) => {
 	let query = "SELECT * FROM estudianteaprendizaje WHERE estudianteaprendizaje.estudiante_dni = ?";
-    con.query(query, [req.query.dni] , function (error, rows, fields){
+    con.query(query, [req.query.dni] , (error, rows, fields) => {
 		if (error) throw error;
 		res.send(rows);
 	});	
@@ -211,7 +197,7 @@ app.get('/guardarAprendizajes', (req, res) => {
 		}
 		else{
 			for(let i = 0; i <req.query.data[key].length;i++){
-				con.query(query, [key,req.query.data[key][i].name,dni], function (error, rows, fields){
+				con.query(query, [key,req.query.data[key][i].name,dni], (error, rows, fields) => {
 				if (error) throw error;
 				});	
 			}
@@ -219,6 +205,44 @@ app.get('/guardarAprendizajes', (req, res) => {
 	}
 	res.send("");
 	
+});
+
+app.get('/agregarAprendizajes', (req, res) => {
+	// Create the learning in the learning table
+	let query1 = "INSERT INTO aprendizajes (descripcion,id_materia) VALUES (?, ?)";
+	con.query(query1, [req.query.nameNewSubj[0],req.query.nameNewSubj[1]], (error, rows, fields) =>  {
+		if (error) throw error;
+	});	
+	// Search for the IDs of all students in this subject
+	let query2 = "SELECT dni FROM estudiante WHERE descripcion_curso = ?";
+	con.query(query2, [req.query.nameNewSubj[3]], (error, rows, fields) =>  {
+		if (error) throw error;
+		// With a for I create each learning for each student
+		for (let i = 0; i < rows.length; i++) {
+			let query3 = "INSERT INTO estudianteaprendizaje (descripcion,estado,estudiante_dni) VALUES (?,?,?)";
+			con.query(query3, [req.query.nameNewSubj[0],"pendiente",rows[i].dni], (error, rows, fields) =>  {
+				if (error) throw error;
+			});
+		}
+	});
+
+	res.send("");
+});
+
+app.get('/borrarAprendizajes', (req, res) => {
+	let query1 = "DELETE FROM aprendizajes WHERE descripcion = ?";
+	let query2 = "DELETE FROM estudianteaprendizaje WHERE descripcion = ?";
+	for (let i = 0; i < req.query.data.length; i++) {
+		con.query(query1, [req.query.data[i]], (error, rows, fields) =>  {
+			if (error) throw error;
+		});	
+		
+		con.query(query2, [req.query.data[i]], (error, rows, fields) =>  {
+			if (error) throw error;
+		});
+	}
+
+	res.send("");
 });
 
 app.get('/cambiarEstadoToastr', (req, res) => {
@@ -231,9 +255,9 @@ app.get('/estadoToastr', (req,res) => {
 	res.send(res.locals.toastrFlag)
 });
 
-app.get('/edit', (req, res) => {
+app.get('/editarPerfil', (req, res) => {
     let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
-    con.query(query, [res.locals.username] , function (error, rows, fields){
+    con.query(query, [res.locals.username] , (error, rows, fields) => {
         if (error) throw error;
         res.render('edit.ejs',{
             title: "Perfil",
@@ -242,19 +266,19 @@ app.get('/edit', (req, res) => {
     });
 });
 
-//Devuelve todos los estudiante de la materia seleccionada
+// Returns all students of the selected subject
 app.post('/estudianteMateria', (req, res) => {
-    // Query para pasar los aprendizajes
+    // Query to pass the learnings
     let learningRows;
     let queryLearning = "SELECT descripcion, id_materia FROM aprendizajes INNER JOIN materia ON  materia.id = aprendizajes.id_materia";
-    con.query(queryLearning, [], function (error, rows, fields) {
+    con.query(queryLearning, (error, rows, fields) => {
         if (error) throw error;
         learningRows = rows;
     });
 
     let course = req.body.course;
     let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.curso_descripcion = ? AND estudiante.descripcion_curso = ? ";
-    con.query(query, [course,course], function (error, rows, fields) {
+    con.query(query, [course,course], (error, rows, fields) => {
         if (error) throw error;
         res.render('listStudent.ejs', {
             title: "Student",
@@ -265,14 +289,14 @@ app.post('/estudianteMateria', (req, res) => {
     });
 });
 
-//Redimensionar las imágenes del avatar
+// Resize avatar images
 app.post('/subirFotos', uploads, (req, res, next) =>{
     let width = 800;
     let heigth = 600;
 
     sharp(req.file.path)
     .resize(width, heigth)
-    .toFile('public/images/icons/avatar_'+req.file.originalname, function (err) {
+    .toFile('public/images/icons/avatar_'+req.file.originalname, (err) => {
         if(!err) {
             console.log("El archivo se subio correctamente");
         res.end();
@@ -280,7 +304,7 @@ app.post('/subirFotos', uploads, (req, res, next) =>{
     })
 })
 
-// Creación de materia
+// Create subject
 app.post('/crearMateria', (req, res) => {
 	let name = req.body.name;
 	let image = req.body.image;
@@ -288,19 +312,19 @@ app.post('/crearMateria', (req, res) => {
 	let teacherUser = req.body.teacherUser;
 
 	let query = "INSERT INTO materia (nombre,imagen,horasCatedra,profesor_usuario) VALUES (?,?,?,?);"
-	con.query(query,[name,image,teachingHours,teacherUser], function (error, rows, fields) {
+	con.query(query,[name,image,teachingHours,teacherUser], (error, rows, fields) => {
 		if (error) throw error;
 		res.render('dashboard.ejs');	
 	});
 });
 
 app.post('/crearProfesor', urlencodedParser, (req, res) => {
-	//datos de usuario
+	// User Data
 	let user = req.body.user;
 	let avatar = req.body.avatar;
-	let salt = 10; //valor estandar
+	let salt = 10; // Standar value
 
-	//datos de profe
+	// Teacher data
 	let name = req.body.name;
 	let lastName = req.body.lastName
 	let dni = req.body.dni;
@@ -312,65 +336,38 @@ app.post('/crearProfesor', urlencodedParser, (req, res) => {
 	let state = req.body.state;
 
 	let query = "INSERT INTO profesor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?);";
-	con.query(query, [user, name, lastName, dni, telephone, email, gender, birth, entry, state], function (error, rows, fields) {
+	con.query(query, [user, name, lastName, dni, telephone, email, gender, birth, entry, state], (error, rows, fields) => {
 		if (error) throw error;
 	});
 
 	bcrypt.hash(req.body.password, salt, (err, encrypted) => {
 		let password = encrypted;
 		let query2 = "INSERT INTO usuario (nombreUsuario,pass,avatar) VALUES (?,?,?);";
-		con.query(query2, [user, password, avatar], function (error, rows, fields) {
+		con.query(query2, [user, password, avatar], (error, rows, fields) => {
 			if (error) throw error;
 			res.render('dashboard.ejs');
 		});
 	});
 })
 
-app.post('/loadLearning', aprendizajesExcel, (req, res, next) =>{
-    teacherFunctions.loadLearnings(req.file.path, con);
+app.post('/cargarAprendizaje', aprendizajesExcel, (req, res, next) =>{
+    teacherFunctions.cargarAprendizajes(req.file.path, con);
 });
 
-app.post('/crearPreceptor', urlencodedParser, (req, res) => {
-	//datos de usuario
-	let user = req.body.user;
-	let avatar = req.body.avatar;
-	let salt = 10; //valor estandar
-
-	//datos del preceptor
-	let name = req.body.name;
-	let lastName = req.body.lastName
-	let dni = req.body.dni;
-	let telephone = req.body.telephone;
-	let email = req.body.email;
-	let gender = req.body.gender;
-	let birth = req.body.birth;
-	let entry = req.body.entry;
-	let state = req.body.state;
-
-	bcrypt.hash(req.body.password, salt, (err, encrypted) => {
-		let password = encrypted;
-		let query2 = "INSERT INTO usuario (nombreUsuario,pass,avatar) VALUES (?,?,?);";
-		con.query(query2, [user, password, avatar], function (error, rows, fields) {
-			if (error) throw error;
-			res.render('dashboard.ejs');
-		});
-	});
-})
-
-//Comparo la contraseña ingresada a la que esta encriptda en la DB para poder acceder al dashboard
+//I compare the password entered to the one encrypted in the DB to be able to access the dashboard
 app.post('/login', (req, res) => {
 	let username = req.body.username;
 	let password = req.body.password;
 
 	if (username && password) {
 		let query = 'SELECT * FROM usuario WHERE nombreUsuario = ?';
-		con.query(query, [username], function (error, rows, fields) {
+		con.query(query, [username], (error, rows, fields) => {
 			if (rows.length > 0) {
-				bcrypt.compare(password, rows[0]['pass'], function (err, row) {
+				bcrypt.compare(password, rows[0]['pass'], (err, row) => {
 					if (row) {
 						req.session.loggedin = true; 
 						let query2 = 'SELECT nombre FROM rol INNER JOIN usuario ON ? = rol.nombreUsuario AND rol.nombreUsuario = usuario.nombreUsuario ';
-						con.query(query2,[username], function (error, rows, fields) {
+						con.query(query2,[username], (error, rows, fields) => {
 							let arrRol = [];
 							for (let i = 0; i < rows.length; i++) {
 								arrRol.push(rows[i].nombre);
@@ -392,13 +389,13 @@ app.post('/login', (req, res) => {
 			}
 			else{
 				console.log("credenciales incorrectas");
-				//aca iria el toastr (credenciales incorrectas)
+				// Toastr (wrong credentials)
 			}
 		});
 	}
 	else{
 		console.log("ingresa lgo");
-		//aca iria el toastr (si o si tenes que escribir un usuario y contraseña)
+		// Toastr (you have to write a username and password)
 	}
 });
 
@@ -406,7 +403,7 @@ app.use((req, res, next) => {
 	res.status(404).render('404');
 });
 
-//Fin Rutas
+// End routes
 app.listen(2500, () => {
 	console.log("El servidor corriendo en el puerto 2500");
 });

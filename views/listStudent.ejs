@@ -339,9 +339,14 @@
 			}
 			if(deleteLearnings.length > 0){
 				//detectar cual se borro y modificar la db
-				$.get('borrarAprendizajes', { data: deleteLearnings[0].item.lastChild.innerHTML}, 
+				for (let i = 0; i < deleteLearnings.length; i++) {
+					deleteLearnings[i] = deleteLearnings[i].item.lastChild.innerHTML
+					
+				}
+				$.get('borrarAprendizajes', { data: deleteLearnings}, 
 				function(res){
 					document.getElementById("isChangedLearnState").innerHTML = "Cambios guardados";
+					deleteLearnings=[]; 
 				});
 			}	
 		}
