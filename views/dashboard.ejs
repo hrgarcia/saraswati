@@ -42,37 +42,35 @@
 
 <body>
 	<%- include('fragment/sidebar'); -%>
-	<div class="main-panel">
+	<div data-value="<%-username%>"id="main-panel"class="main-panel">
 		<!--  contenido   -->
-		<div id="1" style="visibility: hidden"><%-username%></div>
-		<div id="2" style="visibility: hidden"><%-toastrFlag%></div>
-
 
 		<div class="content">
 			<%- include('fragment/navbar'); -%>
 			<div class="container">
 				<!--Contenido principal acá -->
-				<!--<button onclick="createPdf()">Create PDF</button>-->
+				<!-- <button onclick="createPdf()">Create PDF</button> -->
 				<div class="form-row">
 					<% data.forEach(function(Subjects){ %>
-					<div class="col-md-3" style="margin-left: 50px;">
+					<div class="col-md-4">
+
 						<div class="card" style="background-image: url('<%-Subjects.imagen%>');">
 							<div class="header">
 								<div class="content">
-									<h4 class="title title-uppercase" style="color: rgb(255, 255, 255);text-shadow: 4px 4px 4px black;"> <%- Subjects['nombreMateria']%> </h4>
-									<h6 class="label label-danger" style="color: rgb(255, 255, 255);text-shadow: 1px 1px 2px black;" ><%- Subjects['curso_descripcion']%></h6>
+									<h4 class="title title-uppercase" style="color: rgb(255, 255, 255);"> <%- Subjects['nombreMateria']%> </h4>
+									<h6 class="label label-danger" style="color: rgb(255, 255, 255);" ><%- Subjects['curso_descripcion']%></h6>
 									<br>
 									<br>
-									<li class="fas fa-address-book" style="color: rgb(255, 255, 255);text-shadow: 1px 1px 2px black;"> 
+									<li class="fas fa-address-book" style="color: rgb(255, 255, 255);"> 
 										Profesor: <%- Subjects['nombre']%> <%- Subjects['apellido']%></a ></li>
 									<br>
-									<li class="fas fa-stopwatch" style="color: rgb(255, 255, 255);text-shadow: 1px 1px 2px black;"> <%- Subjects['horasCatedra']%> horas catedras</li>
+									<li class="fas fa-stopwatch" style="color: rgb(255, 255, 255);"> <%- Subjects['horasCatedra']%> horas catedras</li>
 								</div>
 							</div>
 							<div class="category">
 								<div class="content">
 									<form action="/estudianteMateria" method="POST">
-										<button style="margin-left: -11px;margin-bottom: -5px;" type="submit" name="course" value="<%- Subjects['curso_descripcion']%>" class="right_triangle">
+										<button type="submit" name="course" value="<%- Subjects['curso_descripcion']%>" class="right_triangle">
 											<i id="name1" class="fas fa-door-closed" style="font-size: 30px; padding-left: 17px !important; float: left; position: relative; top: 1px; "></i>
 											<i id="name2" class="fas fa-door-open" style="font-size: 30px; padding-left: 17px !important; float: left; position: relative; top: 1px;"></i>
 										</button>
@@ -105,15 +103,22 @@
 		toastr.options.closeMethod = "fadeOut";
 		toastr.options.closeDuration = 300;
 
-		let usernameToastr = document.getElementById("1");
-		let toastrFlag = document.getElementById("2");
+		let usernameToastr = document.getElementById("main-panel")
 
 		window.onload = () => {
-			if (toastrFlag.innerHTML) {
-				toastrFlag.innerHTML = false;
-				toastr.success("bienvenido " + usernameToastr.innerHTML);
+			$.get('estadoToastr', { data: 0}, 
+				function(res){
+					console.log(res);
+					if(res){
+						console.log("el toastr deberia estar en falso");
+						$.get('cambiarEstadoToastr',{data:0},
+							function(res){
+								//
+						});
+						toastr.success("bienvenido " + usernameToastr.getAttribute('data-value'));
+					}
+				});
 			}
-		};
 	</script>
 	<script>
 		const {
