@@ -1618,4 +1618,13 @@ td{
   font-weight: 200;
   font-family:"Latin Modern Roman 10";
 }
+.imagen-tabla{
+  content: '';
+  position: relative;
+  top: 50px;
+  right: 550px;
+  width: 160px;
+  
+  
+}
 /*# sourceMappingURL=fresh-bootstrap-table.css.map */

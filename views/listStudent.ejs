@@ -53,47 +53,52 @@
 								<h4 data-value="<%- data[0].id -%>" data-value2="<%- data[0].nombreMateria -%>"  data-value3="<%- data[0].curso_descripcion -%>" id="subjectName" >Estudiantes de la materia: <%- data[0].nombreMateria -%></h4>
 							</div>
 							<table id="fresh-table" class="table">
-								<thead>
-									<th data-field="name" data-sortable="true">Nombre</th>
-									<th data-field="surname" data-sortable="true">Apellido</th>
-									<th data-field="birt">
-										<i class="fa fa-calendar color-icon" aria-hidden="true"></i>
-										Fecha de nacimiento	
-									</th>
-									<th data-field="dni">
-										<i class="fa fa-address-card color-icon" aria-hidden="true"></i>
-										DNI	
-									</th>
-									<th data-field="email ">
-										<i class="fa fa-envelope color-icon" aria-hidden="true"></i>
-										email	
-									</th>
-									<th data-field="telephone">
-										<i class="fa fa-phone color-icon" aria-hidden="true"></i>
-										telefono	
-									</th>
-									<th data-field="genero">
-										<i class="fas fa-venus-mars color-icon"></i>
-										genero
-									</th>
-									<th data-field="actions" data-formatter="operateFormatter"
-										data-events="operateEvents">
-										<i class="fa fa-lightbulb-o color-icon" aria-hidden="true"></i>
-										Acciones	
-									</th>
-								</thead>
-									<% data.forEach(function(Student){ %>
-									<tr>
-										<td><%-Student['nombre']%></td>
-										<td><%-Student['apellido']%></td>
-										<td><%-Student['fecha_nacimiento']%></td>
-										<td><%-Student['dni']%></td>
-										<td><%-Student['email']%></td>
-										<td><%-Student['telefono']%></td>
-										<td><%-Student['genero']%></td>
-										<td></td>
-									</tr>
-									<% }); %>
+								<div class="row">
+									<div class="col-md-4">
+										<thead>
+											<img src="/images/seis.png" alt="" class="imagen-tabla" > 
+											<th data-field="name" data-sortable="true">Nombre</th>
+											<th data-field="surname" data-sortable="true">Apellido</th>
+											<th data-field="birt">
+												<i class="fa fa-calendar color-icon" aria-hidden="true"></i>
+												Fecha de nacimiento	
+											</th>
+											<th data-field="dni">
+												<i class="fa fa-address-card color-icon" aria-hidden="true"></i>
+												DNI	
+											</th>
+											<th data-field="email ">
+												<i class="fa fa-envelope color-icon" aria-hidden="true"></i>
+												email	
+											</th>
+											<th data-field="telephone">
+												<i class="fa fa-phone color-icon" aria-hidden="true"></i>
+												telefono	
+											</th>
+											<th data-field="genero">
+												<i class="fas fa-venus-mars color-icon"></i>
+												genero
+											</th>
+											<th data-field="actions" data-formatter="operateFormatter"
+												data-events="operateEvents">
+												<i class="fa fa-lightbulb-o color-icon" aria-hidden="true"></i>
+												Acciones	
+											</th>
+											</thead>
+											<% data.forEach(function(Student){ %>
+											<tr>
+											<td><%-Student['nombre']%></td>
+											<td><%-Student['apellido']%></td>
+											<td><%-Student['fecha_nacimiento']%></td>
+											<td><%-Student['dni']%></td>
+											<td><%-Student['email']%></td>
+											<td><%-Student['telefono']%></td>
+											<td><%-Student['genero']%></td>
+											<td></td>
+											</tr>
+											<% }); %>
+											</div>
+										</div>
 								</tbody>
 							</table>
 						</div>
