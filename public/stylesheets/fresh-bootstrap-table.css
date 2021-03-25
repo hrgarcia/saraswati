@@ -1559,6 +1559,8 @@ input[type=file] > input[type=button]::-moz-focus-inner {
 }
 .fresh-table.full-color-table {
   background: linear-gradient(60deg, #0b3a6f ,#4991d2 );
+  border: solid 8px #2179bdbd;
+  box-shadow: 2px -18px 7px 0px rgb(16 18 21 / 3%), -13px 0px 10px -5px rgb(5 27 56 / 35%);
 }
 .fresh-table .table-action {
   padding: 0 3px;
