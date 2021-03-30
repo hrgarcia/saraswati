@@ -177,9 +177,12 @@ app.get('/miPerfil', (req, res) => {
     let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
     con.query(query, [res.locals.username] , (error, rows, fields) =>  {
         if (error) throw error;
+		res.render('myProfile.ejs',{
+            title: "Perfil",
+            data: rows
+		});
 	});	
 });
-
 
 app.get('/obtenerAprendizajes', (req, res) => {
 	let query = "SELECT * FROM estudianteaprendizaje WHERE estudianteaprendizaje.estudiante_dni = ?";
