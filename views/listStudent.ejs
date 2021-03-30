@@ -51,7 +51,7 @@
 						<div class="container fresh-table full-color-table">
 							<img src="/images/seis7.png" alt="" class="imagen-tabla" >  
 							<div  >
-								<h4 class="panel-table" data-value="<%- data[0].id -%>" data-value2="<%- data[0].nombreMateria -%>"  data-value3="<%- data[0].curso_descripcion -%>" id="subjectName" >Estudiantes de la materia: <%- data[0].nombreMateria -%></h4>
+								<h4 class="panel-table" data-value="<%- data[0].id -%>" data-value2="<%- data[0].nombreMateria -%>" data-value3="<%- data[0].curso_descripcion -%>" id="subjectName" >Estudiantes de la materia: <%- data[0].nombreMateria -%></h4>
 							</div>
 							<table id="fresh-table" class="table">
 								<thead>
@@ -101,7 +101,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- VENTANA EMERGENTE DE APRENDIZAJES EN PROCESO -->
+		<!-- Learnings popup -->
 
 		<div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 			aria-hidden="true">
@@ -168,6 +168,8 @@
 			</div>
 		</div>
 
+		<!-- Create learnings popup -->
+
 		<div id ="newLearning" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -177,11 +179,21 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
+					<small style="font-weight: bold;">Complete los campos para crear un aprendizaje</small>
 					<div class="modal-body">
-						<input type="text" name="learningName" id="inputNameLearning">
+						<input type="text" name="learningName" id="inputNameLearning" placeholder="Ingrese nombre" required>
+						<br>
+						<br>
+						<small style="font-weight: bold;">seleccione periodo</small>
+						<div class="input-group">
+							<select class="custom-select" id="inputPeriodLearning"  placeholder="Ingrese el periodo" required>
+								<option >1er cuatrimestre</option>
+								<option >2er cuatrimestre</option>
+							</select>
+						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" onclick="addLearning([inputNameLearning.value])"data-dismiss="modal">Save changes</button>
+						<button type="button" class="btn btn-primary" onclick="addLearning([inputNameLearning.value,inputPeriodLearning.value])">Save changes</button>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -350,16 +362,16 @@
 				});
 			}	
 		}
-		function addLearning(nameNewSubj) {
-			//id
-			nameNewSubj.push(document.getElementById("subjectName").getAttribute('data-value'))
-			//nombre de materia
-			nameNewSubj.push(document.getElementById("subjectName").getAttribute('data-value2'))
-			//curso
-			nameNewSubj.push(document.getElementById("subjectName").getAttribute('data-value3'))
-			$.get('agregarAprendizajes', {nameNewSubj}, 
+		function addLearning(newLearningData) {
+			// subject id
+			newLearningData.push(document.getElementById("subjectName").getAttribute('data-value'))
+			// subject Name 
+			newLearningData.push(document.getElementById("subjectName").getAttribute('data-value2'))
+			// course 
+			newLearningData.push(document.getElementById("subjectName").getAttribute('data-value3'))
+			$.get('agregarAprendizajes', {newLearningData}, 
 				function(res){
-					$("#listPending").append("<div class='list-group-item pendiente' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>"+nameNewSubj[0]+"</p></div>");
+					$("#listPending").append("<div class='list-group-item pendiente' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>"+newLearningData[0]+"</p></div>");
 					document.getElementById("isChangedLearnState").innerHTML = "Se creo un nuevo aprendizaje";
 			});
 		}

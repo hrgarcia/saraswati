@@ -212,18 +212,28 @@ app.get('/guardarAprendizajes', (req, res) => {
 
 app.get('/agregarAprendizajes', (req, res) => {
 	// Create the learning in the learning table
-	let query1 = "INSERT INTO aprendizajes (descripcion,id_materia) VALUES (?, ?)";
-	con.query(query1, [req.query.nameNewSubj[0],req.query.nameNewSubj[1]], (error, rows, fields) =>  {
+	// (Positions) 0 = name L / 1 = period Name / 2 = subj id / 3 = subj name / 4 = course
+	let idPeriod = 1; 
+	if(req.query.newLearningData[1] == "1er cuatrimestre"){
+		idPeriod = 1; 
+		console.log("hola")
+	}
+	else{
+		idPeriod = 2; 
+		console.log("hola2")
+	}
+	let query1 = "INSERT INTO aprendizajes (descripcion,id_materia,id_periodo) VALUES (?, ?, ?)";
+	con.query(query1, [req.query.newLearningData[0],req.query.newLearningData[2],idPeriod], (error, rows, fields) =>  {
 		if (error) throw error;
 	});	
 	// Search for the IDs of all students in this subject
 	let query2 = "SELECT dni FROM estudiante WHERE descripcion_curso = ?";
-	con.query(query2, [req.query.nameNewSubj[3]], (error, rows, fields) =>  {
+	con.query(query2, [req.query.newLearningData[4]], (error, rows, fields) =>  {
 		if (error) throw error;
 		// With a for I create each learning for each student
 		for (let i = 0; i < rows.length; i++) {
-			let query3 = "INSERT INTO estudianteaprendizaje (descripcion,estado,estudiante_dni) VALUES (?,?,?)";
-			con.query(query3, [req.query.nameNewSubj[0],"pendiente",rows[i].dni], (error, rows, fields) =>  {
+			let query3 = "INSERT INTO estudianteaprendizaje (descripcion,estado,estudiante_dni,periodo_id,materia_id) VALUES (?,?,?,?,?)";
+			con.query(query3, [req.query.newLearningData[0],"pendiente",rows[i].dni,idPeriod,req.query.newLearningData[2]], (error, rows, fields) =>  {
 				if (error) throw error;
 			});
 		}
@@ -280,14 +290,12 @@ app.post('/estudianteMateria', (req, res) => {
     });
 
     let course = req.body.course;
-    let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.curso_descripcion = ? AND estudiante.descripcion_curso = ? ";
+    let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.curso_descripcion = ? AND estudiante.descripcion_curso = ? INNER JOIN nota ON nota.dni_alumno = estudiante.dni";
     con.query(query, [course,course], (error, rows, fields) => {
         if (error) throw error;
         res.render('listStudent.ejs', {
             title: "Student",
             data: rows,
-            title: "Learnings",
-            data2: learningRows
         });
     });
 });
