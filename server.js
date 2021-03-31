@@ -281,18 +281,13 @@ app.get('/editarPerfil', (req, res) => {
 
 // Returns all students of the selected subject
 app.post('/estudianteMateria', (req, res) => {
-    // Query to pass the learnings
-    let learningRows;
-    let queryLearning = "SELECT descripcion, id_materia FROM aprendizajes INNER JOIN materia ON  materia.id = aprendizajes.id_materia";
-    con.query(queryLearning, (error, rows, fields) => {
-        if (error) throw error;
-        learningRows = rows;
-    });
-
     let course = req.body.course;
-    let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.curso_descripcion = ? AND estudiante.descripcion_curso = ? INNER JOIN nota ON nota.dni_alumno = estudiante.dni";
+	console.log(course);
+    let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.nombreMateria = ? AND materia.curso_descripcion = estudiante.descripcion_curso";
+	//INNER JOIN nota ON nota.dni_alumno = estudiante.dni";
     con.query(query, [course,course], (error, rows, fields) => {
         if (error) throw error;
+		console.log(rows);
         res.render('listStudent.ejs', {
             title: "Student",
             data: rows,

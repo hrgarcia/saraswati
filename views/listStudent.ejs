@@ -59,7 +59,7 @@
 										<th data-field="surname" data-sortable="true">Apellido</th>
 										<th data-field="birt">
 											<i class="fa fa-calendar color-icon" aria-hidden="true"></i>
-											Fecha de nacimiento	
+											notas
 										</th>
 										<th data-field="dni">
 											<i class="fa fa-address-card color-icon" aria-hidden="true"></i>
@@ -85,14 +85,23 @@
 								</thead>
 								<% data.forEach(function(Student){ %>
 									<tr>
-									<td><%-Student['nombre']%></td>
-									<td><%-Student['apellido']%></td>
-									<td><%-Student['fecha_nacimiento']%></td>
-									<td><%-Student['dni']%></td>
-									<td><%-Student['email']%></td>
-									<td><%-Student['telefono']%></td>
-									<td><%-Student['genero']%></td>
-									<td></td>
+										<td><%-Student['nombre']%></td>
+										<td><%-Student['apellido']%></td>
+										<!-- <td><%-Student['fecha_nacimiento']%></td>-->
+										<% if (Student['nota_definitiva'] < 3) { %>
+											<td class="disapproved"><%-Student['nota_definitiva']%></td>
+										<% } %>
+										<% if (Student['nota_definitiva'] <= 6 && Student['nota_definitiva'] > 3) { %>
+											<td class="disapproved"><%-Student['nota_definitiva']%></td>
+										<% } %>
+										<% if (Student['nota_definitiva'] <= 10 && Student['nota_definitiva'] > 6) { %>
+											<td class="disapproved"><%-Student['nota_definitiva']%></td>
+										<% } %>
+										<td><%-Student['dni']%></td>
+										<td><%-Student['email']%></td>
+										<td><%-Student['telefono']%></td>
+										<td><%-Student['genero']%></td>
+										<td></td>
 									</tr>
 									<% }); %>
 							</table>

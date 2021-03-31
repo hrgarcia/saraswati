@@ -7,3 +7,30 @@ h1 {
   --animate-duration: 8s;
   --animate-repeat: 2;
 }
+
+td.disapproved{
+  width: 2px;
+  height: 6px;
+  background: #ff0101;
+  border-radius: 1000px;
+  text-align: center;
+  color: black;
+}
+
+td.progress {
+  width: 2px;
+  height: 6px;
+  background: #fffb01;
+  border-radius: 1000px;
+  text-align: center;
+  color: black;
+}
+
+td.passed {
+  width: 2px;
+  height: 6px;
+  background: #1fff01;
+  border-radius: 1000px;
+  text-align: center;
+  color: black;
+}
