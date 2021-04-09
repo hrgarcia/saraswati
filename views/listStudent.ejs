@@ -94,7 +94,7 @@
 											<td class="disapproved"><%-Student['nota_definitiva']%></td>
 										<% } %>
 										<% if (parseFloat(Student['nota_definitiva']) <= 6 && parseFloat(Student['nota_definitiva']) > 3) { %>
-											<td class="progress"><%-Student['nota_definitiva']%></td>
+											<td class="working"><%-Student['nota_definitiva']%></td>
 										<% } %>
 										<% if (parseFloat(Student['nota_definitiva']) <= 10 && parseFloat(Student['nota_definitiva']) > 6) { %>
 											<td class="passed"><%-Student['nota_definitiva']%></td>

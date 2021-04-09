@@ -287,7 +287,7 @@ app.get('/editarPerfil', (req, res) => {
 app.post('/estudianteMateria', (req, res) => {
     let subjectName = req.body.subjectName;
 	console.log(subjectName);
-    let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.nombreMateria = ? AND materia.curso_descripcion = estudiante.descripcion_curso INNER JOIN nota ON nota.dni_alumno = estudiante.dni";
+    let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.nombreMateria = ? AND materia.curso_descripcion = estudiante.descripcion_curso INNER JOIN nota ON nota.dni_alumno = estudiante.dni AND nota.id_materia  = materia.id";
     con.query(query, [subjectName,subjectName], (error, rows, fields) => {
         if (error) throw error;
 		console.log(rows);
