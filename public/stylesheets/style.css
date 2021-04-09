@@ -29,7 +29,16 @@ td.progress {
 td.passed {
   width: 2px;
   height: 6px;
-  background: #1fff01;
+  background: #2dbd1a;
+  border-radius: 1000px;
+  text-align: center;
+  color: black;
+}
+
+td.none {
+  width: 2px;
+  height: 6px;
+  background: grey;
   border-radius: 1000px;
   text-align: center;
   color: black;
