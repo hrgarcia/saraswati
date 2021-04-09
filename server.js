@@ -151,6 +151,10 @@ app.get('/form', (req, res) => {
 	res.render('form.ejs');
 });
 
+app.get('/agregarEstudiante', (req, res) => {
+	res.render('addStudent.ejs');
+});
+
 app.get('/listarProfesores', (req, res) => {
 	let query = "SELECT * FROM profesor";
 	con.query(query, (error, rows, fields) => {
@@ -177,7 +181,7 @@ app.get('/miPerfil', (req, res) => {
     let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
     con.query(query, [res.locals.username] , (error, rows, fields) =>  {
         if (error) throw error;
-		res.render('myProfile.ejs',{
+		res.render('myProfile.ejs',{ 
             title: "Perfil",
             data: rows
 		});
@@ -210,7 +214,7 @@ app.get('/guardarAprendizajes', (req, res) => {
 	
 });
 
-app.get('/agregarAprendizajes', (req, res) => {
+app.get('/agregarAprendizajes', (req, res) => { 
 	// Create the learning in the learning table
 	// (Positions) 0 = name L / 1 = period Name / 2 = subj id / 3 = subj name / 4 = course
 	let idPeriod = 1; 
@@ -409,6 +413,6 @@ app.use((req, res, next) => {
 });
 
 // End routes
-app.listen(2500, () => {
+app.listen(3000, () => {
 	console.log("El servidor corriendo en el puerto 2500");
 });
