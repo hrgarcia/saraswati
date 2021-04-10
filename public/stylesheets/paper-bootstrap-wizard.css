@@ -1299,14 +1299,14 @@ input[type="button"]:focus {
 .wizard-card[data-color="orange"] .picture:hover {
   border-color: #F3BB45;
 }
-.wizard-card[data-color="orange"] .nav-pills > li.active > a:after {
+/* .wizard-card[data-color="orange"] .nav-pills > li.active > a:after {
   background-color: #F3BB45;
-}
+} */
 .wizard-card[data-color="orange"] .nav-pills > li.active > a {
-  color: #F3BB45;
+  color: #000000;
 }
 .wizard-card[data-color="orange"] .nav-pills .icon-circle.checked {
-  border-color: #F3BB45;
+  border-color: #83abe8;
 }
 .wizard-card[data-color="orange"] .choice.active .card-checkboxes {
   color: #F3BB45;

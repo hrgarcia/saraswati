@@ -75,8 +75,8 @@ transparent = true;
                 onInit : function(tab, navigation, index){
 
                   //check number of tabs and fill the entire row
-                  var $total = navigation.find('li').length;
-                  $width = 100/$total;
+                    var $total = navigation.find('li').length;
+                    $width = 100/$total;
 
                   navigation.find('li').css('width',$width + '%');
 
