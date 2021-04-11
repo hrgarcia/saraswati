@@ -6,95 +6,246 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>
 		Agregar profesor
-	</title>
-	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-	<!--     Fonts and icons     -->
-	<link rel="stylesheet" type="text/css"
-		href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-	<!-- Iconos Font Awesome -->
-	<script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="/css/bootstrap.min.css">
-	<!-- CSS Files -->
-	<link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
-	<%- include('fragment/background'); -%>
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link href="/stylesheets/themify-icons.css" rel="stylesheet">
+
+    <!-- Iconos Font Awesome -->
+    <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- CSS Files -->
+    <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <link href="/stylesheets/paper-bootstrap-wizard.css" rel="stylesheet" />
+    <%- include('fragment/background'); -%>
 </head>
 
 <body class="">
 	<%- include('fragment/sidebar'); -%>
 	<div class="main-panel">
 		<%- include('fragment/navbar'); -%>
-		<div class="content">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="card">
-							<div class="card-header card-header-danger">
-								<h4 class="card-title">Agregar profesor</h4>
-								<p class="category">Complete el formulario para agregar un nuevo profesor</p>
-							</div>
-							<!-- Formulario de Profesor -->
-							<div class="card-body">
-								<form action="/crearProfesor" method="POST">
-									<div class="form-group">
-										<label for="exampleInputEmail1">ingrese un usuario</label>
-										<input type="text" name="user" class="form-control" required>
+	   <!--   Big container   -->
+	   <div class="container">
+		   <div class="row">
+			   <div class="col-sm-8 col-sm-offset-2">
+
+				   <!--      Wizard container        -->
+				   <div class="wizard-container">
+
+					   <div class="card wizard-card" data-color="orange" id="wizardProfile">
+						   <form action="/crearProfesor" method="POST">
+					   <!--        You can switch " data-color="orange" "  with one of the next bright colors: "blue", "green", "orange", "red", "azure"          -->
+
+							   <div class="wizard-header text-center">
+								   <h3 class="wizard-title">Crea un profesor</h3>
+								   <p class="category">Por favor ingerese los datos correctamente</p>
+							   </div>
+
+							   <div class="wizard-navigation">
+								   <div class="progress-with-circle">
+										<div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 21%;"></div>
+								   </div>
+								   <ul>
+									   <li>
+										   <a href="#about" data-toggle="tab">
+											   <div class="icon-circle">
+												   <i class="ti-user"></i>
+											   </div>
+											   About
+										   </a>
+									   </li>
+									   <li>
+										   <a href="#account" data-toggle="tab">
+											   <div class="icon-circle">
+												   <i class="ti-settings"></i>
+											   </div>
+											   Work
+										   </a>
+									   </li>
+									   <li>
+										   <a href="#address" data-toggle="tab">
+											   <div class="icon-circle">
+												   <i class="ti-map"></i>
+											   </div>
+											   Address
+										   </a>
+									   </li>
+								   </ul>
+							   </div>
+							   <div class="tab-content">
+								   <div class="tab-pane" id="about">
+									   <div class="row">
+										   <h5 class="info-text"> Please tell us more about yourself.</h5>
+										   <div class="col-sm-4 col-sm-offset-1">
+											   <div class="picture-container">
+												   <div class="picture">
+													   <img src="assets/img/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" />
+													   <input type="file" id="wizard-picture">
+												   </div>
+												   <h6>Choose Picture</h6>
+											   </div>
+										   </div>
+										   <div class="form-group">
+											<label for="exampleInputEmail1">ingrese un usuario</label>
+											<input type="text" name="user" class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputEmail1">ingrese una contraseña</label>
+											<input type="text" name="password" class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputEmail1">ingrese un avatar</label>
+											<input type="text" name="avatar" class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputEmail1">Nombre de/la profe</label>
+											<input type="text" name="name" class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword1">Apellido del/la profe</label>
+											<input type="text" name="lastName" class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword1">Dni del/la profe</label>
+											<input type="text" name="dni" class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword1">telefono del/la profe</label>
+											<input type="text" name="telephone" class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword1">email del/la profe</label>
+											<input type="email" name="email" class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword1">genero del/la profe</label>
+											<input type="text" name="gender" class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword1">nacimiento del/la profe</label>
+											<input type="text" name="birth" class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword1">fecha de ingreso del/la profe</label>
+											<input type="text" name="entry" class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword1">estado del/la profe</label>
+											<input type="text" name="state" class="form-control" required>
+										</div>
+									   </div>
+								   </div>
+								   <div class="tab-pane" id="account">
+									   <h5 class="info-text"> What are you doing? (checkboxes) </h5>
+									   <div class="row">
+										   <div class="col-sm-8 col-sm-offset-2">
+											   <div class="col-sm-4">
+												   <div class="choice" data-toggle="wizard-checkbox">
+													   <input type="checkbox" name="jobb" value="Design">
+													   <div class="card card-checkboxes card-hover-effect">
+														   <i class="ti-paint-roller"></i>
+														   <p>Design</p>
+													   </div>
+												   </div>
+											   </div>
+											   <div class="col-sm-4">
+												   <div class="choice" data-toggle="wizard-checkbox">
+													   <input type="checkbox" name="jobb" value="Code">
+													   <div class="card card-checkboxes card-hover-effect">
+														   <i class="ti-pencil-alt"></i>
+														   <p>Code</p>
+													   </div>
+												   </div>
+											   </div>
+											   <div class="col-sm-4">
+												   <div class="choice" data-toggle="wizard-checkbox">
+													   <input type="checkbox" name="jobb" value="Develop">
+													   <div class="card card-checkboxes card-hover-effect">
+														   <i class="ti-star"></i>
+														   <p>Develop</p>
+													   </div>
+												   </div>
+											   </div>
+										   </div>
+									   </div>
+								   </div>
+								   <div class="tab-pane" id="address">
+									   <div class="row">
+										   <div class="col-sm-12">
+											   <h5 class="info-text"> Are you living in a nice area? </h5>
+										   </div>
+										   <div class="col-sm-7 col-sm-offset-1">
+											   <div class="form-group">
+												   <label>Street Name</label>
+												   <input type="text" class="form-control" placeholder="5h Avenue">
+											   </div>
+										   </div>
+										   <div class="col-sm-3">
+											   <div class="form-group">
+												   <label>Street Number</label>
+												   <input type="text" class="form-control" placeholder="242">
+											   </div>
+										   </div>
+										   <div class="col-sm-5 col-sm-offset-1">
+											   <div class="form-group">
+												   <label>City</label>
+												   <input type="text" class="form-control" placeholder="New York...">
+											   </div>
+										   </div>
+										   <div class="col-sm-5">
+											   <div class="form-group">
+												   <label>Country</label><br>
+												   <select name="country" class="form-control">
+													   <option value="Afghanistan"> Afghanistan </option>
+													   <option value="Albania"> Albania </option>
+													   <option value="Algeria"> Algeria </option>
+													   <option value="American Samoa"> American Samoa </option>
+													   <option value="Andorra"> Andorra </option>
+													   <option value="Angola"> Angola </option>
+													   <option value="Anguilla"> Anguilla </option>
+													   <option value="Antarctica"> Antarctica </option>
+													   <option value="...">...</option>
+												   </select>
+											   </div>
+										   </div>
+									   </div>
+								   </div>
+							   </div>
+							   <div class="wizard-footer">
+								   <div class="pull-right">
+									   <input type='button' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='Next' />
+									   <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='Finish' />
+								   </div>
+
+								   <div class="pull-left">
+									   <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Previous' />
+									   <button type="submit" class="btn btn-primary">Cargar</button>
 									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">ingrese una contraseña</label>
-										<input type="text" name="password" class="form-control" required>
-									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">ingrese un avatar</label>
-										<input type="text" name="avatar" class="form-control" required>
-									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">Nombre de/la profe</label>
-										<input type="text" name="name" class="form-control" required>
-									</div>
-									<div class="form-group">
-										<label for="exampleInputPassword1">Apellido del/la profe</label>
-										<input type="text" name="lastName" class="form-control" required>
-									</div>
-									<div class="form-group">
-										<label for="exampleInputPassword1">Dni del/la profe</label>
-										<input type="text" name="dni" class="form-control" required>
-									</div>
-									<div class="form-group">
-										<label for="exampleInputPassword1">telefono del/la profe</label>
-										<input type="text" name="telephone" class="form-control" required>
-									</div>
-									<div class="form-group">
-										<label for="exampleInputPassword1">email del/la profe</label>
-										<input type="email" name="email" class="form-control" required>
-									</div>
-									<div class="form-group">
-										<label for="exampleInputPassword1">genero del/la profe</label>
-										<input type="text" name="gender" class="form-control" required>
-									</div>
-									<div class="form-group">
-										<label for="exampleInputPassword1">nacimiento del/la profe</label>
-										<input type="text" name="birth" class="form-control" required>
-									</div>
-									<div class="form-group">
-										<label for="exampleInputPassword1">fecha de ingreso del/la profe</label>
-										<input type="text" name="entry" class="form-control" required>
-									</div>
-									<div class="form-group">
-										<label for="exampleInputPassword1">estado del/la profe</label>
-										<input type="text" name="state" class="form-control" required>
-									</div>
-									<button type="submit" class="btn btn-primary">Cargar</button>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<%- include('fragment/footer'); -%>
+								   <div class="clearfix"></div>
+							   </div>
+						   </form>
+					   </div>
+				   </div> <!-- wizard container -->
+			   </div>
+		   </div><!-- end row -->
+	   </div> <!--  big container -->
+
+	<%- include('fragment/footer'); -%>
 	</div>
 	<%- include('fragment/scripts'); -%>
 </body>
+<!--   Core JS Files   -->
+<script src="javascripts/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="javascripts/bootstrap.min.js" type="text/javascript"></script>
+<script src="javascripts/jquery.bootstrap.wizard.js" type="text/javascript"></script>
 
+<!--  Plugin for the Wizard -->
+<script src="javascript/demo.js" type="text/javascript"></script>
+<script src="javascripts/paper-bootstrap-wizard.js" type="text/javascript"></script>
+
+<!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
+<script src="javascripts/jquery.validate.min.js" type="text/javascript"></script>
 </html>
