@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="/css/bootstrap.min.css" />
 	<!-- Iconos Font Awesome -->
 	<script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+	<link href="stylesheets/themify-icons.css" rel="stylesheet">
 	<!-- Nuestros estilos -->
 	<link rel="stylesheet" href="/stylesheets/style.css" />
 
@@ -36,6 +37,9 @@
 	<!-- Animate css -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 	<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+	<!-- Estilo de el formulario -->
+	<link rel="apple-touch-icon" sizes="76x76" href="images/imgEstudiante/apple-icon.png" />
+	<link rel="icon" type="image/png" href="images/imgEstudiante/favicon.png" />
 	<%- include('fragment/background'); -%>
 </head>
 </head>
@@ -91,7 +95,7 @@
 								<div class="col-sm-4 col-sm-offset-1">
 									<div class="picture-container">
 										<div class="picture">
-											<img src="public/images/imgEstudiante/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" />
+											<img src="images/imgEstudiante/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" />
 											<input type="file" id="wizard-picture">
 										</div>
 										<h6>Choose Picture</h6>
@@ -118,32 +122,31 @@
 						<div class="tab-pane" id="account">
 							<h5 class="info-text"> What are you doing? (checkboxes) </h5>
 								<div class="row">
-									<div class="col-sm-8 col-sm-offset-2">
-										<div class="col-sm-4">
-											<div class="choice" data-toggle="wizard-checkbox">
-												<input type="checkbox" name="jobb" value="Design">
-												<div class="card card-checkboxes card-hover-effect">
-													<i class="ti-paint-roller"></i>
-													<p>Design</p>
-												</div>
+									<div class="col-sm-4">
+										<div class="choice" data-toggle="wizard-checkbox">
+											<input type="checkbox" name="jobb" value="Design">
+											<div class="card card-checkboxes card-hover-effect">
+												<i class="ti-paint-roller"></i>
+												<p>Design</p>
 											</div>
 										</div>
-										<div class="col-sm-4">
-											<div class="choice" data-toggle="wizard-checkbox">
-												<input type="checkbox" name="jobb" value="Code">
-												<div class="card card-checkboxes card-hover-effect">
-													<i class="ti-pencil-alt"></i>
-													<p>Code</p>
-												</div>
+									</div>
+										
+									<div class="col-sm-4">
+										<div class="choice" data-toggle="wizard-checkbox">
+											<input type="checkbox" name="jobb" value="Code">
+											<div class="card card-checkboxes card-hover-effect">
+												<i class="ti-pencil-alt"></i>
+												<p>Code</p>
 											</div>
 										</div>
-										<div class="col-sm-4">
-											<div class="choice" data-toggle="wizard-checkbox">
-												<input type="checkbox" name="jobb" value="Develop">
-												<div class="card card-checkboxes card-hover-effect">
-													<i class="ti-star"></i>
-													<p>Develop</p>
-												</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="choice" data-toggle="wizard-checkbox">
+											<input type="checkbox" name="jobb" value="Develop">
+											<div class="card card-checkboxes card-hover-effect">
+												<i class="ti-star"></i>
+												<p>Develop</p>
 											</div>
 										</div>
 									</div>
@@ -205,6 +208,7 @@
 					</form>
 				</div>
 	</div> <!-- wizard container -->
+	<%- include('fragment/footer'); -%>
 </div>
 
 </body>
@@ -226,4 +230,4 @@
 
 
 
-<%- include('fragment/footer'); -%>
+
