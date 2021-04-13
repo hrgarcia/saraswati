@@ -151,6 +151,19 @@ app.get('/form', (req, res) => {
 	res.render('form.ejs');
 });
 
+app.get('/cargarVistaEstudiante', (req, res) => {
+	let username = res.locals.username;
+	let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.curso_descripcion = estudiante.descripcion_curso AND materia.profesor_usuario = ?";
+	con.query(query, [username], (error, rows, fields) => {
+		if (error) throw error;
+		console.log(rows);
+		res.render('allStudents.ejs', {
+			title: "Student",
+			data: rows
+		});
+	});
+});
+
 app.get('/agregarEstudiante', (req, res) => {
 	res.render('addStudent.ejs');
 });
@@ -286,11 +299,9 @@ app.get('/editarPerfil', (req, res) => {
 // Returns all students of the selected subject
 app.post('/estudianteMateria', (req, res) => {
     let subjectName = req.body.subjectName;
-	console.log(subjectName);
     let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.nombreMateria = ? AND materia.curso_descripcion = estudiante.descripcion_curso INNER JOIN nota ON nota.dni_alumno = estudiante.dni AND nota.id_materia  = materia.id";
     con.query(query, [subjectName,subjectName], (error, rows, fields) => {
         if (error) throw error;
-		console.log(rows);
         res.render('listStudent.ejs', {
             title: "Student",
             data: rows,
@@ -360,7 +371,7 @@ app.post('/crearProfesor', urlencodedParser, (req, res) => {
 })
 
 app.post('/cargarAprendizaje', aprendizajesExcel, (req, res, next) =>{
-    teacherFunctions.cargarAprendizajes(req.file.path, con);
+    teacherFunctions.loadLearnings(req.file.path, con);
 });
 
 //I compare the password entered to the one encrypted in the DB to be able to access the dashboard
