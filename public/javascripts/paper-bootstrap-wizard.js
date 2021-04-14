@@ -45,18 +45,33 @@ transparent = true;
             var $validator = $('.wizard-card form').validate({
         		  rules: {
         		    firstname: {
-        		      required: true,
+                      required: true,
         		      minlength: 3
         		    },
         		    lastname: {
-        		      required: true,
         		      minlength: 3
         		    },
         		    email: {
         		      required: true
-        		    }
+                    },
+                    // password:{
+                    //     required:true,
+                    //     pattern:(/^(?=\D*\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}$/)
+
+                    //}
+                    dni:{
+                        required: true,
+                        minlength:8,
+                        maxlength:8,
+                    },
+                    telephone:{
+                        minlength:10,
+                        maxlength:10,
+                    }
+
                 },
-        	});
+            });
+            
 
             // Wizard Initialization
           	$('.wizard-card').bootstrapWizard({
@@ -177,8 +192,7 @@ transparent = true;
         		if (immediate && !timeout) func.apply(context, args);
         	};
         };
-
-
+        
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

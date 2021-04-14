@@ -334,7 +334,7 @@ app.post('/crearMateria', (req, res) => {
 	let query = "INSERT INTO materia (nombre,imagen,horasCatedra,profesor_usuario) VALUES (?,?,?,?);"
 	con.query(query,[name,image,teachingHours,teacherUser], (error, rows, fields) => {
 		if (error) throw error;
-		res.render('dashboard.ejs');	
+		res.redirect('/dashboard');	
 	});
 });
 
