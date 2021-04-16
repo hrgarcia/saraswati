@@ -156,7 +156,6 @@ app.get('/cargarVistaEstudiante', (req, res) => {
 	let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.curso_descripcion = estudiante.descripcion_curso AND materia.profesor_usuario = ?";
 	con.query(query, [username], (error, rows, fields) => {
 		if (error) throw error;
-		console.log(rows);
 		res.render('allStudents.ejs', {
 			title: "Student",
 			data: rows
@@ -233,11 +232,9 @@ app.get('/agregarAprendizajes', (req, res) => {
 	let idPeriod = 1; 
 	if(req.query.newLearningData[1] == "1er cuatrimestre"){
 		idPeriod = 1; 
-		console.log("hola")
 	}
 	else{
 		idPeriod = 2; 
-		console.log("hola2")
 	}
 	let query1 = "INSERT INTO aprendizajes (descripcion,id_materia,id_periodo) VALUES (?, ?, ?)";
 	con.query(query1, [req.query.newLearningData[0],req.query.newLearningData[2],idPeriod], (error, rows, fields) =>  {
