@@ -8,6 +8,8 @@ const multer  = require('multer');
 const sharp = require('sharp');
 const teacherFunctions = require('./external/teacherFunctions');
 const conection = require('./config/db');
+const pdf = require("html-pdf");
+const ejs = require("ejs");
 
 // Obtain the name of the file
 const storage = multer.diskStorage({
@@ -369,6 +371,27 @@ app.post('/crearProfesor', urlencodedParser, (req, res) => {
 
 app.post('/cargarAprendizaje', aprendizajesExcel, (req, res, next) =>{
     teacherFunctions.loadLearnings(req.file.path, con);
+});
+
+app.get('/GenerateReport', (req, res) =>{
+	ejs.renderFile('./views/GenerateReport.ejs' , {name : 'Informes'}, (err, html) =>{
+		if (err) throw err;
+		const options = {
+			format: 'A4',
+			border:{
+				right:'8'
+			}
+		};
+
+		pdf.create(html, options).toFile('./uploads/report.pdf', (err, response) =>{
+			if (err) {
+                res.send(err);
+            } else {
+                res.send("File created successfully");
+            }
+		});
+
+	});
 });
 
 //I compare the password entered to the one encrypted in the DB to be able to access the dashboard
