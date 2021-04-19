@@ -15353,12 +15353,13 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .sidebar .nav p {
   margin: 0;
   line-height: 30px;
-  font-size: 14px;
+  font-size: 16px;
   position: relative;
   display: block;
   height: auto;
   white-space: nowrap;
   margin-top: -2.5px;
+  font-family: "Roboto Condensed", sans-serif;
 }
 
 .sidebar .nav i {
