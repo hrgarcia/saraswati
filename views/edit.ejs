@@ -1,67 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+        <title>Editar perfil</title>
+        <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+        <!--     Fonts and icons     -->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 
-<head>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
-	<title>Editar perfil</title>
-	<meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-	<!--     Fonts and icons     -->
-	<link rel="stylesheet" type="text/css"
-		href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css" />
+        <!-- Iconos Font Awesome -->
+        <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+        <!-- Nuestros estilos -->
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+        <!-- CSS Files -->
+        <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+        <link href="/stylesheets/toastr.css" rel="stylesheet" />
+        <!-- Animate css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="/css/bootstrap.min.css" />
-	<!-- Iconos Font Awesome -->
-	<script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
-	<!-- Nuestros estilos -->
-	<link rel="stylesheet" href="/stylesheets/style.css" />
-	<!-- CSS Files -->
-	<link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
-	<link href="/stylesheets/toastr.css" rel="stylesheet" />
-	<!-- Animate css -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
-
-	<%- include('fragment/background'); -%>
-</head>
-<body>
-	<%- include('fragment/sidebar'); -%>
-	<div class="main-panel">
-		<%- include('fragment/navbar'); -%>
-		<div class="content">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-12">
-						<form role="form" method="post" action="" enctype="multipart/form-data">
-							<div class="box-body">
-								<div class="form-group">
-									<label for="exampleInputEmail1">Nombre completo</label>
-									<input type="text" name="nombre" class="form-control">
-								</div>
-								<div class="form-group">
-									<label for="exampleInputEmail1">Usuario</label>
-									<input type="text" name="usuario" class="form-control">
-								</div>
-								<div class="form-group">
-									<label for="exampleInputEmail1">Email</label>
-									<input type="text" name="email" class="form-control">
-								</div>
-								<div class="box-footer">
-									<li class="nav-item active animateanimated animatebackInUp">
-										<a class="nav-link" href="miPerfil">
-											<p>Guardar</p>
-										</a>
-									</li>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<%- include('fragment/footer'); -%>
-	</div>
-	<%- include('fragment/scripts'); -%>
-</body>
-
+        <%- include('fragment/background'); -%>
+    </head>
+    <body>
+        <%- include('fragment/sidebar'); -%>
+        <div class="main-panel">
+            <%- include('fragment/navbar'); -%>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form role="form" method="post" action="" enctype="multipart/form-data">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Nombre completo</label>
+                                        <input type="text" name="nombre" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Usuario</label>
+                                        <input type="text" name="usuario" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email</label>
+                                        <input type="text" name="email" class="form-control" />
+                                    </div>
+                                    <div class="box-footer">
+                                        <li class="nav-item active animateanimated animatebackInUp">
+                                            <a class="nav-link" href="miPerfil">
+                                                <p>Guardar</p>
+                                            </a>
+                                        </li>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('fragment/footer'); -%>
+        </div>
+        <%- include('fragment/scripts'); -%>
+    </body>
 </html>

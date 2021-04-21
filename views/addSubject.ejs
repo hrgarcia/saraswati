@@ -1,73 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>Agregar Materia</title>
+        <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+        <!--     Fonts and icons     -->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+        <!-- Iconos Font Awesome -->
+        <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css" />
+        <!-- CSS Files -->
+        <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+        <%- include('fragment/background'); -%>
+    </head>
 
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>
-		Agregar Materia
-	</title>
-	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-	<!--     Fonts and icons     -->
-	<link rel="stylesheet" type="text/css"
-		href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-	<!-- Iconos Font Awesome -->
-	<script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="/css/bootstrap.min.css">
-	<!-- CSS Files -->
-	<link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
-	<%- include('fragment/background'); -%>
-</head>
-
-<body class="">
-	<%- include('fragment/sidebar'); -%>
-	<div class="main-panel">
-		<%- include('fragment/navbar'); -%>
-		<div class="content">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="card">
-							<div class="card-header card-header-danger">
-								<h4 class="card-title">Agregar materia</h4>
-								<p class="category">Complete el formulario para agregar una nueva materia</p>
-							</div>
-							<!-- Formulario de materia -->
-							<div class="card-body">
-								<form action="/crearMateria" method="POST">
-									<div class="form-group">
-										<label for="exampleInputEmail1">ingrese nombre</label>
-										<input type="text" name="name" class="form-control" required>
-									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">ingrese una imagen</label>
-										<input type="text" name="image" class="form-control" required>
-									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">ingrese las horas catedras</label>
-										<input type="text" name="teachingHours" class="form-control">
-									</div>
-									<label for="exampleInputEmail1">ingrese el usuario del profesor que da
-										clases</label>
-									<div class="input-group">
-										<select class="custom-select" name="teacherUser">
-											<% data.forEach(function(Teachers){ %>
-												<option selected><%-Teachers['usuario']%></option>
-											<% }); %>
-										</select>
-									</div>
-									<button type="submit" class="btn btn-primary">Cargar</button>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<%- include('fragment/footer'); -%>
-	</div>
-	<%- include('fragment/scripts'); -%>
-</body>
-
+    <body class="">
+        <%- include('fragment/sidebar'); -%>
+        <div class="main-panel">
+            <%- include('fragment/navbar'); -%>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-danger">
+                                    <h4 class="card-title">Agregar materia</h4>
+                                    <p class="category">Complete el formulario para agregar una nueva materia</p>
+                                </div>
+                                <!-- Formulario de materia -->
+                                <div class="card-body">
+                                    <form action="/crearMateria" method="POST">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">ingrese nombre</label>
+                                            <input type="text" name="name" class="form-control" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">ingrese una imagen</label>
+                                            <input type="text" name="image" class="form-control" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">ingrese las horas catedras</label>
+                                            <input type="text" name="teachingHours" class="form-control" />
+                                        </div>
+                                        <label for="exampleInputEmail1">ingrese el usuario del profesor que da clases</label>
+                                        <div class="input-group">
+                                            <select class="custom-select" name="teacherUser">
+                                                <% data.forEach(function(Teachers){ %>
+                                                <option selected><%-Teachers['usuario']%></option>
+                                                <% }); %>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Cargar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('fragment/footer'); -%>
+        </div>
+        <%- include('fragment/scripts'); -%>
+    </body>
 </html>

@@ -1,29 +1,20 @@
-<div
-  class="sidebar"
-  data-color="purple"
-  data-background-color="white"
-  data-image="../assets/img/sidebar-1.jpg"
->
-  <!--
+<div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+    <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
         Tip 2: you can also add an image using data-image tag
     -->
-  <div class="logo animate__animated animate__bounce">
-    <a href="http://localhost:2500/dashboard" target="_blank">
-      <img src="/images/logoRojo.png" alt="" />
-    </a>
-  </div>
+    <div class="logo animate__animated animate__bounce">
+        <a href="http://localhost:2500/dashboard" target="_blank">
+            <img src="/images/logoRojo.png" alt="" />
+        </a>
+    </div>
 
-  <!-- contenido del sidebar-->
-  <div class="sidebar-wrapper">
-    <ul class="nav">
-      <% for (var i=0; i < rol.length; i++) {%> <% if (rol[i] ==
-      'administrador') { %> <%- include('buttons/btAdmin'); %> <% } %> <% if
-      (rol[i] == 'preceptor') { %> <%- include('buttons/btPrece'); %> <% } %> <%
-      if (rol[i]== 'profesor') { %> <%- include('buttons/btTeacher'); %> <% } %>
-      <% if (rol[i] == 'estudiante') { %> <%- include('buttons/btStudent'); %>
-      <% } %> <% } %>
-    </ul>
-  </div>
+    <!-- contenido del sidebar-->
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <% for (var i=0; i < rol.length; i++) {%> <% if (rol[i] == 'administrador') { %> <%- include('buttons/btAdmin'); %> <% } %> <% if (rol[i] == 'preceptor') { %> <%- include('buttons/btPrece'); %> <% } %> <% if (rol[i]== 'profesor') { %> <%-
+            include('buttons/btTeacher'); %> <% } %> <% if (rol[i] == 'estudiante') { %> <%- include('buttons/btStudent'); %> <% } %> <% } %>
+        </ul>
+    </div>
 </div>
