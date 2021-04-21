@@ -8,7 +8,7 @@ function loadLearnings(excel, con) {
     const workBook = xlsx.readFile(excel);
     const sheet = workBook.SheetNames[0];
     const dataExcel = xlsx.utils.sheet_to_json(workBook.Sheets[sheet]);
-    var data = {};
+    let data = {};
     let subjectName;
     let query = "SELECT id,nombreMateria FROM materia WHERE nombreMateria = ?;"
 
@@ -20,20 +20,25 @@ function loadLearnings(excel, con) {
             con.query(query,[data[subjectName][0].materia], function (error, rows, fields) {
                 if (error) throw error;
                 if(rows.length > 0){
-                    data[rows[0].nombreMateria][0].materia = rows[0].id
+                    data[rows[0].nombreMateria][0].id = rows[0].id
                     // si muestro esto si se modican los id
                     // console.log(data[rows[0].nombreMateria][0], "hola");
-                    // console.log(data, "hola");
+                    //console.log(data, "hola");
                 }
                 else{
-                    // Notify the user that there are one or more learnings that do not exist
+                    // Notify the user that there are one or more subject that do not exist in the DB
                     // Toastr? Form?
                 }
+                // console.log(data);
             });
+            
         }
         else{
             console.log("YA EXISTE ");
             data[subjectName][data[subjectName].length] = item;
+            // console.log(data[subjectName][(data[subjectName].length)-1], "antes -------------");
+            data[subjectName][(data[subjectName].length)-1].id = data[subjectName][0].id;
+            // console.log(data[subjectName][(data[subjectName].length)-1], "despues -------------");
             //ver forma de recuperar id
         }
         
@@ -43,8 +48,7 @@ function loadLearnings(excel, con) {
             if (error) throw error;
         });
         */
-    
     });
     //si muestro data, .materia no se modifica por los id
-    //console.log(data);
+    console.log(data);
 }
