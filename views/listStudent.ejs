@@ -16,14 +16,14 @@
         <!-- Nuestros estilos -->
         <link rel="stylesheet" href="/stylesheets/style.css" />
 
-        <!-- Estilos de las tarjetas de los espacios curriculares -->
-        <link rel="stylesheet" href="/stylesheets/cardsStyle.css" />
-
         <link rel="stylesheet" href="/stylesheets/datatable.css" />
 
         <link rel="stylesheet" href="/stylesheets/modal.css" />
 
-        <link rel="stylesheet" href="/stylesheets/fresh-bootstrap-table.css" />
+        <!-- new table -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" />
+
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet" />
@@ -35,17 +35,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
         <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
         <%- include('fragment/background'); -%>
-        <style>
-            .tituloPrincipal {
-                font-family: "Roboto Condensed", sans-serif;
-                font-size: 30px;
-            }
-
-            .tituloSecundario {
-                font-family: "Roboto Condensed", sans-serif;
-                font-size: 20px;
-            }
-        </style>
     </head>
 
     <body>
@@ -53,83 +42,70 @@
         <div class="main-panel">
             <%- include('fragment/navbar'); -%>
             <div class="content">
-                <div class="container-fluid">
-                    <!--Contenido principal acá -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="container fresh-table full-color-table">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <img src="/images/6to.png" alt="" class="imagen-tabla" />
-                                    </div>
-                                    <div class="col-md-4"></div>
-                                    <div class="col-md-4"></div>
-                                </div>
-                                <div>
-                                    <h4 class="panel-table" data-value="<%- data[0].id -%>" data-value2="<%- data[0].nombreMateria -%>" data-value3="<%- data[0].curso_descripcion -%>" id="subjectName">
-                                        Estudiantes del espacio curricular: <%- data[0].nombreMateria -%>
-                                    </h4>
-                                </div>
-                                <table id="fresh-table" class="table">
-                                    <thead>
-                                        <th data-field="name">
-                                            <i class="fas fa-user-graduate color-icon" data-sortable="true"></i>
-                                            Nombre
-                                        </th>
-                                        <th data-field="surname">
-                                            <i class="fas fa-user-graduate color-icon" data-sortable="true"></i>
-                                            Apellido
-                                        </th>
+                <!--Contenido principal acá -->
+                <div class="jumbotron">
+                    <h1 class="display-4">Lista de estudiantes</h1>
+                    <h4 class="panel-table" data-value="<%- data[0].id -%>" data-value2="<%- data[0].nombreMateria -%>" data-value3="<%- data[0].curso_descripcion -%>" id="subjectName">
+                        Estudiantes del espacio curricular: <%- data[0].nombreMateria -%>
+                    </h4>
+                    <hr class="my-4" />
+                    <table id="fresh-table" class="uk-table uk-table-hover uk-table-striped" style="width: 100%">
+                        <thead>
+                            <th data-field="name">
+                                <i class="fas fa-user-graduate color-icon" data-sortable="true"></i>
+                                Nombre
+                            </th>
+                            <th data-field="surname">
+                                <i class="fas fa-user-graduate color-icon" data-sortable="true"></i>
+                                Apellido
+                            </th>
 
-                                        <th data-field="birt">
-                                            <i class="fa fa-calendar color-icon" aria-hidden="true"></i>
-                                            notas
-                                        </th>
-                                        <th data-field="dni">
-                                            <i class="fa fa-address-card color-icon" aria-hidden="true"></i>
-                                            DNI
-                                        </th>
-                                        <th data-field="email ">
-                                            <i class="fa fa-envelope color-icon" aria-hidden="true"></i>
-                                            email
-                                        </th>
-                                        <th data-field="telephone">
-                                            <i class="fa fa-phone color-icon" aria-hidden="true"></i>
-                                            telefono
-                                        </th>
-                                        <th data-field="genero">
-                                            <i class="fas fa-venus-mars color-icon"></i>
-                                            genero
-                                        </th>
-                                        <th data-field="actions" data-formatter="operateFormatter" data-events="operateEvents">
-                                            <i class="fa fa-lightbulb-o color-icon" aria-hidden="true"></i>
-                                            Acciones
-                                        </th>
-                                    </thead>
-                                    <% data.forEach(function(Student){ %>
-                                    <tr>
-                                        <td><%-Student['nombre']%></td>
-                                        <td><%-Student['apellido']%></td>
-                                        <% if (Student['nota_definitiva'] == "nd" ) { %>
-                                        <td class="none"><%-Student['nota_definitiva']%></td>
-                                        <% } %> <% if (parseFloat(Student['nota_definitiva']) < 3) { %>
-                                        <td class="disapproved"><%-Student['nota_definitiva']%></td>
-                                        <% } %> <% if (parseFloat(Student['nota_definitiva']) <= 6 && parseFloat(Student['nota_definitiva']) > 3) { %>
-                                        <td class="working"><%-Student['nota_definitiva']%></td>
-                                        <% } %> <% if (parseFloat(Student['nota_definitiva']) <= 10 && parseFloat(Student['nota_definitiva']) > 6) { %>
-                                        <td class="passed"><%-Student['nota_definitiva']%></td>
-                                        <% } %>
-                                        <td><%-Student['dni']%></td>
-                                        <td><%-Student['email']%></td>
-                                        <td><%-Student['telefono']%></td>
-                                        <td><%-Student['genero']%></td>
-                                        <td></td>
-                                    </tr>
-                                    <% }); %>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                            <th data-field="birt">
+                                <i class="fa fa-calendar color-icon" aria-hidden="true"></i>
+                                notas
+                            </th>
+                            <th data-field="dni">
+                                <i class="fa fa-address-card color-icon" aria-hidden="true"></i>
+                                DNI
+                            </th>
+                            <th data-field="email ">
+                                <i class="fa fa-envelope color-icon" aria-hidden="true"></i>
+                                email
+                            </th>
+                            <th data-field="telephone">
+                                <i class="fa fa-phone color-icon" aria-hidden="true"></i>
+                                telefono
+                            </th>
+                            <th data-field="genero">
+                                <i class="fas fa-venus-mars color-icon"></i>
+                                genero
+                            </th>
+                            <th data-field="actions" data-formatter="operateFormatter" data-events="operateEvents">
+                                <i class="fa fa-lightbulb-o color-icon" aria-hidden="true"></i>
+                                Acciones
+                            </th>
+                        </thead>
+                        <% data.forEach(function(Student){ %>
+                        <tr>
+                            <td><%-Student['nombre']%></td>
+                            <td><%-Student['apellido']%></td>
+                            <% if (Student['nota_definitiva'] == "nd" ) { %>
+                            <td class="none"><%-Student['nota_definitiva']%></td>
+                            <% } %> <% if (parseFloat(Student['nota_definitiva']) < 3) { %>
+                            <td class="disapproved"><%-Student['nota_definitiva']%></td>
+                            <% } %> <% if (parseFloat(Student['nota_definitiva']) <= 6 && parseFloat(Student['nota_definitiva']) > 3) { %>
+                            <td class="working"><%-Student['nota_definitiva']%></td>
+                            <% } %> <% if (parseFloat(Student['nota_definitiva']) <= 10 && parseFloat(Student['nota_definitiva']) > 6) { %>
+                            <td class="passed"><%-Student['nota_definitiva']%></td>
+                            <% } %>
+                            <td><%-Student['dni']%></td>
+                            <td><%-Student['email']%></td>
+                            <td><%-Student['telefono']%></td>
+                            <td><%-Student['genero']%></td>
+                            <td></td>
+                        </tr>
+                        <% }); %>
+                    </table>
                 </div>
             </div>
 
@@ -233,6 +209,11 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.0/locale/bootstrap-table-es-AR.min.js"></script>
+        <!-- new 20/4 -->
+        <script src="/javascripts/dataTables.bootstrap4.min.js"></script>
+        <script src="/javascripts/jquery.dataTables.min.js"></script>
+        <script src="/javascripts/dataTables.uikit.min.js"></script>
+        <!-- Sortable Functions -->
         <script type="text/javascript">
             const listApproved = document.getElementById("listApproved");
             const listProgress = document.getElementById("listProcess");
@@ -343,6 +324,7 @@
                 put: false,
             });
         </script>
+        <!-- boostrap DataTable -->
         <script type="text/javascript">
             var $table = $("#fresh-table");
             var $alertBtn = $("#alertBtn");
@@ -456,9 +438,6 @@
                     formatRecordsPerPage: function (pageNumber) {
                         return pageNumber + " Filas visibles";
                     },
-                });
-                $alertBtn.click(function () {
-                    alert("You pressed on Alert");
                 });
             });
         </script>

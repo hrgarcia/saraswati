@@ -1,45 +1,63 @@
 h1 {
-  font-size: 150px;
+    font-size: 150px;
 }
 
 .animate__animated.animate__pulse {
-  --animate-delay: 1.5s;
-  --animate-duration: 8s;
-  --animate-repeat: 2;
+    --animate-delay: 1.5s;
+    --animate-duration: 8s;
+    --animate-repeat: 2;
 }
 
-td.disapproved{
-  width: 2px;
-  height: 6px;
-  background: #ff0101;
-  border-radius: 1000px;
-  text-align: center;
-  color: black;
+td.disapproved {
+    width: 2px;
+    height: 6px;
+    background: #ff0101;
+    border-radius: 1000px;
+    text-align: center;
+    color: black;
 }
 
 td.working {
-  width: 2px;
-  height: 6px;
-  background: #fffb01;
-  border-radius: 1000px;
-  text-align: center;
-  color: black;
+    width: 2px;
+    height: 6px;
+    background: #fffb01;
+    border-radius: 1000px;
+    text-align: center;
+    color: black;
 }
 
 td.passed {
-  width: 2px;
-  height: 6px;
-  background: #2dbd1a;
-  border-radius: 1000px;
-  text-align: center;
-  color: black;
+    width: 2px;
+    height: 6px;
+    background: #2dbd1a;
+    border-radius: 1000px;
+    text-align: center;
+    color: black;
 }
 
 td.none {
-  width: 2px;
-  height: 6px;
-  background: grey;
-  border-radius: 1000px;
-  text-align: center;
-  color: black;
+    width: 2px;
+    height: 6px;
+    background: grey;
+    border-radius: 1000px;
+    text-align: center;
+    color: black;
+}
+
+.tituloPrincipal {
+    font-family: "Roboto Condensed", sans-serif;
+    font-size: 30px;
+}
+
+.tituloSecundario {
+    font-family: "Roboto Condensed", sans-serif;
+    font-size: 20px;
+}
+
+.arrowLeft {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    color: black;
+    cursor: pointer;
 }
