@@ -53,25 +53,25 @@
 				<div class="form-row">
 					<% data.forEach(function(Subjects){ %>
 					<div class="col-md-3" style="margin-left: 50px;">
-						<div class="card" style="background-image: url('<%-Subjects.imagen%>');">
+						<div class="card" style="background-image: url('<%-Subjects.imagen%>')">
 							<div class="header">
 								<div class="content">
 									<h4 class="title title-uppercase" style="color: rgb(255, 255, 255);text-shadow: 4px 4px 4px black;"> <%- Subjects['nombreMateria']%> </h4>
 									<h6 class="label label-danger" style="color: rgb(255, 255, 255);text-shadow: 1px 1px 2px black;" ><%- Subjects['curso_descripcion']%></h6>
 									<br>
 									<br>
-									<li class="fas fa-address-book" style="color: rgb(255, 255, 255);text-shadow: 1px 1px 2px black;">  
-										Profesor: <%- Subjects['nombre']%> <%- Subjects['apellido']%></a ></li>
+									<li class="fas fa-address-book " style="color: rgb(255, 255, 255);text-shadow: 1px 1px 2px black;">  
+										<%- Subjects['nombre']%> <%- Subjects['apellido']%></a ></li>
 									<br>
 									<li class="fas fa-address-book" style="color: rgb(255, 255, 255);text-shadow: 1px 1px 2px black;"> <%- Subjects['horasCatedra']%> horas catedras</li>
+									
 								</div>
 							</div>
-							<div class="category">
+							<div class="category" >
 								<div class="content">
 									<form action="/estudianteMateria" method="POST">
-										<button style="margin-left: -11px;margin-bottom: -5px;" type="submit" name="subjectName" value="<%- Subjects['nombreMateria']%>" class="right_triangle">
-										<i id="name1" class="fas fa-door-closed" style="font-size: 30px; padding-left: 17px !important; float: left; position: relative; top: 1px; "></i>
-											<i id="name2" class="fas fa-door-open" style="font-size: 30px; padding-left: 17px !important; float: left; position: relative; top: 1px;"></i>
+										<button style="float: right !important;" type="submit" name="subjectName" value="<%- Subjects['nombreMateria']%>" class="btn btn-danger btn-fab btn-fab-mini btn-round">
+											<i class="material-icons">login</i>
 										</button>
 									</form>
 								</div>
