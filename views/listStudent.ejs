@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="/stylesheets/datatable.css" />
 
         <link rel="stylesheet" href="/stylesheets/modal.css" />
+        
 
         <!-- new table -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
@@ -44,10 +45,17 @@
             <div class="content">
                 <!--Contenido principal acá -->
                 <div class="jumbotron">
-                    <h1 class="display-4">Lista de estudiantes</h1>
-                    <h4 class="panel-table" data-value="<%- data[0].id -%>" data-value2="<%- data[0].nombreMateria -%>" data-value3="<%- data[0].curso_descripcion -%>" id="subjectName">
-                        Estudiantes del espacio curricular: <%- data[0].nombreMateria -%>
-                    </h4>
+                        <div class="row head-table">
+                            <div class= "col-md-10">
+                                <h1 class="display-4 tituloSecundario">Lista de estudiantes</h1>
+                                <h4 class="text-table tituloSecundario" data-value="<%- data[0].id -%>" data-value2="<%- data[0].nombreMateria -%>" data-value3="<%- data[0].curso_descripcion -%>" id="subjectName">
+                                    Estudiantes del espacio curricular: <%- data[0].nombreMateria -%>
+                                </h4>
+                            </div>
+                            <div class= "col-md-2">
+                                <img class= "img-head"src="/images/6to1.png">
+                            </div>
+                        </div>
                     <hr class="my-4" />
                     <table id="fresh-table" class="uk-table uk-table-hover uk-table-striped" style="width: 100%">
                         <thead>
@@ -62,7 +70,7 @@
 
                             <th data-field="birt">
                                 <i class="fa fa-calendar color-icon" aria-hidden="true"></i>
-                                notas
+                                Notas
                             </th>
                             <th data-field="dni">
                                 <i class="fa fa-address-card color-icon" aria-hidden="true"></i>
@@ -70,15 +78,15 @@
                             </th>
                             <th data-field="email ">
                                 <i class="fa fa-envelope color-icon" aria-hidden="true"></i>
-                                email
+                                Email
                             </th>
                             <th data-field="telephone">
                                 <i class="fa fa-phone color-icon" aria-hidden="true"></i>
-                                telefono
+                                Telefono
                             </th>
                             <th data-field="genero">
                                 <i class="fas fa-venus-mars color-icon"></i>
-                                genero
+                                Genero
                             </th>
                             <th data-field="actions" data-formatter="operateFormatter" data-events="operateEvents">
                                 <i class="fa fa-lightbulb-o color-icon" aria-hidden="true"></i>
