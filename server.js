@@ -352,19 +352,21 @@ app.post("/crearProfesor", urlencodedParser, (req, res) => {
     let entry = req.body.entry;
     let state = req.body.state;
 
-    let query = "INSERT INTO profesor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?);";
-    con.query(query, [user, name, lastName, dni, telephone, email, gender, birth, entry, state], (error, rows, fields) => {
-        if (error) throw error;
-    });
+    console.log("entre a la ruta");
 
-    bcrypt.hash(req.body.password, salt, (err, encrypted) => {
-        let password = encrypted;
-        let query2 = "INSERT INTO usuario (nombreUsuario,pass,avatar) VALUES (?,?,?);";
-        con.query(query2, [user, password, avatar], (error, rows, fields) => {
-            if (error) throw error;
-            res.render("dashboard.ejs");
-        });
-    });
+    // let query = "INSERT INTO profesor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?);";
+    // con.query(query, [user, name, lastName, dni, telephone, email, gender, birth, entry, state], (error, rows, fields) => {
+    //     if (error) throw error;
+    // });
+
+    // bcrypt.hash(req.body.password, salt, (err, encrypted) => {
+    //     let password = encrypted;
+    //     let query2 = "INSERT INTO usuario (nombreUsuario,pass,avatar) VALUES (?,?,?);";
+    //     con.query(query2, [user, password, avatar], (error, rows, fields) => {
+    //         if (error) throw error;
+    //         res.render("dashboard.ejs");
+    //     });
+    // });
 });
 
 app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
