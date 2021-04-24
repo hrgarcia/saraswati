@@ -54,36 +54,19 @@ td.none {
     font-size: 20px;
 }
 
-.fa-chevron-right {
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-    color: red;
-    cursor: pointer;
-    padding-right: 0%;
-
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-}
-
-/* 
-animacion
-.fa-chevron-right{
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-    color: black;
-    cursor: pointer;
-    padding-right: 0%;
-
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    transform: rotate(90deg);
+.arrow-icon::before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f054";
+    display: inline-block;
+    padding-right: 10px;
+    vertical-align: middle;
+    font-weight: 900;
 
     -webkit-transition: transform 0.25s ease;
     -o-transition: transform 0.25s ease;
     transition: transform 0.25s ease;
-} */
+}
+
+.arrow-icon[aria-expanded="true"]::before {
+    transform: rotate(90deg);
+}
