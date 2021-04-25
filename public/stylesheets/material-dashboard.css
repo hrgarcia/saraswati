@@ -11417,6 +11417,7 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
 .btn.btn-just-icon .material-icons,
 .btn.btn-just-icon .fa {
     margin-top: 0;
+    padding-top: 50;
     position: absolute;
     width: 100%;
     transform: none;
