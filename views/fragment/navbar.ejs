@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-dark navbar-absolute fixed-top">
     <div class="container-fluid">
-        <span class="navbar-text"> En este espacio se mostrará la ruta actual </span>
+        <span class="navbar-text" id="navBarLocation"></span>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -39,3 +39,6 @@
         </ul>
     </div>
 </nav>
+<script>
+    document.getElementById("navBarLocation").innerHTML = "Ruta actual: " + window.location.pathname;
+</script>
