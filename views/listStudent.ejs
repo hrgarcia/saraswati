@@ -19,7 +19,6 @@
         <link rel="stylesheet" href="/stylesheets/datatable.css" />
 
         <link rel="stylesheet" href="/stylesheets/modal.css" />
-        
 
         <!-- new table -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
@@ -45,17 +44,17 @@
             <div class="content">
                 <!--Contenido principal acá -->
                 <div class="jumbotron">
-                        <div class="row head-table">
-                            <div class= "col-md-10">
-                                <h1 class="display-4 tituloSecundario">Lista de estudiantes</h1>
-                                <h4 class="text-table tituloSecundario" data-value="<%- data[0].id -%>" data-value2="<%- data[0].nombreMateria -%>" data-value3="<%- data[0].curso_descripcion -%>" id="subjectName">
-                                    Estudiantes del espacio curricular: <%- data[0].nombreMateria -%>
-                                </h4>
-                            </div>
-                            <div class= "col-md-2">
-                                <img class= "img-head"src="/images/6to1.png">
-                            </div>
+                    <div class="row head-table">
+                        <div class="col-md-10">
+                            <h1 class="display-4 tituloSecundario">Lista de estudiantes</h1>
+                            <h4 class="text-table tituloSecundario" data-value="<%- data[0].id -%>" data-value2="<%- data[0].nombreMateria -%>" data-value3="<%- data[0].curso_descripcion -%>" id="subjectName">
+                                Estudiantes del espacio curricular: <%- data[0].nombreMateria -%>
+                            </h4>
                         </div>
+                        <div class="col-md-2">
+                            <img class="img-head" src="/images/6to1.png" />
+                        </div>
+                    </div>
                     <hr class="my-4" />
                     <table id="fresh-table" class="uk-table uk-table-hover uk-table-striped" style="width: 100%">
                         <thead>

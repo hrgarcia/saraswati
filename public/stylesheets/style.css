@@ -8,6 +8,21 @@ h1 {
     --animate-repeat: 2;
 }
 
+.navbarBackground {
+    background: rgb(167, 25, 25);
+    background: linear-gradient(90deg, rgba(167, 25, 25, 1) 0%, rgba(196, 26, 69, 1) 21%, rgba(144, 64, 84, 1) 38%, rgba(94, 89, 91, 1) 61%, rgba(0, 0, 0, 1) 100%);
+}
+
+.footerBackground {
+    background: rgb(65, 65, 65);
+    background: linear-gradient(90deg, rgba(65, 65, 65, 1) 0%, rgba(59, 59, 59, 1) 28%, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 1) 100%);
+}
+
+.sidebarButtonsBackground {
+    background: rgb(167, 25, 25);
+    background: linear-gradient(90deg, rgba(167, 25, 25, 1) 0%, rgba(196, 26, 69, 1) 21%, rgba(144, 64, 84, 1) 38%, rgba(94, 89, 91, 1) 61%, rgba(0, 0, 0, 1) 100%);
+}
+
 td.disapproved {
     width: 2px;
     height: 6px;
