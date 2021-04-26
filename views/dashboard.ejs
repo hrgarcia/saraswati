@@ -1,123 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+        <title>Panel principal del sistema</title>
+        <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+        <!--     Fonts and icons     -->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
-	<title>Panel principal del sistema</title>
-	<meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-	<!--     Fonts and icons     -->
-	<link rel="stylesheet" type="text/css"
-		href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css" />
+        <!-- Iconos Font Awesome -->
+        <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+        <!-- Nuestros estilos -->
+        <link rel="stylesheet" href="/stylesheets/style.css" />
 
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="/css/bootstrap.min.css" />
-	<!-- Iconos Font Awesome -->
-	<script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
-	<!-- Nuestros estilos -->
-	<link rel="stylesheet" href="/stylesheets/style.css" />
+        <!-- Estilos de las tarjetas de los espacios curriculares -->
+        <link rel="stylesheet" href="/stylesheets/cardsStyle.css" />
 
-	<!-- Estilos de las tarjetas de los espacios curriculares -->
-	<link rel="stylesheet" href="/stylesheets/cardsStyle.css" />
+        <!-- CSS Files -->
+        <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+        <link href="/stylesheets/toastr.css" rel="stylesheet" />
+        <!-- Animate css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 
-	<!-- CSS Files -->
-	<link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
-	<link href="/stylesheets/toastr.css" rel="stylesheet" />
-	<!-- Animate css -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+        <!-- Cards 2.0  -->
+        <link href="/stylesheets/hipster_cards.css" rel="stylesheet" />
+        <link href="/stylesheets/demo.css" rel="stylesheet" />
 
-	<!-- Cards 2.0  -->
-	<link href="/stylesheets/hipster_cards.css" rel="stylesheet" />
-	<link href="/stylesheets/demo.css" rel="stylesheet" />
+        <!--     Cards 2.0 Fonts and icons     -->
+        <link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:700,100,400|Roboto:400,700|Playfair+Display+SC:400,700" rel="stylesheet" type="text/css" />
+        <%- include('fragment/background'); -%>
+    </head>
 
-	<!--     Cards 2.0 Fonts and icons     -->
-	<link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
-	<link
-		href='https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:700,100,400|Roboto:400,700|Playfair+Display+SC:400,700'
-		rel='stylesheet' type='text/css'>
-	<%- include('fragment/background'); -%>
-</head>
+    <body>
+        <%- include('fragment/sidebar'); -%>
+        <div data-value="<%-username%>" id="main-panel" class="main-panel">
+            <!--  contenido   -->
 
-<body>
-	<%- include('fragment/sidebar'); -%>
-	<div data-value="<%-username%>"id="main-panel"class="main-panel">
-		<!--  contenido   -->
+            <div class="content">
+                <%- include('fragment/navbar'); -%>
+                <div class="container">
+                    <!--Contenido principal acá -->
+                    <!-- <button onclick="createPdf()">Create PDF</button> -->
+                    <br />
+                    <br />
+                    <div class="form-row">
+                        <% data.forEach(function(Subjects){ %>
+                        <div class="col-md-3" style="margin-left: 50px">
+                            <div class="card" style="background-image: url('<%-Subjects.imagen%>')">
+                                <div class="header">
+                                    <div class="content">
+                                        <h4 class="title title-uppercase" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- Subjects['nombreMateria']%></h4>
+                                        <h6 class="label label-danger" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black"><%- Subjects['curso_descripcion']%></h6>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <div>
+                                            <li class="fas fa-clock" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black"><%- " " + Subjects['nombre']%> <%- Subjects['apellido']%></li>
+                                            <br />
+                                            <li class="fas fa-user" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black"><%- " " + Subjects['horasCatedra']%> horas cátedras</li>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="category">
+                                    <div class="content" style="padding-right: 0%; padding-bottom: 0%">
+                                        <form action="/estudianteMateria" method="POST">
+                                            <button
+                                                style="padding-left: 40px; padding-right: 50px; padding-top: 25px; float: right !important"
+                                                type="submit"
+                                                name="subjectName"
+                                                value="<%- Subjects['nombreMateria']%>"
+                                                class="btn btn-danger btn-fab btn-fab btn-round"
+                                            >
+                                                <i class="material-icons">login</i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <%- include('fragment/chart'); -%>
+                                <div class="filter"></div>
+                            </div>
+                        </div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+            <%- include('fragment/footer'); -%>
+        </div>
 
-		<div class="content">
-			<%- include('fragment/navbar'); -%>
-			<div class="container">
-				<!--Contenido principal acá -->
-				<!-- <button onclick="createPdf()">Create PDF</button> -->
-				<div class="form-row">
-					<% data.forEach(function(Subjects){ %>
-					<div class="col-md-3" style="margin-left: 50px;">
-						<div class="card" style="background-image: url('<%-Subjects.imagen%>')">
-							<div class="header">
-								<div class="content">
-									<h4 class="title title-uppercase" style="color: rgb(255, 255, 255);text-shadow: 4px 4px 4px black;"> <%- Subjects['nombreMateria']%> </h4>
-									<h6 class="label label-danger" style="color: rgb(255, 255, 255);text-shadow: 1px 1px 2px black;" ><%- Subjects['curso_descripcion']%></h6>
-									<br>
-									<br>
-									<li class="fas fa-address-book " style="color: rgb(255, 255, 255);text-shadow: 1px 1px 2px black;">  
-										<%- Subjects['nombre']%> <%- Subjects['apellido']%></a ></li>
-									<br>
-									<li class="fas fa-address-book" style="color: rgb(255, 255, 255);text-shadow: 1px 1px 2px black;"> <%- Subjects['horasCatedra']%> horas catedras</li>
-									
-								</div>
-							</div>
-							<div class="category" >
-								<div class="content" style="padding-right: 0%; padding-bottom: 0%;">
-									<form action="/estudianteMateria" method="POST">
-										<button style=" padding-left: 40px; padding-right: 50px; padding-top: 25px; float: right !important;"  type="submit"  name="subjectName" value="<%- Subjects['nombreMateria']%>" class="btn btn-danger btn-fab btn-fab-mini btn-round">
-											<i class="material-icons">login</i>
-										</button>
-									</form>
-								</div>
-							</div>
-							<%- include('fragment/chart'); -%>
-							<div class="filter">
-							</div>
-						</div>
-					</div>
-					<% }); %>
-				</div>
-			</div>
-		</div>
-		<%- include('fragment/footer'); -%>
-	</div>
+        <%- include('fragment/scripts'); -%>
 
-	<%- include('fragment/scripts'); -%>
+        <script src="/javascripts/plugins/jquery-3.5.1.js"></script>
+        <script src="/javascripts/toastr.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="/javascripts/hipster-cards.js"></script>
+        <script src="/javascripts/cardsDemo.js"></script>
+        <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
+        <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+        <script>
+            toastr.options.progressBar = true;
+            toastr.options.closeMethod = "fadeOut";
+            toastr.options.closeDuration = 300;
 
-	<script src="/javascripts/plugins/jquery-3.5.1.js"></script>
-	<script src="/javascripts/toastr.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="/javascripts/hipster-cards.js"></script>
-	<script src="/javascripts/cardsDemo.js"></script>
-	<script src="https://unpkg.com/pdf-lib@1.4.0"></script>
-	<script src="https://unpkg.com/downloadjs@1.4.7"></script>
-	<script>
-		toastr.options.progressBar = true;
-		toastr.options.closeMethod = "fadeOut";
-		toastr.options.closeDuration = 300;
+            let usernameToastr = document.getElementById("main-panel");
 
-		let usernameToastr = document.getElementById("main-panel")
-
-		window.onload = () => {
-			$.get('estadoToastr', { data: 0}, 
-				function(res){
-					if(res){
-						$.get('cambiarEstadoToastr',{data:0},
-							function(res){
-								//
-						});
-						toastr.success("bienvenido " + usernameToastr.getAttribute('data-value'));
-					}
-				});
-			}
-	</script>
-	<!-- <script>
+            window.onload = () => {
+                $.get("estadoToastr", { data: 0 }, function (res) {
+                    if (res) {
+                        $.get("cambiarEstadoToastr", { data: 0 }, function (res) {
+                            //
+                        });
+                        toastr.success("bienvenido " + usernameToastr.getAttribute("data-value"));
+                    }
+                });
+            };
+        </script>
+        <!-- <script>
 		const {
 			PDFDocument,
 			StandardFonts,
@@ -169,6 +171,5 @@
 			download(pdfBytes, "pruebaPDF.pdf", "application/pdf");
 		}
 	</script> -->
-</body>
-
+    </body>
 </html>
