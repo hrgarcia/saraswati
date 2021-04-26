@@ -374,7 +374,7 @@ app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
 });
 
 app.get("/GenerateReport", (req, res) => {
-    ejs.renderFile("./views/GenerateReport.ejs", { name: "Informes" }, (err, html) => {
+    ejs.renderFile("views/GenerateReport.ejs", { name: "Informes" }, (err, html) => {
         if (err) throw err;
         const options = {
             format: "A4",
@@ -383,7 +383,7 @@ app.get("/GenerateReport", (req, res) => {
             },
         };
 
-        pdf.create(html, options).toFile("./uploads/report.pdf", (err, response) => {
+        pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
             if (err) {
                 res.send(err);
             } else {
@@ -391,6 +391,11 @@ app.get("/GenerateReport", (req, res) => {
             }
         });
     });
+});
+
+app.get("/Download", (req, res) => {
+    res.type('pdf');
+    res.download('uploads/report.pdf');
 });
 
 //I compare the password entered to the one encrypted in the DB to be able to access the dashboard
