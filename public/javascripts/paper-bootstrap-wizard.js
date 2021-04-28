@@ -36,12 +36,6 @@
 searchVisible = 0;
 transparent = true;
 
-function validate(pass) {
-    passRGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
-    passResult = passRGEX.test(pass);
-    alert("contra:" + passResult);
-}
-
 $(document).ready(function () {
     /*  Activate the tooltips      */
     $('[rel="tooltip"]').tooltip();
@@ -49,22 +43,29 @@ $(document).ready(function () {
     // Code for the Validator
     var $validator = $(".wizard-card form").validate({
         rules: {
+            user:{
+                required:true,
+                minlength:3,
+                maxlength:8,
+            },
             firstname: {
                 required: true,
                 minlength: 3,
             },
             lastname: {
+                required:true,
                 minlength: 3,
             },
             email: {
                 required: true,
+                email:true,
             },
             password: {
                 required: true,
                 minlength: 8,
                 maxlength: 16,
-                // pattern:(/^(?=\D*\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}$/)
             },
+
             dni: {
                 required: true,
                 minlength: 8,
@@ -72,8 +73,16 @@ $(document).ready(function () {
             },
             telephone: {
                 minlength: 10,
-                maxlength: 10,
+                maxlength: 15,
             },
+            birth:{
+                required:true,
+                date:true,
+            },
+            entry:{
+                required:true,
+                date:true,
+            }
         },
     });
 
