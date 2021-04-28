@@ -85,3 +85,30 @@ td.none {
 .arrow-icon[aria-expanded="true"]::before {
     transform: rotate(90deg);
 }
+
+
+.fa-clock::before{
+    
+    font-family: "Font Awesome 5 Free";
+    content: "\f017";
+    display: inline-block;
+    padding-right: 10px;
+    vertical-align: middle;
+    font-weight: 900;
+    text-shadow: 4px 4px 4px black;
+    
+    color: #FF3B30;
+}
+
+.fa-user::before{
+    
+    font-family: "Font Awesome 5 Free";
+    content: "\f017";
+    display: inline-block;
+    padding-right: 10px;
+    vertical-align: middle;
+    font-weight: 900;
+    text-shadow: 4px 4px 4px black;
+    
+    color: #FF3B30;
+}
