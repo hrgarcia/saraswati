@@ -25,11 +25,16 @@
 }
 .fa-edit:before {
   color: #006bc7d4;
+  font-size: 20px;
+  margin-left: 35px;
+  
   
 }
 
 .fa-inform:before {
-  color: #3f9455b5;
+  color: #308350e8;
+  font-size: 20px;
+  margin-left: 10px;
   
 }
 .custom-btn {
