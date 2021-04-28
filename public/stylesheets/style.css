@@ -26,8 +26,8 @@ h1 {
 td.disapproved {
     width: 2px;
     height: 6px;
-    background: #ff0101;
-    border-radius: 1000px;
+    background: #ff01019c;
+    border-radius: 50px;
     text-align: center;
     color: black;
 }
@@ -35,8 +35,8 @@ td.disapproved {
 td.working {
     width: 2px;
     height: 6px;
-    background: #fffb01;
-    border-radius: 1000px;
+    background: #fffb017a;
+    border-radius: 50px;
     text-align: center;
     color: black;
 }
@@ -44,8 +44,8 @@ td.working {
 td.passed {
     width: 2px;
     height: 6px;
-    background: #2dbd1a;
-    border-radius: 1000px;
+    background: #47aa3a94;
+    border-radius:50px;
     text-align: center;
     color: black;
 }
@@ -53,8 +53,8 @@ td.passed {
 td.none {
     width: 2px;
     height: 6px;
-    background: grey;
-    border-radius: 1000px;
+    background: rgba(128, 128, 128, 0.664);
+    border-radius: 50px;
     text-align: center;
     color: black;
 }
