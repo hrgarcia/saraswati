@@ -387,15 +387,12 @@ app.get("/GenerateReport", (req, res) => {
             if (err) {
                 res.send(err);
             } else {
-                res.send("File created successfully");
+                console.log("File created successfully");
             }
         });
+        res.type("pdf");
+        res.download("uploads/report.pdf");
     });
-});
-
-app.get("/Download", (req, res) => {
-    res.type('pdf');
-    res.download('uploads/report.pdf');
 });
 
 //I compare the password entered to the one encrypted in the DB to be able to access the dashboard
