@@ -54,15 +54,15 @@
                             <div class="card" style="background-image: url('<%-Subjects.imagen%>')">
                                 <div class="header">
                                     <div class="content">
-                                        <h4 class=" cortado title title-uppercase" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- Subjects['nombreMateria']%></h4>
+                                        <h4 class="cortado title title-uppercase" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- Subjects['nombreMateria']%></h4>
                                         <h6 class="label label-danger" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black"><%- Subjects['curso_descripcion']%></h6>
                                         <br />
                                         <br />
                                         <br />
                                         <div>
-                                            <li class="fas fa-clock" style="color: rgb(255,255,255); text-shadow: 1px 1px 2px black;position: absolute; top: 215px;"><%- " " + Subjects['nombre']%> <%- Subjects['apellido']%></li>
+                                            <li class="fas fa-clock" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 215px"><%- " " + Subjects['nombre']%> <%- Subjects['apellido']%></li>
                                             <br />
-                                            <li class="fas fa-user" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black;position: absolute; top: 245px;"><%- " " + Subjects['horasCatedra']%> Horas cátedras</li>
+                                            <li class="fas fa-user" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 245px"><%- " " + Subjects['horasCatedra']%> Horas cátedras</li>
                                         </div>
                                     </div>
                                 </div>
@@ -119,68 +119,17 @@
                 });
             };
         </script>
-                <script>
-                    $(document).ready(function(){
-                        var materiaNombre = [$(".cortado").val(0)]
-                        for (let palabra of materiaNombre) {
-                            // console.log(palabra); 
-        
-                        }
-                    })
-                </script>
-
-
-        <!-- <script>
-		const {
-			PDFDocument,
-			StandardFonts,
-			rgb
-		} = PDFLib
-
-
-		async function createPdf() {
-			// Create a new PDFDocument
-			const pngUrl = '/favicon/android-chrome-192x192.png';
-			const pngImageBytes = await fetch(pngUrl).then((res) => res.arrayBuffer());
-			const pdfDoc = await PDFDocument.create();
-
-
-			const pngImage = await pdfDoc.embedPng(pngImageBytes)
-			const pngDims = pngImage.scale(0.25);
-			// Embed the Times Roman font
-			const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
-
-			// Add a blank page to the document
-			const page = pdfDoc.addPage();
-
-			// Get the width and height of the page
-			const {
-				width,
-				height
-			} = page.getSize();
-
-
-			// Draw a string of text toward the top of the page
-			const fontSize = 20;
-			page.drawImage(pngImage, {
-				x: page.getWidth() - 25 - pngDims.width / 2,
-				y: page.getHeight() -30 - pngDims.height / 2,
-				width: pngDims.width,
-				height: pngDims.height,
-			});
-			page.drawText('Estimado * usted tiene * espacios curriculares:', {
-				x: 10,
-				y: height - 5 * fontSize,
-				size: fontSize,
-				font: timesRomanFont,
-				color: rgb(0, 0.53, 0.71),
-			});
-			// Serialize the PDFDocument to bytes (a Uint8Array)
-			const pdfBytes = await pdfDoc.save();
-
-			// Trigger the browser to download the PDF document
-			download(pdfBytes, "pruebaPDF.pdf", "application/pdf");
-		}
-	</script> -->
+        <script>
+            $(document).ready(function () {
+                //Arreglo para alojar todos los nombres de espacios curriculares del profe en cuestión
+                let espacios = [];
+                //Con un foreach guardamos cada nombre espacio curricular en el arreglo
+                $("h4.cortado").each((i, e) => {
+                    espacios.push($(e).text());
+                });
+                //Imprimimos el arreglo para ver si funciona
+                console.log(espacios);
+            });
+        </script>
     </body>
 </html>
