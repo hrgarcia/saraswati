@@ -54,7 +54,7 @@
                             <div class="card" style="background-image: url('<%-Subjects.imagen%>')">
                                 <div class="header">
                                     <div class="content">
-                                        <h4 class="title title-uppercase" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- Subjects['nombreMateria']%></h4>
+                                        <h4 class=" cortado title title-uppercase" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- Subjects['nombreMateria']%></h4>
                                         <h6 class="label label-danger" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black"><%- Subjects['curso_descripcion']%></h6>
                                         <br />
                                         <br />
@@ -119,6 +119,17 @@
                 });
             };
         </script>
+                <script>
+                    $(document).ready(function(){
+                        var materiaNombre = [$(".cortado").val(0)]
+                        for (let palabra of materiaNombre) {
+                            // console.log(palabra); 
+        
+                        }
+                    })
+                </script>
+
+
         <!-- <script>
 		const {
 			PDFDocument,
