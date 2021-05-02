@@ -4,48 +4,43 @@ module.exports = {
 
 const xlsx = require("xlsx");
 
-function loadLearnings(excel, con) {
-    const workBook = xlsx.readFile(excel);
-    const sheet = workBook.SheetNames[0];
-    const dataExcel = xlsx.utils.sheet_to_json(workBook.Sheets[sheet]);
-    let data = {};
-    let subjectName;
-    let query = "SELECT id,nombreMateria FROM materia WHERE nombreMateria = ?;";
+function loadLearnings(excel, con, typeOFile, trimester, idSubject) {
+    if (typeOFile == "excel") {
+        const workBook = xlsx.readFile(excel);
+        const sheet = workBook.SheetNames[0];
+        const dataExcel = xlsx.utils.sheet_to_json(workBook.Sheets[sheet]);
 
-    // Save different info about learnings in a JSON for then push him in the DB
-    dataExcel.map((item) => {
-        subjectName = item.materia;
-        if (data[subjectName] == undefined) {
-            data[subjectName] = [item];
-            con.query(query, [data[subjectName][0].materia], function (error, rows, fields) {
-                if (error) throw error;
-                if (rows.length > 0) {
-                    data[rows[0].nombreMateria][0].materia = rows[0].id;
-                    // si muestro esto si se modican los id
-                    // console.log(data[rows[0].nombreMateria][0], "hola");
-                    // console.log(data, "hola");
-                } else {
-                    // Notify the user that there are one or more learnings that do not exist
-                    // Toastr? Form?
-                }
-                // console.log(data);
-            });
-        } else {
-            console.log("YA EXISTE ");
-            data[subjectName][data[subjectName].length] = item;
-            // console.log(data[subjectName][(data[subjectName].length)-1], "antes -------------");
-            data[subjectName][data[subjectName].length - 1].id = data[subjectName][0].id;
-            // console.log(data[subjectName][(data[subjectName].length)-1], "despues -------------");
-            //ver forma de recuperar id
-        }
+        let nameLearnings = [];
 
-        /*
-        let query = "INSERT INTO aprendizajes (descripcion, id_materia) VALUES (?,?);"
-        con.query(query,[item.aprendizaje,"2"], function (error, rows, fields) {
-            if (error) throw error;
+        dataExcel.map((item) => {
+            nameLearnings.push(item.aprendizajes);
         });
-        */
+        insertLearningsDB(con, nameLearnings, trimester, idSubject);
+    }
+}
+
+function insertLearningsDB(con, nameLearnings, trimester, idSubject) {
+    // Search for the DNI of all students in this subject
+    let query1 = "SELECT dni FROM estudiante INNER JOIN materia WHERE materia.id = ? AND estudiante.descripcion_curso = materia.curso_descripcion";
+
+    // Create the learning base
+    // Search for the DNI of all students in this subject
+    let query2 = "INSERT INTO aprendizajes (descripcion,id_materia,id_periodo) VALUES (?, ?, ?)";
+    let query3 = "INSERT INTO estudianteaprendizaje (descripcion,estado,estudiante_dni,periodo_id,materia_id) VALUES (?,?,?,?,?)";
+
+    con.query(query1, [idSubject], (error, rows, fields) => {
+        if (error) throw error;
+        for (let i = 0; i < nameLearnings.length; i++) {
+            con.query(query2, [nameLearnings[i], idSubject, trimester], (error, row, fields) => {
+                if (error) throw error;
+            });
+            // With a for I create each learning for each student
+            for (let x = 0; x < rows.length; x++) {
+                con.query(query3, [nameLearnings[i], "pendiente", rows[x].dni, trimester, idSubject], (error, row2, fields) => {
+                    if (error) throw error;
+                });
+            }
+        }
     });
-    //si muestro data, .materia no se modifica por los id
-    //console.log(data);
+    // Toastr de que todo salio bien?
 }

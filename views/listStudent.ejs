@@ -42,6 +42,9 @@
         <div class="main-panel">
             <%- include('fragment/navbar'); -%>
             <div class="content">
+                <a class="float" data-toggle="modal" data-target="#creatLearningsFile">
+                    <i class="fa fa-plus my-float"></i>
+                </a>
                 <!--Contenido principal acá -->
                 <div class="jumbotron">
                     <div class="row head-table">
@@ -69,7 +72,7 @@
 
                             <th data-field="birt">
                                 <i class="fa fa-calendar color-icon" aria-hidden="true"></i>
-                                Notas    
+                                Notas
                             </th>
                             <th data-field="dni">
                                 <i class="fa fa-address-card color-icon" aria-hidden="true"></i>
@@ -141,7 +144,7 @@
                                         <div class="cardheader tituloSecundario">Proceso</div>
                                         <div id="listProcess" class="cardcolor proceso"></div>
                                     </div>
-                                </div>
+                                </div> 
                                 <div class="col-md-4">
                                     <div class="text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px">
                                         <div class="cardheader tituloSecundario">Aprobado</div>
@@ -178,31 +181,78 @@
 
             <!-- Create learnings popup -->
 
-            <div id="newLearning" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
+            <div class="modal fade bd-example-modal-lg" id="newLearning" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" id="modal">
                         <div class="modal-header">
-                            <h5 style="color: #070707" class="modal-title">Ingrese el nombre del aprendizaje</h5>
+                            <h5 style="color: rgb(255, 255, 255)" class="modal-title tituloPrincipal">Ingrese el nombre del aprendizaje</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <small style="font-weight: bold">Complete los campos para crear un aprendizaje</small>
+                        <small class="tituloSecundario" style="font-weight: bold; color: rgb(255, 255, 255)">Complete los campos para crear un aprendizaje</small>
                         <div class="modal-body">
                             <input type="text" name="learningName" id="inputNameLearning" placeholder="Ingrese nombre" required />
                             <br />
                             <br />
-                            <small style="font-weight: bold">seleccione periodo</small>
+                            <small class="tituloSecundario" style="font-weight: bold; color: rgb(255, 255, 255)">seleccione periodo</small>
                             <div class="input-group">
-                                <select class="custom-select" id="inputPeriodLearning" placeholder="Ingrese el periodo" required>
+                                <select class="custom-select" id="inputPeriodLearning" placeholder="Ingrese el trimestre" required>
                                     <option>1er cuatrimestre</option>
                                     <option>2er cuatrimestre</option>
                                 </select>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" onclick="addLearning([inputNameLearning.value,inputPeriodLearning.value])">Save changes</button>
+                            <button type="button" class="btn btn-primary" onclick="addLearning([inputNameLearning.value, inputPeriodLearning.value])">Save changes</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Create learnings for Excel or Txt -->
+
+            <div class="modal fade bd-example-modal-lg" id="creatLearningsFile" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content" id="modal">
+                        <div class="modal-header" style="border-bottom: 1px solid #ffffff !important">
+                            <h5 class="modal-title tituloPrincipal" id="exampleModalLabel">Crear aprendizajes con un archivo</h5>
+                            <h5 class="modal-title" id="isChangedLearnState" style="text-indent: 350px"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/cargarAprendizaje" method="POST" enctype="multipart/form-data">
+                                <div>
+                                    <p class="category tituloSecundario" style="color: rgb(255, 255, 255)">Trimestre</p>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="trimester" value="1" />
+                                        <label class="form-check-label" for="inlineCheckbox1">1</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="trimester" value="2" />
+                                        <label class="form-check-label" for="inlineCheckbox2">2</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="category tituloSecundario" style="color: rgb(255, 255, 255)">Tipo de archivo</p>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="typeOFile" value="excel" id="inlineCheckbox3" />
+                                        <label class="form-check-label" for="inlineCheckbox3">Excel</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="typeOFile" value="txt" disabled/>
+                                        <label class="form-check-label" for="inlineCheckbox4">Txt</label>
+                                    </div>
+                                </div>
+                                <input style="display:none;" name="idSubject" value="<%- data[0].id -%>"></input>
+                                <div class="modal-footer">
+                                    <input type="file" name="aprendizajes" placeholder="Ingrese un archivo" />
+                                    <button type="submit" class="btn btn-primary">Cargar</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -233,7 +283,8 @@
                 },
                 animation: 150,
                 easing: "cubic-bezier(0.895,0.03,0.685,0.22)",
-                chosenClass: "active",
+                chosenClass: "sortableChosen",
+                dragClass: "sortableDrag",
                 onAdd: function (evt) {
                     //first time
                     if (evt.item.getAttribute("originLearn") == "" && evt.item.getAttribute("data-value") == 0) {
@@ -265,7 +316,8 @@
                 },
                 animation: 150,
                 easing: "cubic-bezier(0.895,0.03,0.685,0.22)",
-                chosenClass: "active",
+                chosenClass: "sortableChosen",
+                dragClass: "sortableDrag",
                 onAdd: function (evt) {
                     //first time
                     if (evt.item.getAttribute("originLearn") == "" && evt.item.getAttribute("data-value") == 0) {
@@ -298,7 +350,8 @@
                 },
                 animation: 150,
                 easing: "cubic-bezier(0.895,0.03,0.685,0.22)",
-                chosenClass: "active",
+                chosenClass: "sortableChosen",
+                dragClass: "sortableDrag",
                 onAdd: function (evt) {
                     if (evt.item.getAttribute("originLearn") == "" && evt.item.getAttribute("data-value") == 0) {
                         evt.item.setAttribute("data-value", "1");
@@ -325,7 +378,8 @@
                 group: {
                     name: "statuslearning",
                 },
-                chosenClass: "active",
+                chosenClass: "sortableChosen",
+                dragClass: "sortableDrag",
                 filter: ".trash",
                 sort: false,
                 put: false,
@@ -379,7 +433,7 @@
                 // course
                 newLearningData.push(document.getElementById("subjectName").getAttribute("data-value3"));
                 $.get("agregarAprendizajes", { newLearningData }, function (res) {
-                    $("#listPending").append("<div class='list-group-item pendiente' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" + newLearningData[0] + "</p></div>");
+                    $("#listPending").append("<div class='list-group-item pendiente sortableStyle' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" + " " + newLearningData[0] + "</p></div>");
                     document.getElementById("isChangedLearnState").innerHTML = "Se creo un nuevo aprendizaje";
                 });
             }
@@ -398,15 +452,15 @@
                             for (let i = 0; i < res.length; i++) {
                                 if (res[i].estado == "aprobado") {
                                     $(document).ready(() => {
-                                        $("#listApproved").append("<div class='list-group-item aprobado' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" + res[i].descripcion + "</p></div>");
+                                        $("#listApproved").append("<div class='list-group-item aprobado sortableStyle' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" + " " + res[i].descripcion + "</p></div>");
                                     });
                                 } else if (res[i].estado == "proceso") {
                                     $(document).ready(() => {
-                                        $("#listProcess").append("<div class='list-group-item proceso' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" + res[i].descripcion + "</p></div>");
+                                        $("#listProcess").append("<div class='list-group-item proceso sortableStyle' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" +  " " + res[i].descripcion + "</p></div>");
                                     });
                                 } else {
                                     $(document).ready(() => {
-                                        $("#listPending").append("<div class='list-group-item pendiente' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" + res[i].descripcion + "</p></div>");
+                                        $("#listPending").append("<div class='list-group-item pendiente sortableStyle' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" +  " " + res[i].descripcion + "</p></div>");
                                     });
                                 }
                             }
@@ -421,7 +475,7 @@
                     '<a rel="tooltip" title="Generar informe class="table-action like" href="javascript:void(0)" title="Like">',
                     '<i class="far fa-file-alt fa-inform"></i>',
                     "</a>",
-                    
+
                     '<a rel="tooltip" title="Editar" class="table-action edit" href="javascript:void(0)" title="Edit" data-toggle="modal" data-target="#learningsStudent">',
                     '<i class="fa fa-edit"></i>',
                     "</a>",

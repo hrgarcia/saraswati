@@ -229,7 +229,7 @@ app.get("/guardarAprendizajes", (req, res) => {
 
 app.get("/agregarAprendizajes", (req, res) => {
     // Create the learning in the learning table
-    // (Positions) 0 = name L / 1 = period Name / 2 = subj id / 3 = subj name / 4 = course
+    // (Positions) 0 = nameL / 1 = periodName / 2 = subjid / 3 = subjname / 4 =course
     let idPeriod = 1;
     if (req.query.newLearningData[1] == "1er cuatrimestre") {
         idPeriod = 1;
@@ -370,7 +370,11 @@ app.post("/crearProfesor", urlencodedParser, (req, res) => {
 });
 
 app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
-    teacherFunctions.loadLearnings(req.file.path, con);
+    let typeOFile = req.body.typeOFile;
+    let trimester = req.body.trimester;
+    let idSubject = req.body.idSubject;
+    teacherFunctions.loadLearnings(req.file.path, con, typeOFile, trimester, idSubject);
+    res.redirect("/dashboard");
 });
 
 app.get("/GenerateReport", (req, res) => {
