@@ -73,7 +73,7 @@
                                                 style="padding-left: 40px; padding-right: 50px; padding-top: 25px; float: right !important"
                                                 type="submit"
                                                 name="subjectName"
-                                                value="<%- Subjects['nombreMateria']%>"
+                                                value="<%- Subjects['nombreMateria ']%>"
                                                 class="btn btn-danger btn-fab btn-fab btn-round"
                                             >
                                                 <i class="material-icons">login</i>
@@ -126,6 +126,9 @@
                 //Con un foreach guardamos cada nombre espacio curricular en el arreglo
                 $("h4.cortado").each((i, e) => {
                     espacios.push($(e).text());
+                    if (espacios[i].length > 15 ) {
+                        espacios[i] = "Estructura ...";   
+                    }
                 });
                 //Imprimimos el arreglo para ver si funciona
                 console.log(espacios);
