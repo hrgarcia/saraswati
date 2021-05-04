@@ -43,13 +43,15 @@
 	<%- include('fragment/sidebar'); -%>
 	<div class="main-panel">
 		<%- include('fragment/navbar'); -%>
-		<div class="content">
-			<div class="container-fluid">
-				<!--Contenido principal acá -->
-				<div class="row">
-					<div class="col-md-12">
-						<div class="container fresh-table full-color-table">
+			<div class="content">
+				<div class="container-fluid">
+					<div class="jumbotron">
+					<!--Contenido principal acá -->
+					<div class="row">
+						<div class="col-md-12">
 							<table id="fresh-table" class="table">
+								<button class="btn btn-primary" type="submit" value="submit" > Sexto año</button>
+								<button class="btn btn-primary" type="submit" value="submit" > Quinto año</button>
 								<thead>
 										<th data-field="name" data-sortable="true">Nombre</th>
 										<th data-field="surname" data-sortable="true">Apellido</th>
@@ -84,8 +86,8 @@
 										<td><%-Student['nombre']%></td>
 										<td><%-Student['apellido']%></td>
 										<% if (Student['nota_definitiva'] == "nd" ) { %>
-                                            <td class="none"><%-Student['nota_definitiva']%></td>
-                                        <% } %>
+											<td class="none"><%-Student['nota_definitiva']%></td>
+										<% } %>
 										<% if (parseFloat(Student['nota_definitiva']) < 3) { %>
 											<td class="disapproved"><%-Student['nota_definitiva']%></td>
 										<% } %>
@@ -102,13 +104,14 @@
 										<td></td>
 									</tr>
 									<% }); %>
-                                    
+									
 							</table>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 			aria-hidden="true">
 			<div class="modal-dialog modal-lg" >
