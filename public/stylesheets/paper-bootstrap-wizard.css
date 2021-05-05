@@ -1042,7 +1042,7 @@ input[type="button"]:focus {
 .nav-pills > li.active > a [class*="ti-"],
 .nav-pills > li.active > a:hover [class*="ti-"],
 .nav-pills > li.active > a:focus [class*="ti-"] {
-  color: #FFFFFF;
+  color: #505050;
   font-size: 24px;
   top: 21px;
   -webkit-transition: all 0.2s linear;
@@ -1306,7 +1306,7 @@ input[type="button"]:focus {
   color: #000000;
 }
 .wizard-card[data-color="orange"] .nav-pills .icon-circle.checked {
-  border-color: #83abe8;
+  border-color: #093d8c;
 }
 .wizard-card[data-color="orange"] .choice.active .card-checkboxes {
   color: #F3BB45;
@@ -1362,7 +1362,7 @@ input[type="button"]:focus {
   text-align: center;
 }
 .wizard-card .wizard-title {
-  color: #252422;
+  color: #f7f6f4;
   font-weight: 300;
   margin: 0;
 }
