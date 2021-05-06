@@ -334,8 +334,7 @@ app.post("/crearMateria", (req, res) => {
         res.redirect("/dashboard");
     });
 });
-let el = document.getElementById('my-text');
-let editable = new InlineEdit(el);
+
 app.post("/crearProfesor", urlencodedParser, (req, res) => {
     // User Data
     let user = req.body.user;
