@@ -40,13 +40,13 @@ const storageAprendizajes = multer.diskStorage({
 var aprendizajesExcel = multer({
     storage: storageAprendizajes,
     fileFilter: (req, file, cb) => {
-        if (path.extname(file.originalname) !== ".xlsx") {
-            console.log("no es un excel");
-        } else {
+        if (path.extname(file.originalname) === ".xlsx") {
+            cb(null, true);
+        } else if (path.extname(file.originalname) === ".txt") {
             cb(null, true);
         }
     },
-}).single("aprendizajes");
+}).single("learnings");
 
 // Parse application/x-www-form-urlencoded
 app.use(
@@ -373,7 +373,7 @@ app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
     let typeOFile = req.body.typeOFile;
     let trimester = req.body.trimester;
     let idSubject = req.body.idSubject;
-    teacherFunctions.loadLearnings(req.file.path, con, typeOFile, trimester, idSubject);
+    //teacherFunctions.loadLearnings(req.file.path, con, typeOFile, trimester, idSubject);
     res.redirect("/dashboard");
 });
 

@@ -233,13 +233,13 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div id="learningsExcelForm" class="modal-body">
-                            <form action="/cargarAprendizaje" method="POST" onsubmit="validate()" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <form action="/cargarAprendizaje" id="learningsExcelForm" method="POST" onsubmit="validate()" enctype="multipart/form-data">
                                 <div>
-									<p class="category tituloSecundario" style="color: rgb(255, 255, 255)">Trimestre</p>
+									<p class="category tituloSecundario" style="color: rgb(228, 216, 216)">Trimestre</p>
 									<div class="form-check form-check-radio form-check-inline">
 										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="trimester" id="inlineRadio1" value="1"> 1
+											<input class="form-check-input" type="radio" name="trimester" id="inlineRadio1" value="1" checked> 1
 											<span class="circle">
 												<span class="check"></span>
 											</span>
@@ -258,7 +258,7 @@
                                     <p class="category tituloSecundario" style="color: rgb(255, 255, 255)">Tipo de archivo</p>
                                     <div class="form-check form-check-radio form-check-inline">
 										<label class="form-check-label">
-											<input class="form-check-input"  style="color: rgb(255, 255, 255)" type="radio" name="typeOFile" id="inlineRadio3" value="excel"> Excel
+											<input class="form-check-input" type="radio" name="typeOFile" id="radioExcel" value="excel" checked> Excel
 											<span class="circle">
 												<span class="check"></span>
 											</span>
@@ -266,7 +266,7 @@
 									</div>
                                     <div class="form-check form-check-radio form-check-inline">
 										<label class="form-check-label">
-											<input class="form-check-input" style="color: rgb(255, 255, 255)" type="radio" name="typeOFile" id="inlineRadio4" value="txt" disabled> Txt
+											<input class="form-check-input" type="radio" name="typeOFile" id="radioTxt" value="txt"> Txt
 											<span class="circle">
 												<span class="check"></span>
 											</span>
@@ -275,7 +275,7 @@
                                 </div>
                                 <input style="display:none;" name="idSubject" value="<%- data[0].id -%>"></input>
                                 <div class="modal-footer">
-                                    <input type="file" name="learning" placeholder="Ingrese un archivo" />
+                                    <input type="file" name="learnings" placeholder="Ingrese un archivo" />
 									<button type="submit" class="btn btn-primary">Cargar</button>
                                 </div>
                             </form>
@@ -299,8 +299,30 @@
         
         <!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
         <script src="javascripts/jquery.validate.min.js" type="text/javascript"></script>
+        <script src= "https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
+
         <!-- validation -->
-        <script src="javascripts/validations.js" type="text/javascript"></script>
+        <script>
+            //segun lo que lei no se puede hacer dos validaciones al mismo name
+            $("#learningsExcelForm").validate({
+                rules: {
+                    learnings: {
+                        required: '#radioExcel:checked',
+                        accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    },
+                    learnings: {
+                        required: '#radioTxt:checked',
+                        accept: 'text/plain',
+                    }
+                },
+                messages:{
+                    learnings:{
+                        required: "Por favor ingrese un archivo",
+                        accept: "El tipo de archivo no es correcto"
+                    }
+                }
+            });
+        </script>
         
         <!-- Sortable Functions -->
         <script type="text/javascript">
