@@ -56,7 +56,7 @@
 										<th data-field="name" data-sortable="true">Nombre</th>
 										<th data-field="surname" data-sortable="true">Apellido</th>
 										<th data-field="birt">
-											<i class="fa fa-calendar color-icon" aria-hidden="true"></i>
+											<i class="fa fa-calendar color-icon" aria-hidden="true" onclick="inlineEditing()"></i>
 											notas
 										</th>
 										<th data-field="dni">
@@ -88,6 +88,7 @@
 										<% if (Student['nota_definitiva'] == "nd" ) { %>
 											<td class="none"><%-Student['nota_definitiva']%></td>
 										<% } %>
+										
 										<% if (parseFloat(Student['nota_definitiva']) < 3) { %>
 											<td class="disapproved"><%-Student['nota_definitiva']%></td>
 										<% } %>
@@ -463,8 +464,94 @@
 			$alertBtn.click(function () {
 				alert('You pressed on Alert')
 			})
-		})
+		});
+		
+
+
+	//Aca empezaria los metodos de inline editing, lo saque de esta pagina: https://blog.logrocket.com/building-inline-editable-ui-in-react/
+	
+	// Editable.js
+	// import React, { useState } from "react";
+
+	// // Component accept text, placeholder values and also pass what type of Input - input, textarea so that we can use it for styling accordingly
+	// const Editable = ({
+  	// 	text,
+  	// 	type,
+  	// 	placeholder,
+  	// 	children,
+  	// 	...props
+	// }) => {
+  	// // Manage the state whether to show the label or the input box. By default, label will be shown.
+	// // Exercise: It can be made dynamic by accepting initial state as props outside the component 
+  	// const [isEditing, setEditing] = useState(false);
+
+	// // Event handler while pressing any key while editing
+  	// const handleKeyDown = (event, type) => {
+    // 	// Handle when key is pressed
+  	// };
+
+	// /*
+	// - It will display a label is `isEditing` is false
+	// - It will display the children (input or textarea) if `isEditing` is true
+	// - when input `onBlur`, we will set the default non edit mode
+	// Note: For simplicity purpose, I removed all the classnames, you can check the repo for CSS styles
+	// */
+  	// return (
+    // 	<section {...props}>
+    //   		{isEditing ? (
+    //     		<div
+    //     			onBlur={() => setEditing(false)}
+    //       			onKeyDown={e => handleKeyDown(e, type)}
+    //     		>
+    //       	{children}
+    //     	</div>
+    //   		) : (
+    //     	<div
+    //       		onClick={() => setEditing(true)}
+    //     	>
+    //       	<span>
+    //         	{text || placeholder || "Editable content"}
+    //       	</span>
+    //     	</div>
+    //   		)}
+    // 	</section>
+  	// );
+	// };
+
+
+
+	// function App() {
+  	// /* 
+    // 	1. create a reference using use reference and add the ref={inputRef} to input element
+    // 	2. pass this reference to the Editable component, use different name than ref, I used `childRef`. Its basically a normal prop carrying the input element reference.
+  	// */
+  	// const inputRef = useRef();
+  	// const [task, setTask] = useState("");
+
+  	// return (
+    // 	<Editable
+    //   		text={task}
+    //   		placeholder="Write a task name"
+    //   		childRef={inputRef}
+    //   		type="input"
+    // 	>
+    //   	<input
+    //     	ref={inputRef}
+    //     	type="text"
+    //     	name="task"
+    //     	placeholder="Write a task name"
+    //     	value={task}
+    //     	onChange={e => setTask(e.target.value)}
+    //   	/>
+    // 	</Editable>
+  	// );
+	// }
+	// export default App;
+
+	//De igual manera en discord le dejo otras paginas que puede ir viendo, que dentro de todo son cosas bastante parecidas/sofi
+ ;
 	</script>
+
     </div>
     
 </body>
