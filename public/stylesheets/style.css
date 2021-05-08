@@ -110,13 +110,12 @@ td.none {
     color: #ff3b30;
 }
 
-.float {
-    position: fixed;
+.loadLearning {
     width: 60px;
     height: 60px;
     bottom: 40px;
     right: 40px;
-    background-color: #0c9;
+    background-color: #ec2a2a;
     color: #fff;
     border-radius: 50px;
     text-align: center;
