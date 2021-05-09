@@ -63,7 +63,7 @@
                         <div class="col-md-2">
                             <img class="img-head" src="/images/6to1.png" />
                         </div>
-                        <a class="loadLearning mr" data-toggle="modal" data-target="#creatLearningsFile" data-toggle="tooltip" data-placement="bottom" title="¿que pasa puta?">
+                        <a class="loadLearning mr" data-toggle="modal" data-target="#creatLearningsFile" data-toggle="tooltip" data-placement="bottom" title="Cargar Aprendizajes">
                             <i class="fa fa-plus my-float"></i>
                         </a>
                     </div>
@@ -81,7 +81,7 @@
                             </th>
                             
                             <th data-field="birt">
-                                <i class="fa fa-calendar color-icon" aria-hidden="true" id="nota" onclick="inlineEditing()"></i>
+                                <i class="fa fa-calendar color-icon mb 5" aria-hidden="true" id="nota" onclick="inlineEditing()"></i>
                                 Notas
                                 
                             </th>
@@ -492,6 +492,10 @@
                     document.getElementById("isChangedLearnState").innerHTML = "Se creo un nuevo aprendizaje";
                 });
             }
+            function pdf(){
+                $.get("GenerateReport", { "hola":"hola" }, function (res) {
+                });
+            }
 
             window.operateEvents = {
                 "click .like": function (e, value, row, index) {
@@ -527,7 +531,7 @@
 
             function operateFormatter(value, row, index) {
                 return [
-                    '<a rel="tooltip" title="Generar informe class="table-action like" href="javascript:void(0)" title="Like">',
+                    '<a rel="tooltip" title="Generar informe class="table-action like" href="javascript:pdf()" title="Like">',
                     '<i class="far fa-file-alt fa-inform"></i>',
                     "</a>",
 

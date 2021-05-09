@@ -378,6 +378,7 @@ app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
 });
 
 app.get("/GenerateReport", (req, res) => {
+    console.log("si llega");
     ejs.renderFile("views/GenerateReport.ejs", { name: "Informes" }, (err, html) => {
         if (err) throw err;
         const options = {
