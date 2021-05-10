@@ -468,6 +468,51 @@
 			})
 		})
 	</script>
+	<!-- <script type="text/javascript">
+		var editor; // use a global for the submit and return data rendering in the examples
+ 
+		$(document).ready(function() {
+    		editor = new $.fn.dataTable.Editor( {
+        		ajax: "../php/staff.php",
+        		$table: "#fresh-table",
+        		fields: [ {
+                	label: "Notas:",
+                	name: "nota_definitiva"
+            	}
+        	]
+    	} );
+ 
+    	$('#fresh-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
+        	editor.inline( this, {
+            	submit: 'allIfChanged'
+        	} );
+    	} );
+ 
+    	$('#fresh-table').DataTable( {
+        	dom: "Bfrtip",
+        	ajax: "../php/staff.php",
+        	columns: [
+            	{
+                	data: null,
+                	defaultContent: '',
+                	className: 'select-checkbox',
+                	orderable: false
+            	},
+            
+            	{ data: "nota_definitiva", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
+        	],
+        
+        	select: {
+            	style:    'os',
+            	selector: 'td:first-child'
+        	},
+        	buttons: [
+            	{ extend: "Guardar cambios", editor: editor },
+            
+        	]
+    	} );
+	} );
+	</script> -->
     </div>
     
 </body>
