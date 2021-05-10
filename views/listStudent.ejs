@@ -63,7 +63,7 @@
                         <div class="col-md-2">
                             <img class="img-head" src="/images/6to1.png" />
                         </div>
-                        <a class="loadLearning mr" data-toggle="modal" data-target="#creatLearningsFile" data-toggle="tooltip" data-placement="bottom" title="Cargar Aprendizajes">
+                        <a class="loadLearning mr" data-toggle="modal" data-target="#createLearningsFile" data-toggle="tooltip" data-placement="bottom" title="Cargar Aprendizajes">
                             <i class="fa fa-plus my-float"></i>
                         </a>
                     </div>
@@ -224,7 +224,7 @@
 
             <!-- Create learnings for Excel or Txt -->
 
-            <div class="modal fade bd-example-modal-lg" id="creatLearningsFile" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal fade bd-example-modal-lg" id="createLearningsFile" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content" id="modal">
                         <div class="modal-header" style="border-bottom: 1px solid #ffffff !important">
@@ -305,7 +305,7 @@
         <!-- validation -->
         <script>
             //segun lo que lei no se puede hacer dos validaciones al mismo name
-            $("#learningsExcelForm").validate({
+            $("#createLearningsFile").validate({
                 rules: {
                     learnings: {
                         required: '#radioExcel:checked',

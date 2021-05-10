@@ -373,7 +373,7 @@ app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
     let typeOFile = req.body.typeOFile;
     let trimester = req.body.trimester;
     let idSubject = req.body.idSubject;
-    //teacherFunctions.loadLearnings(req.file.path, con, typeOFile, trimester, idSubject);
+    teacherFunctions.loadLearnings(req.file.path, con, typeOFile, trimester, idSubject);
     res.redirect("/dashboard");
 });
 
