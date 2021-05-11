@@ -259,7 +259,7 @@
                                     <p class="category tituloSecundario" style="color: rgb(255, 255, 255)">Tipo de archivo</p>
                                     <div class="form-check form-check-radio form-check-inline">
 										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="typeOFile" id="radioExcel" value="excel" checked> Excel
+											<input class="form-check-input" type="radio" name="typeOFile" id="radioExcel" value=".xlsx" checked> Excel
 											<span class="circle">
 												<span class="check"></span>
 											</span>
@@ -267,7 +267,7 @@
 									</div>
                                     <div class="form-check form-check-radio form-check-inline">
 										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="typeOFile" id="radioTxt" value="txt"> Txt
+											<input class="form-check-input" type="radio" name="typeOFile" id="radioTxt" value="ytxt"> Txt
 											<span class="circle">
 												<span class="check"></span>
 											</span>
@@ -531,12 +531,12 @@
 
             function operateFormatter(value, row, index) {
                 return [
-                    '<a rel="tooltip" title="Generar informe class="table-action like" href="javascript:pdf()" title="Like">',
+                    '<a style="background-color:inherit !important;" rel="tooltip" title="Generar informe class="table-action like" href="javascript:pdf()" title="Like">',
                     '<i class="far fa-file-alt fa-inform"></i>',
                     "</a>",
 
-                    '<a rel="tooltip" title="Editar" class="table-action edit" href="javascript:void(0)" title="Edit" data-toggle="modal" data-target="#learningsStudent">',
-                    '<i class="fa fa-edit"></i>',
+                    '<a style="background-color:inherit !important;" rel="tooltip" title="Editar" class="table-action edit" href="javascript:void(0)" title="Edit" data-toggle="modal" data-target="#learningsStudent">',
+                    '<i style="color:none !important;" class="fa fa-edit"></i>',
                     "</a>",
                 ].join("");
             }

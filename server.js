@@ -40,13 +40,14 @@ const storageAprendizajes = multer.diskStorage({
 var aprendizajesExcel = multer({
     storage: storageAprendizajes,
     fileFilter: (req, file, cb) => {
-        if (path.extname(file.originalname) !== ".xlsx") {
-            console.log("no es un excel");
-        } else {
+        if (path.extname(file.originalname) == ".xlsx") {
+            cb(null, true);
+        }
+        else if (path.extname(file.originalname) == ".txt") {
             cb(null, true);
         }
     },
-}).single("aprendizajes");
+}).single("learnings");
 
 // Parse application/x-www-form-urlencoded
 app.use(
@@ -162,7 +163,7 @@ app.get("/cargarVistaEstudiante", (req, res) => {
         if (error) throw error;
         for (let index = 0; index < rows.length; index++) {
             if (!cursos.includes(rows[index].curso_descripcion)) {
-               cursos.push(rows[index].curso_descripcion);
+                cursos.push(rows[index].curso_descripcion);
             }
         }
         res.render("allStudents.ejs", {
