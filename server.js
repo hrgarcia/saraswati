@@ -150,10 +150,6 @@ app.get("/datatable", (req, res) => {
     res.render("datatable.ejs");
 });
 
-app.get("/form", (req, res) => {
-    res.render("form.ejs");
-});
-
 app.get("/cargarVistaEstudiante", (req, res) => {
     let username = res.locals.username;
     let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.curso_descripcion = estudiante.descripcion_curso AND materia.profesor_usuario = ?";
