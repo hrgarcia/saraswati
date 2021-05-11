@@ -54,7 +54,7 @@
                             <div class="card" style="background-image: url('<%-Subjects.imagen%>')">
                                 <div class="header">
                                     <div class="content">
-                                        <h4 class="cortado title title-uppercase" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- Subjects['nombreMateria']%></h4>
+                                        <h4 class="cortado title title-uppercase" miAtributo = "0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- Subjects['nombreMateria']%></h4>
                                         <h6 class="label label-danger" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black"><%- Subjects['curso_descripcion']%></h6>
                                         <br />
                                         <br />
@@ -126,12 +126,13 @@
                 //Con un foreach guardamos cada nombre espacio curricular en el arreglo
                 $("h4.cortado").each((i, e) => {
                     espacios.push($(e).text());
+                    e.setAttribute("miAtributo",i);
                     if (espacios[i].length > 15) {
-                        espacios[i] = "Estructura ...";
+                        e.innerHTML = espacios[i].substring(0,10) +  "...";
                     }
                 });
+
                 //Imprimimos el arreglo para ver si funciona
-                console.log(espacios);
             });
         </script>
     </body>

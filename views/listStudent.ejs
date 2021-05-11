@@ -49,9 +49,7 @@
         <div class="main-panel">
             <%- include('fragment/navbar'); -%>
             <div class="content">
-                <a class="float" data-toggle="modal" data-target="#creatLearningsFile">
-                    <i class="fa fa-plus my-float"></i>
-                </a>
+                
                 <!--Contenido principal acá -->
                 <div class="jumbotron customJumbotron">
                     <div class="row head-table">
@@ -65,6 +63,9 @@
                         <div class="col-md-2">
                             <img class="img-head" src="/images/6to1.png" />
                         </div>
+                        <a class="loadLearning mr" data-toggle="modal" data-target="#createLearningsFile" data-toggle="tooltip" data-placement="bottom" title="Cargar Aprendizajes">
+                            <i class="fa fa-plus my-float"></i>
+                        </a>
                     </div>
                     
                     <hr class="my-4" />
@@ -80,7 +81,7 @@
                             </th>
                             
                             <th data-field="birt">
-                                <i class="fa fa-calendar color-icon" aria-hidden="true" id="nota" onclick="inlineEditing()"></i>
+                                <i class="fa fa-calendar color-icon mb 5" aria-hidden="true" id="nota" onclick="inlineEditing()"></i>
                                 Notas
                                 
                             </th>
@@ -223,7 +224,7 @@
 
             <!-- Create learnings for Excel or Txt -->
 
-            <div class="modal fade bd-example-modal-lg" id="creatLearningsFile" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal fade bd-example-modal-lg" id="createLearningsFile" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content" id="modal">
                         <div class="modal-header" style="border-bottom: 1px solid #ffffff !important">
@@ -258,7 +259,7 @@
                                     <p class="category tituloSecundario" style="color: rgb(255, 255, 255)">Tipo de archivo</p>
                                     <div class="form-check form-check-radio form-check-inline">
 										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="typeOFile" id="radioExcel" value="excel" checked> Excel
+											<input class="form-check-input" type="radio" name="typeOFile" id="radioExcel" value=".xlsx" checked> Excel
 											<span class="circle">
 												<span class="check"></span>
 											</span>
@@ -266,7 +267,7 @@
 									</div>
                                     <div class="form-check form-check-radio form-check-inline">
 										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="typeOFile" id="radioTxt" value="txt"> Txt
+											<input class="form-check-input" type="radio" name="typeOFile" id="radioTxt" value="ytxt"> Txt
 											<span class="circle">
 												<span class="check"></span>
 											</span>
@@ -304,7 +305,7 @@
         <!-- validation -->
         <script>
             //segun lo que lei no se puede hacer dos validaciones al mismo name
-            $("#learningsExcelForm").validate({
+            $("#createLearningsFile").validate({
                 rules: {
                     learnings: {
                         required: '#radioExcel:checked',
@@ -491,6 +492,10 @@
                     document.getElementById("isChangedLearnState").innerHTML = "Se creo un nuevo aprendizaje";
                 });
             }
+            function pdf(){
+                $.get("GenerateReport", { "hola":"hola" }, function (res) {
+                });
+            }
 
             window.operateEvents = {
                 "click .like": function (e, value, row, index) {
@@ -526,12 +531,12 @@
 
             function operateFormatter(value, row, index) {
                 return [
-                    '<a rel="tooltip" title="Generar informe class="table-action like" href="javascript:void(0)" title="Like">',
+                    '<a style="background-color:inherit !important;" rel="tooltip" title="Generar informe class="table-action like" href="javascript:pdf()" title="Like">',
                     '<i class="far fa-file-alt fa-inform"></i>',
                     "</a>",
 
-                    '<a rel="tooltip" title="Editar" class="table-action edit" href="javascript:void(0)" title="Edit" data-toggle="modal" data-target="#learningsStudent">',
-                    '<i class="fa fa-edit"></i>',
+                    '<a style="background-color:inherit !important;" rel="tooltip" title="Editar" class="table-action edit" href="javascript:void(0)" title="Edit" data-toggle="modal" data-target="#learningsStudent">',
+                    '<i style="color:none !important;" class="fa fa-edit"></i>',
                     "</a>",
                 ].join("");
             }
@@ -556,6 +561,54 @@
                     },
                 });
             });
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
         </script>
+        <!-- <script type="text/javascript">
+            var editor; // use a global for the submit and return data rendering in the examples
+     
+            $(document).ready(function() {
+                editor = new $.fn.dataTable.Editor( {
+                    ajax: "../php/staff.php",
+                    $table: "#fresh-table",
+                    fields: [ {
+                        label: "Notas:",
+                        name: "nota_definitiva"
+                    }
+                ]
+            } );
+     
+            $('#fresh-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
+                editor.inline( this, {
+                    submit: 'allIfChanged'
+                } );
+            } );
+     
+            $('#fresh-table').DataTable( {
+                dom: "Bfrtip",
+                ajax: "../php/staff.php",
+                columns: [
+                    {
+                        data: null,
+                        defaultContent: '',
+                        className: 'select-checkbox',
+                        orderable: false
+                    },
+                
+                    { data: "nota_definitiva", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
+                ],
+            
+                select: {
+                    style:    'os',
+                    selector: 'td:first-child'
+                },
+                buttons: [
+                    { extend: "Guardar cambios", editor: editor },
+                
+                ]
+            } );
+        } );
+        </script> -->
     </body>
 </html>

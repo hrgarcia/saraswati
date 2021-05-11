@@ -3,18 +3,31 @@ module.exports = {
 };
 
 const xlsx = require("xlsx");
+const fs = require("fs");
 
-function loadLearnings(excel, con, typeOFile, trimester, idSubject) {
+function loadLearnings(file, con, typeOFile, trimester, idSubject) {
     if (typeOFile == "excel") {
-        const workBook = xlsx.readFile(excel);
+        const workBook = xlsx.readFile(file);
         const sheet = workBook.SheetNames[0];
         const dataExcel = xlsx.utils.sheet_to_json(workBook.Sheets[sheet]);
 
         let nameLearnings = [];
 
         dataExcel.map((item) => {
-            nameLearnings.push(item.aprendizajes);
+            //normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            nameLearnings.push(item.aprendizajes.toLowerCase());
         });
+        insertLearningsDB(con, nameLearnings, trimester, idSubject);
+    }
+    if (typeOFile == "txt") {
+        const readLineBySeparateLines = (filename) => {
+            let data = fs.readFileSync(filename);
+            data = data.toString().toLowerCase();
+            //data = data.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            return data;
+        };
+        let nameLearnings = readLineBySeparateLines(file);
+        nameLearnings = nameLearnings.split("\r\n");
         insertLearningsDB(con, nameLearnings, trimester, idSubject);
     }
 }

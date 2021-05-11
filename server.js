@@ -40,9 +40,10 @@ const storageAprendizajes = multer.diskStorage({
 var aprendizajesExcel = multer({
     storage: storageAprendizajes,
     fileFilter: (req, file, cb) => {
-        if (path.extname(file.originalname) === ".xlsx") {
+        if (path.extname(file.originalname) == ".xlsx") {
             cb(null, true);
-        } else if (path.extname(file.originalname) === ".txt") {
+        }
+        else if (path.extname(file.originalname) == ".txt") {
             cb(null, true);
         }
     },
@@ -153,11 +154,18 @@ app.get("/datatable", (req, res) => {
 app.get("/cargarVistaEstudiante", (req, res) => {
     let username = res.locals.username;
     let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.curso_descripcion = estudiante.descripcion_curso AND materia.profesor_usuario = ?";
+    let cursos = [];
     con.query(query, [username], (error, rows, fields) => {
         if (error) throw error;
+        for (let index = 0; index < rows.length; index++) {
+            if (!cursos.includes(rows[index].curso_descripcion)) {
+                cursos.push(rows[index].curso_descripcion);
+            }
+        }
         res.render("allStudents.ejs", {
             title: "Student",
             data: rows,
+            data2: cursos
         });
     });
 });
@@ -225,7 +233,7 @@ app.get("/guardarAprendizajes", (req, res) => {
 
 app.get("/agregarAprendizajes", (req, res) => {
     // Create the learning in the learning table
-    // (Positions) 0 = nameL / 1 = periodName / 2 = subjid / 3 = subjname / 4 =course
+    // (Positions) 0 = name L / 1 = period Name / 2 = subj id / 3 = subj name / 4 = course
     let idPeriod = 1;
     if (req.query.newLearningData[1] == "1er cuatrimestre") {
         idPeriod = 1;
@@ -366,11 +374,7 @@ app.post("/crearProfesor", urlencodedParser, (req, res) => {
 });
 
 app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
-    let typeOFile = req.body.typeOFile;
-    let trimester = req.body.trimester;
-    let idSubject = req.body.idSubject;
-    //teacherFunctions.loadLearnings(req.file.path, con, typeOFile, trimester, idSubject);
-    res.redirect("/dashboard");
+    teacherFunctions.loadLearnings(req.file.path, con);
 });
 
 app.get("/GenerateReport", (req, res) => {
