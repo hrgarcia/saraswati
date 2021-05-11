@@ -35,6 +35,9 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet" />
 
+        <!-- Estilo de la datatable --> 
+        <link rel="stylesheet" href="/stylesheets/uikit.min.css" />
+
         <!-- CSS Files -->
         <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
         <link href="/stylesheets/toastr.css" rel="stylesheet" />
@@ -49,7 +52,6 @@
         <div class="main-panel">
             <%- include('fragment/navbar'); -%>
             <div class="content">
-                
                 <!--Contenido principal acá -->
                 <div class="jumbotron customJumbotron">
                     <div class="row head-table">
@@ -69,64 +71,67 @@
                     </div>
                     
                     <hr class="my-4" />
-                    <table id="fresh-table" class="uk-table uk-table-hover uk-table-striped" style="width: 100%">
-                        <thead>
-                            <th data-field="name">
-                                <i class="fas fa-user-graduate color-icon" data-sortable="true"></i>
-                                Nombre
-                            </th>
-                            <th data-field="surname">
-                                <i class="fas fa-user-graduate color-icon" data-sortable="true"></i>
-                                Apellido
-                            </th>
-                            
-                            <th data-field="birt">
-                                <i class="fa fa-calendar color-icon mb 5" aria-hidden="true" id="nota" onclick="inlineEditing()"></i>
-                                Notas
+                    <div class="uk-overflow-auto">
+                        <table id="fresh-table" class="uk-table uk-table-responsive uk-table-shrink uk-table-hover uk-table-justify uk-table-striped uk-table-small" style="width: 100%">
+                            <thead>
+                                <th data-field="name">
+                                    <i class="fas fa-user-graduate color-icon" data-sortable="true"></i>
+                                    Nombre
+                                </th>
+                                <th data-field="surname">
+                                    <i class="fas fa-user-graduate color-icon" data-sortable="true"></i>
+                                    Apellido
+                                </th>
                                 
-                            </th>
-                            <th data-field="dni">
-                                <i class="fa fa-address-card color-icon" aria-hidden="true"></i>
-                                DNI
-                            </th>
-                            <th data-field="email ">
-                                <i class="fa fa-envelope color-icon" aria-hidden="true"></i>
-                                Email
-                            </th>
-                            <th data-field="telephone">
-                                <i class="fa fa-phone color-icon" aria-hidden="true"></i>
-                                Telefono
-                            </th>
-                            <th data-field="genero">
-                                <i class="fas fa-venus-mars color-icon"></i>
-                                Genero
-                            </th>
-                            <th data-field="actions" data-formatter="operateFormatter" data-events="operateEvents">
-                                <i class="fa fa-lightbulb-o color-icon" aria-hidden="true"></i>
-                                Acciones
-                            </th>
-                        </thead>
-                        <% data.forEach(function(Student){ %>
-                        <tr>
-                            <td><%-Student['nombre']%></td>
-                            <td><%-Student['apellido']%></td>
-                            <% if (Student['nota_definitiva'] == "nd" ) { %>
-                            <td class="none"><%-Student['nota_definitiva']%></td>
-                            <% } %> <% if (parseFloat(Student['nota_definitiva']) < 3) { %>
-                            <td class="disapproved"><%-Student['nota_definitiva']%></td>
-                            <% } %> <% if (parseFloat(Student['nota_definitiva']) <= 6 && parseFloat(Student['nota_definitiva']) > 3) { %>
-                            <td class="working"><%-Student['nota_definitiva']%></td>
-                            <% } %> <% if (parseFloat(Student['nota_definitiva']) <= 10 && parseFloat(Student['nota_definitiva']) > 6) { %>
-                            <td class="passed"><%-Student['nota_definitiva']%></td>
-                            <% } %>
-                            <td><%-Student['dni']%></td>
-                            <td><%-Student['email']%></td>
-                            <td><%-Student['telefono']%></td>
-                            <td><%-Student['genero']%></td>
-                            <td></td>
-                        </tr>
-                        <% }); %>
-                    </table>
+                                <th data-field="birt">
+                                    <i class="fa fa-calendar color-icon mb 5" aria-hidden="true" id="nota" onclick="inlineEditing()"></i>
+                                    Notas
+                                    
+                                </th>
+                                <th data-field="dni">
+                                    <i class="fa fa-address-card color-icon" aria-hidden="true"></i>
+                                    DNI
+                                </th>
+                                <th data-field="email ">
+                                    <i class="fa fa-envelope color-icon" aria-hidden="true"></i>
+                                    Email
+                                </th>
+                                <th data-field="telephone">
+                                    <i class="fa fa-phone color-icon" aria-hidden="true"></i>
+                                    Telefono
+                                </th>
+                                <th data-field="genero">
+                                    <i class="fas fa-venus-mars color-icon"></i>
+                                    Genero
+                                </th>
+                                <th data-field="actions" data-formatter="operateFormatter" data-events="operateEvents">
+                                    <i class="fa fa-lightbulb-o color-icon" aria-hidden="true"></i>
+                                    Acciones
+                                </th>
+                            </thead>
+                            <% data.forEach(function(Student){ %>
+                            <tr>
+                                <td><%-Student['nombre']%></td>
+                                <td><%-Student['apellido']%></td>
+                                <% if (Student['nota_definitiva'] == "nd" ) { %>
+                                <td class="none"><%-Student['nota_definitiva']%></td>
+                                <% } %> <% if (parseFloat(Student['nota_definitiva']) < 3) { %>
+                                <td class="disapproved"><%-Student['nota_definitiva']%></td>
+                                <% } %> <% if (parseFloat(Student['nota_definitiva']) <= 6 && parseFloat(Student['nota_definitiva']) > 3) { %>
+                                <td class="working"><%-Student['nota_definitiva']%></td>
+                                <% } %> <% if (parseFloat(Student['nota_definitiva']) <= 10 && parseFloat(Student['nota_definitiva']) > 6) { %>
+                                <td class="passed"><%-Student['nota_definitiva']%></td>
+                                <% } %>
+                                <td><%-Student['dni']%></td>
+                                <td><%-Student['email']%></td>
+                                <td><%-Student['telefono']%></td>
+                                <td><%-Student['genero']%></td>
+                                <td></td>
+                            </tr>
+                            <% }); %>
+                        </table>
+                    </div>
+                    
                 </div>
             </div>
 
@@ -296,11 +301,15 @@
         <!-- datatable js -->
         <script src="/javascripts/dataTables.bootstrap4.min.js"></script>
         <script src="/javascripts/jquery.dataTables.min.js"></script>
-        <script src="/javascripts/dataTables.uikit.min.js"></script>
+        
         
         <!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
         <script src="javascripts/jquery.validate.min.js" type="text/javascript"></script>
         <script src= "https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
+
+        <!-- Estilo de la datatable -->                        
+        <script src="/javascripts/uikit.min.js"></script>
+        <script src="/javascripts/uikit-icons.min.js"></script>
 
         <!-- validation -->
         <script>
@@ -565,50 +574,6 @@
                 $('[data-toggle="tooltip"]').tooltip()
             })
         </script>
-        <!-- <script type="text/javascript">
-            var editor; // use a global for the submit and return data rendering in the examples
-     
-            $(document).ready(function() {
-                editor = new $.fn.dataTable.Editor( {
-                    ajax: "../php/staff.php",
-                    $table: "#fresh-table",
-                    fields: [ {
-                        label: "Notas:",
-                        name: "nota_definitiva"
-                    }
-                ]
-            } );
-     
-            $('#fresh-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
-                editor.inline( this, {
-                    submit: 'allIfChanged'
-                } );
-            } );
-     
-            $('#fresh-table').DataTable( {
-                dom: "Bfrtip",
-                ajax: "../php/staff.php",
-                columns: [
-                    {
-                        data: null,
-                        defaultContent: '',
-                        className: 'select-checkbox',
-                        orderable: false
-                    },
-                
-                    { data: "nota_definitiva", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
-                ],
-            
-                select: {
-                    style:    'os',
-                    selector: 'td:first-child'
-                },
-                buttons: [
-                    { extend: "Guardar cambios", editor: editor },
-                
-                ]
-            } );
-        } );
-        </script> -->
+
     </body>
 </html>
