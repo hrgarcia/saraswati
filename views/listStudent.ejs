@@ -2,37 +2,22 @@
 <html lang="es">
     <head>
         <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
-        <script src="node_modules/content-editable/dist/content-editable.js"></script>
-        <scripts src="https://code.jquery.com/jquery-3.5.1.js" type= "text/javascript"></script>
-        <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
-        <script src="https://cdn.datatables.net/datetime/1.0.3/js/dataTables.dateTime.min.js"></script>
-        <script src="../../extensions/Editor/js/dataTables.editor.min.js"></script>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
         <title>Panel principal del sistema</title>
         <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
         <!--     Fonts and icons     -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 
-        <!-- Bootstrap -->
-        <link rel="stylesheet" href="/css/bootstrap.min.css" />
         <!-- Iconos Font Awesome -->
         <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
         <!-- Nuestros estilos -->
         <link rel="stylesheet" href="/stylesheets/style.css" />
 
-        <link rel="stylesheet" href="/stylesheets/datatable.css" />
-
         <link rel="stylesheet" href="/stylesheets/modal.css" />
 
-        <!-- new table -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" />
-
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet" />
 
         <!-- Estilo de la datatable --> 
@@ -294,24 +279,21 @@
         </div>
         <%- include('fragment/scripts'); -%>
         <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-        <script src="/javascripts/plugins/jquery-3.5.1.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        
+        <!-- datatable js -->
         <script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.0/locale/bootstrap-table-es-AR.min.js"></script>
-        <!-- datatable js -->
-        <script src="/javascripts/dataTables.bootstrap4.min.js"></script>
-        <script src="/javascripts/jquery.dataTables.min.js"></script>
         
-        
-        <!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
-        <script src="javascripts/jquery.validate.min.js" type="text/javascript"></script>
-        <script src= "https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
-
         <!-- Estilo de la datatable -->                        
         <script src="/javascripts/uikit.min.js"></script>
         <script src="/javascripts/uikit-icons.min.js"></script>
 
-        <!-- validation -->
+        <!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
+        <script src="javascripts/jquery.validate.min.js" type="text/javascript"></script>
+        <script src= "https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
+
+        <!-- Validation -->
         <script>
             //segun lo que lei no se puede hacer dos validaciones al mismo name
             $("#createLearningsFile").validate({
@@ -449,6 +431,7 @@
                 put: false,
             });
         </script>
+
         <!-- boostrap DataTable -->
         <script type="text/javascript">
             var $table = $("#fresh-table");
@@ -570,10 +553,7 @@
                     },
                 });
             });
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            })
-        </script>
 
+        </script>
     </body>
 </html>

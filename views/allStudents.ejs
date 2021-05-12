@@ -25,6 +25,9 @@
 
 	<link rel="stylesheet" href="/stylesheets/modal.css" />
 
+	<!-- Estilo de la datatable --> 
+	<link rel="stylesheet" href="/stylesheets/uikit.min.css" />
+
 	<link rel="stylesheet" href="/stylesheets/fresh-bootstrap-table.css" />
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
 		integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
@@ -48,67 +51,80 @@
 				<!--Contenido principal acá -->
 				<div class="row">
 					<div class="col-md-12">
-						<div class="container fresh-table full-color-table">
-							<table id="fresh-table" class="table">
-								<select class="custom-select" name="Eliga su curso" aria-label="Default select example"> 
-									<% for(let i = 0; i < data2.length; i++){ %> 
-										<option value="<%- data2[i] -%>"><%- data2[i] -%></option>
-									<% } %>
-								 </select>
-								<thead>
-										<th data-field="name" data-sortable="true">Nombre</th>
-										<th data-field="surname" data-sortable="true">Apellido</th>
-										<th data-field="birt">
-											<i class="fa fa-calendar color-icon" aria-hidden="true"></i>
-											notas
-										</th>
-										<th data-field="dni">
-											<i class="fa fa-address-card color-icon" aria-hidden="true"></i>
-											DNI	
-										</th>
-										<th data-field="email ">
-											<i class="fa fa-envelope color-icon" aria-hidden="true"></i>
-											email	
-										</th>
-										<th data-field="telephone">
-											<i class="fa fa-phone color-icon" aria-hidden="true"></i>
-											telefono	
-										</th>
-										<th data-field="genero">
-											<i class="fas fa-venus-mars color-icon"></i>
-											genero
-										</th>
-										<th data-field="actions" data-formatter="operateFormatter"
-											data-events="operateEvents">
-											<i class="fa fa-lightbulb-o color-icon" aria-hidden="true"></i>
-											Acciones	
-										</th>
-								</thead>
-								<% data.forEach(function(Student){ %>
-									<tr>
-										<td><%-Student['nombre']%></td>
-										<td><%-Student['apellido']%></td>
-										<% if (Student['nota_definitiva'] == "nd" ) { %>
-                                            <td class="none"><%-Student['nota_definitiva']%></td>
-                                        <% } %>
-										<% if (parseFloat(Student['nota_definitiva']) < 3) { %>
-											<td class="disapproved"><%-Student['nota_definitiva']%></td>
+						<div class="jumbotron customJumbotron">
+							<div class="row head-table">
+								<div class="col-md-10">
+									<h1 class="display-4 tituloSecundario">Estudiantes</h1>
+									
+									<h4 class="text-table tituloSecundario" data-value="<%- data[0].id_materia -%>" data-value2="<%- data[0].nombreMateria -%>" data-value3="<%- data[0].curso_descripcion -%>" id="subjectName">
+										Estudiantes del espacio curricular: <%- data[0].nombreMateria -%>
+									</h4>
+								</div>
+							</div>
+							<hr class="my-4" />
+							<div class="uk-overflow-auto">
+								<table id="fresh-table" class="uk-table uk-table-responsive uk-table-shrink uk-table-hover uk-table-justify uk-table-striped uk-table-small" style="width: 100%">
+									<select class="custom-select" name="Eliga su curso" aria-label="Default select example"> 
+										<% for(let i = 0; i < data2.length; i++){ %> 
+											<option value="<%- data2[i] -%>"><%- data2[i] -%></option>
 										<% } %>
-										<% if (parseFloat(Student['nota_definitiva']) <= 6 && parseFloat(Student['nota_definitiva']) > 3) { %>
-											<td class="progress"><%-Student['nota_definitiva']%></td>
-										<% } %>
-										<% if (parseFloat(Student['nota_definitiva']) <= 10 && parseFloat(Student['nota_definitiva']) > 6) { %>
-											<td class="passed"><%-Student['nota_definitiva']%></td>
-										<% } %>
-										<td><%-Student['dni']%></td>
-										<td><%-Student['email']%></td>
-										<td><%-Student['telefono']%></td>
-										<td><%-Student['genero']%></td>
-										<td></td>
-									</tr>
-									<% }); %>
-                                    
-							</table>
+									 </select>
+									<thead>
+											<th data-field="name" data-sortable="true">Nombre</th>
+											<th data-field="surname" data-sortable="true">Apellido</th>
+											<th data-field="birt">
+												<i class="fa fa-calendar color-icon" aria-hidden="true"></i>
+												notas
+											</th>
+											<th data-field="dni">
+												<i class="fa fa-address-card color-icon" aria-hidden="true"></i>
+												DNI	
+											</th>
+											<th data-field="email ">
+												<i class="fa fa-envelope color-icon" aria-hidden="true"></i>
+												email	
+											</th>
+											<th data-field="telephone">
+												<i class="fa fa-phone color-icon" aria-hidden="true"></i>
+												telefono	
+											</th>
+											<th data-field="genero">
+												<i class="fas fa-venus-mars color-icon"></i>
+												genero
+											</th>
+											<th data-field="actions" data-formatter="operateFormatter"
+												data-events="operateEvents">
+												<i class="fa fa-lightbulb-o color-icon" aria-hidden="true"></i>
+												Acciones	
+											</th>
+									</thead>
+									<% data.forEach(function(Student){ %>
+										<tr>
+											<td><%-Student['nombre']%></td>
+											<td><%-Student['apellido']%></td>
+											<% if (Student['nota_definitiva'] == "nd" ) { %>
+												<td class="none"><%-Student['nota_definitiva']%></td>
+											<% } %>
+											<% if (parseFloat(Student['nota_definitiva']) < 3) { %>
+												<td class="disapproved"><%-Student['nota_definitiva']%></td>
+											<% } %>
+											<% if (parseFloat(Student['nota_definitiva']) <= 6 && parseFloat(Student['nota_definitiva']) > 3) { %>
+												<td class="progress"><%-Student['nota_definitiva']%></td>
+											<% } %>
+											<% if (parseFloat(Student['nota_definitiva']) <= 10 && parseFloat(Student['nota_definitiva']) > 6) { %>
+												<td class="passed"><%-Student['nota_definitiva']%></td>
+											<% } %>
+											<td><%-Student['dni']%></td>
+											<td><%-Student['email']%></td>
+											<td><%-Student['telefono']%></td>
+											<td><%-Student['genero']%></td>
+											<td></td>
+										</tr>
+										<% }); %>
+										
+								</table>
+							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -219,6 +235,11 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.0/locale/bootstrap-table-es-AR.min.js"></script>
+	
+	<!-- Estilo de la datatable -->                        
+	<script src="/javascripts/uikit.min.js"></script>
+	<script src="/javascripts/uikit-icons.min.js"></script>
+
 	<script type="text/javascript">
 		const listApproved = document.getElementById("listApproved");
 		const listProgress = document.getElementById("listProcess");
