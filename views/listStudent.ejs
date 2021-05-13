@@ -458,7 +458,14 @@
                 }
                 if (infoLearnings["pendiente"].length > 0 || infoLearnings["proceso"].length > 0 || infoLearnings["aprobado"].length > 0) {
                     $.get("guardarAprendizajes", { data: infoLearnings }, function (res) {
-                        document.getElementById("isChangedLearnState").innerHTML = "Cambios guardados";
+                        UIkit.notification({
+                        message: 'Cambios guardados!',
+                        status: 'primary',
+                        pos: 'top-right',
+                        timeout: 3000
+                        });
+
+         
                     });
                 }
                 if (deleteLearnings.length > 0) {
@@ -467,7 +474,12 @@
                         deleteLearnings[i] = deleteLearnings[i].item.lastChild.innerHTML;
                     }
                     $.get("borrarAprendizajes", { data: deleteLearnings }, function (res) {
-                        document.getElementById("isChangedLearnState").innerHTML = "Cambios guardados";
+                        UIkit.notification({
+                        message: 'Cambios guardados!',
+                        status: 'primary',
+                        pos: 'top-right',
+                        timeout: 3000
+                        });
                         deleteLearnings = [];
                     });
                 }
