@@ -28,6 +28,11 @@ function loadLearnings(file, con, typeOFile, trimester, idSubject) {
         };
         let nameLearnings = readLineBySeparateLines(file);
         nameLearnings = nameLearnings.split("\r\n");
+        for (let i = 0; i < nameLearnings.length; i++) {
+            if (nameLearnings == " ") {
+                nameLearnings[i].splice(i, 1);
+            }
+        }
         insertLearningsDB(con, nameLearnings, trimester, idSubject);
     }
 }

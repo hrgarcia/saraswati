@@ -42,8 +42,7 @@ var aprendizajesExcel = multer({
     fileFilter: (req, file, cb) => {
         if (path.extname(file.originalname) == ".xlsx") {
             cb(null, true);
-        }
-        else if (path.extname(file.originalname) == ".txt") {
+        } else if (path.extname(file.originalname) == ".txt") {
             cb(null, true);
         }
     },
@@ -165,7 +164,7 @@ app.get("/cargarVistaEstudiante", (req, res) => {
         res.render("allStudents.ejs", {
             title: "Student",
             data: rows,
-            data2: cursos
+            data2: cursos,
         });
     });
 });
@@ -374,7 +373,12 @@ app.post("/crearProfesor", urlencodedParser, (req, res) => {
 });
 
 app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
-    teacherFunctions.loadLearnings(req.file.path, con);
+    let typeOFile = req.body.typeOFile;
+    let trimester = req.body.trimester;
+    let idSubject = req.body.idSubject;
+
+    //teacherFunctions.loadLearnings(req.file.path, con, typeOFile, trimester, idSubject);
+    res.redirect("/dashboard");
 });
 
 app.get("/GenerateReport", (req, res) => {
