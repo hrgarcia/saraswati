@@ -70,158 +70,50 @@
 										<% } %>
 									</select>
 									<thead>
-											<th data-field="name" data-sortable="true">Nombre</th>
-											<th data-field="surname" data-sortable="true">Apellido</th>
-											<th data-field="birt">
-												<i class="fa fa-calendar color-icon" aria-hidden="true"></i>
-												notas
-											</th>
-											<th data-field="dni">
-												<i class="fa fa-address-card color-icon" aria-hidden="true"></i>
-												DNI	
-											</th>
-											<th data-field="email ">
-												<i class="fa fa-envelope color-icon" aria-hidden="true"></i>
-												email	
-											</th>
-											<th data-field="telephone">
-												<i class="fa fa-phone color-icon" aria-hidden="true"></i>
-												telefono	
-											</th>
-											<th data-field="genero">
-												<i class="fas fa-venus-mars color-icon"></i>
-												genero
-											</th>
-											<th data-field="actions" data-formatter="operateFormatter"
-												data-events="operateEvents">
-												<i class="fa fa-lightbulb-o color-icon" aria-hidden="true"></i>
-												Acciones	
-											</th>
-									</thead>
-									<% data.forEach(function(Student){ %>
-										<tr>
-											<td><%-Student['nombre']%></td>
-											<td><%-Student['apellido']%></td>
-											<% if (Student['nota_definitiva'] == "nd" ) { %>
-												<td class="none"><%-Student['nota_definitiva']%></td>
-											<% } %>
-											<% if (parseFloat(Student['nota_definitiva']) < 3) { %>
-												<td class="disapproved"><%-Student['nota_definitiva']%></td>
-											<% } %>
-											<% if (parseFloat(Student['nota_definitiva']) <= 6 && parseFloat(Student['nota_definitiva']) > 3) { %>
-												<td class="progress"><%-Student['nota_definitiva']%></td>
-											<% } %>
-											<% if (parseFloat(Student['nota_definitiva']) <= 10 && parseFloat(Student['nota_definitiva']) > 6) { %>
-												<td class="passed"><%-Student['nota_definitiva']%></td>
-											<% } %>
-											<td><%-Student['dni']%></td>
-											<td><%-Student['email']%></td>
-											<td><%-Student['telefono']%></td>
-											<td><%-Student['genero']%></td>
-											<td></td>
-										</tr>
-										<% }); %>
-										
-								</table>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-			aria-hidden="true">
-			<div class="modal-dialog modal-lg" >
-				<div class="modal-content" id = "modal" > 
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Aprendizajes</h5>
-						<h5 class="modal-title" id="isChangedLearnState" style="text-indent:350px;">Los aprendizajes no fueron modificados</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body" >
-						<div class="row">
-							<div class="col-md-4 ">
-								<div class=" text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px;">
-                                    <div class="cardheader">Pendiente</div>
-                                    <div id="listPending"class="cardcolor pendiente">
-									</div>
-								</div>
-								
-							</div>
-							<div class="col-md-4">
-								<div class=" text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px;">
-                                    <div class="cardheader">Proceso</div>
-                                    <div id="listProcess"class="cardcolor proceso">
-                                    </div>
-                                </div>
-							</div>
-							<div class="col-md-4">
-								<div class=" text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px;">
-                                    <div class="cardheader">Aprobado</div>
-                                    <div id="listApproved"class="cardcolor aprobado">
-                                    </div>
-								</div>
-								
-							</div>
-						</div>
-						<div class="row">
-							<div id ="trashLearnings"class="col-md-3">
-								<button class="trash custom-btn btn-2">
-									<i class="fas fa-trash"></i>
-								</button>
-							</div>
-							<div class="col-md-3">
-								<button class="custom-btn btn-2">
-									<i class="fas fa-undo-alt"></i>
-								</button>
-								
-							</div>
-							<div class="col-md-3">
-								<button class="custom-btn btn-2" data-toggle="modal" data-target="#newLearning">
-									<i class="fas fa-plus"></i>
-								</button>
-							</div>
-							<div class="col-md-3">
-								<button class="custom-btn btn-2" onclick="saveLearnings()">
-									<i class="fas fa-save"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+										<th data-field="name" data-sortable="true">Nombre</th>
+										<th data-field="surname" data-sortable="true">Apellido</th>	
+										<th data-field="dni">
+											<i class="fa fa-address-card color-icon" aria-hidden="true"></i>
+											DNI	
+										</th>
+										<th data-field="email ">
+											<i class="fa fa-envelope color-icon" aria-hidden="true"></i>
+											email	
+										</th>
+										<th data-field="telephone">
+											<i class="fa fa-phone color-icon" aria-hidden="true"></i>
+											telefono	
+										</th>
+										<th data-field="curso_descripcion">
+											<i class="fa fa-address-card color-icon" aria-hidden="true"></i>
+											Año	
+										</th>
+										<th data-field="genero">
+											<i class="fas fa-venus-mars color-icon"></i>
+											genero
+										</th>
+										<th data-field="actions" data-formatter="operateFormatter"
+											data-events="operateEvents">
+											<i class="fa fa-lightbulb-o color-icon" aria-hidden="true"></i>
+											Acciones	
+										</th>
+								</thead>
+								<% data.forEach(function(Student){ %>
+									<tr>
+										<td><%-Student['nombre']%></td>
+										<td><%-Student['apellido']%></td>
+										<td><%-Student['dni']%></td>
+										<td><%-Student['email']%></td>
+										<td><%-Student['telefono']%></td>
+										<td><%-Student['genero']%></td>
+										<td><%-Student['curso_descripcion']%></td>
 
-		<!-- Create learnings popup -->
-
-		<div id ="newLearning" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 style="color:#070707" class="modal-title">Ingrese el nombre del aprendizaje</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<small style="font-weight: bold;">Complete los campos para crear un aprendizaje</small>
-					<div class="modal-body">
-						<input type="text" name="learningName" id="inputNameLearning" placeholder="Ingrese nombre" required>
-						<br>
-						<br>
-						<small style="font-weight: bold;">seleccione periodo</small>
-						<div class="input-group">
-							<select class="custom-select" id="inputPeriodLearning"  placeholder="Ingrese el periodo" required>
-								<option >1er cuatrimestre</option>
-								<option >2er cuatrimestre</option>
-							</select>
+										<td></td>
+									</tr>
+									<% }); %>
+                                    
+							</table>
 						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" onclick="addLearning([inputNameLearning.value,inputPeriodLearning.value])">Save changes</button>
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
@@ -235,220 +127,20 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.0/locale/bootstrap-table-es-AR.min.js"></script>
-	
-	<!-- Estilo de la datatable -->                        
-	<script src="/javascripts/uikit.min.js"></script>
-	<script src="/javascripts/uikit-icons.min.js"></script>
-
 	<script type="text/javascript">
-		const listApproved = document.getElementById("listApproved");
-		const listProgress = document.getElementById("listProcess");
-		const listPending = document.getElementById("listPending");
-		var deleteLearnings = [];
 		
-		Sortable.create(listApproved, {
-			group: {
-				name: "statuslearning"
-			},
-			animation: 150,
-			easing:"cubic-bezier(0.895,0.03,0.685,0.22)",
-			chosenClass: "active",
-			onAdd: function (evt) {
-				//first time
-				if(evt.item.getAttribute('originLearn') == "" && evt.item.getAttribute('data-value') == 0){
-					evt.item.setAttribute('data-value','1');
-					evt.item.setAttribute('originLearn',evt.from.getAttribute('id'))
-					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-					document.getElementById("isChangedLearnState").innerHTML = "Los aprendizajes fueron modificados";	
-				}
-				else if(evt.item.getAttribute('originLearn') != evt.to.getAttribute('id')){
-					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);	
-					document.getElementById("isChangedLearnState").innerHTML = "Los aprendizajes fueron modificados";
-				}
-				//come back home
-				else if(evt.item.getAttribute('originLearn') == evt.to.getAttribute('id')){
-					evt.item.setAttribute('data-value','0');
-					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);	
-				}
-			},
-			onEnd: function (evt) {
-				if( evt.to.id == "trashLearnings"){
-					$(evt.item).remove();	
-					deleteLearnings.push(evt)
-					document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
-				}
-			}
-		});
-		Sortable.create(listProgress, {
-			group: {
-				name: "statuslearning"
-			},
-			animation: 150,
-			easing:"cubic-bezier(0.895,0.03,0.685,0.22)",
-			chosenClass: "active",
-			onAdd: function (evt) {
-				//first time
-				if(evt.item.getAttribute('originLearn') == "" && evt.item.getAttribute('data-value') == 0){
-					evt.item.setAttribute('data-value','1');
-					evt.item.setAttribute('originLearn',evt.from.getAttribute('id'))
-					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-					document.getElementById("isChangedLearnState").innerHTML = "Los aprendizajes fueron modificados";	
-				}
-				else if(evt.item.getAttribute('originLearn') != evt.to.getAttribute('id')){
-					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-					document.getElementById("isChangedLearnState").innerHTML = "Los aprendizajes fueron modificados";	
-				}
-				//come back home
-				else if(evt.item.getAttribute('originLearn') == evt.to.getAttribute('id')){
-					evt.item.setAttribute('data-value','0');
-					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);	
-				}
-			},
-			onEnd: function (evt) {
-				if( evt.to.id == "trashLearnings"){
-					$(evt.item).remove();	
-					deleteLearnings.push(evt)
-					document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
-				}
-			}
-		});
-
-		Sortable.create(listPending, {
-			group: {
-				name: "statuslearning"
-			},
-			animation: 150,
-			easing:"cubic-bezier(0.895,0.03,0.685,0.22)",
-			chosenClass: "active",
-			onAdd: function (evt) {
-				if(evt.item.getAttribute('originLearn') == "" && evt.item.getAttribute('data-value') == 0){
-					evt.item.setAttribute('data-value','1');
-					evt.item.setAttribute('originLearn',evt.from.getAttribute('id'))
-					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);	
-					document.getElementById("isChangedLearnState").innerHTML = "Los aprendizajes fueron modificados";
-				}
-				else if(evt.item.getAttribute('originLearn') != evt.to.getAttribute('id')){
-					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);	
-					document.getElementById("isChangedLearnState").innerHTML = "Los aprendizajes fueron modificados";
-				}
-				else if(evt.item.getAttribute('originLearn') == evt.to.getAttribute('id')){
-					evt.item.setAttribute('data-value','0');
-					evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);	
-				}
-			},
-			onEnd: function (evt) {
-				if( evt.to.id == "trashLearnings"){
-					$(evt.item).remove();	
-					deleteLearnings.push(evt)	
-					document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";				
-				}
-			}
-		});
-		Sortable.create(trashLearnings, {
-			group: {
-				name: "statuslearning"
-			},
-			chosenClass: "active",
-			filter: ".trash",
-			sort: false,
-			put: false,
-		});
 	</script>
 	<script type="text/javascript">
 		var $table = $('#fresh-table')
 		var $alertBtn = $('#alertBtn')
-
-		function saveLearnings() {
-			let dni = $('#learningsStudent').attr('data-value');
-			let listLearnings = [$(".pendiente"), $(".proceso"), $(".aprobado")];
-			let infoLearnings = {
-				"dni":dni,
-				"pendiente":[],
-				"proceso":[],
-				"aprobado":[]
-			} 
-			//chequeamos si hubieron cambios
-			for (let i = 0; i < listLearnings.length; i++) {
-				for (let j = 0; j < listLearnings[i].length; j++) {
-					if(listLearnings[i][j].getAttribute('data-value') == 1){
-						infoLearnings[listLearnings[i][j].classList[1]].push({"name":listLearnings[i][j].children[0].innerHTML});
-					}
-				}
-			}
-			if(infoLearnings["pendiente"].length > 0 || infoLearnings["proceso"].length > 0 || infoLearnings["aprobado"].length > 0){
-				$.get('guardarAprendizajes', { data: infoLearnings}, 
-				function(res){
-					document.getElementById("isChangedLearnState").innerHTML = "Cambios guardados";
-				});
-			}
-			if(deleteLearnings.length > 0){
-				//detectar cual se borro y modificar la db
-				for (let i = 0; i < deleteLearnings.length; i++) {
-					deleteLearnings[i] = deleteLearnings[i].item.lastChild.innerHTML
-					
-				}
-				$.get('borrarAprendizajes', { data: deleteLearnings}, 
-				function(res){
-					document.getElementById("isChangedLearnState").innerHTML = "Cambios guardados";
-					deleteLearnings=[]; 
-				});
-			}	
-		}
-		function addLearning(newLearningData) {
-			// subject id
-			newLearningData.push(document.getElementById("subjectName").getAttribute('data-value'))
-			// subject Name 
-			newLearningData.push(document.getElementById("subjectName").getAttribute('data-value2'))
-			// course 
-			newLearningData.push(document.getElementById("subjectName").getAttribute('data-value3'))
-			$.get('agregarAprendizajes', {newLearningData}, 
-				function(res){
-					$("#listPending").append("<div class='list-group-item pendiente' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>"+newLearningData[0]+"</p></div>");
-					document.getElementById("isChangedLearnState").innerHTML = "Se creo un nuevo aprendizaje";
-			});
-		}
-
+		var table = $('#fresh-table').DataTable();
+		
 		window.operateEvents = {
 			'click .like': function (e, value, row, index) {
 				alert('You click like icon, row: ' + JSON.stringify(row))
 				console.log(value, row, index)
 			},
-			'click .edit': function (e, value, row, index) {
-				$.get('obtenerAprendizajes', { dni: row.dni}, 
-					function(res){
-						if($('#learningsStudent').attr('data-value') != row.dni){
-							$("#listApproved").empty();
-							$("#listProcess").empty();
-							$("#listPending").empty();
-							for(let i = 0; i < res.length;i++){
-								if(res[i].estado == "aprobado"){
-									$(document).ready(( ) =>{
-										$("#listApproved").append("<div class='list-group-item aprobado' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
-									});
-								}
-								else if(res[i].estado == "proceso"){
-									$(document).ready(( ) =>{
-										$("#listProcess").append("<div class='list-group-item proceso' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
-									});
-								}
-								else{
-									$(document).ready(( ) =>{
-										$("#listPending").append("<div class='list-group-item pendiente' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>"+res[i].descripcion+"</p></div>");
-									});
-								}
-							}
-							$('#learningsStudent').attr('data-value', row.dni);
-						}
-				});
-			},
-			'click .remove': function (e, value, row, index) {
-				$table.bootstrapTable('remove', {
-					field: 'id',
-					values: [row.id]
-				})
-			}
-		}
-
+		},
 		function operateFormatter(value, row, index) {
 			return [
 				'<a rel="tooltip" title="Like" class="table-action like" href="javascript:void(0)" title="Like">',
@@ -466,7 +158,6 @@
 			$table.bootstrapTable({
 				classes: 'table table-hover table-striped',
 				toolbar: '.toolbar',
-				field: "id",
 				search: true,
 				showRefresh: true,
 				showToggle: true,
@@ -488,52 +179,17 @@
 				alert('You pressed on Alert')
 			})
 		})
+
+		$('#lista').on('click', function() {
+			console.log($(this).val());
+		})
+
+		$('#lista').on( 'keyup', function () {
+			table.search( this.value ).draw();
+		});
+
+
 	</script>
-	<!-- <script type="text/javascript">
-		var editor; // use a global for the submit and return data rendering in the examples
- 
-		$(document).ready(function() {
-    		editor = new $.fn.dataTable.Editor( {
-        		ajax: "../php/staff.php",
-        		$table: "#fresh-table",
-        		fields: [ {
-                	label: "Notas:",
-                	name: "nota_definitiva"
-            	}
-        	]
-    	} );
- 
-    	$('#fresh-table').on( 'click', 'tbody td:not(:first-child)', function (e) {
-        	editor.inline( this, {
-            	submit: 'allIfChanged'
-        	} );
-    	} );
- 
-    	$('#fresh-table').DataTable( {
-        	dom: "Bfrtip",
-        	ajax: "../php/staff.php",
-        	columns: [
-            	{
-                	data: null,
-                	defaultContent: '',
-                	className: 'select-checkbox',
-                	orderable: false
-            	},
-            
-            	{ data: "nota_definitiva", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
-        	],
-        
-        	select: {
-            	style:    'os',
-            	selector: 'td:first-child'
-        	},
-        	buttons: [
-            	{ extend: "Guardar cambios", editor: editor },
-            
-        	]
-    	} );
-	} );
-	</script> -->
     </div>
     
 </body>
