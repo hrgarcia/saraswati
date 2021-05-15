@@ -98,15 +98,7 @@
                             <tr>
                                 <td><%-Student['nombre']%></td>
                                 <td><%-Student['apellido']%></td>
-                                <% if (Student['nota_definitiva'] == "nd" ) { %>
-                                <td class="none"><%-Student['nota_definitiva']%></td>
-                                <% } %> <% if (parseFloat(Student['nota_definitiva']) < 3) { %>
-                                <td class="disapproved"><%-Student['nota_definitiva']%></td>
-                                <% } %> <% if (parseFloat(Student['nota_definitiva']) <= 6 && parseFloat(Student['nota_definitiva']) > 3) { %>
-                                <td class="working"><%-Student['nota_definitiva']%></td>
-                                <% } %> <% if (parseFloat(Student['nota_definitiva']) <= 10 && parseFloat(Student['nota_definitiva']) > 6) { %>
-                                <td class="passed"><%-Student['nota_definitiva']%></td>
-                                <% } %>
+                                <td><span class="badgeNota"><%-Student['nota_definitiva']%></span></td>
                                 <td><%-Student['dni']%></td>
                                 <td><%-Student['email']%></td>
                                 <td><%-Student['telefono']%></td>
