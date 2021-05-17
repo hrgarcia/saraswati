@@ -13715,7 +13715,9 @@ textarea {
 .form-file-upload .input-group-btn:last-child > .btn-round {
     border-radius: 30px;
 }
-
+.loading-text{
+    display: none;
+}
 .form-file-upload .input-group-btn .btn {
     margin: 0;
 }
