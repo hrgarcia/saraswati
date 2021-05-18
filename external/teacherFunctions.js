@@ -5,6 +5,10 @@ module.exports = {
 const xlsx = require("xlsx");
 const fs = require("fs");
 
+function deleteDiacritics(text) {
+    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 function loadLearnings(file, con, typeOFile, trimester, idSubject) {
     if (typeOFile == "excel") {
         const workBook = xlsx.readFile(file);
@@ -12,10 +16,17 @@ function loadLearnings(file, con, typeOFile, trimester, idSubject) {
         const dataExcel = xlsx.utils.sheet_to_json(workBook.Sheets[sheet]);
 
         let nameLearnings = [];
+        let data;
 
         dataExcel.map((item) => {
-            //normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            nameLearnings.push(item.aprendizajes.toLowerCase());
+            if (item.aprendizajes != undefined) {
+                data = item.aprendizajes.toLowerCase();
+                data = deleteDiacritics(data);
+                nameLearnings.push(data);
+            }
+            // else{
+            //     SweetAlert error
+            // }
         });
         insertLearningsDB(con, nameLearnings, trimester, idSubject);
     }
@@ -23,11 +34,16 @@ function loadLearnings(file, con, typeOFile, trimester, idSubject) {
         const readLineBySeparateLines = (filename) => {
             let data = fs.readFileSync(filename);
             data = data.toString().toLowerCase();
-            //data = data.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            data = deleteDiacritics(data);
             return data;
         };
         let nameLearnings = readLineBySeparateLines(file);
         nameLearnings = nameLearnings.split("\r\n");
+        for (let i = 0; i < nameLearnings.length; i++) {
+            if (nameLearnings == " ") {
+                nameLearnings[i].splice(i, 1);
+            }
+        }
         insertLearningsDB(con, nameLearnings, trimester, idSubject);
     }
 }
@@ -55,5 +71,5 @@ function insertLearningsDB(con, nameLearnings, trimester, idSubject) {
             }
         }
     });
-    // Toastr de que todo salio bien?
+    // SweetAlert all it's fine
 }

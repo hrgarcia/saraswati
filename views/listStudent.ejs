@@ -94,18 +94,18 @@
                                     Acciones
                                 </th>
                             </thead>
-                            <% data.forEach(function(Student){ %>
+                            <% data.forEach(function(Student){ %>    
                             <tr>
                                 <td><%-Student['nombre']%></td>
                                 <td><%-Student['apellido']%></td>
                                 <% if (Student['nota_definitiva'] == "nd" ) { %>
-                                <td class="none"><%-Student['nota_definitiva']%></td>
+                                    <td><span class="badgeNotaNd"><%-Student['nota_definitiva']%></span></td>
                                 <% } %> <% if (parseFloat(Student['nota_definitiva']) < 3) { %>
-                                <td class="disapproved"><%-Student['nota_definitiva']%></td>
+                                    <td><span class="badgeNotaDisapproved"><%-Student['nota_definitiva']%></span></td>
                                 <% } %> <% if (parseFloat(Student['nota_definitiva']) <= 6 && parseFloat(Student['nota_definitiva']) > 3) { %>
-                                <td class="working"><%-Student['nota_definitiva']%></td>
+                                    <td><span class="badgeNotaWorking"><%-Student['nota_definitiva']%></span></td>
                                 <% } %> <% if (parseFloat(Student['nota_definitiva']) <= 10 && parseFloat(Student['nota_definitiva']) > 6) { %>
-                                <td class="passed"><%-Student['nota_definitiva']%></td>
+                                    <td><span class="badgeNotaPassed"><%-Student['nota_definitiva']%></span></td>
                                 <% } %>
                                 <td><%-Student['dni']%></td>
                                 <td><%-Student['email']%></td>
@@ -243,7 +243,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="/cargarAprendizaje" id="learningsExcelForm" method="POST" onsubmit="validate()" enctype="multipart/form-data">
+                            <form action="/cargarAprendizaje" id="learningsExcelForm" method="POST" enctype="multipart/form-data">
                                 <div>
 									<p class="category tituloSecundario" style="color: rgb(228, 216, 216)">Trimestre</p>
 									<div class="form-check form-check-radio form-check-inline">
@@ -267,7 +267,7 @@
                                     <p class="category tituloSecundario" style="color: rgb(255, 255, 255)">Tipo de archivo</p>
                                     <div class="form-check form-check-radio form-check-inline">
 										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="typeOFile" id="radioExcel" value=".xlsx" checked> Excel
+											<input class="form-check-input" type="radio" name="typeOFile" id="radioExcel" onchange="changeInputFileType()" value="excel" checked> Excel
 											<span class="circle">
 												<span class="check"></span>
 											</span>
@@ -275,7 +275,7 @@
 									</div>
                                     <div class="form-check form-check-radio form-check-inline">
 										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="typeOFile" id="radioTxt" value="ytxt"> Txt
+											<input class="form-check-input" type="radio" name="typeOFile" id="radioTxt" onchange="changeInputFileType()" value="txt"> Txt
 											<span class="circle">
 												<span class="check"></span>
 											</span>
@@ -284,8 +284,8 @@
                                 </div>
                                 <input style="display:none;" name="idSubject" value="<%- data[0].id -%>"></input>
                                 <div class="modal-footer">
-                                    <input type="file" name="learnings" placeholder="Ingrese un archivo" />
-									<button type="submit" class="btn btn-primary">Cargar</button>
+                                    <input type="file" name="learnings" id="inputFileType" dataVal="hola" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" placeholder="Ingrese un archivo" />
+									<button type="submit" id="buttonLoadLearnings" class="btn btn-primary">Cargar</button>
                                 </div>
                             </form>
                         </div>
@@ -311,27 +311,39 @@
         <script src="javascripts/jquery.validate.min.js" type="text/javascript"></script>
         <script src= "https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
 
+        <!-- Spinner Script -->
+        <script>
+            $('#learningsExcelForm').submit(function(event){
+                if($('#learningsExcelForm').valid()){
+                    $('#buttonLoadLearnings').empty();
+                    $('#buttonLoadLearnings').append('<span class="spinner-border spinner-border-sm"  aria-hidden="true"></span>');
+                }
+            });
+        </script>
+        
         <!-- Validation -->
         <script>
-            //segun lo que lei no se puede hacer dos validaciones al mismo name
-            $("#createLearningsFile").validate({
+            $("#learningsExcelForm").validate({
                 rules: {
                     learnings: {
-                        required: '#radioExcel:checked',
-                        accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                    },
-                    learnings: {
-                        required: '#radioTxt:checked',
-                        accept: 'text/plain',
+                        required: true
                     }
                 },
                 messages:{
                     learnings:{
                         required: "Por favor ingrese un archivo",
-                        accept: "El tipo de archivo no es correcto"
+                        accept: "ingrese el tipo de archivo seleccionado"
                     }
                 }
             });
+            function changeInputFileType(){
+                if( $('#radioExcel').prop('checked') ) {
+                    $('#inputFileType').attr("accept", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                }
+                else{
+                    $('#inputFileType').attr("accept", "text/plain");
+                }
+            }
         </script>
         
         <!-- Sortable Functions -->
@@ -467,25 +479,24 @@
                 //chequeamos si hubieron cambios
                 for (let i = 0; i < listLearnings.length; i++) {
                     for (let j = 0; j < listLearnings[i].length; j++) {
+                        console.log((listLearnings[i][j].children[0].innerHTML).trim());
                         if (listLearnings[i][j].getAttribute("data-value") == 1) {
-                            infoLearnings[listLearnings[i][j].classList[1]].push({
-                                name: listLearnings[i][j].children[0].innerHTML,
-                            });
+                            infoLearnings[listLearnings[i][j].classList[1]].push({name: (listLearnings[i][j].children[0].innerHTML).trim(),});
                         }
                     }
                 }
                 if (infoLearnings["pendiente"].length > 0 || infoLearnings["proceso"].length > 0 || infoLearnings["aprobado"].length > 0) {
                     $.get("guardarAprendizajes", { data: infoLearnings }, function (res) {
-                        document.getElementById("isChangedLearnState").innerHTML = "Cambios guardados";
+                        document. getElementById ( " isChangedLearnState " ). innerHTML  =  " Cambios guardados " ;
                     });
                 }
                 if (deleteLearnings.length > 0) {
                     //detectar cual se borro y modificar la db
                     for (let i = 0; i < deleteLearnings.length; i++) {
-                        deleteLearnings[i] = deleteLearnings[i].item.lastChild.innerHTML;
+                        deleteLearnings[i] = (deleteLearnings[i].item.lastChild.innerHTML).trim();
                     }
                     $.get("borrarAprendizajes", { data: deleteLearnings }, function (res) {
-                        document.getElementById("isChangedLearnState").innerHTML = "Cambios guardados";
+                        document. getElementById ( " isChangedLearnState " ). innerHTML  =  " Cambios guardados " ;
                         deleteLearnings = [];
                     });
                 }
@@ -541,7 +552,7 @@
 
             function operateFormatter(value, row, index) {
                 return [
-                    '<a style="background-color:inherit !important;" rel="tooltip" title="Generar informe class="table-action like" href="javascript:pdf()" title="Like">',
+                    '<a style="background-color:inherit !important;" rel="tooltip" title="Generar informe" class="table-action like" href="javascript:pdf()" title="Like">',
                     '<i class="far fa-file-alt fa-inform"></i>',
                     "</a>",
 

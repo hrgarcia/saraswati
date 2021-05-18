@@ -60,7 +60,7 @@
                                         <br />
                                         <br />
                                         <div>
-                                            <li class="fas fa-clock" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 215px"><%- " " + Subjects['nombre']%> <%- Subjects['apellido']%></li>
+                                            <li class="fas fa-clock nombreProfe" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 215px"><%- " " + Subjects['nombre']%> <%- Subjects['apellido']%></li>
                                             <br />
                                             <li class="fas fa-user" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 245px"><%- " " + Subjects['horasCatedra']%> Horas cátedras</li>
                                         </div>
@@ -123,6 +123,7 @@
             $(document).ready(function () {
                 //Arreglo para alojar todos los nombres de espacios curriculares del profe en cuestión
                 let espacios = [];
+                let nombreMayuscula = [];
                 //Con un foreach guardamos cada nombre espacio curricular en el arreglo
                 $("h4.cortado").each((i, e) => {
                     espacios.push($(e).text());
@@ -131,8 +132,10 @@
                         e.innerHTML = espacios[i].substring(0,10) +  "...";
                     }
                 });
-
-                //Imprimimos el arreglo para ver si funciona
+                $("li.nombreProfe").each((x,y) => {
+                    nombreMayuscula = $(y).text().replace(/\b\w/g, l => l.toUpperCase())
+                    y.innerHTML = nombreMayuscula;
+                })
             });
         </script>
     </body>

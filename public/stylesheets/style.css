@@ -64,6 +64,62 @@ td.none {
     text-align: center;
     color: black;
 }
+.badgeNotaNd{
+    box-sizing: border-box;
+    min-width: 35px;
+    height: 35px;
+    padding: 0 5px;
+    border-radius: 500px;
+    vertical-align: middle;
+    background: #6a6b6bc7;
+    color: rgb(0, 0, 0);
+    font-size: .875rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.badgeNotaDisapproved{
+    box-sizing: border-box;
+    min-width: 35px;
+    height: 35px;
+    padding: 0 5px;
+    border-radius: 500px;
+    vertical-align: middle;
+    background: #f01e1e9d;
+    color: rgb(0, 0, 0);
+    font-size: .875rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.badgeNotaWorking{
+    box-sizing: border-box;
+    min-width: 35px;
+    height: 35px;
+    padding: 0 5px;
+    border-radius: 500px;
+    vertical-align: middle;
+    background: #f5ff6694;
+    color: rgb(0, 0, 0);
+    font-size: .875rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.badgeNotaPassed{
+    box-sizing: border-box;
+    min-width: 35px;
+    height: 35px;
+    padding: 0 5px;
+    border-radius: 500px;
+    vertical-align: middle;
+    background: #47ee5581;
+    color: rgb(0, 0, 0);
+    font-size: .875rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .tituloPrincipal {
     font-family: "Roboto Condensed", sans-serif;
