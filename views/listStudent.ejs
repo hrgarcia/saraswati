@@ -57,6 +57,10 @@
                     
                     <hr class="my-4" />
                     <div class="uk-overflow-auto">
+                        <div>
+                            <button class="uk-button uk-button-default" type="button" uk-toggle="target: #toggle-usage">Ayuda(Mostrar/Ocultar)</button>
+                            <p id="toggle-usage">Hola soy un mensaje de ayuda proveninente de un planeta superior al tuyo, humano...</p>
+                        </div>
                         <table id="fresh-table" class="uk-table uk-table-responsive uk-table-shrink uk-table-hover uk-table-justify uk-table-striped uk-table-small" style="width: 100%">
                             <thead>
                                 <th data-field="name">
@@ -94,6 +98,7 @@
                                     Acciones
                                 </th>
                             </thead>
+                            
                             <% data.forEach(function(Student){ %>    
                             <tr>
                                 <td><%-Student['nombre']%></td>
@@ -114,7 +119,9 @@
                                 <td></td>
                             </tr>
                             <% }); %>
+                            
                         </table>
+                        <a href="#" style="float: right;background-color: inherit;" uk-totop uk-scroll></a>
                     </div>
                     
                 </div>

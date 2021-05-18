@@ -129,6 +129,7 @@
 	<script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.0/locale/bootstrap-table-es-AR.min.js"></script>
 	<script type="text/javascript">
+
 		var $table = $('#fresh-table');
 		var $alertBtn = $('#alertBtn');
 
@@ -171,33 +172,15 @@
 			})
 		})
 
-		$('#lista').on( 'keyup', function () {
-			$table.search( this.value ).draw();
-			console.log($(this).val());
-
-		});
-
 		$('#lista').on('click',	 function() {
-			console.log($(this).val());
+			let curso = $(this).val();
+			
 		});
 		
-		// $("#fresh-table tfoot th").each( function ( i ) {
-        // var select = $('<select><option value=""></option></select>')
-        //     .appendTo( $(this).empty() )
-        //     .on( 'change', function () {
-        //         table.column( i )
-        //             .search( $(this).val() )
-        //             .draw();
-        //     } );
- 
-        // table.column( i ).data().unique().sort().each( function ( d, j ) {
-        //     select.append( '<option value="'+d+'">'+d+'</option>' )
-        // } );
-		// } );
-
+		
 	</script>
 	</div>
-    
+
 </body>
 
 </html>
