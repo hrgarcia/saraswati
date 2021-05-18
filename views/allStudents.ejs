@@ -64,7 +64,8 @@
 							<hr class="my-4" />
 							<div class="uk-overflow-auto">
 								<table id="fresh-table" class="uk-table uk-table-responsive uk-table-shrink uk-table-hover uk-table-justify uk-table-striped uk-table-small" style="width: 100%">
-									<select class="custom-select" name="Eliga su curso" aria-label="Default select example"> 
+									<select class="form-select" aria-label="Default select example" id="lista"> 
+										<option value="" selected disabled>Seleccione un curso</option>
 										<% for(let i = 0; i < data2.length; i++){ %> 
 											<option value="<%- data2[i] -%>"><%- data2[i] -%></option>
 										<% } %>
@@ -105,8 +106,8 @@
 										<td><%-Student['dni']%></td>
 										<td><%-Student['email']%></td>
 										<td><%-Student['telefono']%></td>
-										<td><%-Student['genero']%></td>
 										<td><%-Student['curso_descripcion']%></td>
+										<td><%-Student['genero']%></td>
 
 										<td></td>
 									</tr>
@@ -128,19 +129,9 @@
 	<script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.0/locale/bootstrap-table-es-AR.min.js"></script>
 	<script type="text/javascript">
-		
-	</script>
-	<script type="text/javascript">
-		var $table = $('#fresh-table')
-		var $alertBtn = $('#alertBtn')
-		var table = $('#fresh-table').DataTable();
-		
-		window.operateEvents = {
-			'click .like': function (e, value, row, index) {
-				alert('You click like icon, row: ' + JSON.stringify(row))
-				console.log(value, row, index)
-			},
-		},
+		var $table = $('#fresh-table');
+		var $alertBtn = $('#alertBtn');
+
 		function operateFormatter(value, row, index) {
 			return [
 				'<a rel="tooltip" title="Like" class="table-action like" href="javascript:void(0)" title="Like">',
@@ -180,17 +171,32 @@
 			})
 		})
 
-		$('#lista').on('click', function() {
-			console.log($(this).val());
-		})
-
 		$('#lista').on( 'keyup', function () {
-			table.search( this.value ).draw();
+			$table.search( this.value ).draw();
+			console.log($(this).val());
+
 		});
 
+		$('#lista').on('click',	 function() {
+			console.log($(this).val());
+		});
+		
+		// $("#fresh-table tfoot th").each( function ( i ) {
+        // var select = $('<select><option value=""></option></select>')
+        //     .appendTo( $(this).empty() )
+        //     .on( 'change', function () {
+        //         table.column( i )
+        //             .search( $(this).val() )
+        //             .draw();
+        //     } );
+ 
+        // table.column( i ).data().unique().sort().each( function ( d, j ) {
+        //     select.append( '<option value="'+d+'">'+d+'</option>' )
+        // } );
+		// } );
 
 	</script>
-    </div>
+	</div>
     
 </body>
 
