@@ -21,7 +21,6 @@
 
         <!-- CSS Files -->
         <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
-        <link href="/stylesheets/toastr.css" rel="stylesheet" />
         <!-- Animate css -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 
@@ -54,7 +53,7 @@
                             <div class="card" style="background-image: url('<%-Subjects.imagen%>')">
                                 <div class="header">
                                     <div class="content">
-                                        <h4 class="cortado title title-uppercase" miAtributo = "0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- Subjects['nombreMateria']%></h4>
+                                        <h4 class="cortado title title-uppercase" miAtributo="0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- Subjects['nombreMateria']%></h4>
                                         <h6 class="label label-danger" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black"><%- Subjects['curso_descripcion']%></h6>
                                         <br />
                                         <br />
@@ -95,18 +94,14 @@
         <%- include('fragment/scripts'); -%>
 
         <script src="/javascripts/plugins/jquery-3.5.1.js"></script>
-        <script src="/javascripts/toastr.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="/javascripts/hipster-cards.js"></script>
+        <script src="/javascripts/sweetAlerts.js"></script>
         <script src="/javascripts/cardsDemo.js"></script>
         <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
         <script src="https://unpkg.com/downloadjs@1.4.7"></script>
         <script>
-            toastr.options.progressBar = true;
-            toastr.options.closeMethod = "fadeOut";
-            toastr.options.closeDuration = 300;
-
             let usernameToastr = document.getElementById("main-panel");
+            usernameToastr = usernameToastr.getAttribute("data-value");
 
             window.onload = () => {
                 $.get("estadoToastr", { data: 0 }, function (res) {
@@ -114,7 +109,8 @@
                         $.get("cambiarEstadoToastr", { data: 0 }, function (res) {
                             //
                         });
-                        toastr.success("bienvenido " + usernameToastr.getAttribute("data-value"));
+                        //
+                        welcomeLogin(usernameToastr);
                     }
                 });
             };
@@ -127,15 +123,17 @@
                 //Con un foreach guardamos cada nombre espacio curricular en el arreglo
                 $("h4.cortado").each((i, e) => {
                     espacios.push($(e).text());
-                    e.setAttribute("miAtributo",i);
+                    e.setAttribute("miAtributo", i);
                     if (espacios[i].length > 15) {
-                        e.innerHTML = espacios[i].substring(0,10) +  "...";
+                        e.innerHTML = espacios[i].substring(0, 10) + "...";
                     }
                 });
-                $("li.nombreProfe").each((x,y) => {
-                    nombreMayuscula = $(y).text().replace(/\b\w/g, l => l.toUpperCase())
+                $("li.nombreProfe").each((x, y) => {
+                    nombreMayuscula = $(y)
+                        .text()
+                        .replace(/\b\w/g, (l) => l.toUpperCase());
                     y.innerHTML = nombreMayuscula;
-                })
+                });
             });
         </script>
     </body>
