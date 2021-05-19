@@ -56,6 +56,30 @@
                     
                     <hr class="my-4" />
                     <div class="uk-overflow-auto">
+                        <div>
+                            <button class="uk-button uk-button-default" type="button" uk-toggle="target: #toggle-usage">Cargar aprendizaje</button>
+                            <div id="toggle-usage">
+                                <br>
+                                <span class="uk-text-danger">Instrucciones: Arrastre a la zona posterior un archivo de</span>
+                                <u class="uk-text-danger" data-uk-tooltip title='<img width="800" height="600" alt="DEKUmodewelt" src="images/tutorials/txt2.png">'>texto</u>
+                                <u class="uk-text-danger"data-uk-tooltip title='<img width="600" height="600" alt="DEKUmodewelt" src="images/tutorials/excel2.png">'> o excel</u>
+                                <span class="uk-text-danger"uk-tooltip="Hello World">con los aprendizajes</span>
+                                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                                    <p>Cuatrimestre</p>
+                                    <label><input class="uk-radio" type="radio" name="radio2" checked> 1</label>
+                                    <label><input class="uk-radio" type="radio" name="radio2"> 2</label>
+                                </div>
+                                <div class="js-upload uk-placeholder uk-text-center">
+                                    <span uk-icon="icon: cloud-upload"></span>
+                                    <span class="uk-text-middle">Arrastre un archivo para cargar los aprendizajes o </span>
+                                    <div uk-form-custom>
+                                        <input type="file" multiple>
+                                        <span class="uk-link">selecione uno</span>
+                                    </div>
+                                </div>
+                                <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+                            </div>
+                        </div>
                         <table id="fresh-table" class="uk-table uk-table-responsive uk-table-shrink uk-table-hover uk-table-justify uk-table-striped uk-table-small" style="width: 100%">
                             <thead>
                                 <th data-field="name">
@@ -294,6 +318,66 @@
         
         <!-- Own SweetAlert2 -->
         <script src="/javascripts/sweetAlerts.js"></script>
+        <script>
+
+            var bar = document.getElementById('js-progressbar');
+        
+            UIkit.upload('.js-upload', {
+        
+                url: '',
+                multiple: true,
+        
+                beforeSend: function () {
+                    console.log('beforeSend', arguments);
+                },
+                beforeAll: function () {
+                    console.log('beforeAll', arguments);
+                },
+                load: function () {
+                    console.log('load', arguments);
+                },
+                error: function () {
+                    console.log('error', arguments);
+                },
+                complete: function () {
+                    console.log('complete', arguments);
+                },
+        
+                loadStart: function (e) {
+                    console.log('loadStart', arguments);
+        
+                    bar.removeAttribute('hidden');
+                    bar.max = e.total;
+                    bar.value = e.loaded;
+                },
+        
+                progress: function (e) {
+                    console.log('progress', arguments);
+        
+                    bar.max = e.total;
+                    bar.value = e.loaded;
+                },
+        
+                loadEnd: function (e) {
+                    console.log('loadEnd', arguments);
+        
+                    bar.max = e.total;
+                    bar.value = e.loaded;
+                },
+        
+                completeAll: function () {
+                    console.log('completeAll', arguments);
+        
+                    setTimeout(function () {
+                        bar.setAttribute('hidden', 'hidden');
+                    }, 1000);
+        
+                    alert('Upload Completed');
+                }
+        
+            });
+        
+        </script>
         
         <!-- Validation -->
         <script>
