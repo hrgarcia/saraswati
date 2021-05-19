@@ -16,7 +16,7 @@
         <!-- Nuestros estilos -->
         <link rel="stylesheet" href="/stylesheets/style.css" />
 
-        <!-- Estilos de las tarjetas de los espacios curriculares -->
+        <!-- Estilos de las tarjetas de los curricular_space curriculares -->
         <link rel="stylesheet" href="/stylesheets/cardsStyle.css" />
 
         <!-- CSS Files -->
@@ -54,13 +54,13 @@
                             <div class="card" style="background-image: url('<%-Subjects.imagen%>')">
                                 <div class="header">
                                     <div class="content">
-                                        <h4 class="cortado title title-uppercase" miAtributo = "0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- Subjects['nombreMateria']%></h4>
+                                        <h4 class="subject title title-uppercase" myAtribute = "0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- Subjects['nombreMateria']%></h4>
                                         <h6 class="label label-danger" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black"><%- Subjects['curso_descripcion']%></h6>
                                         <br />
                                         <br />
                                         <br />
                                         <div>
-                                            <li class="fas fa-clock nombreProfe" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 215px"><%- " " + Subjects['nombre']%> <%- Subjects['apellido']%></li>
+                                            <li class="fas fa-clock teacher_name" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 215px"><%- " " + Subjects['nombre']%> <%- Subjects['apellido']%></li>
                                             <br />
                                             <li class="fas fa-user" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 245px"><%- " " + Subjects['horasCatedra']%> Horas cátedras</li>
                                         </div>
@@ -121,20 +121,20 @@
         </script>
         <script>
             $(document).ready(function () {
-                //Arreglo para alojar todos los nombres de espacios curriculares del profe en cuestión
-                let espacios = [];
-                let nombreMayuscula = [];
+                //Arreglo para alojar todos los nombres de curricular_space curriculares del profe en cuestión
+                let curricular_space = [];
+                let uppercase_name = [];
                 //Con un foreach guardamos cada nombre espacio curricular en el arreglo
-                $("h4.cortado").each((i, e) => {
-                    espacios.push($(e).text());
-                    e.setAttribute("miAtributo",i);
-                    if (espacios[i].length > 15) {
-                        e.innerHTML = espacios[i].substring(0,10) +  "...";
+                $("h4.subject").each((i, e) => {
+                    curricular_space.push($(e).text());
+                    e.setAttribute("myAtribute",i);
+                    if (curricular_space[i].length > 15) {
+                        e.innerHTML = curricular_space[i].substring(0,10) +  "...";
                     }
                 });
-                $("li.nombreProfe").each((x,y) => {
-                    nombreMayuscula = $(y).text().replace(/\b\w/g, l => l.toUpperCase())
-                    y.innerHTML = nombreMayuscula;
+                $("li.teacher_name").each((x,y) => {
+                    uppercase_name = $(y).text().replace(/\b\w/g, l => l.toUpperCase())
+                    y.innerHTML = uppercase_name;
                 })
             });
         </script>
