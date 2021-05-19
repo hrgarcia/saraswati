@@ -10,6 +10,7 @@ const teacherFunctions = require("./external/teacherFunctions");
 const conection = require("./config/db");
 const pdf = require("html-pdf");
 const ejs = require("ejs");
+const Swal = require("sweetalert2");
 
 // Obtain the name of the file
 const storage = multer.diskStorage({
