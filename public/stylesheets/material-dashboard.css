@@ -694,8 +694,9 @@ textarea {
 button,
 input {
     overflow: visible;
-    border: 2px solid rgb(10, 130, 199);
-    border-radius: 4px;
+    border: 2px solid rgba(4, 68, 131, 0.692);
+    border-radius: 2px;
+    background-color: #f5f3f0b0;
 }
 
 button,

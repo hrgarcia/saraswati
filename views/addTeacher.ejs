@@ -26,182 +26,192 @@
             <!--   Big container   -->
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-8 col-sm-offset-2">
-                        <!--      Wizard container        -->
-                        <div class="wizard-container">
-                            <div class="card wizard-card" data-color="orange" id="wizardProfile">
-                                <form action="/crearProfesor" onsubmit="validate(password.value)" method="POST">
-                                    <!--        You can switch " data-color="orange" "  with one of the next bright colors: "blue", "green", "orange", "red", "azure"          -->
-
-                                    <div class="wizard-header text-center">
-                                        <h3 class="wizard-title">Crea un profesor</h3>
-                                        <p class="category">Por favor ingerese los datos correctamente</p>
+                    <div class="cardStudent wizard-card" data-color="orange" id="wizardProfile">
+                        <form action="" method="">
+            <!--        You can switch " data-color="orange" "  with one of the next bright colors: "blue", "green", "orange", "red", "azure"          -->
+            
+                            <div class="wizard-header text-center">
+                                    <h3 class="wizard-title">Crea el perfil</h3>
+                                    <p class="category"></p>
+                            </div>
+            
+                                <div class="wizard-navigation">
+                                    <div class="progress-with-circle">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 21%;"></div>
                                     </div>
-
-                                    <div class="wizard-navigation">
-                                        <div class="progress-with-circle">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 21%"></div>
-                                        </div>
-                                        <ul>
-                                            <li>
-                                                <a href="#about" data-toggle="tab">
-                                                    <div class="icon-circle">
-                                                        <i class="ti-user"></i>
+                                    <ul>
+                                        <li>
+                                            <a href="#about" data-toggle="tab">
+                                                <div class="icon-circle">
+                                                    <i class="ti-user"></i>
+                                                </div>
+                                                    Crear usuario
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#account" data-toggle="tab">
+                                                <div class="icon-circle">
+                                                    <i class="ti-settings"></i>
+                                                </div>
+                                                Cursos
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#address" data-toggle="tab">
+                                                <div class="icon-circle">
+                                                    <i class="ti-map"></i>
+                                                </div>
+                                                Información personal
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="tab-pane" id="about">
+                                        <div class="row">
+                                            <h5 class="info-text"> Please tell us more about yourself.</h5>
+                                            <div class="col-sm-4 col-sm-offset-1">
+                                                <div class="picture-container">
+                                                    <div class="picture">
+                                                        <img src="images/imgEstudiante/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" />
+                                                        <input type="file" id="wizard-picture">
                                                     </div>
-                                                    About
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#account" data-toggle="tab">
-                                                    <div class="icon-circle">
-                                                        <i class="ti-settings"></i>
-                                                    </div>
-                                                    Work
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#address" data-toggle="tab">
-                                                    <div class="icon-circle">
-                                                        <i class="ti-map"></i>
-                                                    </div>
-                                                    Address
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="tab-content">
-                                        <div class="tab-pane" id="about">
-                                            <div class="row">
-                                                <h5 class="info-text">Please tell us more about yourself.</h5>
-                                                <div class="col-sm-4 col-sm-offset-1">
-                                                    <div class="picture-container">
-                                                        <div class="picture">
-                                                            <img src="assets/img/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" />
-                                                            <input type="file" id="wizard-picture" />
-                                                        </div>
-                                                        <h6>Choose Picture</h6>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">ingrese un usuario</label>
-                                                    <input type="text" name="user" class="form-control" required />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">ingrese una contraseña</label>
-                                                    <input type="text" name="password" class="form-control" required />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">ingrese un avatar</label>
-                                                    <input type="text" name="avatar" class="form-control" required />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Nombre de/la profe</label>
-                                                    <input type="text" name="name" class="form-control" required />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputPassword1">Apellido del/la profe</label>
-                                                    <input type="text" name="lastName" class="form-control" required />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputPassword1">Dni del/la profe</label>
-                                                    <input type="text" name="dni" class="form-control" required />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputPassword1">telefono del/la profe</label>
-                                                    <input type="text" name="telephone" class="form-control" required />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputPassword1">email del/la profe</label>
-                                                    <input type="email" name="email" class="form-control" required />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputPassword1">genero del/la profe</label>
-                                                    <input type="text" name="gender" class="form-control" required />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputPassword1">nacimiento del/la profe</label>
-                                                    <input type="text" name="birth" class="form-control" required />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputPassword1">fecha de ingreso del/la profe</label>
-                                                    <input type="text" name="entry" class="form-control" required />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputPassword1">estado del/la profe</label>
-                                                    <input type="text" name="state" class="form-control" required />
+                                                    <h6>Elegir avatar</h6>
                                                 </div>
                                             </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Nombre <small>obligatorio</small></label>
+                                                        <br>
+                                                        <input name= "firstname" class="uk-input uk-form-width-large  " type="text" placeholder="Juan">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Apellido <small>obligatorio</small></label>
+                                                        <br>
+                                                        <input  name="lastname"class="uk-input uk-form-width-large " type="text" placeholder="Gomez">  
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <label>Email <small>obligatorio</small></label>
+                                                        <br>
+                                                        <input name="email" class="uk-input uk-form-width-large " type="email" placeholder="example@email.com">
+ 
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <label>Contraseña <small>obligatorio</small></label>
+                                                        <br>
+                                                        <input name="password" class="uk-input uk-form-width-large " type="password" placeholder="lavacalola">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <label>Verificar contraseña <small>obligatorio</small></label>
+                                                        <br>
+                                                        <input name="password" class="uk-input uk-form-width-large" type="password" placeholder="lavacalola">    
+                                                    </div>
+                                                </div>
                                         </div>
-                                        <div class="tab-pane" id="account">
-                                            <h5 class="info-text">What are you doing? (checkboxes)</h5>
+                                    </div>
+                                    <div class="tab-pane" id="account">
+                                        <h5 class="info-text"> Elige el curso que pertenece el estudiane </h5>
                                             <div class="row">
-                                                <div class="col-sm-8 col-sm-offset-2">
-                                                    <div class="col-sm-4">
-                                                        <div class="choice" data-toggle="wizard-checkbox">
-                                                            <input type="checkbox" name="jobb" value="Design" />
-                                                            <div class="card card-checkboxes card-hover-effect">
-                                                                <i class="ti-paint-roller"></i>
-                                                                <p>Design</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <div class="choice" data-toggle="wizard-checkbox">
-                                                            <input type="checkbox" name="jobb" value="Code" />
-                                                            <div class="card card-checkboxes card-hover-effect">
-                                                                <i class="ti-pencil-alt"></i>
-                                                                <p>Code</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <div class="choice" data-toggle="wizard-checkbox">
-                                                            <input type="checkbox" name="jobb" value="Develop" />
-                                                            <div class="card card-checkboxes card-hover-effect">
-                                                                <i class="ti-star"></i>
-                                                                <p>Develop</p>
-                                                            </div>
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                        <input type="checkbox" name="jobb" value="Design">
+                                                        <div class="card card-checkboxes card-hover-effect">
+                                                            <i class="fas fa-graduation-cap"></i>
+                                                            <p>1° (primer año)</p>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                        <input type="checkbox" name="jobb" value="Design">
+                                                        <div class="card card-checkboxes card-hover-effect">
+                                                            <i class="fas fa-graduation-cap"></i>
+                                                            <p>2° (segundo año)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                        <input type="checkbox" name="jobb" value="Design">
+                                                        <div class="card card-checkboxes card-hover-effect">
+                                                            <i class="fas fa-graduation-cap"></i>
+                                                            <p>3° (tercer año)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                        <input type="checkbox" name="jobb" value="Design">
+                                                        <div class="card card-checkboxes card-hover-effect">
+                                                            <i class="fas fa-graduation-cap"></i>
+                                                            <p>4° (cuarto año)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                        <input type="checkbox" name="jobb" value="Design">
+                                                        <div class="card card-checkboxes card-hover-effect">
+                                                            <i class="fas fa-graduation-cap"></i>
+                                                            <p>5° (quinto año)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                        <input type="checkbox" name="jobb" value="Code">
+                                                        <div class="card card-checkboxes card-hover-effect">
+                                                            <i class="fas fa-graduation-cap"></i>
+                                                            <p>6° (sexto año)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
                                             </div>
                                         </div>
                                         <div class="tab-pane" id="address">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <h5 class="info-text">Are you living in a nice area?</h5>
+                                                    <h5 class="info-text">  </h5>
                                                 </div>
                                                 <div class="col-sm-7 col-sm-offset-1">
                                                     <div class="form-group">
-                                                        <label>Street Name</label>
-                                                        <input type="text" class="form-control" placeholder="5h Avenue" />
+                                                        <label>Fecha de nacimiento</label>
+                                                        <input type="date" class="form-control" placeholder="10/12/2003">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-3">
                                                     <div class="form-group">
-                                                        <label>Street Number</label>
-                                                        <input type="text" class="form-control" placeholder="242" />
+                                                        <label>DNI</label>
+                                                        <input type="text" class="form-control" placeholder="323232">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-5 col-sm-offset-1">
                                                     <div class="form-group">
-                                                        <label>City</label>
-                                                        <input type="text" class="form-control" placeholder="New York..." />
+                                                        <label>Número de teléfono</label>
+                                                        <input type="text" class="form-control" placeholder="35135...">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <label>Legajo</label>
+                                                        <input type="text" class="form-control" placeholder="...">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-5">
                                                     <div class="form-group">
-                                                        <label>Country</label><br />
-                                                        <select name="country" class="form-control">
-                                                            <option value="Afghanistan">Afghanistan</option>
-                                                            <option value="Albania">Albania</option>
-                                                            <option value="Algeria">Algeria</option>
-                                                            <option value="American Samoa">American Samoa</option>
-                                                            <option value="Andorra">Andorra</option>
-                                                            <option value="Angola">Angola</option>
-                                                            <option value="Anguilla">Anguilla</option>
-                                                            <option value="Antarctica">Antarctica</option>
-                                                            <option value="...">...</option>
+                                                        <label>Genéro</label><br>
+                                                        <select name="genero" class="form-control">
+                                                            <option value="Masculino"> Masculino </option>
+                                                            <option value="Femenino"> Femenino </option>
+                                                            <option value="Indefinido"> Indefinido </option>
+                                                            
                                                         </select>
                                                     </div>
                                                 </div>
@@ -210,20 +220,16 @@
                                     </div>
                                     <div class="wizard-footer">
                                         <div class="pull-right">
-                                            <input type="button" class="btn btn-next btn-fill btn-warning btn-wd" name="next" value="Next" />
-                                            <input type="button" class="btn btn-finish btn-fill btn-warning btn-wd" name="finish" value="Finish" />
+                                            <input type='button' class='btn btn-next btn-fill btn-warning btn-wd' name='siguiente' value='Siguiente' />
+                                            <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd' name='cargar' value='Cargar' />
                                         </div>
-
+            
                                         <div class="pull-left">
-                                            <input type="button" class="btn btn-previous btn-default btn-wd" name="previous" value="Previous" />
-                                            <button type="submit" class="btn btn-primary">Cargar</button>
+                                            <input type='button' class='btn btn-previous btn-default btn-wd' name='volver' value='Volver' />
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                 </form>
-                            </div>
-                        </div>
-                        <!-- wizard container -->
                     </div>
                 </div>
                 <!-- end row -->
