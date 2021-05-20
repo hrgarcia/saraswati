@@ -49,21 +49,20 @@
                         <div class="col-md-2">
                             <img class="img-head" src="/images/6to1.png" />
                         </div>
-                        <a class="loadLearning mr" data-toggle="modal" data-target="#createLearningsFile" data-toggle="tooltip" data-placement="bottom" title="Cargar Aprendizajes">
-                            <i class="fa fa-plus my-float"></i>
-                        </a>
                     </div>
                     
                     <hr class="my-4" />
                     <div class="uk-overflow-auto">
                         <div>
-                            <button class="uk-button uk-button-default" type="button" uk-toggle="target: #toggle-usage">Cargar aprendizaje</button>
+                            <button class="uk-button uk-button-default" type="button" uk-toggle="target: #toggle-usage">Cargar aprendizajes</button>
                             <div id="toggle-usage">
                                 <br>
-                                <span class="uk-text-danger">Instrucciones: Arrastre a la zona posterior un archivo de</span>
-                                <u class="uk-text-danger" data-uk-tooltip title='<img width="800" height="600" alt="DEKUmodewelt" src="images/tutorials/txt2.png">'>texto</u>
-                                <u class="uk-text-danger"data-uk-tooltip title='<img width="600" height="600" alt="DEKUmodewelt" src="images/tutorials/excel2.png">'> o excel</u>
-                                <span class="uk-text-danger"uk-tooltip="Hello World">con los aprendizajes</span>
+                                <p><span class="uk-label">Instrucciones</span> <span class="uk-text-danger">Arrastre a la zona posterior un archivo de <u class="uk-text-danger" data-uk-tooltip title='<img width="800" height="600" alt="DEKUmodewelt" src="images/tutorials/txt2.png">'>texto</u>
+                                    <u class="uk-text-danger"data-uk-tooltip title='<img width="600" height="600" alt="DEKUmodewelt" src="images/tutorials/excel2.png">'> o excel</u>
+                                    <span class="uk-text-danger"uk-tooltip="Hello World">con los aprendizajes.</span></span></p>
+                                
+                                
+                                
                                 <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
                                     <p>Cuatrimestre</p>
                                     <label><input class="uk-radio" type="radio" name="radio2" checked> 1</label>
@@ -83,37 +82,29 @@
                         <table id="fresh-table" class="uk-table uk-table-responsive uk-table-shrink uk-table-hover uk-table-justify uk-table-striped uk-table-small" style="width: 100%">
                             <thead>
                                 <th data-field="name">
-                                    <i class="fas fa-user-graduate color-icon" data-sortable="true"></i>
                                     Nombre
                                 </th>
                                 <th data-field="surname">
-                                    <i class="fas fa-user-graduate color-icon" data-sortable="true"></i>
                                     Apellido
                                 </th>
                                 
                                 <th data-field="birt">
-                                    <i class="fa fa-calendar color-icon mb 5" aria-hidden="true" id="nota" onclick="inlineEditing()"></i>
                                     Notas
                                     
                                 </th>
                                 <th data-field="dni">
-                                    <i class="fa fa-address-card color-icon" aria-hidden="true"></i>
                                     DNI
                                 </th>
                                 <th data-field="email ">
-                                    <i class="fa fa-envelope color-icon" aria-hidden="true"></i>
                                     Email
                                 </th>
                                 <th data-field="telephone">
-                                    <i class="fa fa-phone color-icon" aria-hidden="true"></i>
                                     Telefono
                                 </th>
                                 <th data-field="genero">
-                                    <i class="fas fa-venus-mars color-icon"></i>
                                     Genero
                                 </th>
                                 <th data-field="actions" data-formatter="operateFormatter" data-events="operateEvents">
-                                    <i class="fa fa-lightbulb-o color-icon" aria-hidden="true"></i>
                                     Acciones
                                 </th>
                             </thead>
@@ -138,13 +129,12 @@
                             </tr>
                             <% }); %>
                         </table>
-                    </div>
-                    
+                    </div>    
+                    <a href="#" style="float:right;" uk-totop uk-scroll></a>         
                 </div>
             </div>
-
+    
             <!-- Learnings popup -->
-
             <div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content" id="modal">
