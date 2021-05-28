@@ -54,29 +54,36 @@
                     <hr class="my-4" />
                     <div class="uk-overflow-auto">
                         <div>
-                            <button class="uk-button uk-button-default" type="button" uk-toggle="target: #toggle-usage">Cargar aprendizajes</button>
-                            <div id="toggle-usage">
+                            <button class="uk-button arrow-icon" type="button" uk-toggle="target: #toggle-usage" aria-expanded="false">Cargar aprendizaje</button>
+                            <div id="toggle-usage" class="divToggle-Usage" hidden>
                                 <br>
-                                <p><span class="uk-label">Instrucciones</span> <span class="uk-text-danger">Arrastre a la zona posterior un archivo de <u class="uk-text-danger" data-uk-tooltip title='<img width="800" height="600" alt="DEKUmodewelt" src="images/tutorials/txt2.png">'>texto</u>
-                                    <u class="uk-text-danger"data-uk-tooltip title='<img width="600" height="600" alt="DEKUmodewelt" src="images/tutorials/excel2.png">'> o excel</u>
-                                    <span class="uk-text-danger"uk-tooltip="Hello World">con los aprendizajes.</span></span></p>
-                                
-                                
-                                
-                                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                                    <p>Cuatrimestre</p>
-                                    <label><input class="uk-radio" type="radio" name="radio2" checked> 1</label>
-                                    <label><input class="uk-radio" type="radio" name="radio2"> 2</label>
+                                <div>
+                                    <span class="uk-text-danger" style="margin-left: 5%;">Instrucciones: Arrastre a la zona posterior un archivo de</span>
+                                    <u class="uk-text-danger" data-uk-tooltip title='<img width="800" height="600" alt="DEKUmodewelt" src="images/tutorials/txt.png">'>texto</u>
+                                    <span class="uk-text-danger">o </span>
+                                    <u class="uk-text-danger"data-uk-tooltip title='<img width="600" height="600 alt="DEKUmodewelt" src="images/tutorials/excel.png">'>excel</u>
+                                    <span class="uk-text-danger">con los aprendizajes</span>
                                 </div>
-                                <div class="js-upload uk-placeholder uk-text-center">
-                                    <span uk-icon="icon: cloud-upload"></span>
-                                    <span class="uk-text-middle">Arrastre un archivo para cargar los aprendizajes o </span>
-                                    <div uk-form-custom>
-                                        <input type="file" multiple>
-                                        <span class="uk-link">selecione uno</span>
+                                <br>
+                                <form action="/cargarAprendizaje" method="post" enctype="multipart/form-data">
+                                    <input style="display:none;" name="idSubject" value="<%- data[0].id -%>"></input>
+                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid" style="margin-left: 3.1%;">
+                                        <p>Cuatrimestre</p>
+                                        <label><input class="uk-radio" style="border-color: black;" type="radio" value="1" name="quarter" checked> 1</label>
+                                        <label><input class="uk-radio" style="border-color: black;" type="radio" value="2" name="quarter"> 2</label>
                                     </div>
-                                </div>
-                                <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+                                    <div class="js-upload uk-placeholder uk-text-center">
+                                        <span uk-icon="icon: cloud-upload"></span>
+                                        <span class="uk-text-middle">Arrastre un archivo para cargar los aprendizajes o </span>
+                                        <div uk-form-custom>
+                                            <input name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/plain" type="file">
+                                            <span class="uk-link">selecione uno</span>
+                                        </div>
+                                    </div>
+                                    <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">Cargar</button>
+                                </form>
                             </div>
                         </div>
                         <table id="fresh-table" class="uk-table uk-table-responsive uk-table-shrink uk-table-hover uk-table-justify uk-table-striped uk-table-small" style="width: 100%">
@@ -134,7 +141,7 @@
                 </div>
             </div>
     
-            <!-- Learnings popup -->
+            <!-- Learnings popup
             <div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content" id="modal">
@@ -191,7 +198,69 @@
                         </div>
                     </div>
                 </div>
+            </div> -->
+
+            <!-- Test Learnings popup -->
+            <div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" id="modal">
+                        <div class="modal-header" style="border-bottom: 1px solid #ffffff !important">
+                            <h5 class="modal-title tituloPrincipal" id="exampleModalLabel">Listado de aprendizajes actuales</h5>
+                            <h5 class="modal-title" id="isChangedLearnState" style="text-indent: 350px"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h4 style="text-align:center;" class="tituloSecundario">Pendiente</h4>
+                                    <div class="sortable-learnings">
+                                        <div id="listPending" class="pendiente" uk-sortable="group: sortable-group, handle: .uk-sortable-handle">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4 style="text-align:center;" class="tituloSecundario">Proceso</h4>
+                                    <div class="sortable-learnings">
+                                        <div id="listProcess" class="proceso" uk-sortable="group: sortable-group, handle: .uk-sortable-handle">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4 style="text-align:center;" class="tituloSecundario">Aprobado</h4>
+                                    <div class="sortable-learnings">
+                                        <div id="listApproved" class="aprobado" uk-sortable="group: sortable-group, handle: .uk-sortable-handle">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="trashLearnings" class="col-md-3">
+                                    <button class="trash custom-btn btn-2">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="custom-btn btn-2">
+                                        <i class="fas fa-undo-alt"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="custom-btn btn-2" data-toggle="modal" data-target="#newLearning">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="custom-btn btn-2" onclick="saveLearnings()">
+                                        <i class="fas fa-save"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
 
             <!-- Create learnings popup -->
 
@@ -308,65 +377,72 @@
         
         <!-- Own SweetAlert2 -->
         <script src="/javascripts/sweetAlerts.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
         <script>
+            // allow : '*.(txt|xlsx)',
+            // setTimeout(function() {
+            //     // Declaramos la capa mediante una clase para ocultarlo
+            //     $("#js-progressbar").fadeOut(1500);
+            // },2000);
 
             var bar = document.getElementById('js-progressbar');
-        
-            UIkit.upload('.js-upload', {
-        
-                url: '',
-                multiple: true,
-        
-                beforeSend: function () {
-                    console.log('beforeSend', arguments);
-                },
-                beforeAll: function () {
-                    console.log('beforeAll', arguments);
-                },
-                load: function () {
-                    console.log('load', arguments);
-                },
-                error: function () {
-                    console.log('error', arguments);
-                },
-                complete: function () {
-                    console.log('complete', arguments);
-                },
-        
-                loadStart: function (e) {
-                    console.log('loadStart', arguments);
-        
-                    bar.removeAttribute('hidden');
+
+            (function($) {
+                UIkit.upload(".js-upload", {
+                    url: "",//put path to your script here f.e. upload.php
+                    multiple: true,
+
+                    beforeSend: function() {
+                    console.log("beforeSend", arguments);
+                    },
+                    beforeAll: function() {
+                    console.log("beforeAll", arguments);
+                    },
+                    load: function() {
+                    console.log("load", arguments);
+                    },
+                    error: function() {
+                    console.log("error", arguments);
+                    },
+                    complete: function() {
+                    console.log("complete", arguments);
+                    },
+
+                    loadStart: function(e) {
+                    console.log("loadStart", arguments);
+
+                    bar.removeAttribute("hidden");
                     bar.max = e.total;
                     bar.value = e.loaded;
-                },
-        
-                progress: function (e) {
-                    console.log('progress', arguments);
-        
+                    },
+
+                    progress: function(e) {
+                    console.log("progress", arguments);
+
                     bar.max = e.total;
                     bar.value = e.loaded;
-                },
-        
-                loadEnd: function (e) {
-                    console.log('loadEnd', arguments);
-        
+                    },
+
+                    loadEnd: function(e) {
+                    console.log("loadEnd", arguments);
+
                     bar.max = e.total;
                     bar.value = e.loaded;
-                },
-        
-                completeAll: function () {
-                    console.log('completeAll', arguments);
-        
-                    setTimeout(function () {
-                        bar.setAttribute('hidden', 'hidden');
+                    },
+
+                    completeAll: function() {
+                    console.log("completeAll", arguments);
+
+                    setTimeout(function() {
+                        bar.setAttribute("hidden", "hidden");
                     }, 1000);
-        
-                    alert('Upload Completed');
-                }
-        
-            });
-        
+                    UIkit.notification("All uploads have been finished");
+
+                    //alert('Upload Completed');
+                    }
+                });
+            })(jQuery);
         </script>
         
         <!-- Validation -->
@@ -403,7 +479,7 @@
             }
 
             // Spinner 
-            $('#learningsExcelForm').submit(function(event){
+            $('#learningsExcelForm').submit(event => {
                 if($('#learningsExcelForm').valid()){
                     $('#buttonLoadLearnings').empty();
                     $('#buttonLoadLearnings').append('<span class="spinner-border spinner-border-sm"  aria-hidden="true"></span>');
@@ -418,166 +494,165 @@
             const listPending = document.getElementById("listPending");
             var deleteLearnings = [];
 
-            Sortable.create(listApproved, {
-                group: {
-                    name: "statuslearning",
-                },
-                animation: 150,
-                easing: "cubic-bezier(0.895,0.03,0.685,0.22)",
-                chosenClass: "sortableChosen",
-                dragClass: "sortableDrag",
-                onAdd: function (evt) {
-                    //first time
-                    if (evt.item.getAttribute("originLearn") == "" && evt.item.getAttribute("data-value") == 0) {
-                        evt.item.setAttribute("data-value", "1");
-                        evt.item.setAttribute("originLearn", evt.from.getAttribute("id"));
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                        document.getElementById("isChangedLearnState").innerHTML = "";
-                    } else if (evt.item.getAttribute("originLearn") != evt.to.getAttribute("id")) {
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                        document.getElementById("isChangedLearnState").innerHTML = "";
-                    }
-                    //come back home
-                    else if (evt.item.getAttribute("originLearn") == evt.to.getAttribute("id")) {
-                        evt.item.setAttribute("data-value", "0");
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                    }
-                },
-                onEnd: function (evt) {
-                    if (evt.to.id == "trashLearnings") {
-                        $(evt.item).remove();
-                        deleteLearnings.push(evt);
-                        document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
-                    }
-                },
-            });
-            Sortable.create(listProgress, {
-                group: {
-                    name: "statuslearning",
-                },
-                animation: 150,
-                easing: "cubic-bezier(0.895,0.03,0.685,0.22)",
-                chosenClass: "sortableChosen",
-                dragClass: "sortableDrag",
-                onAdd: function (evt) {
-                    //first time
-                    if (evt.item.getAttribute("originLearn") == "" && evt.item.getAttribute("data-value") == 0) {
-                        evt.item.setAttribute("data-value", "1");
-                        evt.item.setAttribute("originLearn", evt.from.getAttribute("id"));
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                        document.getElementById("isChangedLearnState").innerHTML = "";
-                    } else if (evt.item.getAttribute("originLearn") != evt.to.getAttribute("id")) {
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                        document.getElementById("isChangedLearnState").innerHTML = "";
-                    }
-                    //come back home
-                    else if (evt.item.getAttribute("originLearn") == evt.to.getAttribute("id")) {
-                        evt.item.setAttribute("data-value", "0");
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                    }
-                },
-                onEnd: function (evt) {
-                    if (evt.to.id == "trashLearnings") {
-                        $(evt.item).remove();
-                        deleteLearnings.push(evt);
-                        document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
-                    }
-                },
-            });
+            // Sortable.create(listApproved, {
+            //     group: {
+            //         name: "statuslearning",
+            //     },
+            //     animation: 150,
+            //     easing: "cubic-bezier(0.895,0.03,0.685,0.22)",
+            //     chosenClass: "sortableChosen",
+            //     dragClass: "sortableDrag",
+            //     onAdd: function (evt) {
+            //         //first time
+            //         if (evt.item.getAttribute("originLearn") == "" && evt.item.getAttribute("data-value") == 0) {
+            //             evt.item.setAttribute("data-value", "1");
+            //             evt.item.setAttribute("originLearn", evt.from.getAttribute("id"));
+            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
+            //             document.getElementById("isChangedLearnState").innerHTML = "";
+            //         } else if (evt.item.getAttribute("originLearn") != evt.to.getAttribute("id")) {
+            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
+            //             document.getElementById("isChangedLearnState").innerHTML = "";
+            //         }
+            //         //come back home
+            //         else if (evt.item.getAttribute("originLearn") == evt.to.getAttribute("id")) {
+            //             evt.item.setAttribute("data-value", "0");
+            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
+            //         }
+            //     },
+            //     onEnd: function (evt) {
+            //         if (evt.to.id == "trashLearnings") {
+            //             $(evt.item).remove();
+            //             deleteLearnings.push(evt);
+            //             document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
+            //         }
+            //     },
+            // });
+            // Sortable.create(listProgress, {
+            //     group: {
+            //         name: "statuslearning",
+            //     },
+            //     animation: 150,
+            //     easing: "cubic-bezier(0.895,0.03,0.685,0.22)",
+            //     chosenClass: "sortableChosen",
+            //     dragClass: "sortableDrag",
+            //     onAdd: function (evt) {
+            //         //first time
+            //         if (evt.item.getAttribute("originLearn") == "" && evt.item.getAttribute("data-value") == 0) {
+            //             evt.item.setAttribute("data-value", "1");
+            //             evt.item.setAttribute("originLearn", evt.from.getAttribute("id"));
+            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
+            //             document.getElementById("isChangedLearnState").innerHTML = "";
+            //         } else if (evt.item.getAttribute("originLearn") != evt.to.getAttribute("id")) {
+            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
+            //             document.getElementById("isChangedLearnState").innerHTML = "";
+            //         }
+            //         //come back home
+            //         else if (evt.item.getAttribute("originLearn") == evt.to.getAttribute("id")) {
+            //             evt.item.setAttribute("data-value", "0");
+            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
+            //         }
+            //     },
+            //     onEnd: function (evt) {
+            //         if (evt.to.id == "trashLearnings") {
+            //             $(evt.item).remove();
+            //             deleteLearnings.push(evt);
+            //             document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
+            //         }
+            //     },
+            // });
 
-            Sortable.create(listPending, {
-                group: {
-                    name: "statuslearning",
-                },
-                animation: 150,
-                easing: "cubic-bezier(0.895,0.03,0.685,0.22)",
-                chosenClass: "sortableChosen",
-                dragClass: "sortableDrag",
-                onAdd: function (evt) {
-                    if (evt.item.getAttribute("originLearn") == "" && evt.item.getAttribute("data-value") == 0) {
-                        evt.item.setAttribute("data-value", "1");
-                        evt.item.setAttribute("originLearn", evt.from.getAttribute("id"));
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                        document.getElementById("isChangedLearnState").innerHTML = "";
-                    } else if (evt.item.getAttribute("originLearn") != evt.to.getAttribute("id")) {
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                        document.getElementById("isChangedLearnState").innerHTML = "";
-                    } else if (evt.item.getAttribute("originLearn") == evt.to.getAttribute("id")) {
-                        evt.item.setAttribute("data-value", "0");
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                    }
-                },
-                onEnd: function (evt) {
-                    if (evt.to.id == "trashLearnings") {
-                        $(evt.item).remove();
-                        deleteLearnings.push(evt);
-                        document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
-                    }
-                },
-            });
-            Sortable.create(trashLearnings, {
-                group: {
-                    name: "statuslearning",
-                },
-                chosenClass: "sortableChosen",
-                dragClass: "sortableDrag",
-                filter: ".trash",
-                sort: false,
-                put: false,
-            });
+            // Sortable.create(listPending, {
+            //     group: {
+            //         name: "statuslearning",
+            //     },
+            //     animation: 150,
+            //     easing: "cubic-bezier(0.895,0.03,0.685,0.22)",
+            //     chosenClass: "sortableChosen",
+            //     dragClass: "sortableDrag",
+            //     onAdd: function (evt) {
+            //         if (evt.item.getAttribute("originLearn") == "" && evt.item.getAttribute("data-value") == 0) {
+            //             evt.item.setAttribute("data-value", "1");
+            //             evt.item.setAttribute("originLearn", evt.from.getAttribute("id"));
+            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
+            //             document.getElementById("isChangedLearnState").innerHTML = "";
+            //         } else if (evt.item.getAttribute("originLearn") != evt.to.getAttribute("id")) {
+            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
+            //             document.getElementById("isChangedLearnState").innerHTML = "";
+            //         } else if (evt.item.getAttribute("originLearn") == evt.to.getAttribute("id")) {
+            //             evt.item.setAttribute("data-value", "0");
+            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
+            //         }
+            //     },
+            //     onEnd: function (evt) {
+            //         if (evt.to.id == "trashLearnings") {
+            //             $(evt.item).remove();
+            //             deleteLearnings.push(evt);
+            //             document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
+            //         }
+            //     },
+            // });
+            // Sortable.create(trashLearnings, {
+            //     group: {
+            //         name: "statuslearning",
+            //     },
+            //     chosenClass: "sortableChosen",
+            //     dragClass: "sortableDrag",
+            //     filter: ".trash",
+            //     sort: false,
+            //     put: false,
+            // });
+            // function saveLearnings() {
+            //     let dni = $("#learningsStudent").attr("data-value");
+            //     let listLearnings = [$(".pendiente"), $(".proceso"), $(".aprobado")];
+            //     let infoLearnings = {
+            //         dni: dni,
+            //         pendiente: [],
+            //         proceso: [],
+            //         aprobado: [],
+            //     };
+            //     //chequeamos si hubieron cambios
+            //     for (let i = 0; i < listLearnings.length; i++) {
+            //         for (let j = 0; j < listLearnings[i].length; j++) {
+            //             console.log((listLearnings[i][j].children[0].innerHTML).trim());
+            //             if (listLearnings[i][j].getAttribute("data-value") == 1) {
+            //                 infoLearnings[listLearnings[i][j].classList[1]].push({name: (listLearnings[i][j].children[0].innerHTML).trim(),});
+            //             }
+            //         }
+            //     }
+            //     if (infoLearnings["pendiente"].length > 0 || infoLearnings["proceso"].length > 0 || infoLearnings["aprobado"].length > 0) {
+            //         $.get("guardarAprendizajes", { data: infoLearnings }, function (res) {
+            //             document. getElementById ( " isChangedLearnState " ). innerHTML  =  " Cambios guardados " ;
+            //         });
+            //     }
+            //     if (deleteLearnings.length > 0) {
+            //         //detectar cual se borro y modificar la db
+            //         for (let i = 0; i < deleteLearnings.length; i++) {
+            //             deleteLearnings[i] = (deleteLearnings[i].item.lastChild.innerHTML).trim();
+            //         }
+            //         $.get("borrarAprendizajes", { data: deleteLearnings }, function (res) {
+            //             document. getElementById ( " isChangedLearnState " ). innerHTML  =  " Cambios guardados " ;
+            //             deleteLearnings = [];
+            //         });
+            //     }
+            // }
+            // function addLearning(newLearningData) {
+            //     // subject id
+            //     newLearningData.push(document.getElementById("subjectName").getAttribute("data-value"));
+            //     // subject Name
+            //     newLearningData.push(document.getElementById("subjectName").getAttribute("data-value2"));
+            //     // course
+            //     newLearningData.push(document.getElementById("subjectName").getAttribute("data-value3"));
+            //     $.get("agregarAprendizajes", { newLearningData }, function (res) {
+            //         $("#listPending").append("<div class='list-group-item pendiente sortableStyle' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" + " " + newLearningData[0] + "</p></div>");
+            //         document.getElementById("isChangedLearnState").innerHTML = "Se creo un nuevo aprendizaje";
+            //     });
+            // }
         </script>
 
         <!-- boostrap DataTable -->
         <script type="text/javascript">
             var $table = $("#fresh-table");
             var $alertBtn = $("#alertBtn");
-
-            function saveLearnings() {
-                let dni = $("#learningsStudent").attr("data-value");
-                let listLearnings = [$(".pendiente"), $(".proceso"), $(".aprobado")];
-                let infoLearnings = {
-                    dni: dni,
-                    pendiente: [],
-                    proceso: [],
-                    aprobado: [],
-                };
-                //chequeamos si hubieron cambios
-                for (let i = 0; i < listLearnings.length; i++) {
-                    for (let j = 0; j < listLearnings[i].length; j++) {
-                        console.log((listLearnings[i][j].children[0].innerHTML).trim());
-                        if (listLearnings[i][j].getAttribute("data-value") == 1) {
-                            infoLearnings[listLearnings[i][j].classList[1]].push({name: (listLearnings[i][j].children[0].innerHTML).trim(),});
-                        }
-                    }
-                }
-                if (infoLearnings["pendiente"].length > 0 || infoLearnings["proceso"].length > 0 || infoLearnings["aprobado"].length > 0) {
-                    $.get("guardarAprendizajes", { data: infoLearnings }, function (res) {
-                        document. getElementById ( " isChangedLearnState " ). innerHTML  =  " Cambios guardados " ;
-                    });
-                }
-                if (deleteLearnings.length > 0) {
-                    //detectar cual se borro y modificar la db
-                    for (let i = 0; i < deleteLearnings.length; i++) {
-                        deleteLearnings[i] = (deleteLearnings[i].item.lastChild.innerHTML).trim();
-                    }
-                    $.get("borrarAprendizajes", { data: deleteLearnings }, function (res) {
-                        document. getElementById ( " isChangedLearnState " ). innerHTML  =  " Cambios guardados " ;
-                        deleteLearnings = [];
-                    });
-                }
-            }
-            function addLearning(newLearningData) {
-                // subject id
-                newLearningData.push(document.getElementById("subjectName").getAttribute("data-value"));
-                // subject Name
-                newLearningData.push(document.getElementById("subjectName").getAttribute("data-value2"));
-                // course
-                newLearningData.push(document.getElementById("subjectName").getAttribute("data-value3"));
-                $.get("agregarAprendizajes", { newLearningData }, function (res) {
-                    $("#listPending").append("<div class='list-group-item pendiente sortableStyle' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" + " " + newLearningData[0] + "</p></div>");
-                    document.getElementById("isChangedLearnState").innerHTML = "Se creo un nuevo aprendizaje";
-                });
-            }
             function pdf(){
                 $.get("GenerateReport", { "hola":"hola" }, function (res) {
                 });
@@ -597,15 +672,18 @@
                             for (let i = 0; i < res.length; i++) {
                                 if (res[i].estado == "aprobado") {
                                     $(document).ready(() => {
-                                        $("#listApproved").append("<div class='list-group-item aprobado sortableStyle' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" + " " + res[i].descripcion + "</p></div>");
+                                        $("#listApproved").append("<div class='uk-margin uk-card uk-card-default uk-card-body uk-card-small aprobado' originLearn='' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `${res[i].descripcion}</div>`);
                                     });
                                 } else if (res[i].estado == "proceso") {
                                     $(document).ready(() => {
-                                        $("#listProcess").append("<div class='list-group-item proceso sortableStyle' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" +  " " + res[i].descripcion + "</p></div>");
+                                        $("#listProcess").append("<div class='uk-margin uk-card uk-card-default uk-card-body uk-card-small proceso' originLearn='' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `${res[i].descripcion}</div>`);
                                     });
                                 } else {
+                                    // <div class="uk-margin uk-card uk-card-default uk-card-body uk-card-small">
+                                    //     <span class="uk-sortable-handle uk-margin-small-right uk-text-center" uk-icon="icon: table"></span>Item 2
+                                    // </div>
                                     $(document).ready(() => {
-                                        $("#listPending").append("<div class='list-group-item pendiente sortableStyle' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" +  " " + res[i].descripcion + "</p></div>");
+                                        $("#listPending").append("<div class='uk-margin uk-card uk-card-default uk-card-body uk-card-small pendiente' originLearn='' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `${res[i].descripcion}</div>`);
                                     });
                                 }
                             }

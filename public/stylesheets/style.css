@@ -7,7 +7,6 @@ h1 {
     font-size: 150px;
 }
 
-
 .animate__animated.animate__pulse {
     --animate-delay: 1.5s;
     --animate-duration: 8s;
@@ -64,7 +63,7 @@ td.none {
     text-align: center;
     color: black;
 }
-.badgeNotaNd{
+.badgeNotaNd {
     box-sizing: border-box;
     min-width: 35px;
     height: 35px;
@@ -73,12 +72,12 @@ td.none {
     vertical-align: middle;
     background: #6a6b6bc7;
     color: rgb(0, 0, 0);
-    font-size: .875rem;
+    font-size: 0.875rem;
     display: inline-flex;
     justify-content: center;
     align-items: center;
 }
-.badgeNotaDisapproved{
+.badgeNotaDisapproved {
     box-sizing: border-box;
     min-width: 35px;
     height: 35px;
@@ -87,12 +86,12 @@ td.none {
     vertical-align: middle;
     background: #f01e1e9d;
     color: rgb(0, 0, 0);
-    font-size: .875rem;
+    font-size: 0.875rem;
     display: inline-flex;
     justify-content: center;
     align-items: center;
 }
-.badgeNotaWorking{
+.badgeNotaWorking {
     box-sizing: border-box;
     min-width: 35px;
     height: 35px;
@@ -101,12 +100,12 @@ td.none {
     vertical-align: middle;
     background: #f5ff6694;
     color: rgb(0, 0, 0);
-    font-size: .875rem;
+    font-size: 0.875rem;
     display: inline-flex;
     justify-content: center;
     align-items: center;
 }
-.badgeNotaPassed{
+.badgeNotaPassed {
     box-sizing: border-box;
     min-width: 35px;
     height: 35px;
@@ -115,7 +114,7 @@ td.none {
     vertical-align: middle;
     background: #47ee5581;
     color: rgb(0, 0, 0);
-    font-size: .875rem;
+    font-size: 0.875rem;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -145,6 +144,7 @@ td.none {
 }
 
 .arrow-icon[aria-expanded="true"]::before {
+    margin-top: 5px;
     transform: rotate(90deg);
 }
 
@@ -198,4 +198,19 @@ td.none {
 }
 .sortableStyle.sortableDrag {
     opacity: 0;
+}
+
+.divToggle-Usage {
+    background-color: rgba(144, 143, 143, 0.192);
+}
+
+.js-upload:hover {
+    background-color: rgba(51, 51, 51, 0.1);
+}
+
+.sortable-learnings {
+    background-color: rgba(51, 51, 51, 0.048);
+    max-height: 300px;
+    height: 80%;
+    overflow-y: auto;
 }

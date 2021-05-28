@@ -10,7 +10,6 @@ const teacherFunctions = require("./external/teacherFunctions");
 const conection = require("./config/db");
 const pdf = require("html-pdf");
 const ejs = require("ejs");
-const Swal = require("sweetalert2");
 
 // Obtain the name of the file
 const storage = multer.diskStorage({
@@ -374,11 +373,14 @@ app.post("/crearProfesor", urlencodedParser, (req, res) => {
 });
 
 app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
-    let typeOFile = req.body.typeOFile;
-    let trimester = req.body.trimester;
+    let trimester = req.body.quarter;
     let idSubject = req.body.idSubject;
+    let file = req.body.file;
+    console.log(trimester);
+    console.log(file);
+    console.log(idSubject);
 
-    teacherFunctions.loadLearnings(req.file.path, con, typeOFile, trimester, idSubject);
+    //teacherFunctions.loadLearnings(req.file.path, con, typeOFile, trimester, idSubject);
     res.redirect("/dashboard");
 });
 
@@ -409,42 +411,39 @@ app.post("/login", (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
 
-    if (username && password) {
-        let query = "SELECT * FROM usuario WHERE nombreUsuario = ?";
-        con.query(query, [username], (error, rows, fields) => {
-            if (rows.length > 0) {
-                bcrypt.compare(password, rows[0]["pass"], (err, row) => {
-                    if (row) {
-                        req.session.loggedin = true;
-                        let query2 = "SELECT nombre FROM rol INNER JOIN usuario ON ? = rol.nombreUsuario AND rol.nombreUsuario = usuario.nombreUsuario ";
-                        con.query(query2, [username], (error, rows, fields) => {
-                            let arrRol = [];
-                            for (let i = 0; i < rows.length; i++) {
-                                arrRol.push(rows[i].nombre);
-                            }
+    let query = "SELECT * FROM usuario WHERE nombreUsuario = ?";
+    con.query(query, [username], (error, rows, fields) => {
+        if (rows.length > 0) {
+            bcrypt.compare(password, rows[0]["pass"], (err, row) => {
+                if (row) {
+                    req.session.loggedin = true;
+                    let query2 = "SELECT nombre FROM rol INNER JOIN usuario ON ? = rol.nombreUsuario AND rol.nombreUsuario = usuario.nombreUsuario ";
+                    con.query(query2, [username], (error, rows, fields) => {
+                        let arrRol = [];
+                        for (let i = 0; i < rows.length; i++) {
+                            arrRol.push(rows[i].nombre);
+                        }
 
-                            res.locals.rol = arrRol;
-                            req.session.rol = arrRol;
+                        res.locals.rol = arrRol;
+                        req.session.rol = arrRol;
 
-                            res.locals.username = username;
-                            req.session.username = username;
+                        res.locals.username = username;
+                        req.session.username = username;
 
-                            res.locals.toastrFlag = true;
-                            req.session.toastrFlag = true;
+                        res.locals.toastrFlag = true;
+                        req.session.toastrFlag = true;
 
-                            res.redirect("/dashboard");
-                        });
-                    }
-                });
-            } else {
-                console.log("credenciales incorrectas");
-                // Toastr (wrong credentials)
-            }
-        });
-    } else {
-        console.log("ingresa lgo");
-        // Toastr (you have to write a username and password)
-    }
+                        res.redirect("/dashboard");
+                    });
+                } else {
+                    console.log("El usuario existe pero la contraseña es incorrecta");
+                }
+            });
+        } else {
+            console.log("El Usuario no existe");
+            // Toastr (wrong credentials)
+        }
+    });
 });
 
 app.use((req, res, next) => {

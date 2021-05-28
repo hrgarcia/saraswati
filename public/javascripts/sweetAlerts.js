@@ -1,6 +1,6 @@
 const welcomeLogin = (text) => {
     Swal.fire({
-        // icon: "error",
+        icon: "success",
         title: `Bienvenido ${text}`,
         timer: 5000,
         timerProgressBar: true,
@@ -12,7 +12,7 @@ const welcomeLogin = (text) => {
 
 const errorAlert = (text) => {
     Swal.fire({
-        // icon: "error",
+        icon: "error",
         title: `${text}`,
         timer: 5000,
         timerProgressBar: true,

@@ -43,7 +43,7 @@ $(document).ready(function () {
     // Code for the Validator
     var $validator = $(".wizard-card form").validate({
         rules: {
-            user:{
+            username:{
                 required:true,
                 minlength:3,
                 maxlength:8,

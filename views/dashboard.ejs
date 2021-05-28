@@ -44,7 +44,6 @@
                 <%- include('fragment/navbar'); -%>
                 <div class="container">
                     <!--Contenido principal acá -->
-                    <!-- <button onclick="createPdf()">Create PDF</button> -->
                     <br />
                     <br />
                     <div class="form-row">
@@ -93,12 +92,17 @@
 
         <%- include('fragment/scripts'); -%>
 
+        <!-- Jquery -->
         <script src="/javascripts/plugins/jquery-3.5.1.js"></script>
+
+        <!-- Cards Js -->
         <script src="/javascripts/hipster-cards.js"></script>
-        <script src="/javascripts/sweetAlerts.js"></script>
         <script src="/javascripts/cardsDemo.js"></script>
-        <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
-        <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+
+        <!-- Own SweetAlert2 -->
+        <script src="/javascripts/sweetAlerts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <script>
             let usernameToastr = document.getElementById("main-panel");
             usernameToastr = usernameToastr.getAttribute("data-value");
