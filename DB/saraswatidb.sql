@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-04-2021 a las 01:56:49
--- Versión del servidor: 10.4.13-MariaDB
--- Versión de PHP: 7.4.7
+-- Tiempo de generación: 28-05-2021 a las 16:38:34
+-- Versión del servidor: 10.4.18-MariaDB
+-- Versión de PHP: 7.3.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,7 +39,8 @@ CREATE TABLE `aprendizajes` (
 --
 
 INSERT INTO `aprendizajes` (`id`, `descripcion`, `id_materia`, `id_periodo`) VALUES
-(21, 'variables 2', 1, 2);
+(21, 'variables 2', 1, 2),
+(23, 'modularizacion', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -131,7 +132,18 @@ INSERT INTO `estudianteaprendizaje` (`id`, `descripcion`, `estado`, `estudiante_
 (77, 'variables 2', 'pendiente', 13212311, 2, 1),
 (78, 'variables 2', 'pendiente', 31232132, 2, 1),
 (79, 'variables 2', 'pendiente', 34455129, 2, 1),
-(80, 'variables 2', 'pendiente', 44475315, 2, 1);
+(80, 'variables 2', 'pendiente', 44475315, 2, 1),
+(92, 'modularizacion', 'pendiente', 88887, 1, 1),
+(93, 'modularizacion', 'pendiente', 323232, 1, 1),
+(94, 'modularizacion', 'pendiente', 434343, 1, 1),
+(95, 'modularizacion', 'pendiente', 654654, 1, 1),
+(96, 'modularizacion', 'pendiente', 999999, 1, 1),
+(97, 'modularizacion', 'pendiente', 3453232, 1, 1),
+(98, 'modularizacion', 'pendiente', 6726372, 1, 1),
+(99, 'modularizacion', 'pendiente', 13212311, 1, 1),
+(100, 'modularizacion', 'pendiente', 31232132, 1, 1),
+(101, 'modularizacion', 'pendiente', 34455129, 1, 1),
+(102, 'modularizacion', 'pendiente', 44475315, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -271,6 +283,22 @@ INSERT INTO `rol` (`id`, `nombre`, `nombreUsuario`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tutor`
+--
+
+CREATE TABLE `tutor` (
+  `dni` int(8) NOT NULL,
+  `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `apellido` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `telefono` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `celular` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `estudiante_dni` int(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -360,6 +388,13 @@ ALTER TABLE `rol`
   ADD KEY `nombre_usuario` (`nombreUsuario`);
 
 --
+-- Indices de la tabla `tutor`
+--
+ALTER TABLE `tutor`
+  ADD PRIMARY KEY (`dni`),
+  ADD KEY `estudiante_dni` (`estudiante_dni`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -373,13 +408,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `aprendizajes`
 --
 ALTER TABLE `aprendizajes`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `estudianteaprendizaje`
 --
 ALTER TABLE `estudianteaprendizaje`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
@@ -451,6 +486,12 @@ ALTER TABLE `nota`
 --
 ALTER TABLE `rol`
   ADD CONSTRAINT `rol_ibfk_1` FOREIGN KEY (`nombreUsuario`) REFERENCES `usuario` (`nombreUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `tutor`
+--
+ALTER TABLE `tutor`
+  ADD CONSTRAINT `tutor_ibfk_1` FOREIGN KEY (`estudiante_dni`) REFERENCES `estudiante` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
