@@ -184,22 +184,6 @@ td.none {
     box-shadow: 2px 2px 3px #999;
 }
 
-.my-float {
-    margin-top: 22px;
-}
-
-.sortableStyle {
-    cursor: move;
-}
-.sortableStyle.sortableChosen {
-    transform: scale(1.1);
-    box-shadow: 20px 20px 20px rgba(149, 153, 159, 0.16);
-    cursor: pointer;
-}
-.sortableStyle.sortableDrag {
-    opacity: 0;
-}
-
 .divToggle-Usage {
     background-color: rgba(144, 143, 143, 0.192);
 }

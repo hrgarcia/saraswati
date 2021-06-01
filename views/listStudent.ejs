@@ -141,66 +141,7 @@
                 </div>
             </div>
     
-            <!-- Learnings popup
-            <div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content" id="modal">
-                        <div class="modal-header" style="border-bottom: 1px solid #ffffff !important">
-                            <h5 class="modal-title tituloPrincipal" id="exampleModalLabel">Listado de aprendizajes actuales</h5>
-                            <h5 class="modal-title" id="isChangedLearnState" style="text-indent: 350px"></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px">
-                                        <div class="cardheader tituloSecundario">Pendiente</div>
-                                        <div id="listPending" class="cardcolor pendiente"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px">
-                                        <div class="cardheader tituloSecundario">Proceso</div>
-                                        <div id="listProcess" class="cardcolor proceso"></div>
-                                    </div>
-                                </div> 
-                                <div class="col-md-4">
-                                    <div class="text-white bg-danger mb-3 carta" style="max-width: 18rem; top: -120px">
-                                        <div class="cardheader tituloSecundario">Aprobado</div>
-                                        <div id="listApproved" class="cardcolor aprobado"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div id="trashLearnings" class="col-md-3">
-                                    <button class="trash custom-btn btn-2">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                                <div class="col-md-3">
-                                    <button class="custom-btn btn-2">
-                                        <i class="fas fa-undo-alt"></i>
-                                    </button>
-                                </div>
-                                <div class="col-md-3">
-                                    <button class="custom-btn btn-2" data-toggle="modal" data-target="#newLearning">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                                <div class="col-md-3">
-                                    <button class="custom-btn btn-2" onclick="saveLearnings()">
-                                        <i class="fas fa-save"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- Test Learnings popup -->
+            <!-- Learnings popup -->
             <div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content" id="modal">
@@ -235,7 +176,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div id="trashLearnings" class="col-md-3">
+                                <div id="trashLearnings" class="col-md-3" uk-sortable="group: sortable-group, handle: .uk-sortable-handle">
                                     <button class="trash custom-btn btn-2">
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -251,7 +192,7 @@
                                     </button>
                                 </div>
                                 <div class="col-md-3">
-                                    <button class="custom-btn btn-2" onclick="saveLearnings()">
+                                    <button class="custom-btn btn-2" onclick="saveAlert()">
                                         <i class="fas fa-save"></i>
                                     </button>
                                 </div>
@@ -489,164 +430,138 @@
         
         <!-- Sortable Functions -->
         <script type="text/javascript">
-            const listApproved = document.getElementById("listApproved");
-            const listProgress = document.getElementById("listProcess");
-            const listPending = document.getElementById("listPending");
             var deleteLearnings = [];
 
-            // Sortable.create(listApproved, {
-            //     group: {
-            //         name: "statuslearning",
-            //     },
-            //     animation: 150,
-            //     easing: "cubic-bezier(0.895,0.03,0.685,0.22)",
-            //     chosenClass: "sortableChosen",
-            //     dragClass: "sortableDrag",
-            //     onAdd: function (evt) {
-            //         //first time
-            //         if (evt.item.getAttribute("originLearn") == "" && evt.item.getAttribute("data-value") == 0) {
-            //             evt.item.setAttribute("data-value", "1");
-            //             evt.item.setAttribute("originLearn", evt.from.getAttribute("id"));
-            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-            //             document.getElementById("isChangedLearnState").innerHTML = "";
-            //         } else if (evt.item.getAttribute("originLearn") != evt.to.getAttribute("id")) {
-            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-            //             document.getElementById("isChangedLearnState").innerHTML = "";
-            //         }
-            //         //come back home
-            //         else if (evt.item.getAttribute("originLearn") == evt.to.getAttribute("id")) {
-            //             evt.item.setAttribute("data-value", "0");
-            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-            //         }
-            //     },
-            //     onEnd: function (evt) {
-            //         if (evt.to.id == "trashLearnings") {
-            //             $(evt.item).remove();
-            //             deleteLearnings.push(evt);
-            //             document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
-            //         }
-            //     },
-            // });
-            // Sortable.create(listProgress, {
-            //     group: {
-            //         name: "statuslearning",
-            //     },
-            //     animation: 150,
-            //     easing: "cubic-bezier(0.895,0.03,0.685,0.22)",
-            //     chosenClass: "sortableChosen",
-            //     dragClass: "sortableDrag",
-            //     onAdd: function (evt) {
-            //         //first time
-            //         if (evt.item.getAttribute("originLearn") == "" && evt.item.getAttribute("data-value") == 0) {
-            //             evt.item.setAttribute("data-value", "1");
-            //             evt.item.setAttribute("originLearn", evt.from.getAttribute("id"));
-            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-            //             document.getElementById("isChangedLearnState").innerHTML = "";
-            //         } else if (evt.item.getAttribute("originLearn") != evt.to.getAttribute("id")) {
-            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-            //             document.getElementById("isChangedLearnState").innerHTML = "";
-            //         }
-            //         //come back home
-            //         else if (evt.item.getAttribute("originLearn") == evt.to.getAttribute("id")) {
-            //             evt.item.setAttribute("data-value", "0");
-            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-            //         }
-            //     },
-            //     onEnd: function (evt) {
-            //         if (evt.to.id == "trashLearnings") {
-            //             $(evt.item).remove();
-            //             deleteLearnings.push(evt);
-            //             document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
-            //         }
-            //     },
-            // });
+            let sortableListPending = UIkit.sortable("#listPending");
+            UIkit.util.on(sortableListPending.$el, "added", function(item, sortable) {
+                let actualItem = item.detail[1];
+                let futureSide = item.detail[0].$el;
+                if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 0) {
+                    actualItem.setAttribute("data-value", "1");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                } 
+                else if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 1) {
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                    // document.getElementById("isChangedLearnState").innerHTML = "";
+                }
+                else if (actualItem.getAttribute("originLearn") == futureSide.id) {
+                    actualItem.setAttribute("data-value", "0");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                }
+            });
 
-            // Sortable.create(listPending, {
-            //     group: {
-            //         name: "statuslearning",
-            //     },
-            //     animation: 150,
-            //     easing: "cubic-bezier(0.895,0.03,0.685,0.22)",
-            //     chosenClass: "sortableChosen",
-            //     dragClass: "sortableDrag",
-            //     onAdd: function (evt) {
-            //         if (evt.item.getAttribute("originLearn") == "" && evt.item.getAttribute("data-value") == 0) {
-            //             evt.item.setAttribute("data-value", "1");
-            //             evt.item.setAttribute("originLearn", evt.from.getAttribute("id"));
-            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-            //             document.getElementById("isChangedLearnState").innerHTML = "";
-            //         } else if (evt.item.getAttribute("originLearn") != evt.to.getAttribute("id")) {
-            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-            //             document.getElementById("isChangedLearnState").innerHTML = "";
-            //         } else if (evt.item.getAttribute("originLearn") == evt.to.getAttribute("id")) {
-            //             evt.item.setAttribute("data-value", "0");
-            //             evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-            //         }
-            //     },
-            //     onEnd: function (evt) {
-            //         if (evt.to.id == "trashLearnings") {
-            //             $(evt.item).remove();
-            //             deleteLearnings.push(evt);
-            //             document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
-            //         }
-            //     },
-            // });
-            // Sortable.create(trashLearnings, {
-            //     group: {
-            //         name: "statuslearning",
-            //     },
-            //     chosenClass: "sortableChosen",
-            //     dragClass: "sortableDrag",
-            //     filter: ".trash",
-            //     sort: false,
-            //     put: false,
-            // });
-            // function saveLearnings() {
-            //     let dni = $("#learningsStudent").attr("data-value");
-            //     let listLearnings = [$(".pendiente"), $(".proceso"), $(".aprobado")];
-            //     let infoLearnings = {
-            //         dni: dni,
-            //         pendiente: [],
-            //         proceso: [],
-            //         aprobado: [],
-            //     };
-            //     //chequeamos si hubieron cambios
-            //     for (let i = 0; i < listLearnings.length; i++) {
-            //         for (let j = 0; j < listLearnings[i].length; j++) {
-            //             console.log((listLearnings[i][j].children[0].innerHTML).trim());
-            //             if (listLearnings[i][j].getAttribute("data-value") == 1) {
-            //                 infoLearnings[listLearnings[i][j].classList[1]].push({name: (listLearnings[i][j].children[0].innerHTML).trim(),});
-            //             }
-            //         }
-            //     }
-            //     if (infoLearnings["pendiente"].length > 0 || infoLearnings["proceso"].length > 0 || infoLearnings["aprobado"].length > 0) {
-            //         $.get("guardarAprendizajes", { data: infoLearnings }, function (res) {
-            //             document. getElementById ( " isChangedLearnState " ). innerHTML  =  " Cambios guardados " ;
-            //         });
-            //     }
-            //     if (deleteLearnings.length > 0) {
-            //         //detectar cual se borro y modificar la db
-            //         for (let i = 0; i < deleteLearnings.length; i++) {
-            //             deleteLearnings[i] = (deleteLearnings[i].item.lastChild.innerHTML).trim();
-            //         }
-            //         $.get("borrarAprendizajes", { data: deleteLearnings }, function (res) {
-            //             document. getElementById ( " isChangedLearnState " ). innerHTML  =  " Cambios guardados " ;
-            //             deleteLearnings = [];
-            //         });
-            //     }
-            // }
-            // function addLearning(newLearningData) {
-            //     // subject id
-            //     newLearningData.push(document.getElementById("subjectName").getAttribute("data-value"));
-            //     // subject Name
-            //     newLearningData.push(document.getElementById("subjectName").getAttribute("data-value2"));
-            //     // course
-            //     newLearningData.push(document.getElementById("subjectName").getAttribute("data-value3"));
-            //     $.get("agregarAprendizajes", { newLearningData }, function (res) {
-            //         $("#listPending").append("<div class='list-group-item pendiente sortableStyle' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" + " " + newLearningData[0] + "</p></div>");
-            //         document.getElementById("isChangedLearnState").innerHTML = "Se creo un nuevo aprendizaje";
-            //     });
-            // }
+            let sortableListProcess = UIkit.sortable("#listProcess");
+            UIkit.util.on(sortableListProcess.$el, "added", function(item, sortable) {
+                let actualItem = item.detail[1];
+                let futureSide = item.detail[0].$el;
+                if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 0) {
+                    actualItem.setAttribute("data-value", "1");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                } 
+                else if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 1) {
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                    // document.getElementById("isChangedLearnState").innerHTML = "";
+                }
+                else if (actualItem.getAttribute("originLearn") == futureSide.id) {
+                    actualItem.setAttribute("data-value", "0");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                }
+            });
+
+            let sortableListApproved = UIkit.sortable("#listApproved");
+            UIkit.util.on(sortableListApproved.$el, "added", function(item, sortable) {
+                let actualItem = item.detail[1];
+                let futureSide = item.detail[0].$el;
+                if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 0) {
+                    actualItem.setAttribute("data-value", "1");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                } 
+                else if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 1) {
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                    // document.getElementById("isChangedLearnState").innerHTML = "";
+                }
+                else if (actualItem.getAttribute("originLearn") == futureSide.id) {
+                    actualItem.setAttribute("data-value", "0");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                }
+            });
+
+            let sortableTrashLearnings = UIkit.sortable("#trashLearnings");
+            UIkit.util.on(sortableTrashLearnings.$el, "added", function(item, sortable) {
+                let actualItem = item.detail[1];
+                let futureSide = item.detail[0].$el;
+                $(actualItem).remove();
+                deleteLearnings.push(actualItem);
+                // document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
+            });
+
+            function saveLearnings() {
+                let dni = $("#learningsStudent").attr("data-value");
+                let listLearnings = [$(".pendiente"), $(".proceso"), $(".aprobado")];
+                let infoLearnings = {
+                    dni: dni,
+                    pendiente: [],
+                    proceso: [],
+                    aprobado: [],
+                };
+                let previusAlert = false;
+
+                for (let i = 0; i < listLearnings.length; i++) {
+                    for (let j = 1; j < listLearnings[i].length; j++) {
+                        if (listLearnings[i][j].getAttribute("data-value") == 1) {
+                            infoLearnings[listLearnings[i][j].classList[0]].push({name: listLearnings[i][j].childNodes[1].innerHTML.toLowerCase()});
+                            
+                            listLearnings[i][j].setAttribute("data-value", "0");
+                            if(listLearnings[i][j].classList[0] == "pendiente"){
+                                listLearnings[i][j].setAttribute("originLearn", "listPending");
+                            }
+                            if(listLearnings[i][j].classList[0] == "proceso"){
+                                listLearnings[i][j].setAttribute("originLearn", "listProcess");
+                            }
+                            if(listLearnings[i][j].classList[0] == "aprobado"){
+                                listLearnings[i][j].setAttribute("originLearn", "listApproved");
+                            }
+                        }
+                    }
+                }
+                
+                if (infoLearnings["pendiente"].length > 0 || infoLearnings["proceso"].length > 0 || infoLearnings["aprobado"].length > 0) {
+                    $.get("guardarAprendizajes", { data: infoLearnings }, function (res) {
+                        successAlert("Cambios guardados");
+                        previusAlert = true;
+                        // document. getElementById ( " isChangedLearnState " ). innerHTML  =  " Cambios guardados " ;
+                    });
+                }
+
+                if (deleteLearnings.length > 0) {
+                    for (let i = 0; i < deleteLearnings.length; i++) {
+                        deleteLearnings[i] = deleteLearnings[i].childNodes[1].innerHTML.toLowerCase();
+                    }
+                    $.get("borrarAprendizajes", { data: deleteLearnings }, function (res) {
+                        // document. getElementById ( " isChangedLearnState " ). innerHTML  =  " Cambios guardados " ;
+                        deleteLearnings = [];
+                        if(!previusAlert){
+                            successAlert("Aprendizajes borrados");
+                        }
+                    });
+                }
+
+                else{
+                    errorAlert("No hay cambios para realizar");
+                }
+            }
+            function addLearning(newLearningData) {
+                // subject id
+                newLearningData.push(document.getElementById("subjectName").getAttribute("data-value"));
+                // subject Name
+                newLearningData.push(document.getElementById("subjectName").getAttribute("data-value2"));
+                // course
+                newLearningData.push(document.getElementById("subjectName").getAttribute("data-value3"));
+                $.get("agregarAprendizajes", { newLearningData }, function (res) {
+                    $("#listPending").append("<div class='pendiente uk-margin uk-card uk-card-default uk-card-body uk-card-small' originLearn='listPending' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `<span class="text">${newLearningData[0]}</span></div>`);
+                    // document.getElementById("isChangedLearnState").innerHTML = "Se creo un nuevo aprendizaje";
+                });
+            }
         </script>
 
         <!-- boostrap DataTable -->
@@ -670,21 +585,15 @@
                             $("#listProcess").empty();
                             $("#listPending").empty();
                             for (let i = 0; i < res.length; i++) {
+                                let allText = res[i].descripcion.charAt(0).toUpperCase();
+                                let restCh = res[i].descripcion.substring(1, res[i].descripcion.length);
+                                allText = allText.concat(restCh);
                                 if (res[i].estado == "aprobado") {
-                                    $(document).ready(() => {
-                                        $("#listApproved").append("<div class='uk-margin uk-card uk-card-default uk-card-body uk-card-small aprobado' originLearn='' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `${res[i].descripcion}</div>`);
-                                    });
+                                    $("#listApproved").append("<div class='aprobado uk-margin uk-card uk-card-default uk-card-body uk-card-small' originLearn='listApproved' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `<span class="text">${allText}</span></div>`);
                                 } else if (res[i].estado == "proceso") {
-                                    $(document).ready(() => {
-                                        $("#listProcess").append("<div class='uk-margin uk-card uk-card-default uk-card-body uk-card-small proceso' originLearn='' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `${res[i].descripcion}</div>`);
-                                    });
+                                    $("#listProcess").append("<div class='proceso uk-margin uk-card uk-card-default uk-card-body uk-card-small' originLearn='listProcess' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `<span class="text">${allText}</span></div>`);
                                 } else {
-                                    // <div class="uk-margin uk-card uk-card-default uk-card-body uk-card-small">
-                                    //     <span class="uk-sortable-handle uk-margin-small-right uk-text-center" uk-icon="icon: table"></span>Item 2
-                                    // </div>
-                                    $(document).ready(() => {
-                                        $("#listPending").append("<div class='uk-margin uk-card uk-card-default uk-card-body uk-card-small pendiente' originLearn='' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `${res[i].descripcion}</div>`);
-                                    });
+                                    $("#listPending").append("<div class='pendiente uk-margin uk-card uk-card-default uk-card-body uk-card-small' originLearn='listPending' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `<span class="text">${allText}</span></div>`);
                                 }
                             }
                             $("#learningsStudent").attr("data-value", row.dni);

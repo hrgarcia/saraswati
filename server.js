@@ -213,6 +213,7 @@ app.get("/obtenerAprendizajes", (req, res) => {
         res.send(rows);
     });
 });
+
 app.get("/guardarAprendizajes", (req, res) => {
     let query = "UPDATE estudianteaprendizaje SET estado = ? WHERE estudianteaprendizaje.descripcion = ? AND estudianteaprendizaje.estudiante_dni = ?";
     let dni = 0;
@@ -411,6 +412,9 @@ app.post("/login", (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
 
+    console.log(username);
+    console.log(password);
+
     let query = "SELECT * FROM usuario WHERE nombreUsuario = ?";
     con.query(query, [username], (error, rows, fields) => {
         if (rows.length > 0) {
@@ -433,14 +437,16 @@ app.post("/login", (req, res) => {
                         res.locals.toastrFlag = true;
                         req.session.toastrFlag = true;
 
+                        console.log("todo esta bien");
                         res.redirect("/dashboard");
                     });
                 } else {
-                    console.log("El usuario existe pero la contraseña es incorrecta");
+                    res.json("wrongPass");
+                    // console.log("El usuario existe pero la contraseña es incorrecta");
                 }
             });
         } else {
-            console.log("El Usuario no existe");
+            res.json("userNotExist");
             // Toastr (wrong credentials)
         }
     });
