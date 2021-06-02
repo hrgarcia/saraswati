@@ -409,11 +409,16 @@ app.get("/GenerateReport", (req, res) => {
 
 //I compare the password entered to the one encrypted in the DB to be able to access the dashboard
 app.post("/login", (req, res) => {
-    let username = req.body.username;
-    let password = req.body.password;
+    // let username = req.body.username;
+    // let password = req.body.password;
 
-    console.log(username);
-    console.log(password);
+    let username = req.body.name;
+    let password = req.body.subname;
+
+    console.log(req.body.name);
+    console.log(req.body.subname);
+
+    // console.log(password);
 
     let query = "SELECT * FROM usuario WHERE nombreUsuario = ?";
     con.query(query, [username], (error, rows, fields) => {
