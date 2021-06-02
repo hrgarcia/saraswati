@@ -30,7 +30,7 @@
     </head>
 
     <body>
-        <form id="loginF" class="form-signin" action="/login" method="POST">
+        <form id="loginF" class="form-signin">
             <img class="mb-4 animate__animated animate__bounce animate__repeat-2" src="/images/logo-sinfondo.png" alt="" width="300 " height="100" />
             <small style="font-weight: bold">Complete los campos para ingresar al sistema</small>
             <input type="text" id="inputUser" name="username" class="form-control" placeholder="Ingrese usuario" />
@@ -38,7 +38,7 @@
             <div class="checkbox mb-2">
                 <label> <input type="checkbox" value="remember-me" /> Recordarme </label>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" style="background: #00357c; text-shadow: 1px 1px 1px #000" type="submit">Ingresar</button>
+            <button id="loginButton" class="btn btn-lg btn-primary btn-block" style="background: #00357c; text-shadow: 1px 1px 1px #000" type="submit">Ingresar</button>
             <br />
             <small>&copy; Escuela experimental ProA sede capital - 2020 </small>
         </form>
@@ -78,7 +78,8 @@
                 },
             });
 
-            $("#loginF").on("submit", function (e) {
+            $("#loginButton").on("click", function (e) {
+                console.log("tocaste el boton");
                 e.preventDefault();
                 let username = $.trim($("#inputUser").val());
                 let password = $.trim($("#inputPass").val());
