@@ -93,6 +93,8 @@
                         errorAlert("Ingrese un usuario valido");
                     } else if (d === "wrongPass") {
                         errorAlert("La constraseña es incorrecta");
+                    } else if (d === "loginOk") {
+                        window.location.replace("/dashboard");
                     }
                 });
             });

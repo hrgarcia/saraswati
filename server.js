@@ -443,7 +443,7 @@ app.post("/login", (req, res) => {
                         req.session.toastrFlag = true;
 
                         console.log("todo esta bien");
-                        res.redirect("/dashboard");
+                        res.json("loginOk");
                     });
                 } else {
                     res.json("wrongPass");
