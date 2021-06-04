@@ -23,11 +23,14 @@
 
     <body class="">
         <%- include('fragment/sidebar'); -%>
-        <div class="main-panel">
+        <div class="main-panel"data-value="<%-username%>" id="main-panel">
+            <div class="container">
             <%- include('fragment/navbar'); -%>
             <!--   Big container   -->
-            <div class="container">
-                <div class="row">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     <div class="cardStudent wizard-card" data-color="orange" id="wizardProfile">
                         <form action="" method="">
             <!--        You can switch " data-color="orange" "  with one of the next bright colors: "blue", "green", "orange", "red", "azure"          -->
@@ -134,7 +137,7 @@
                                                         <input type="checkbox" name="jobb" value="Design">
                                                         <div class="card card-checkboxes card-hover-effect">
                                                             <i class="fas fa-graduation-cap"></i>
-                                                            <p>Matematica)</p>
+                                                            <p>Matematica</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -233,8 +236,6 @@
                                     </div>
                                 </form>
                     </div>
-                </div>
-                <!-- end row -->
             </div>
             <!--  big container -->
 
