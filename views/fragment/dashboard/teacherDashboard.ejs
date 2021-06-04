@@ -1,0 +1,32 @@
+<div class="form-row">
+    <% data.forEach(function(InfoUser){ %>
+    <div class="col-md-3" style="margin-left: 50px">
+        <div class="card" style="background-image: url('<%-InfoUser.imagen%>')">
+            <div class="header">
+                <div class="content">
+                    <h4 class="cortado title title-uppercase" miAtributo="0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- InfoUser['nombreMateria']%></h4>
+                    <h6 class="label label-danger" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black"><%- InfoUser['curso_descripcion']%></h6>
+                    <br />
+                    <br />
+                    <br />
+                    <div>
+                        <li class="fas fa-clock nombreProfe" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 215px"><%- " " + InfoUser['nombre']%> <%- InfoUser['apellido']%></li>
+                        <br />
+                        <li class="fas fa-user" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 245px"><%- " " + InfoUser['horasCatedra']%> Horas cátedras</li>
+                    </div>
+                </div>
+            </div>
+            <div class="category">
+                <div class="content" style="padding-right: 0%; padding-bottom: 0%">
+                    <form action="/estudianteMateria" method="POST">
+                        <button style="padding-left: 40px; padding-right: 50px; padding-top: 25px; float: right !important" type="submit" name="subjectName" value="<%- InfoUser['nombreMateria']%>" class="btn btn-danger btn-fab btn-fab btn-round">
+                            <i class="material-icons">login</i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="filter"></div>
+        </div>
+    </div>
+    <% }); %>
+</div>

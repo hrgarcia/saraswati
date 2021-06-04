@@ -87,7 +87,7 @@
                     url: "/login",
                     method: "post",
                     dataType: "json",
-                    data: { name: username, subname: password },
+                    data: { user: username, pass: password },
                 }).done((d) => {
                     if (d === "userNotExist") {
                         errorAlert("Ingrese un usuario valido");

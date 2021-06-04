@@ -96,14 +96,53 @@ app.get("/", (req, res) => {
 
 app.get("/dashboard", (req, res) => {
     if (req.session.loggedin) {
-        let query = "SELECT * FROM materia  INNER JOIN profesor ON materia.profesor_usuario = profesor.usuario AND ? = materia.profesor_usuario";
-        con.query(query, [res.locals.username], (error, rows, fields) => {
-            if (error) throw error;
-            res.render("dashboard.ejs", {
-                title: "Subjects",
-                data: rows,
-            });
-        });
+        let rol = res.locals.rol;
+        let username = res.locals.username;
+        var auxData = [];
+
+        for (let i = 0; i < rol.length; i++) {
+            if (rol[i] == "administrador") {
+                console.log("soy administrador");
+                // let query = "SELECT * FROM ?? INNER JOIN administrador ON materia. = administrador.usuario AND ? = materia.";
+                // con.query(query, [username], (error, rows, fields) => {
+                //     if (error) throw error;
+                //     auxData.push(rows)
+                // });
+            }
+            if (rol[i] == "preceptor") {
+                let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
+                con.query(query, [username], (error, rows, fields) => {
+                    if (error) throw error;
+                    res.render("dashboard.ejs", {
+                        title: "InfoUser",
+                        data: rows,
+                    });
+                });
+            }
+            if (rol[i] == "profesor") {
+                let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
+                con.query(query, [username], (error, rows, fields) => {
+                    if (error) throw error;
+                    res.render("dashboard.ejs", {
+                        title: "InfoUser",
+                        data: rows,
+                    });
+                });
+            }
+            if (rol[i] == "estudiante") {
+                console.log("soy estudiante");
+                // let query = "SELECT * FROM estudiante WHERE nombreUsuario = ?";
+                // con.query(query, [username], (error, rows, fields) => {
+                //     if (error) throw error;
+                //     // auxData.push(rows);
+                // });
+            }
+        }
+        // console.log(auxData);
+        // res.render("dashboard.ejs", {
+        //     title: "InfoUser",
+        //     data: auxData,
+        // });
     }
 });
 
@@ -196,7 +235,11 @@ app.get("/listarUsuarios", (req, res) => {
 });
 
 app.get("/miPerfil", (req, res) => {
-    let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
+    let query = "SELECT * FROM usuario  WHERE usuario.nombreUsuario = ?";
+    //tendria que cambiar la consula actual por la que le dejo a continuacion y borrar
+    //los corchetes y el contenido de abajo
+
+    //`SELECT * FROM usuario  JOIN ${res.locals.rol} ON ${res.locals.rol}.nombreUsuario = ${res.locals.username} AND usuario.nombreUsuario = ${res.locals.username}`
     con.query(query, [res.locals.username], (error, rows, fields) => {
         if (error) throw error;
         res.render("myProfile.ejs", {
@@ -409,16 +452,8 @@ app.get("/GenerateReport", (req, res) => {
 
 //I compare the password entered to the one encrypted in the DB to be able to access the dashboard
 app.post("/login", (req, res) => {
-    // let username = req.body.username;
-    // let password = req.body.password;
-
-    let username = req.body.name;
-    let password = req.body.subname;
-
-    console.log(req.body.name);
-    console.log(req.body.subname);
-
-    // console.log(password);
+    let username = req.body.user;
+    let password = req.body.pass;
 
     let query = "SELECT * FROM usuario WHERE nombreUsuario = ?";
     con.query(query, [username], (error, rows, fields) => {
@@ -442,7 +477,6 @@ app.post("/login", (req, res) => {
                         res.locals.toastrFlag = true;
                         req.session.toastrFlag = true;
 
-                        console.log("todo esta bien");
                         res.json("loginOk");
                     });
                 } else {
