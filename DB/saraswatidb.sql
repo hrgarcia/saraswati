@@ -222,7 +222,6 @@ INSERT INTO `rol` (`id`, `nombre`, `nombreUsuario`) VALUES
 --
 
 CREATE TABLE `tutor` (
-  `dni` int(8) NOT NULL,
   `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `apellido` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `telefono` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
@@ -331,7 +330,6 @@ ALTER TABLE `rol`
 -- Indexes for table `tutor`
 --
 ALTER TABLE `tutor`
-  ADD PRIMARY KEY (`dni`),
   ADD KEY `estudiante_dni` (`estudiante_dni`);
 
 --

@@ -71,7 +71,17 @@ $(document).ready(function () {
                 minlength: 8,
                 maxlength: 8,
             },
+            dniestudiante: {
+                required: true,
+                minlength: 8,
+                maxlength: 8,
+            },
             telephone: {
+                minlength: 10,
+                maxlength: 15,
+            },
+            movil:{
+                required:true,
                 minlength: 10,
                 maxlength: 15,
             },
