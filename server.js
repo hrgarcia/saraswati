@@ -160,7 +160,19 @@ app.get("/logout", (req, res) => {
 });
 
 app.get("/agregarProfesor", (req, res) => {
-    res.render("addTeacher.ejs");
+    let materia = [];
+    let query = "SELECT profesor_usuario FROM materia";
+    con.query(query, (error, rows, fields) => {
+        for (let index = 0; index < rows.length; index++) {
+            if (rows[index] = 'lmazzola') {
+                materia.push(rows)
+                
+            }
+        }
+        //console.log(materia)
+        res.render("addTeacher.ejs", {
+        });
+    });
 });
 
 app.get("/agregarUsuario", (req, res) => {
