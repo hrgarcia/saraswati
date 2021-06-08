@@ -416,24 +416,6 @@ app.post("/crearProfesor", urlencodedParser, (req, res) => {
     // });
 });
 
-app.post("/crearTutor", urlencodedParser, (req, res) => {
-    let firstName = req.body.firstName;
-    let lastName = req.body.lastName;
-    let email = req.body.email;
-    let telephone = req.body.telephone;
-    let movil = req.body.movil;
-    let dniestudiante = req.body.dniestudiante;
-
-    let query1 = "SELECT dni FROM estudiante INNER JOIN tutor ON ?  = estudiante_dni ";
-    let query = "INSERT INTO tutor (nombre,apellido,email,telefono,celular,estudiante_dni) VALUES (?,?,?,?,?,?);";
-    con.query(query, [firstName, lastName, email,telephone, movil, dniestudiante ], (error, rows, fields) => {
-        if (error) throw error;
-        res.redirect("/dashboard");
-    });
-
-
-});
-
 app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
     let trimester = req.body.quarter;
     let idSubject = req.body.idSubject;
