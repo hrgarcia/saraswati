@@ -161,15 +161,11 @@ app.get("/logout", (req, res) => {
 
 app.get("/agregarProfesor", (req, res) => {
     let materia = [];
-    let query = "SELECT profesor_usuario FROM materia";
-    con.query(query, (error, rows, fields) => {
+    let query = "SELECT * FROM materia WHERE profesor_usuario = ? ";
+    con.query(query, ["lmazzola"], (error, rows, fields) => {
         for (let index = 0; index < rows.length; index++) {
-            if (rows[index] = 'lmazzola') {
-                materia.push(rows)
-                
-            }
+            //console.log(rows[index]);
         }
-        //console.log(materia)
         res.render("addTeacher.ejs", {
         });
     });
