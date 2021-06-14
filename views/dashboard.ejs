@@ -48,6 +48,8 @@
                 <div class="container">
                     <br />
                     <br />
+                    <!-- Cards del profesor -->
+                    <% if (rol == 'profesor') { %>
                     <div class="form-row">
                         <% data.forEach(function(InfoUser){ %>
                         <div class="col-md-3" style="margin-left: 50px">
@@ -86,6 +88,19 @@
                         </div>
                         <% }); %>
                     </div>
+                    <% } %>
+                    <!-- Contenido para el dashboard administrador -->
+                    <% if (rol == 'administrador') { %>
+                    <p>Cosas del administrador acá</p>
+                    <% } %>
+                    <!-- Contenido para el dashboard preceptor-->
+                    <% if (rol == 'preceptor') { %>
+                    <p>Cosas del preceptor acá</p>
+                    <% } %>
+                    <!-- Contenido para el dashboard estudiante -->
+                    <% if (rol == 'estudiante') { %>
+                    <p>Cosas del estudiante acá</p>
+                    <% } %>
                 </div>
             </div>
             <%- include('fragment/footer'); -%>

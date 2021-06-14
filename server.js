@@ -103,6 +103,7 @@ app.get("/dashboard", (req, res) => {
         for (let i = 0; i < rol.length; i++) {
             if (rol[i] == "administrador") {
                 console.log("soy administrador");
+                res.render("dashboard.ejs");
             }
             if (rol[i] == "preceptor") {
                 let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
