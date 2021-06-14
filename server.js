@@ -167,10 +167,6 @@ app.get("/formularioImagen", (req, res) => {
     res.render("formularioImagen.ejs");
 });
 
-app.get("/cargarAprendizajes", (req, res) => {
-    res.render("loadLearning.ejs");
-});
-
 app.get("/logout", (req, res) => {
     req.session.destroy();
     res.redirect("/");
@@ -203,10 +199,6 @@ app.get("/agregarMateria", (req, res) => {
 
 app.get("/agregarPreceptor", (req, res) => {
     res.render("addPreceptor.ejs");
-});
-
-app.get("/estadisticas", (req, res) => {
-    res.render("statistics.ejs");
 });
 
 app.get("/datatable", (req, res) => {
@@ -351,17 +343,6 @@ app.get("/cambiarEstadoToastr", (req, res) => {
 
 app.get("/estadoToastr", (req, res) => {
     res.send(res.locals.toastrFlag);
-});
-
-app.get("/editarPerfil", (req, res) => {
-    let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
-    con.query(query, [res.locals.username], (error, rows, fields) => {
-        if (error) throw error;
-        res.render("edit.ejs", {
-            title: "Perfil",
-            data: rows,
-        });
-    });
 });
 
 // Returns all students of the selected subject

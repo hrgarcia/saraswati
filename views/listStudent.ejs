@@ -47,7 +47,7 @@
                             </h4>
                         </div>
                         <div class="col-md-2">
-                            <img class="img-head" src="/images/6to1.png" />
+                            <img class="img-head" src="/images/courseIcon/6to.png" />
                         </div>
                     </div>
                     
@@ -202,9 +202,7 @@
                 </div>
             </div>    
 
-
             <!-- Create learnings popup -->
-
             <div class="modal fade bd-example-modal-lg" id="newLearning" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content" id="modal">
@@ -239,6 +237,7 @@
 
         <%- include('fragment/scripts'); -%>
         <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+        
         <!-- datatable js -->
         <script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.0/locale/bootstrap-table-es-AR.min.js"></script>
@@ -247,7 +246,7 @@
         <script src="/javascripts/uikit.min.js"></script>
         <script src="/javascripts/uikit-icons.min.js"></script>
 
-        <!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
+        <!-- Jquery Validate -->
         <script src="javascripts/jquery.validate.min.js" type="text/javascript"></script>
         <script src= "https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
         
@@ -255,112 +254,9 @@
         <script src="/javascripts/sweetAlerts.js"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         
-        <script>
-            var bar = document.getElementById('js-progressbar');
-
-            (function($) {
-                UIkit.upload(".js-upload", {
-                    url: "",//put path to your script here f.e. upload.php
-                    multiple: true,
-
-                    beforeSend: function() {
-                    console.log("beforeSend", arguments);
-                    },
-                    beforeAll: function() {
-                    console.log("beforeAll", arguments);
-                    },
-                    load: function() {
-                    console.log("load", arguments);
-                    },
-                    error: function() {
-                    console.log("error", arguments);
-                    },
-                    complete: function() {
-                    console.log("complete", arguments);
-                    },
-
-                    loadStart: function(e) {
-                    console.log("loadStart", arguments);
-
-                    bar.removeAttribute("hidden");
-                    bar.max = e.total;
-                    bar.value = e.loaded;
-                    },
-
-                    progress: function(e) {
-                    console.log("progress", arguments);
-
-                    bar.max = e.total;
-                    bar.value = e.loaded;
-                    },
-
-                    loadEnd: function(e) {
-                    console.log("loadEnd", arguments);
-
-                    bar.max = e.total;
-                    bar.value = e.loaded;
-                    },
-
-                    completeAll: function() {
-                    console.log("completeAll", arguments);
-
-                    setTimeout(function() {
-                        bar.setAttribute("hidden", "hidden");
-                    }, 1000);
-                    UIkit.notification("All uploads have been finished");
-
-                    //alert('Upload Completed');
-                    }
-                });
-            })(jQuery);
-        </script>
-        
-        <!-- Validation -->
-        <script>
-            $("#learningsExcelForm").validate({
-                rules: {
-                    learnings: {
-                        required: true
-                    }
-                },
-                messages:{
-                    learnings:{
-                        required: "Por favor ingrese un archivo",
-                        accept: "ingrese el tipo de archivo seleccionado"
-                    }
-                },
-                errorPlacement: (error, element) => {
-                    if(element[0].value == ""){
-                        errorAlert("ingrese un archivo porfavor");
-                    }
-                    if(element[0].value == $('#inputFileType').attr('accept')){
-                        errorAlert("ingrese un archivo porfavor");
-                    }
-                }
-            });
-
-            function changeInputFileType(){
-                if( $('#radioExcel').prop('checked') ) {
-                    $('#inputFileType').attr("accept", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-                }
-                else{
-                    $('#inputFileType').attr("accept", "text/plain");
-                }
-            }
-
-            // Spinner 
-            $('#learningsExcelForm').submit(event => {
-                if($('#learningsExcelForm').valid()){
-                    $('#buttonLoadLearnings').empty();
-                    $('#buttonLoadLearnings').append('<span class="spinner-border spinner-border-sm"  aria-hidden="true"></span>');
-                }
-            });
-        </script>
-        
         <!-- Sortable Functions -->
         <script type="text/javascript">
             var deleteLearnings = [];
-
             let sortableListPending = UIkit.sortable("#listPending");
             UIkit.util.on(sortableListPending.$el, "added", function(item, sortable) {
                 let actualItem = item.detail[1];
@@ -378,7 +274,6 @@
                     actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
                 }
             });
-
             let sortableListProcess = UIkit.sortable("#listProcess");
             UIkit.util.on(sortableListProcess.$el, "added", function(item, sortable) {
                 let actualItem = item.detail[1];
@@ -389,14 +284,12 @@
                 } 
                 else if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 1) {
                     actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
-                    // document.getElementById("isChangedLearnState").innerHTML = "";
                 }
                 else if (actualItem.getAttribute("originLearn") == futureSide.id) {
                     actualItem.setAttribute("data-value", "0");
                     actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
                 }
             });
-
             let sortableListApproved = UIkit.sortable("#listApproved");
             UIkit.util.on(sortableListApproved.$el, "added", function(item, sortable) {
                 let actualItem = item.detail[1];
@@ -407,23 +300,19 @@
                 } 
                 else if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 1) {
                     actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
-                    // document.getElementById("isChangedLearnState").innerHTML = "";
                 }
                 else if (actualItem.getAttribute("originLearn") == futureSide.id) {
                     actualItem.setAttribute("data-value", "0");
                     actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
                 }
             });
-
             let sortableTrashLearnings = UIkit.sortable("#trashLearnings");
             UIkit.util.on(sortableTrashLearnings.$el, "added", function(item, sortable) {
                 let actualItem = item.detail[1];
                 let futureSide = item.detail[0].$el;
                 $(actualItem).remove();
                 deleteLearnings.push(actualItem);
-                // document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
             });
-
             function saveLearnings() {
                 let dni = $("#learningsStudent").attr("data-value");
                 let listLearnings = [$(".pendiente"), $(".proceso"), $(".aprobado")];
@@ -434,7 +323,6 @@
                     aprobado: [],
                 };
                 let previusAlert = false;
-
                 for (let i = 0; i < listLearnings.length; i++) {
                     for (let j = 1; j < listLearnings[i].length; j++) {
                         if (listLearnings[i][j].getAttribute("data-value") == 1) {
@@ -458,23 +346,19 @@
                     $.get("guardarAprendizajes", { data: infoLearnings }, function (res) {
                         successAlert("Cambios guardados");
                         previusAlert = true;
-                        // document. getElementById ( " isChangedLearnState " ). innerHTML  =  " Cambios guardados " ;
                     });
                 }
-
                 if (deleteLearnings.length > 0) {
                     for (let i = 0; i < deleteLearnings.length; i++) {
                         deleteLearnings[i] = deleteLearnings[i].childNodes[1].innerHTML.toLowerCase();
                     }
                     $.get("borrarAprendizajes", { data: deleteLearnings }, function (res) {
-                        // document. getElementById ( " isChangedLearnState " ). innerHTML  =  " Cambios guardados " ;
                         deleteLearnings = [];
                         if(!previusAlert){
                             successAlert("Aprendizajes borrados");
                         }
                     });
                 }
-
                 else{
                     errorAlert("No hay cambios para realizar");
                 }
@@ -488,7 +372,6 @@
                 newLearningData.push(document.getElementById("subjectName").getAttribute("data-value3"));
                 $.get("agregarAprendizajes", { newLearningData }, function (res) {
                     $("#listPending").append("<div class='pendiente uk-margin uk-card uk-card-default uk-card-body uk-card-small' originLearn='listPending' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `<span class="text">${newLearningData[0]}</span></div>`);
-                    // document.getElementById("isChangedLearnState").innerHTML = "Se creo un nuevo aprendizaje";
                 });
             }
         </script>
@@ -501,7 +384,6 @@
                 $.get("GenerateReport", { "hola":"hola" }, function (res) {
                 });
             }
-
             window.operateEvents = {
                 "click .like": function (e, value, row, index) {
                     alert("You click like icon, row: " + JSON.stringify(row));
@@ -531,13 +413,11 @@
                     });
                 },
             };
-
             function operateFormatter(value, row, index) {
                 return [
                     '<a style="background-color:inherit !important;" rel="tooltip" title="Generar informe" class="table-action like" href="javascript:pdf()" title="Like">',
                     '<i class="far fa-file-alt fa-inform"></i>',
                     "</a>",
-
                     '<a style="background-color:inherit !important;" rel="tooltip" title="Editar" class="table-action edit" href="javascript:void(0)" title="Edit" data-toggle="modal" data-target="#learningsStudent">',
                     '<i style="color:none !important;" class="fa fa-edit"></i>',
                     "</a>",

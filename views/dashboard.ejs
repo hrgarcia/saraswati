@@ -6,13 +6,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
         <title>Panel principal del sistema</title>
         <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+
         <!--     Fonts and icons     -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="/css/bootstrap.min.css" />
+
         <!-- Iconos Font Awesome -->
         <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+
         <!-- Nuestros estilos -->
         <link rel="stylesheet" href="/stylesheets/style.css" />
 
@@ -21,6 +24,7 @@
 
         <!-- CSS Files -->
         <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+
         <!-- Animate css -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 
@@ -32,6 +36,7 @@
         <link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:700,100,400|Roboto:400,700|Playfair+Display+SC:400,700" rel="stylesheet" type="text/css" />
+
         <%- include('fragment/background'); -%>
     </head>
 
@@ -76,7 +81,6 @@
                                         </form>
                                     </div>
                                 </div>
-                                <%- include('fragment/chart'); -%>
                                 <div class="filter"></div>
                             </div>
                         </div>
@@ -101,8 +105,8 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
-            let usernameToastr = document.getElementById("main-panel");
-            usernameToastr = usernameToastr.getAttribute("data-value");
+            let usernameAlert = document.getElementById("main-panel");
+            usernameAlert = usernameAlert.getAttribute("data-value");
 
             window.onload = () => {
                 $.get("estadoToastr", { data: 0 }, function (res) {
@@ -111,7 +115,7 @@
                             //
                         });
                         //
-                        welcomeLogin(usernameToastr);
+                        welcomeLogin(usernameAlert);
                     }
                 });
             };
