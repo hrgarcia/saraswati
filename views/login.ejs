@@ -79,24 +79,25 @@
             });
 
             $("#loginButton").on("click", function (e) {
-                console.log("tocaste el boton");
-                e.preventDefault();
-                let username = $.trim($("#inputUser").val());
-                let password = $.trim($("#inputPass").val());
-                $.ajax({
-                    url: "/login",
-                    method: "post",
-                    dataType: "json",
-                    data: { user: username, pass: password },
-                }).done((d) => {
-                    if (d === "userNotExist") {
-                        errorAlert("Ingrese un usuario valido");
-                    } else if (d === "wrongPass") {
-                        errorAlert("La constraseña es incorrecta");
-                    } else if (d === "loginOk") {
-                        window.location.replace("/dashboard");
-                    }
-                });
+                if ($("#loginF").valid()) {
+                    e.preventDefault();
+                    let username = $.trim($("#inputUser").val());
+                    let password = $.trim($("#inputPass").val());
+                    $.ajax({
+                        url: "/login",
+                        method: "post",
+                        dataType: "json",
+                        data: { user: username, pass: password },
+                    }).done((d) => {
+                        if (d === "userNotExist") {
+                            errorAlert("Ingrese un usuario valido");
+                        } else if (d === "wrongPass") {
+                            errorAlert("La constraseña es incorrecta");
+                        } else if (d === "loginOk") {
+                            window.location.replace("/dashboard");
+                        }
+                    });
+                }
             });
         </script>
     </body>

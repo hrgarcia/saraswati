@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2021 at 06:03 PM
+-- Generation Time: Jun 14, 2021 at 03:26 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.27
 
@@ -33,6 +33,20 @@ CREATE TABLE `aprendizajes` (
   `id_materia` int(50) NOT NULL,
   `id_periodo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Dumping data for table `aprendizajes`
+--
+
+INSERT INTO `aprendizajes` (`id`, `descripcion`, `id_materia`, `id_periodo`) VALUES
+(24, 'aprendizaje 1', 1, 1),
+(25, 'aprendizaje 2', 1, 1),
+(26, 'aprendizaje 3', 1, 1),
+(27, 'aprendizaje 4', 1, 1),
+(28, 'aprendizaje 5', 1, 1),
+(29, 'aprendizaje 5', 1, 1),
+(30, 'aprendizaje 6', 1, 1),
+(31, 'aprendizaje 7', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -80,10 +94,16 @@ CREATE TABLE `estudiante` (
 --
 
 INSERT INTO `estudiante` (`dni`, `nombre`, `apellido`, `genero`, `fecha_nacimiento`, `legajo`, `email`, `telefono`, `descripcion_curso`, `nombreUsuario`) VALUES
+(35311932, 'seven', 'monzon', 'm', '11/10/2002', '12312312', 'seven monzon', '3513327875', 'cuarto año', 'sevemonzon'),
+(35311971, 'josue', 'lorenzo', 'm', '08/5/2003', '32132131', 'jouselorenzo@gmail.com', '3511597479', 'sexto año', 'jolorenzo'),
+(35321158, 'amelia', 'nieto', 'f', '06/4/2003', '23232324', 'amelianieto@gmail.com', '3514327852', 'sexto año', 'amenieto'),
+(35321871, 'lucina', 'romero', 'f', '13/12/2003', '32132131', 'lucinaromero@gmail.com', '3513507449', 'sexto año', 'luromero'),
+(43215971, 'juan', 'gomis', 'm', '11/12/2002', '6544322', 'juangomis@gmail.com', '3513507875', 'sexto año', 'jugomis'),
+(44785621, 'laia', 'quinteros', 'f', '11/10/2002', '987654', 'laiaquintero@gmail.com', '3511597423', 'sexto año', 'laiaquiros'),
+(45215181, 'paola', 'albert', 'f', '13/12/2003', '2131232', 'paolalbert@gmail.com', '3514324762', 'cuarto año', 'paoalbert'),
+(45215981, 'juan', 'torre', 'm', '02/1/2003', '567890', 'juantorre@gmail.com', '3513487665', 'sexto año', 'juantorre'),
 (88888881, 'kaka', 'estebanez', 'm', '13/12/2003', 'fwawdwa', 'kaka@gmail.com', '323232322', 'sexto año', 'kaestebanez'),
-(88888882, 'zaramay', 'calles', 'm', '13/12/2003', 'dwadwa', 'zaramay@gmail.com', '3232323232', 'quinto año', 'zacalles'),
-(88888883, 'ian', 'luciano', 'm', '13/12/2003', 'fwawdwa', 'luciano@gmail.com', '323232232', 'cuarto año', 'ianluciano'),
-(88888888, 'kiara', 'berenjena', 'f', '13/12/2003', 'fwawdwa', 'kiara@gmail.com', '323232323', 'sexto año', 'kiberenjena');
+(88888883, 'ian', 'luciano', 'm', '13/12/2003', 'fwawdwa', 'luciano@gmail.com', '323232232', 'cuarto año', 'ianluciano');
 
 -- --------------------------------------------------------
 
@@ -99,6 +119,68 @@ CREATE TABLE `estudianteaprendizaje` (
   `periodo_id` int(11) NOT NULL,
   `materia_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Dumping data for table `estudianteaprendizaje`
+--
+
+INSERT INTO `estudianteaprendizaje` (`id`, `descripcion`, `estado`, `estudiante_dni`, `periodo_id`, `materia_id`) VALUES
+(103, 'aprendizaje 1', 'proceso', 35311971, 1, 1),
+(104, 'aprendizaje 1', 'pendiente', 35321158, 1, 1),
+(105, 'aprendizaje 1', 'pendiente', 35321871, 1, 1),
+(106, 'aprendizaje 1', 'pendiente', 43215971, 1, 1),
+(107, 'aprendizaje 1', 'pendiente', 44785621, 1, 1),
+(108, 'aprendizaje 1', 'pendiente', 45215981, 1, 1),
+(109, 'aprendizaje 1', 'pendiente', 88888881, 1, 1),
+(110, 'aprendizaje 2', 'aprobado', 35311971, 1, 1),
+(111, 'aprendizaje 2', 'pendiente', 35321158, 1, 1),
+(112, 'aprendizaje 2', 'pendiente', 35321871, 1, 1),
+(113, 'aprendizaje 2', 'pendiente', 43215971, 1, 1),
+(114, 'aprendizaje 2', 'pendiente', 44785621, 1, 1),
+(115, 'aprendizaje 2', 'pendiente', 45215981, 1, 1),
+(116, 'aprendizaje 2', 'pendiente', 88888881, 1, 1),
+(117, 'aprendizaje 3', 'aprobado', 35311971, 1, 1),
+(118, 'aprendizaje 3', 'pendiente', 35321158, 1, 1),
+(119, 'aprendizaje 3', 'pendiente', 35321871, 1, 1),
+(120, 'aprendizaje 3', 'pendiente', 43215971, 1, 1),
+(121, 'aprendizaje 3', 'pendiente', 44785621, 1, 1),
+(122, 'aprendizaje 3', 'pendiente', 45215981, 1, 1),
+(123, 'aprendizaje 3', 'pendiente', 88888881, 1, 1),
+(124, 'aprendizaje 4', 'proceso', 35311971, 1, 1),
+(125, 'aprendizaje 4', 'pendiente', 35321158, 1, 1),
+(126, 'aprendizaje 4', 'pendiente', 35321871, 1, 1),
+(127, 'aprendizaje 4', 'pendiente', 43215971, 1, 1),
+(128, 'aprendizaje 4', 'pendiente', 44785621, 1, 1),
+(129, 'aprendizaje 4', 'pendiente', 45215981, 1, 1),
+(130, 'aprendizaje 4', 'pendiente', 88888881, 1, 1),
+(131, 'aprendizaje 5', 'pendiente', 35311971, 1, 1),
+(132, 'aprendizaje 5', 'pendiente', 35321158, 1, 1),
+(133, 'aprendizaje 5', 'pendiente', 35321871, 1, 1),
+(134, 'aprendizaje 5', 'pendiente', 43215971, 1, 1),
+(135, 'aprendizaje 5', 'pendiente', 44785621, 1, 1),
+(136, 'aprendizaje 5', 'pendiente', 45215981, 1, 1),
+(137, 'aprendizaje 5', 'pendiente', 88888881, 1, 1),
+(138, 'aprendizaje 5', 'pendiente', 35311971, 1, 1),
+(139, 'aprendizaje 5', 'pendiente', 35321158, 1, 1),
+(140, 'aprendizaje 5', 'pendiente', 35321871, 1, 1),
+(141, 'aprendizaje 5', 'pendiente', 43215971, 1, 1),
+(142, 'aprendizaje 5', 'pendiente', 44785621, 1, 1),
+(143, 'aprendizaje 5', 'pendiente', 45215981, 1, 1),
+(144, 'aprendizaje 5', 'pendiente', 88888881, 1, 1),
+(145, 'aprendizaje 6', 'pendiente', 35311971, 1, 1),
+(146, 'aprendizaje 6', 'pendiente', 35321158, 1, 1),
+(147, 'aprendizaje 6', 'pendiente', 35321871, 1, 1),
+(148, 'aprendizaje 6', 'pendiente', 43215971, 1, 1),
+(149, 'aprendizaje 6', 'pendiente', 44785621, 1, 1),
+(150, 'aprendizaje 6', 'pendiente', 45215981, 1, 1),
+(151, 'aprendizaje 6', 'pendiente', 88888881, 1, 1),
+(152, 'aprendizaje 7', 'pendiente', 35311971, 1, 1),
+(153, 'aprendizaje 7', 'pendiente', 35321158, 1, 1),
+(154, 'aprendizaje 7', 'pendiente', 35321871, 1, 1),
+(155, 'aprendizaje 7', 'pendiente', 43215971, 1, 1),
+(156, 'aprendizaje 7', 'pendiente', 44785621, 1, 1),
+(157, 'aprendizaje 7', 'pendiente', 45215981, 1, 1),
+(158, 'aprendizaje 7', 'pendiente', 88888881, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -121,7 +203,7 @@ CREATE TABLE `materia` (
 
 INSERT INTO `materia` (`id`, `nombreMateria`, `imagen`, `horasCatedra`, `profesor_usuario`, `curso_descripcion`) VALUES
 (1, 'programación 4', './images/espacios/sexto_año/programacion_4.jpg', '72', 'hrgarcia', 'sexto año'),
-(2, 'fvt', '/public/images/estructura.jpg', '13', 'lmazzola', 'quinto año'),
+(2, 'fvt', '/public/images/estructura.jpg', '13', 'lmazzola', 'sexto año'),
 (11, 'programacion 3', '/images/espacios/quinto_año/programacion_3.jpg', '65', 'hrgarcia', 'quinto año'),
 (12, 'robotica', '/images/espacios/quinto_año/robotica.jpg', '32', 'hrgarcia', 'quinto año'),
 (13, 'estructuras de almacenamiento de datos I', '/images/espacios/tercer_año/estructuras_de_almacenamiento_de_datos_I.jpg', '43', 'hrgarcia', 'tercer año'),
@@ -147,6 +229,29 @@ CREATE TABLE `nota` (
   `descripcion_curso` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `dni_alumno` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Dumping data for table `nota`
+--
+
+INSERT INTO `nota` (`id`, `nota1`, `nota2`, `nota3`, `nota4`, `nota_definitiva`, `id_materia`, `id_periodo`, `descripcion_curso`, `dni_alumno`) VALUES
+(16, '10', '10', '10', '10', '10', 1, 1, 'sexto año', 35321158),
+(17, '8', '8', '8', '8', '8', 1, 1, 'sexto año', 35321871),
+(18, '7', '7', '7', '7', '7', 1, 1, 'sexto año', 43215971),
+(19, '6', '6', '6', '6', '6', 1, 1, 'sexto año', 35311971),
+(20, '7', '7', '7', '7', '7', 1, 1, 'sexto año', 44785621),
+(21, '8', '8', '8', '8', '8', 1, 1, 'sexto año', 45215981),
+(22, '9', '9', '9', '9', '9', 1, 1, 'sexto año', 88888881),
+(23, '9', '9', '9', '9', '9', 17, 1, 'cuarto año', 35311932),
+(24, '10', '10', '10', '10', '10', 17, 1, 'cuarto año', 45215181),
+(25, '5', '5', '5', '5', '5', 17, 1, 'cuarto año', 88888883),
+(33, '10', '10', '10', '10', '10', 2, 1, 'sexto año', 35321158),
+(34, '8', '8', '8', '8', '8', 2, 1, 'sexto año', 35321871),
+(35, '7', '7', '7', '7', '7', 2, 1, 'sexto año', 43215971),
+(36, '6', '6', '6', '6', '6', 2, 1, 'sexto año', 35311971),
+(37, '7', '7', '7', '7', '7', 2, 1, 'sexto año', 44785621),
+(38, '8', '8', '8', '8', '8', 2, 1, 'sexto año', 45215981),
+(39, '9', '9', '9', '9', '9', 2, 1, 'sexto año', 88888881);
 
 -- --------------------------------------------------------
 
@@ -222,6 +327,7 @@ INSERT INTO `rol` (`id`, `nombre`, `nombreUsuario`) VALUES
 --
 
 CREATE TABLE `tutor` (
+  `dni` int(8) NOT NULL,
   `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `apellido` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `telefono` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
@@ -247,12 +353,18 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`nombreUsuario`, `pass`, `avatar`) VALUES
+('amenieto', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', 0),
 ('hrgarcia', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', 0),
 ('ianluciano', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', 0),
+('jolorenzo', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', 0),
+('juantorre', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', 0),
+('jugomis', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', 0),
 ('kaestebanez', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', 0),
-('kiberenjena', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', 0),
+('laiaquiros', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', 0),
 ('lmazzola', '$2b$10$5wJpY.4Jlc3u7FHuqotgiuaWpDpoksvHY9EHmX6OY.66IlUoP6z5W', 0),
-('zacalles', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', 0);
+('luromero', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', 0),
+('paoalbert', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', 0),
+('sevemonzon', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', 0);
 
 --
 -- Indexes for dumped tables
@@ -330,6 +442,7 @@ ALTER TABLE `rol`
 -- Indexes for table `tutor`
 --
 ALTER TABLE `tutor`
+  ADD PRIMARY KEY (`dni`),
   ADD KEY `estudiante_dni` (`estudiante_dni`);
 
 --
@@ -346,13 +459,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `aprendizajes`
 --
 ALTER TABLE `aprendizajes`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `estudianteaprendizaje`
 --
 ALTER TABLE `estudianteaprendizaje`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
 -- AUTO_INCREMENT for table `materia`
@@ -364,7 +477,7 @@ ALTER TABLE `materia`
 -- AUTO_INCREMENT for table `nota`
 --
 ALTER TABLE `nota`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `periodo`

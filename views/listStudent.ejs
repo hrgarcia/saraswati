@@ -42,7 +42,7 @@
                         <div class="col-md-10">
                             <h1 class="display-4 tituloSecundario">Lista de estudiantes</h1>
                             
-                            <h4 class="text-table tituloSecundario" data-value="<%- data[0].id_materia -%>" data-value2="<%- data[0].nombreMateria -%>" data-value3="<%- data[0].curso_descripcion -%>" id="subjectName">
+                            <h4 class="text-table tituloSecundario" id="subjectName" data-value="<%- data[0].id_materia -%>" data-value2="<%- data[0].nombreMateria -%>" data-value3="<%- data[0].curso_descripcion -%>" >
                                 Estudiantes del espacio curricular: <%- data[0].nombreMateria -%>
                             </h4>
                         </div>
@@ -82,7 +82,6 @@
                                     </div>
                                     <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
                                     <br>
-                                    <button type="submit" class="btn btn-primary">Cargar</button>
                                 </form>
                             </div>
                         </div>
@@ -230,69 +229,6 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" onclick="addLearning([inputNameLearning.value, inputPeriodLearning.value])">Save changes</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Create learnings for Excel or Txt -->
-
-            <div class="modal fade bd-example-modal-lg" id="createLearningsFile" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content" id="modal">
-                        <div class="modal-header" style="border-bottom: 1px solid #ffffff !important">
-                            <h5 class="modal-title tituloPrincipal" id="exampleModalLabel">Crear aprendizajes con un archivo</h5>
-                            <h5 class="modal-title" id="isChangedLearnState" style="text-indent: 350px"></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="/cargarAprendizaje" id="learningsExcelForm" method="POST" enctype="multipart/form-data">
-                                <div>
-									<p class="category tituloSecundario" style="color: rgb(228, 216, 216)">Trimestre</p>
-									<div class="form-check form-check-radio form-check-inline">
-										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="trimester" id="inlineRadio1" value="1" checked> 1
-											<span class="circle">
-												<span class="check"></span>
-											</span>
-										</label>
-									</div>
-									<div class="form-check form-check-radio form-check-inline">
-										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="trimester" id="inlineRadio2" value="2"> 2
-											<span class="circle">
-												<span class="check"></span>
-											</span>
-										</label>
-									</div>
-                                </div>
-                                <div>
-                                    <p class="category tituloSecundario" style="color: rgb(255, 255, 255)">Tipo de archivo</p>
-                                    <div class="form-check form-check-radio form-check-inline">
-										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="typeOFile" id="radioExcel" onchange="changeInputFileType()" value="excel" checked> Excel
-											<span class="circle">
-												<span class="check"></span>
-											</span>
-										</label>
-									</div>
-                                    <div class="form-check form-check-radio form-check-inline">
-										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="typeOFile" id="radioTxt" onchange="changeInputFileType()" value="txt"> Txt
-											<span class="circle">
-												<span class="check"></span>
-											</span>
-										</label>
-									</div>
-                                </div>
-                                <input style="display:none;" name="idSubject" value="<%- data[0].id -%>"></input>
-                                <div class="modal-footer">
-                                    <input type="file" name="learnings" id="inputFileType" dataVal="hola" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" placeholder="Ingrese un archivo" />
-									<button type="submit" id="buttonLoadLearnings" class="btn btn-primary">Cargar</button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -579,7 +515,8 @@
                     console.log(value, row, index);
                 },
                 "click .edit": function (e, value, row, index) {
-                    $.get("obtenerAprendizajes", { dni: row.dni }, function (res) {
+                    
+                    $.get("obtenerAprendizajes", { dni: row.dni, idSubject:document.getElementById("subjectName").getAttribute("data-value")}, function (res) {
                         if ($("#learningsStudent").attr("data-value") != row.dni) {
                             $("#listApproved").empty();
                             $("#listProcess").empty();

@@ -103,11 +103,6 @@ app.get("/dashboard", (req, res) => {
         for (let i = 0; i < rol.length; i++) {
             if (rol[i] == "administrador") {
                 console.log("soy administrador");
-                // let query = "SELECT * FROM ?? INNER JOIN administrador ON materia. = administrador.usuario AND ? = materia.";
-                // con.query(query, [username], (error, rows, fields) => {
-                //     if (error) throw error;
-                //     auxData.push(rows)
-                // });
             }
             if (rol[i] == "preceptor") {
                 let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
@@ -118,6 +113,15 @@ app.get("/dashboard", (req, res) => {
                         data: rows,
                     });
                 });
+                // async function getSubjects() {
+                //     let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
+                //     return new Promise((resolve, reject) => {
+                //         con.query(query, [username], (error, rows) => {
+                //             return resolve(rows);
+                //         });
+                //     });
+                // }
+                // auxData.push(getSubjects());
             }
             if (rol[i] == "profesor") {
                 let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
@@ -128,21 +132,34 @@ app.get("/dashboard", (req, res) => {
                         data: rows,
                     });
                 });
+                // async function getSubjects() {
+                //     let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
+                //     return new Promise((resolve, reject) => {
+                //         con.query(query, [username], (error, rows) => {
+                //             return resolve(rows);
+                //         });
+                //     });
+                // }
+                // auxData.push(getSubjects());
             }
             if (rol[i] == "estudiante") {
                 console.log("soy estudiante");
-                // let query = "SELECT * FROM estudiante WHERE nombreUsuario = ?";
-                // con.query(query, [username], (error, rows, fields) => {
-                //     if (error) throw error;
-                //     // auxData.push(rows);
-                // });
             }
         }
-        // console.log(auxData);
-        // res.render("dashboard.ejs", {
-        //     title: "InfoUser",
-        //     data: auxData,
-        // });
+        // async function sequentialQueries() {
+        //     try {
+        //         const result = await Promise.all(auxData);
+        //         // console.log(auxData);
+        //         console.log(result);
+        //         res.render("dashboard.ejs", {
+        //             title: "InfoUser",
+        //             data: result,
+        //         });
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        // }
+        // sequentialQueries();
     }
 });
 
@@ -166,8 +183,7 @@ app.get("/agregarProfesor", (req, res) => {
         for (let index = 0; index < rows.length; index++) {
             //console.log(rows[index]);
         }
-        res.render("addTeacher.ejs", {
-        });
+        res.render("addTeacher.ejs", {});
     });
 });
 
