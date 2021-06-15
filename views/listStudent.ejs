@@ -444,6 +444,18 @@
                     },
                 });
             });
+
+            //TIRAR A FUTURO
+            $(document).ready(function() {
+                //let editor = new $.fn.dataTable.Editor( {table: "#fresh-table"} );
+                //editor.create();
+                $('#fresh-table').on( 'click', 'tbody td', function (e) {
+                    let index = $(this).index();
+                    if(index == 1){
+                        //editor.bubble(this);
+                    }
+                });
+            });
         </script>
     </body>
 </html>

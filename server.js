@@ -106,61 +106,45 @@ app.get("/dashboard", (req, res) => {
                 res.render("dashboard.ejs");
             }
             if (rol[i] == "preceptor") {
-                let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
-                con.query(query, [username], (error, rows, fields) => {
-                    if (error) throw error;
-                    res.render("dashboard.ejs", {
-                        title: "InfoUser",
-                        data: rows,
+                async function getSubjects() {
+                    let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
+                    return new Promise((resolve, reject) => {
+                        con.query(query, [username], (error, rows) => {
+                            return resolve(rows);
+                        });
                     });
-                });
-                // async function getSubjects() {
-                //     let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
-                //     return new Promise((resolve, reject) => {
-                //         con.query(query, [username], (error, rows) => {
-                //             return resolve(rows);
-                //         });
-                //     });
-                // }
-                // auxData.push(getSubjects());
+                }
+                auxData.push(getSubjects());
             }
             if (rol[i] == "profesor") {
-                let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
-                con.query(query, [username], (error, rows, fields) => {
-                    if (error) throw error;
-                    res.render("dashboard.ejs", {
-                        title: "InfoUser",
-                        data: rows,
+                async function getSubjects() {
+                    let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
+                    return new Promise((resolve, reject) => {
+                        con.query(query, [username], (error, rows) => {
+                            return resolve(rows);
+                        });
                     });
-                });
-                // async function getSubjects() {
-                //     let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
-                //     return new Promise((resolve, reject) => {
-                //         con.query(query, [username], (error, rows) => {
-                //             return resolve(rows);
-                //         });
-                //     });
-                // }
-                // auxData.push(getSubjects());
+                }
+                auxData.push(getSubjects());
             }
             if (rol[i] == "estudiante") {
                 console.log("soy estudiante");
             }
         }
-        // async function sequentialQueries() {
-        //     try {
-        //         const result = await Promise.all(auxData);
-        //         // console.log(auxData);
-        //         console.log(result);
-        //         res.render("dashboard.ejs", {
-        //             title: "InfoUser",
-        //             data: result,
-        //         });
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // }
-        // sequentialQueries();
+        async function sequentialQueries() {
+            try {
+                const result = await Promise.all(auxData);
+                console.log(result);
+
+                res.render("dashboard.ejs", {
+                    title: "InfoUser",
+                    data: result,
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        sequentialQueries();
     }
 });
 
@@ -495,6 +479,13 @@ app.post("/login", (req, res) => {
             // Toastr (wrong credentials)
         }
     });
+});
+
+//Rutas del rol administrador
+app.get("/backupDB", (req, res) => {
+    var exec = require("child_process").exec;
+    var child = exec(" mysqldump -u root -p '' 'saraswatidb' > dumpfilename.sql");
+    res.end;
 });
 
 app.use((req, res, next) => {
