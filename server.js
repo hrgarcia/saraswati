@@ -164,7 +164,10 @@ app.get("/agregarProfesor", (req, res) => {
         for (let index = 0; index < rows.length; index++) {
             //console.log(rows[index]);
         }
-        res.render("addTeacher.ejs", {});
+        res.render("addTeacher.ejs", {
+            title:"Materias",
+            data: rows,
+        });
     });
 });
 

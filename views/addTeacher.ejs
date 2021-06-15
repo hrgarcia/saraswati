@@ -126,61 +126,18 @@
                             </div>
                             <div class="tab-pane" id="account">
                                 <h5 class="info-text">Elige el curso que pertenece el estudiane</h5>
-                                <div id="espacios" class="row">
-                                    <div class="col-sm-4">
-                                        <div class="choice" data-toggle="wizard-checkbox">
-                                            <input type="checkbox" name="jobb" value="Design" />
-                                            <div class="card card-checkboxes card-hover-effect">
-                                                <i class="fas fa-graduation-cap"></i>
-                                                <p>Lengua</p>
+                                <div class="row">
+                                    <% data.forEach(function(Materias){ %>
+                                        <div class="col-sm-4">
+                                            <div class="choice" data-toggle="wizard-checkbox">
+                                                <input type="checkbox" name="jobb" value="Design" />
+                                                <div class="card card-checkboxes card-hover-effect">
+                                                    <i class="fas fa-graduation-cap"></i>
+                                                    <p><%- Materias["nombreMateria"] %></p>                                            
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="choice" data-toggle="wizard-checkbox">
-                                            <input type="checkbox" name="jobb" value="Design" />
-                                            <div class="card card-checkboxes card-hover-effect">
-                                                <i class="fas fa-graduation-cap"></i>
-                                                <p>Matematica</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="choice" data-toggle="wizard-checkbox">
-                                            <input type="checkbox" name="jobb" value="Design" />
-                                            <div class="card card-checkboxes card-hover-effect">
-                                                <i class="fas fa-graduation-cap"></i>
-                                                <p>Quimica</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="choice" data-toggle="wizard-checkbox">
-                                            <input type="checkbox" name="jobb" value="Design" />
-                                            <div class="card card-checkboxes card-hover-effect">
-                                                <i class="fas fa-graduation-cap"></i>
-                                                <p>Fisica</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="choice" data-toggle="wizard-checkbox">
-                                            <input type="checkbox" name="jobb" value="Design" />
-                                            <div class="card card-checkboxes card-hover-effect">
-                                                <i class="fas fa-graduation-cap"></i>
-                                                <p>Educacion Fisica</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="choice" data-toggle="wizard-checkbox">
-                                            <input type="checkbox" name="jobb" value="Code" />
-                                            <div class="card card-checkboxes card-hover-effect">
-                                                <i class="fas fa-graduation-cap"></i>
-                                                <p>Teatro</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <% }); %>
                                 </div>
                             </div>
                             <div class="tab-pane" id="address">
