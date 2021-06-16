@@ -30,14 +30,30 @@
 			<div class="container">
 				<div class="main-body">
 					<div class="container emp-profile">
-						<% data.forEach(function(Usuario){ %>
-							<div class="content">
-								<div class="container-fluid">
-									<div class="row">
-										<div class="col-md-8">
+						<div class="content">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-md-4">
+										<div style="margin-top: 23%;"class="card card-profile">
+											<div class="profile-img">
+												<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
+												class="rounded-circle" width="150">
+											</div>
+											<% data[0].forEach(function(Profile){ %>
+												<div class="card-body">
+													<h4 class="card-title"> <%-Profile['nombreUsuario'] %></h4>
+													<p class="card-description">
+														Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+													</p>
+												</div>
+											<% }); %>
+										</div>
+									</div>
+									<div class="col-md-8">
+										<% data[0].forEach(function(Profile){ %>
 											<div class="card">
 												<div class="card-header card-header-primary">
-													<h4 class="card-title"><%- Usuario['nombreUsuario'] %></h4>
+													<h4 class="card-title"><%- Profile['nombreUsuario'] %></h4>
 													<p class="card-category">Escuela Experimental Pro-A</p>
 												</div>
 												<div class="card-body">
@@ -52,7 +68,7 @@
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
-																	<label class="bmd-label-floating">Fist Name</label>
+																	<label class="bmd-label-floating">Nombre: </label>
 																</div>
 															</div>
 														</div>
@@ -63,32 +79,21 @@
 																</div>
 															</div>
 														</div>
-														<ul class="informatin">
-															<% for (var i=0; i < rol.length; i++) {%> <% if (rol[i] == 'administrador') { %> <%- include('fragment/profiles/adminProfile'); %> <% } %> <% if (rol[i] == 'preceptor') { %> <%- include('fragmentht/profiles/preceptorProfile'); %> <% } %> <% if (rol[i]== 'profesor') { %> <%-
-															include('fragment/profiles/teacherProfile'); %> <% } %> <% if (rol[i] == 'estudiante') { %> <%- include('fragment/profiles/studentProfile '); %> <% } %> <% } %>
-														</ul>
+														<div class="row">
+															<div class="col-md-12">
+																<div class="form-group">
+																	<label class="bmd-label-floating">tonto</label>
+																</div>
+															</div>
+														</div>
 													</form>
 												</div>
 											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="card card-profile">
-												<div class="profile-img">
-													<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
-													class="rounded-circle" width="150">
-												</div>
-												<div class="card-body">
-													<h4 class="card-title">Hector Raul Garcia</h4>
-													<p class="card-description">
-														Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-													</p>
-												</div>
-											</div>
-										</div>
+										<% }); %>
 									</div>
 								</div>
 							</div>
-						<% }); %>
+						</div>
 					</div>    
 				</div>
 			</div>

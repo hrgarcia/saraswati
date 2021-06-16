@@ -48,21 +48,40 @@
                 <div class="container">
                     <br />
                     <br />
+                    <% for(var i = 0; i < rol.length; i++) { %>
+                    <!-- Contenido para el dashboard administrador -->
+                    <% if (rol[i] == 'administrador') { %>
+                    <p>Cosas del administrador acá</p>
+                    <% } %>
+
+                    <!-- Contenido para el dashboard preceptor-->
+                    <% if (rol[i] == 'preceptor') { %>
+                    <div class="jumbotron">
+                        <h1 class="display-4">Hello, world!</h1>
+                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                        <hr class="my-4" />
+                        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                        <p class="lead">
+                            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        </p>
+                    </div>
+                    <% } %>
+
                     <!-- Cards del profesor -->
-                    <% if (rol == 'profesor') { %>
+                    <% if (rol[i] == 'profesor') { %>
                     <div class="form-row">
-                        <% data[0].forEach(function(InfoUser){ %>
+                        <% data[i].forEach(function(InfoUser){ %>
                         <div class="col-md-3" style="margin-left: 50px">
                             <div class="card" style="background-image: url('<%-InfoUser.imagen%>')">
                                 <div class="header">
                                     <div class="content">
-                                        <h4 class="subject title title-uppercase cortado" myAtribute="0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- InfoUser['nombreMateria']%></h4>
+                                        <h4 class="subject title title-uppercase" myAtribute="0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- InfoUser['nombreMateria']%></h4>
                                         <h6 class="label label-danger" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black"><%- InfoUser['curso_descripcion']%></h6>
                                         <br />
                                         <br />
                                         <br />
                                         <div>
-                                            <li class="fas fa-clock teacher_name nombreProfe" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 215px"><%- " " + InfoUser['nombre']%> <%- InfoUser['apellido']%></li>
+                                            <li class="fas fa-clock teacher_name" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 215px"><%- " " + InfoUser['nombre']%> <%- InfoUser['apellido']%></li>
                                             <br />
                                             <li class="fas fa-user" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 245px"><%- " " + InfoUser['horasCatedra']%> Horas cátedras</li>
                                         </div>
@@ -89,26 +108,11 @@
                         <% }); %>
                     </div>
                     <% } %>
-                    <!-- Contenido para el dashboard administrador -->
-                    <% if (rol == 'administrador') { %>
-                    <p>Cosas del administrador acá</p>
-                    <% } %>
-                    <!-- Contenido para el dashboard preceptor-->
-                    <% if (rol[0] == 'preceptor') { %>
-                    <div class="jumbotron">
-                        <h1 class="display-4">Hello, world!</h1>
-                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                        <hr class="my-4" />
-                        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                        <p class="lead">
-                            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-                        </p>
-                    </div>
-                    <% } %>
+
                     <!-- Contenido para el dashboard estudiante -->
-                    <% if (rol == 'estudiante') { %>
+                    <% if (rol[i] == 'estudiante') { %>
                     <p>Cosas del estudiante acá</p>
-                    <% } %>
+                    <% } %> <% } %>
                 </div>
             </div>
             <%- include('fragment/footer'); -%>

@@ -106,15 +106,16 @@ app.get("/dashboard", (req, res) => {
                 res.render("dashboard.ejs");
             }
             if (rol[i] == "preceptor") {
-                async function getSubjects() {
-                    let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
-                    return new Promise((resolve, reject) => {
-                        con.query(query, [username], (error, rows) => {
-                            return resolve(rows);
-                        });
-                    });
-                }
-                auxData.push(getSubjects());
+                // async function getSubjects() {
+                //     let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
+                //     return new Promise((resolve, reject) => {
+                //         con.query(query, [username], (error, rows) => {
+                //             return resolve(rows);
+                //         });
+                //     });
+                // }
+                // auxData.push(getSubjects());
+                console.log("soy preceptor");
             }
             if (rol[i] == "profesor") {
                 async function getSubjects() {
@@ -165,7 +166,7 @@ app.get("/agregarProfesor", (req, res) => {
             //console.log(rows[index]);
         }
         res.render("addTeacher.ejs", {
-            title:"Materias",
+            title: "Materias",
             data: rows,
         });
     });
@@ -239,18 +240,81 @@ app.get("/listarUsuarios", (req, res) => {
 });
 
 app.get("/miPerfil", (req, res) => {
-    let query = "SELECT * FROM usuario  WHERE usuario.nombreUsuario = ?";
-    //tendria que cambiar la consula actual por la que le dejo a continuacion y borrar
-    //los corchetes y el contenido de abajo
+    let rol = res.locals.rol;
+    let username = res.locals.username;
+    var auxData = [];
 
-    //`SELECT * FROM usuario  JOIN ${res.locals.rol} ON ${res.locals.rol}.nombreUsuario = ${res.locals.username} AND usuario.nombreUsuario = ${res.locals.username}`
-    con.query(query, [res.locals.username], (error, rows, fields) => {
-        if (error) throw error;
-        res.render("myProfile.ejs", {
-            title: "Perfil",
-            data: rows,
+    async function infoProfile() {
+        let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ?";
+        return new Promise((resolve, reject) => {
+            con.query(query, [username], (error, rows) => {
+                return resolve(rows);
+            });
         });
-    });
+    }
+    auxData.push(infoProfile());
+
+    for (let i = 0; i < rol.length; i++) {
+        if (rol[i] == "administrador") {
+            // async function infoProfile() {
+            //     let query = "SELECT * FROM admin";
+            //     return new Promise((resolve, reject) => {
+            //         con.query(query, [username], (error, rows) => {
+            //             return resolve(rows);
+            //         });
+            //     });
+            // }
+            // auxData.push(infoProfile());
+            console.log("soy administrador");
+        }
+        if (rol[i] == "preceptor") {
+            // async function infoProfile() {
+            //     let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
+            //     return new Promise((resolve, reject) => {
+            //         con.query(query, [username], (error, rows) => {
+            //             return resolve(rows);
+            //         });
+            //     });
+            // }
+            // auxData.push(infoProfile());
+            console.log("soy preceptor");
+        }
+        if (rol[i] == "profesor") {
+            async function infoProfile() {
+                let query = "SELECT * FROM profesor WHERE nombreUsuario = ?";
+                return new Promise((resolve, reject) => {
+                    con.query(query, [username], (error, rows) => {
+                        return resolve(rows);
+                    });
+                });
+            }
+            auxData.push(infoProfile());
+        }
+        if (rol[i] == "estudiante") {
+            // async function infoProfile() {
+            //     let query = "SELECT * FROM estudiate";
+            //     return new Promise((resolve, reject) => {
+            //         con.query(query, [username], (error, rows) => {
+            //             return resolve(rows);
+            //         });
+            //     });
+            // }
+            // auxData.push(infoProfile());
+            console.log("soy estudiante");
+        }
+    }
+    async function sequentialQueries() {
+        try {
+            const result = await Promise.all(auxData);
+            res.render("myProfile.ejs", {
+                title: "Profile",
+                data: result,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    sequentialQueries();
 });
 
 app.get("/obtenerAprendizajes", (req, res) => {
