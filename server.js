@@ -29,7 +29,7 @@ var uploads = multer({
             cb(null, true);
         }
     },
-}).single("avatar");
+}).single("document");
 
 const storageAprendizajes = multer.diskStorage({
     filename: (req, file, cb) => {
@@ -433,7 +433,7 @@ app.post("/estudianteMateria", (req, res) => {
 app.post("/subirFotos", uploads, (req, res, next) => {
     let width = 800;
     let heigth = 600;
-
+    console.log('Imprimo ' + req.file);
     sharp(req.file.path)
         .resize(width, heigth)
         .toFile("public/images/icons/avatar_" + req.file.originalname, (err) => {
@@ -565,6 +565,10 @@ app.post("/login", (req, res) => {
             // Toastr (wrong credentials)
         }
     });
+});
+
+app.get("/generarImagen",(req, res) => {
+    res.render("generarImagen.ejs");
 });
 
 //Rutas del rol administrador
