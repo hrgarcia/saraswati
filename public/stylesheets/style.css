@@ -197,3 +197,7 @@ td.none {
     height: 80%;
     overflow-y: auto;
 }
+
+.tituloestudiante{
+    text-align: center;
+}

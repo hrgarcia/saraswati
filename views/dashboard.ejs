@@ -37,6 +37,13 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:700,100,400|Roboto:400,700|Playfair+Display+SC:400,700" rel="stylesheet" type="text/css" />
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/css/uikit.min.css" />
+
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit-icons.min.js"></script>
+
         <%- include('fragment/background'); -%>
     </head>
 
@@ -56,15 +63,36 @@
 
                     <!-- Contenido para el dashboard preceptor-->
                     <% if (rol[i] == 'preceptor') { %>
-                    <div class="jumbotron">
-                        <h1 class="display-4">Hello, world!</h1>
-                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                        <hr class="my-4" />
-                        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                        <p class="lead">
-                            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-                        </p>
-                    </div>
+                        <ul uk-accordion >
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" >Martin Perez</a>
+                                <div class="uk-accordion-content">
+                                    <div id="grafico" class="tituloestudiante">
+                                        <h4>Martin Perez</h4>
+                                        <canvas id="MiGrafica" width="400" height="400"></canvas>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" >Lucia hd</a>
+                                <div class="uk-accordion-content">
+                                    <div id="grafico" class="tituloestudiante">
+                                        <h4>Lucia hd</h4>
+                                        <canvas id="MiGrafica2" width="400" height="400"></canvas>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" >Martin Bustamante</a>
+                                <div class="uk-accordion-content">
+                                    <div id="grafico" class="tituloestudiante">
+                                        <h4>Martin Bustamante</h4>
+                                        <canvas id="MiGrafica3" width="400" height="400"></canvas>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        
                     <% } %>
 
                     <!-- Cards del profesor -->
@@ -168,5 +196,80 @@
                 });
             });
         </script>
+        <script>
+            let miCanvas=document.getElementById("MiGrafica").getContext("2d");
+    
+            var MiGrafica = new Chart(miCanvas,{
+                type:"pie",
+                data:{
+                    labels:["Logrado","Proceso","Pendiente"],
+                    datasets:[
+                        {
+                            data:[16,8,2],
+                            label: "perez",
+                            backgroundColor: [
+                            'rgb(54, 233, 0)',
+                            'rgb(255, 255, 0)',
+                            'rgb(255, 0, 0)',
+                            ],
+                        
+                        }]
+                    },
+                options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+            
+        });  
+            let miCanvas2=document.getElementById("MiGrafica2").getContext("2d");
+    
+            var MiGrafica2 = new Chart(miCanvas2,{
+                type:"pie",
+                data:{
+                    labels:["Logrado","Proceso","Pendiente"],
+                    datasets:[
+                        {
+                            data:[2,8,40],
+                            label: "perez",
+                            backgroundColor: [
+                            'rgb(54, 233, 0)',
+                            'rgb(255, 255, 0)',
+                            'rgb(255, 0, 0)',
+                            ],
+                        
+                        }]
+                    },
+                options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+            
+        });  
+            let miCanvas3=document.getElementById("MiGrafica3").getContext("2d");
+    
+            var MiGrafica3 = new Chart(miCanvas3,{
+                type:"pie",
+                data:{
+                    labels:["Logrado","Proceso","Pendiente"],
+                    datasets:[
+                        {
+                            data:[25,3,2],
+                            label: "perez",
+                            backgroundColor: [
+                            'rgb(54, 233, 0)',
+                            'rgb(255, 255, 0)',
+                            'rgb(255, 0, 0)',
+                            ],
+                        
+                        }]
+                    },
+                options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+            
+        });  
+        </script>
+
     </body>
 </html>
