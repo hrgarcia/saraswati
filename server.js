@@ -159,16 +159,35 @@ app.get("/logout", (req, res) => {
 });
 
 app.get("/agregarProfesor", (req, res) => {
-    let materia = [];
     let query = "SELECT * FROM materia WHERE profesor_usuario = ? ";
     con.query(query, ["lmazzola"], (error, rows, fields) => {
         for (let index = 0; index < rows.length; index++) {
-            //console.log(rows[index]);
+            
         }
         res.render("addTeacher.ejs", {
             title: "Materias",
             data: rows,
         });
+    });
+    
+});
+
+app.post("/agregar", (req,res) => {
+    let nickname = req.body.nickname;
+    let firstname = req.body.firstname;
+    let lastname = req.body.lastname;
+    let email = req.body.email;
+    let Ingreso = req.body.Ingreso;
+    let fecha_nacimiento = req.body.fecha_nacimiento;
+    let dni = req.body.dni;
+    let telefono = req.body.telefono;
+    let genero = req.body.genero;
+    let Estado = req.body.Estado;
+    
+    let formquery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)"; 
+    con.query(formquery, [nickname, firstname, lastname,dni,telefono,email,genero,fecha_nacimiento,Ingreso,Estado], (error, rows, fields) => {
+        if (error) throw error;
+        res.redirect("/dashboard");
     });
 });
 

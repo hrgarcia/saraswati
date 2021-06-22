@@ -37,7 +37,7 @@
                 <br />
                 <br />
                 <div class="cardStudent wizard-card" data-color="orange" id="wizardProfile">
-                    <form action="" method="">
+                    <form action="/agregar" method="post">
                         <!--        You can switch " data-color="orange" "  with one of the next bright colors: "blue", "green", "orange", "red", "azure"          -->
 
                         <div class="wizard-header text-center">
@@ -118,7 +118,7 @@
                                         <div class="form-group">
                                             <label>Ingreso <small>obligatorio</small></label>
                                             <br />
-                                            <input name="Fecha" class="uk-input uk-form-width-large" type="date" placeholder="11/08/2003" />
+                                            <input name="Ingreso" class="uk-input uk-form-width-large" type="date" placeholder="11/08/2003" />
                                         </div>
                                     </div>
                                 </div>
@@ -146,19 +146,19 @@
                                     <div class="col-sm-7 col-sm-offset-1">
                                         <div class="form-group">
                                             <label>Fecha de nacimiento</label>
-                                            <input type="date" class="form-control" placeholder="10/12/2003" />
+                                            <input type="date" name= "fecha-nacimiento"class="form-control" placeholder="10/12/2003" />
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>DNI</label>
-                                            <input type="text" class="form-control" placeholder="323232" />
+                                            <input type="text" class="form-control" placeholder="323232" name= "dni"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-5 col-sm-offset-1">
                                         <div class="form-group">
                                             <label>Número de teléfono</label>
-                                            <input type="text" class="form-control" placeholder="35135..." />
+                                            <input type="text" class="form-control" placeholder="35135..." name="telefono"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-5">
@@ -186,7 +186,7 @@
                         <div class="wizard-footer">
                             <div class="pull-right">
                                 <input type="button" class="btn btn-next btn-fill btn-warning btn-wd" name="siguiente" value="Siguiente" />
-                                <input type="button" class="btn btn-finish btn-fill btn-warning btn-wd" name="cargar" value="Cargar" />
+                                <input type="submit" class="btn btn-finish btn-fill btn-warning btn-wd"  name="cargar" value="Cargar" />
                             </div>
                             <div class="pull-left">
                                 <input type="button" class="btn btn-previous btn-default btn-wd" name="volver" value="Volver" />
