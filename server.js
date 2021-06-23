@@ -29,7 +29,7 @@ var uploads = multer({
             cb(null, true);
         }
     },
-}).single("document");
+}).single("avatar");
 
 const storageAprendizajes = multer.diskStorage({
     filename: (req, file, cb) => {
@@ -172,6 +172,9 @@ app.get("/agregarProfesor", (req, res) => {
     
 });
 
+
+
+
 app.post("/agregar", (req,res) => {
     let nickname = req.body.nickname;
     let firstname = req.body.firstname;
@@ -183,11 +186,29 @@ app.post("/agregar", (req,res) => {
     let telefono = req.body.telefono;
     let genero = req.body.genero;
     let Estado = req.body.Estado;
+    let password = req.body.password;
+    let avatar = req.body.avatar;
     
-    let formquery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)"; 
-    con.query(formquery, [nickname, firstname, lastname,dni,telefono,email,genero,fecha_nacimiento,Ingreso,Estado], (error, rows, fields) => {
+    let salt = 10; // Standar value
+
+    bcrypt.hash(req.body.password, salt, (err, encrypted) => {
+        let password = encrypted;
+        let userquery = "INSERT INTO usuario(nombreUsuario,pass, avatar) VALUE (?,?,?)"
+        con.query(userquery, [nickname,password,avatar], (error, rows, fields) => {
+            if (error) throw error;
+        });
+    });
+
+    let rolquery = "INSERT INTO rol(id,nombre,nombreUsuario) VALUE(?,?)"
+    con.query(rolquery, [nickname], (error, rows, fields) => {
         if (error) throw error;
-        res.redirect("/dashboard");
+    });
+    
+    
+    let profequery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)"; 
+    con.query(profequery, [nickname, firstname, lastname,dni,telefono,email,genero,fecha_nacimiento,Ingreso,Estado], (error, rows, fields) => {
+        if (error) throw error;
+        res.redirect("/addTeacher.ejs");
     });
 });
 
@@ -433,7 +454,7 @@ app.post("/estudianteMateria", (req, res) => {
 app.post("/subirFotos", uploads, (req, res, next) => {
     let width = 800;
     let heigth = 600;
-    console.log('Imprimo ' + req.file);
+
     sharp(req.file.path)
         .resize(width, heigth)
         .toFile("public/images/icons/avatar_" + req.file.originalname, (err) => {
@@ -490,23 +511,6 @@ app.post("/crearProfesor", urlencodedParser, (req, res) => {
     //         res.render("dashboard.ejs");
     //     });
     // });
-});
-
-app.post("/crearTutor", urlencodedParser, (req, res) => {
-    let firstName = req.body.firstName;
-    let lastName = req.body.lastName;
-    let email = req.body.email;
-    let telephone = req.body.telephone;
-    let movil = req.body.movil;
-
-    let query1 = "SELECT dni FROM estudiante INNER JOIN tutor ON ?  = estudiante_dni ";
-    let query = "INSERT INTO tutor (nombre,apellido,email,telefono,celular) VALUES (?,?,?,?,?);";
-    con.query(query, [firstName, lastName, email,telephone, movil], (error, rows, fields) => {
-        if (error) throw error;
-        res.redirect("/dashboard");
-    });
-
-
 });
 
 app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
@@ -582,10 +586,6 @@ app.post("/login", (req, res) => {
             // Toastr (wrong credentials)
         }
     });
-});
-
-app.get("/generarImagen",(req, res) => {
-    res.render("generarImagen.ejs");
 });
 
 //Rutas del rol administrador
