@@ -161,18 +161,15 @@ app.get("/logout", (req, res) => {
 app.get("/agregarProfesor", (req, res) => {
     let query = "SELECT * FROM materia WHERE profesor_usuario = ? ";
     con.query(query, ["lmazzola"], (error, rows, fields) => {
-        for (let index = 0; index < rows.length; index++) {
-            
-        }
+        for (let index = 0; index < rows.length; index++) {}
         res.render("addTeacher.ejs", {
             title: "Materias",
             data: rows,
         });
     });
-    
 });
 
-app.post("/agregar", (req,res) => {
+app.post("/agregar", (req, res) => {
     let nickname = req.body.nickname;
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;
@@ -183,9 +180,9 @@ app.post("/agregar", (req,res) => {
     let telefono = req.body.telefono;
     let genero = req.body.genero;
     let Estado = req.body.Estado;
-    
-    let formquery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)"; 
-    con.query(formquery, [nickname, firstname, lastname,dni,telefono,email,genero,fecha_nacimiento,Ingreso,Estado], (error, rows, fields) => {
+
+    let formquery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    con.query(formquery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, Ingreso, Estado], (error, rows, fields) => {
         if (error) throw error;
         res.redirect("/dashboard");
     });
@@ -433,12 +430,15 @@ app.post("/estudianteMateria", (req, res) => {
 app.post("/subirFotos", uploads, (req, res, next) => {
     let width = 800;
     let heigth = 600;
-    console.log('Imprimo ' + req.file);
+    console.log("Imprimo " + req.file);
     sharp(req.file.path)
         .resize(width, heigth)
         .toFile("public/images/icons/avatar_" + req.file.originalname, (err) => {
-            if (!err) {
+            if (err) {
+                console.log(error);
+            } else {
                 console.log("El archivo se subio correctamente");
+                //Acá va la consulta update para modificar el avatar
                 res.end();
             }
         });
@@ -501,12 +501,10 @@ app.post("/crearTutor", urlencodedParser, (req, res) => {
 
     let query1 = "SELECT dni FROM estudiante INNER JOIN tutor ON ?  = estudiante_dni ";
     let query = "INSERT INTO tutor (nombre,apellido,email,telefono,celular) VALUES (?,?,?,?,?);";
-    con.query(query, [firstName, lastName, email,telephone, movil], (error, rows, fields) => {
+    con.query(query, [firstName, lastName, email, telephone, movil], (error, rows, fields) => {
         if (error) throw error;
         res.redirect("/dashboard");
     });
-
-
 });
 
 app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
@@ -584,7 +582,7 @@ app.post("/login", (req, res) => {
     });
 });
 
-app.get("/generarImagen",(req, res) => {
+app.get("/generarImagen", (req, res) => {
     res.render("generarImagen.ejs");
 });
 
