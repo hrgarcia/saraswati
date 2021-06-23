@@ -29,7 +29,7 @@ var uploads = multer({
             cb(null, true);
         }
     },
-}).single("avatar");
+}).single("document");
 
 const storageAprendizajes = multer.diskStorage({
     filename: (req, file, cb) => {
@@ -169,7 +169,7 @@ app.get("/agregarProfesor", (req, res) => {
     });
 });
 
-app.post("/agregar", (req,res) => {
+app.post("/agregar", (req, res) => {
     let nickname = req.body.nickname;
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;
@@ -183,30 +183,8 @@ app.post("/agregar", (req,res) => {
 
     let formquery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
     con.query(formquery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, Ingreso, Estado], (error, rows, fields) => {
-
-    let password = req.body.password;
-    let avatar = req.body.avatar;
-    
-    let salt = 10; // Standar value
-
-    bcrypt.hash(req.body.password, salt, (err, encrypted) => {
-        let password = encrypted;
-        let userquery = "INSERT INTO usuario(nombreUsuario,pass, avatar) VALUE (?,?,?)"
-        con.query(userquery, [nickname,password,avatar], (error, rows, fields) => {
-            if (error) throw error;
-        });
-    });
-
-    let rolquery = "INSERT INTO rol(id,nombre,nombreUsuario) VALUE(?,?)"
-    con.query(rolquery, [nickname], (error, rows, fields) => {
         if (error) throw error;
-    });
-    
-    
-    let profequery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)"; 
-    con.query(profequery, [nickname, firstname, lastname,dni,telefono,email,genero,fecha_nacimiento,Ingreso,Estado], (error, rows, fields) => {
-        if (error) throw error;
-        res.redirect("/addTeacher.ejs");
+        res.redirect("/dashboard");
     });
 });
 
@@ -456,11 +434,8 @@ app.post("/subirFotos", uploads, (req, res, next) => {
     sharp(req.file.path)
         .resize(width, heigth)
         .toFile("public/images/icons/avatar_" + req.file.originalname, (err) => {
-            if (err) {
-                console.log(error);
-            } else {
+            if (!err) {
                 console.log("El archivo se subio correctamente");
-                //Acá va la consulta update para modificar el avatar
                 res.end();
             }
         });
@@ -512,21 +487,6 @@ app.post("/crearProfesor", urlencodedParser, (req, res) => {
     //         res.render("dashboard.ejs");
     //     });
     // });
-});
-
-app.post("/crearTutor", urlencodedParser, (req, res) => {
-    let firstName = req.body.firstName;
-    let lastName = req.body.lastName;
-    let email = req.body.email;
-    let telephone = req.body.telephone;
-    let movil = req.body.movil;
-
-    let query1 = "SELECT dni FROM estudiante INNER JOIN tutor ON ?  = estudiante_dni ";
-    let query = "INSERT INTO tutor (nombre,apellido,email,telefono,celular) VALUES (?,?,?,?,?);";
-    con.query(query, [firstName, lastName, email, telephone, movil], (error, rows, fields) => {
-        if (error) throw error;
-        res.redirect("/dashboard");
-    });
 });
 
 app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
