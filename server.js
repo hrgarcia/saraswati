@@ -169,14 +169,7 @@ app.get("/agregarProfesor", (req, res) => {
     });
 });
 
-<<<<<<< HEAD
-app.post("/agregar", (req, res) => {
-=======
-
-
-
 app.post("/agregar", (req,res) => {
->>>>>>> 3b43b2c967f2896f051b0bb2e7aea4244d8c31e4
     let nickname = req.body.nickname;
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;
@@ -187,11 +180,10 @@ app.post("/agregar", (req,res) => {
     let telefono = req.body.telefono;
     let genero = req.body.genero;
     let Estado = req.body.Estado;
-<<<<<<< HEAD
 
     let formquery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
     con.query(formquery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, Ingreso, Estado], (error, rows, fields) => {
-=======
+
     let password = req.body.password;
     let avatar = req.body.avatar;
     
@@ -207,7 +199,6 @@ app.post("/agregar", (req,res) => {
 
     let rolquery = "INSERT INTO rol(id,nombre,nombreUsuario) VALUE(?,?)"
     con.query(rolquery, [nickname], (error, rows, fields) => {
->>>>>>> 3b43b2c967f2896f051b0bb2e7aea4244d8c31e4
         if (error) throw error;
     });
     
@@ -461,11 +452,7 @@ app.post("/estudianteMateria", (req, res) => {
 app.post("/subirFotos", uploads, (req, res, next) => {
     let width = 800;
     let heigth = 600;
-<<<<<<< HEAD
     console.log("Imprimo " + req.file);
-=======
-
->>>>>>> 3b43b2c967f2896f051b0bb2e7aea4244d8c31e4
     sharp(req.file.path)
         .resize(width, heigth)
         .toFile("public/images/icons/avatar_" + req.file.originalname, (err) => {
@@ -527,7 +514,6 @@ app.post("/crearProfesor", urlencodedParser, (req, res) => {
     // });
 });
 
-<<<<<<< HEAD
 app.post("/crearTutor", urlencodedParser, (req, res) => {
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
@@ -543,8 +529,6 @@ app.post("/crearTutor", urlencodedParser, (req, res) => {
     });
 });
 
-=======
->>>>>>> 3b43b2c967f2896f051b0bb2e7aea4244d8c31e4
 app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
     let trimester = req.body.quarter;
     let idSubject = req.body.idSubject;
@@ -620,13 +604,10 @@ app.post("/login", (req, res) => {
     });
 });
 
-<<<<<<< HEAD
 app.get("/generarImagen", (req, res) => {
     res.render("generarImagen.ejs");
 });
 
-=======
->>>>>>> 3b43b2c967f2896f051b0bb2e7aea4244d8c31e4
 //Rutas del rol administrador
 app.get("/backupDB", (req, res) => {
     var exec = require("child_process").exec;
