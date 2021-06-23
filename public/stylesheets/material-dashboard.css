@@ -17456,6 +17456,20 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
+
+.cardTutor {
+    border: 3px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    border-radius: 6px;
+    color: #fffbfb;
+    background: #fff;
+    margin-left: 100px;
+    border-color: #00000042;
+    width: 80%;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
 .card .card-category:not([class*="text-"]) {
     color: #999999;
 }

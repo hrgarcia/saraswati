@@ -1196,7 +1196,7 @@ input[type="button"]:focus {
 }
 
 .wizard-card {
-  min-height: 410px;
+  min-height: 210px;
   box-shadow: 0 20px 16px -15px rgba(0, 0, 0, 0.57);
 }
 .wizard-card .picture-container {
