@@ -1,104 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>Datos de perfil</title>
+        <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
 
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>
-		Datos de perfil
-	</title>
-	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-	<!--     Fonts and icons     -->
-	<link rel="stylesheet" type="text/css"
-		href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-	<!-- Iconos Font Awesome -->
-	<script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="/css/bootstrap.min.css">
-	<!-- CSS Files -->
-	<link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
-	<link href="/stylesheets/editar.css" rel="stylesheet" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
-	<%- include('fragment/background'); -%>
-</head>
+        <!--     Fonts and icons     -->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 
-<body class="">
-	<%- include('fragment/sidebar'); -%>
-	<div class="main-panel">
-		<%- include('fragment/navbar'); -%>
-		<div class="content">
-			<div class="container">
-				<div class="main-body">
-					<div class="container emp-profile">
-						<div class="content">
-							<div class="container-fluid">
-								<div class="row">
-									<div class="col-md-4">
-										<div style="margin-top: 23%;"class="card card-profile">
-											<div class="profile-img">
-												<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
-												class="rounded-circle" width="150">
-											</div>
-											<% data[0].forEach(function(Profile){ %>
-												<div class="card-body">
-													<h4 class="card-title"> <%-Profile['nombreUsuario'] %></h4>
-													<p class="card-description">
-														Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-													</p>
-												</div>
-											<% }); %>
-										</div>
-									</div>
-									<div class="col-md-8">
-										<% data[0].forEach(function(Profile){ %>
-											<div class="card">
-												<div class="card-header card-header-primary">
-													<h4 class="card-title"><%- Profile['nombreUsuario'] %></h4>
-													<p class="card-category">Escuela Experimental Pro-A</p>
-												</div>
-												<div class="card-body">
-													<form>
-														<div class="row">
-															<div class="col-md-4">
-																<div class="form-group">
-																	<label class="bmd-label-floating">email</label>
-																</div>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label class="bmd-label-floating">Nombre: </label>
-																</div>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-12">
-																<div class="form-group">
-																	<label class="bmd-label-floating">Adress</label>
-																</div>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-12">
-																<div class="form-group">
-																	<label class="bmd-label-floating">tonto</label>
-																</div>
-															</div>
-														</div>
-													</form>
-												</div>
-											</div>
-										<% }); %>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>    
-				</div>
-			</div>
-			<%- include('fragment/footer'); -%>
-		</div>
-		<%- include('fragment/scripts'); -%>
-	</body>
+        <!-- Iconos Font Awesome -->
+        <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css" />
+
+        <!-- CSS Files -->
+        <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+
+        <%- include('fragment/background'); -%>
+    </head>
+
+    <body>
+        <%- include('fragment/sidebar'); -%>
+        <div class="main-panel">
+            <%- include('fragment/navbar'); -%>
+            <div class="content">
+                <div class="main-body">
+                    <div class="container emp-profile">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div style="margin-top: 23%" class="card card-profile">
+                                    <div class="profile-img">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" />
+                                    </div>
+                                    <% data[0].forEach(function(Profile){ %>
+                                    <div class="card-body">
+                                        <h4 class="card-title"><%-Profile['nombreUsuario'] %></h4>
+                                        <p class="card-description">Don't be scared of the truth because we need to restart, Kanye..</p>
+                                    </div>
+                                    <% }); %>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-header card-header-primary">
+                                        <h4 class="card-title">Informacion personal</h4>
+                                        <p class="card-category">Escuela Experimental Pro-A</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="test1">
+                                            <% for(let i = 1; i <= rol.length; i++) { %>
+
+                                            <!-- Admin -->
+                                            <% if (rol[i-1] == 'administrador') { %>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">adminisitrador</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% } %>
+
+                                            <!-- preceptor -->
+                                            <% if (rol[i-1] == 'preceptor') { %>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">preceptor</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% } %>
+
+                                            <!-- profesor -->
+                                            <% if (rol[i-1] == 'profesor') { %> <% data[i].forEach(function(Profile){ %>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Nombre: <input style="text-align: center" type="text" name="nombre" readonly onmousedown="return false;" value="<%-Profile['nombre']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Apellido: <input style="text-align: center" type="text" name="apellido" readonly onmousedown="return false;" value="<%-Profile['apellido']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Email: <input style="text-align: center" type="text" name="email" value="<%-Profile['email']%>" placeholder="<%-Profile['email']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Telefono: <input style="text-align: center" type="text" name="telefono" value="<%-Profile['telefono']%>" placeholder="<%-Profile['telefono']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Género: <input style="text-align: center" type="text" name="genero" value="<%-Profile['genero']%>" placeholder="<%-Profile['genero']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">DNI: <input style="text-align: center" type="text" name="dni" readonly onmousedown="return false;" value="<%-Profile['dni']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Nacimieto: <input style="text-align: center" type="text" name="nacimiento" readonly onmousedown="return false;" value="<%-Profile['nacimiento']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Ingreso: <input style="text-align: center" type="text" name="ingreso" readonly onmousedown="return false;" value="<%-Profile['ingreso']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Estado: <input style="text-align: center" type="text" name="estado" readonly onmousedown="return false;" value="<%-Profile['estado']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">avatar:</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% }); %> <% } %>
+                                            <!-- estudiante -->
+                                            <% if (rol[i-1] == 'estudiante') { %> <% data[i].forEach(function(Profile){ %>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Nombre: <input style="text-align: center" type="text" name="nombre" readonly onmousedown="return false;" value="<%-Profile['nombre']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Apellido: <input style="text-align: center" type="text" name="apellido" readonly onmousedown="return false;" value="<%-Profile['apellido']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Email: <input style="text-align: center" type="text" name="email" value="<%-Profile['email']%>" placeholder="<%-Profile['email']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Telefono: <input style="text-align: center" type="text" name="telefono" value="<%-Profile['telefono']%>" placeholder="<%-Profile['telefono']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Género: <input style="text-align: center" type="text" name="genero" value="<%-Profile['genero']%>" placeholder="<%-Profile['genero']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">DNI: <input style="text-align: center" type="text" name="dni" readonly onmousedown="return false;" value="<%-Profile['dni']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Nacimieto: <input style="text-align: center" type="text" name="nacimiento" readonly onmousedown="return false;" value="<%-Profile['nacimiento']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Curso: <input style="text-align: center" type="text" name="curso" readonly onmousedown="return false;" value="<%-Profile['descripcion_curso']%>" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% }); %> <% } %> <% } %>
+                                            <br />
+                                            <button onclick="checkInfoChange()">Guardar cambios</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('fragment/footer'); -%>
+        </div>
+        <%- include('fragment/scripts'); -%>
+    </body>
+
+    <!-- jquery/jqueryValidate -->
+    <script src="/javascripts/core/jquery.min.js"></script>
+    <script src="javascripts/jquery.validate.min.js" type="text/javascript"></script>
+
+    <!-- Own SweetAlert2 -->
+    <script src="/javascripts/sweetAlerts.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Validation -->
+    <script>
+        function checkInfoChange() {
+            let aux = $("#test1 input:not([readonly])");
+            console.log(aux);
+        }
+
+        $("#loginF").validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true,
+                },
+                telefono: {
+                    required: true,
+                    minlength: 10,
+                    maxlength: 10,
+                },
+                genero: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 12,
+                },
+                avatar: {
+                    required: true,
+                },
+            },
+            messages: {
+                email: {
+                    required: "Ingrese un email",
+                    email: "Ingrese un email con el formato correcto",
+                },
+                telefono: {
+                    required: "Ingrese un telefono",
+                    minlength: "El telefono es muy corta",
+                    maxlength: "El telefono es muy grande",
+                },
+            },
+        });
+    </script>
 </html>
