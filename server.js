@@ -169,7 +169,7 @@ app.get("/agregarProfesor", (req, res) => {
     });
 });
 
-app.post("/agregar", (req, res) => {
+app.post("/agregar", (req,res) => {
     let nickname = req.body.nickname;
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;
@@ -180,11 +180,29 @@ app.post("/agregar", (req, res) => {
     let telefono = req.body.telefono;
     let genero = req.body.genero;
     let Estado = req.body.Estado;
+    let password = req.body.password;
+    let avatar = req.body.avatar;
+    
+    let salt = 10; // Standar value
 
-    let formquery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
-    con.query(formquery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, Ingreso, Estado], (error, rows, fields) => {
+    bcrypt.hash(req.body.password, salt, (err, encrypted) => {
+        let password = encrypted;
+        let userquery = "INSERT INTO usuario(nombreUsuario,pass, avatar) VALUE (?,?,?)"
+        con.query(userquery, [nickname,password,avatar], (error, rows, fields) => {
+            if (error) throw error;
+        });
+    });
+
+    let rolquery = "INSERT INTO rol(id,nombre,nombreUsuario) VALUE(?,?)"
+    con.query(rolquery, [nickname], (error, rows, fields) => {
         if (error) throw error;
-        res.redirect("/dashboard");
+    });
+    
+    
+    let profequery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)"; 
+    con.query(profequery, [nickname, firstname, lastname,dni,telefono,email,genero,fecha_nacimiento,Ingreso,Estado], (error, rows, fields) => {
+        if (error) throw error;
+        res.redirect("/addTeacher.ejs");
     });
 });
 
