@@ -181,20 +181,19 @@ app.post("/agregar", (req,res) => {
     let genero = req.body.genero;
     let Estado = req.body.Estado;
     let password = req.body.password;
-    let avatar = req.body.avatar;
-    
+    let nombre = "profesor";    
     let salt = 10; // Standar value
 
     bcrypt.hash(req.body.password, salt, (err, encrypted) => {
         let password = encrypted;
-        let userquery = "INSERT INTO usuario(nombreUsuario,pass, avatar) VALUE (?,?,?)"
-        con.query(userquery, [nickname,password,avatar], (error, rows, fields) => {
+        let userquery = "INSERT INTO usuario(nombreUsuario,pass) VALUE (?,?)"
+        con.query(userquery, [nickname,password], (error, rows, fields) => {
             if (error) throw error;
         });
     });
 
-    let rolquery = "INSERT INTO rol(id,nombre,nombreUsuario) VALUE(?,?)"
-    con.query(rolquery, [nickname], (error, rows, fields) => {
+    let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)"
+    con.query(rolquery, [nombre,nickname], (error, rows, fields) => {
         if (error) throw error;
     });
     
@@ -205,6 +204,9 @@ app.post("/agregar", (req,res) => {
         res.redirect("/addTeacher.ejs");
     });
 });
+    
+
+
 
 app.get("/agregarUsuario", (req, res) => {
     res.render("addUser.ejs");
