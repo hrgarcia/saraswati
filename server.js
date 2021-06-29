@@ -169,45 +169,6 @@ app.get("/agregarProfesor", (req, res) => {
     });
 });
 
-app.post("/agregar", (req,res) => {
-    let nickname = req.body.nickname;
-    let firstname = req.body.firstname;
-    let lastname = req.body.lastname;
-    let email = req.body.email;
-    let Ingreso = req.body.Ingreso;
-    let fecha_nacimiento = req.body.fecha_nacimiento;
-    let dni = req.body.dni;
-    let telefono = req.body.telefono;
-    let genero = req.body.genero;
-    let Estado = req.body.Estado;
-    let password = req.body.password;
-    let nombre = "profesor";    
-    let salt = 10; // Standar value
-
-    bcrypt.hash(req.body.password, salt, (err, encrypted) => {
-        let password = encrypted;
-        let userquery = "INSERT INTO usuario(nombreUsuario,pass) VALUE (?,?)"
-        con.query(userquery, [nickname,password], (error, rows, fields) => {
-            if (error) throw error;
-        });
-    });
-
-    let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)"
-    con.query(rolquery, [nombre,nickname], (error, rows, fields) => {
-        if (error) throw error;
-    });
-    
-    
-    let profequery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)"; 
-    con.query(profequery, [nickname, firstname, lastname,dni,telefono,email,genero,fecha_nacimiento,Ingreso,Estado], (error, rows, fields) => {
-        if (error) throw error;
-        res.redirect("/addTeacher.ejs");
-    });
-});
-    
-
-
-
 app.get("/agregarUsuario", (req, res) => {
     res.render("addUser.ejs");
 });
@@ -423,6 +384,28 @@ app.get("/borrarAprendizajes", (req, res) => {
     res.send("");
 });
 
+app.get("/GenerateReport", (req, res) => {
+    ejs.renderFile("views/GenerateReport.ejs", { name: "Informes" }, (err, html) => {
+        if (err) throw err;
+        const options = {
+            format: "A4",
+            border: {
+                right: "8",
+            },
+        };
+
+        pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
+            if (err) {
+                res.send(err);
+            } else {
+                console.log("File created successfully");
+            }
+        });
+        res.type("pdf");
+        res.download("uploads/report.pdf");
+    });
+});
+
 app.get("/cambiarEstadoToastr", (req, res) => {
     res.locals.toastrFlag = false;
     req.session.toastrFlag = false;
@@ -431,6 +414,26 @@ app.get("/cambiarEstadoToastr", (req, res) => {
 
 app.get("/estadoToastr", (req, res) => {
     res.send(res.locals.toastrFlag);
+});
+
+app.get("/generarImagen", (req, res) => {
+    res.render("generarImagen.ejs");
+});
+
+//Rutas del rol administrador
+app.get("/backupDB", (req, res) => {
+    var exec = require("child_process").exec;
+    var child = exec(" mysqldump -u root -p '' 'saraswatidb' > dumpfilename.sql");
+    res.end;
+});
+
+// Post
+app.post("/changeInfoProfile", (req, res) => {
+    let query = "UPDATE";
+    con.query(query, (error, rows, fields) => {
+        if (error) throw res.json("infoNotUpdated");
+        res.json("infoUpdated");
+    });
 });
 
 // Returns all students of the selected subject
@@ -521,25 +524,38 @@ app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
     res.redirect("/dashboard");
 });
 
-app.get("/GenerateReport", (req, res) => {
-    ejs.renderFile("views/GenerateReport.ejs", { name: "Informes" }, (err, html) => {
-        if (err) throw err;
-        const options = {
-            format: "A4",
-            border: {
-                right: "8",
-            },
-        };
+app.post("/agregar", (req, res) => {
+    let nickname = req.body.nickname;
+    let firstname = req.body.firstname;
+    let lastname = req.body.lastname;
+    let email = req.body.email;
+    let Ingreso = req.body.Ingreso;
+    let fecha_nacimiento = req.body.fecha_nacimiento;
+    let dni = req.body.dni;
+    let telefono = req.body.telefono;
+    let genero = req.body.genero;
+    let Estado = req.body.Estado;
+    let password = req.body.password;
+    let nombre = "profesor";
+    let salt = 10; // Standar value
 
-        pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
-            if (err) {
-                res.send(err);
-            } else {
-                console.log("File created successfully");
-            }
+    bcrypt.hash(req.body.password, salt, (err, encrypted) => {
+        let password = encrypted;
+        let userquery = "INSERT INTO usuario(nombreUsuario,pass) VALUE (?,?)";
+        con.query(userquery, [nickname, password], (error, rows, fields) => {
+            if (error) throw error;
         });
-        res.type("pdf");
-        res.download("uploads/report.pdf");
+    });
+
+    let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
+    con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
+        if (error) throw error;
+    });
+
+    let profequery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    con.query(profequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, Ingreso, Estado], (error, rows, fields) => {
+        if (error) throw error;
+        res.redirect("/addTeacher.ejs");
     });
 });
 
@@ -582,17 +598,6 @@ app.post("/login", (req, res) => {
             // Toastr (wrong credentials)
         }
     });
-});
-
-app.get("/generarImagen", (req, res) => {
-    res.render("generarImagen.ejs");
-});
-
-//Rutas del rol administrador
-app.get("/backupDB", (req, res) => {
-    var exec = require("child_process").exec;
-    var child = exec(" mysqldump -u root -p '' 'saraswatidb' > dumpfilename.sql");
-    res.end;
 });
 
 app.use((req, res, next) => {

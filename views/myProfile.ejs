@@ -51,164 +51,170 @@
                                     </div>
                                     <div class="card-body">
                                         <div id="test1">
-                                            <% for(let i = 1; i <= rol.length; i++) { %>
+                                            <form id="profileForm" method="post">
+                                                <% for(let i = 1; i <= rol.length; i++) { %>
 
-                                            <!-- Admin -->
-                                            <% if (rol[i-1] == 'administrador') { %>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">adminisitrador</label>
+                                                <!-- Admin -->
+                                                <% if (rol[i-1] == 'administrador') { %>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">adminisitrador</label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <% } %>
+                                                <% } %>
 
-                                            <!-- preceptor -->
-                                            <% if (rol[i-1] == 'preceptor') { %>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">preceptor</label>
+                                                <!-- preceptor -->
+                                                <% if (rol[i-1] == 'preceptor') { %>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">preceptor</label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <% } %>
+                                                <% } %>
 
-                                            <!-- profesor -->
-                                            <% if (rol[i-1] == 'profesor') { %> <% data[i].forEach(function(Profile){ %>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">Nombre: <input style="text-align: center" type="text" name="nombre" readonly onmousedown="return false;" value="<%-Profile['nombre']%>" /></label>
+                                                <!-- profesor -->
+                                                <% if (rol[i-1] == 'profesor') { %> <% data[i].forEach(function(Profile){ %>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Nombre: <input style="text-align: center" type="text" name="nombre" readonly onmousedown="return false;" value="<%-Profile['nombre']%>" /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">Apellido: <input style="text-align: center" type="text" name="apellido" readonly onmousedown="return false;" value="<%-Profile['apellido']%>" /></label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Apellido: <input style="text-align: center" type="text" name="apellido" readonly onmousedown="return false;" value="<%-Profile['apellido']%>" /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">Email: <input style="text-align: center" type="text" name="email" value="<%-Profile['email']%>" placeholder="<%-Profile['email']%>" /></label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Email: <input style="text-align: center" type="text" name="email" value="<%-Profile['email']%>" placeholder="<%-Profile['email']%>" /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">Telefono: <input style="text-align: center" type="text" name="telefono" value="<%-Profile['telefono']%>" placeholder="<%-Profile['telefono']%>" /></label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Telefono: <input style="text-align: center" type="text" name="telefono" value="<%-Profile['telefono']%>" placeholder="<%-Profile['telefono']%>" /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">Género: <input style="text-align: center" type="text" name="genero" value="<%-Profile['genero']%>" placeholder="<%-Profile['genero']%>" /></label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Género: <input style="text-align: center" type="text" name="genero" value="<%-Profile['genero']%>" placeholder="<%-Profile['genero']%>" /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">DNI: <input style="text-align: center" type="text" name="dni" readonly onmousedown="return false;" value="<%-Profile['dni']%>" /></label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">DNI: <input style="text-align: center" type="text" name="dni" readonly onmousedown="return false;" value="<%-Profile['dni']%>" /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">Nacimieto: <input style="text-align: center" type="text" name="nacimiento" readonly onmousedown="return false;" value="<%-Profile['nacimiento']%>" /></label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"
+                                                                >Nacimieto: <input style="text-align: center" type="text" name="nacimiento" readonly onmousedown="return false;" value="<%-Profile['nacimiento']%>"
+                                                            /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">Ingreso: <input style="text-align: center" type="text" name="ingreso" readonly onmousedown="return false;" value="<%-Profile['ingreso']%>" /></label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Ingreso: <input style="text-align: center" type="text" name="ingreso" readonly onmousedown="return false;" value="<%-Profile['ingreso']%>" /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">Estado: <input style="text-align: center" type="text" name="estado" readonly onmousedown="return false;" value="<%-Profile['estado']%>" /></label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Estado: <input style="text-align: center" type="text" name="estado" readonly onmousedown="return false;" value="<%-Profile['estado']%>" /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">avatar:</label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">avatar:</label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <% }); %> <% } %>
-                                            <!-- estudiante -->
-                                            <% if (rol[i-1] == 'estudiante') { %> <% data[i].forEach(function(Profile){ %>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">Nombre: <input style="text-align: center" type="text" name="nombre" readonly onmousedown="return false;" value="<%-Profile['nombre']%>" /></label>
+                                                <% }); %> <% } %>
+                                                <!-- estudiante -->
+                                                <% if (rol[i-1] == 'estudiante') { %> <% data[i].forEach(function(Profile){ %>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Nombre: <input style="text-align: center" type="text" name="nombre" readonly onmousedown="return false;" value="<%-Profile['nombre']%>" /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">Apellido: <input style="text-align: center" type="text" name="apellido" readonly onmousedown="return false;" value="<%-Profile['apellido']%>" /></label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Apellido: <input style="text-align: center" type="text" name="apellido" readonly onmousedown="return false;" value="<%-Profile['apellido']%>" /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">Email: <input style="text-align: center" type="text" name="email" value="<%-Profile['email']%>" placeholder="<%-Profile['email']%>" /></label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Email: <input style="text-align: center" type="text" name="email" value="<%-Profile['email']%>" placeholder="<%-Profile['email']%>" /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">Telefono: <input style="text-align: center" type="text" name="telefono" value="<%-Profile['telefono']%>" placeholder="<%-Profile['telefono']%>" /></label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Telefono: <input style="text-align: center" type="text" name="telefono" value="<%-Profile['telefono']%>" placeholder="<%-Profile['telefono']%>" /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">Género: <input style="text-align: center" type="text" name="genero" value="<%-Profile['genero']%>" placeholder="<%-Profile['genero']%>" /></label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Género: <input style="text-align: center" type="text" name="genero" value="<%-Profile['genero']%>" placeholder="<%-Profile['genero']%>" /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">DNI: <input style="text-align: center" type="text" name="dni" readonly onmousedown="return false;" value="<%-Profile['dni']%>" /></label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">DNI: <input style="text-align: center" type="text" name="dni" readonly onmousedown="return false;" value="<%-Profile['dni']%>" /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">Nacimieto: <input style="text-align: center" type="text" name="nacimiento" readonly onmousedown="return false;" value="<%-Profile['nacimiento']%>" /></label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"
+                                                                >Nacimieto: <input style="text-align: center" type="text" name="nacimiento" readonly onmousedown="return false;" value="<%-Profile['nacimiento']%>"
+                                                            /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating">Curso: <input style="text-align: center" type="text" name="curso" readonly onmousedown="return false;" value="<%-Profile['descripcion_curso']%>" /></label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Curso: <input style="text-align: center" type="text" name="curso" readonly onmousedown="return false;" value="<%-Profile['descripcion_curso']%>" /></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <% }); %> <% } %> <% } %>
+                                                <% }); %> <% } %> <% } %>
+                                            </form>
                                             <br />
-                                            <button onclick="checkInfoChange()">Guardar cambios</button>
+                                            <button id="saveChange">Guardar cambios</button>
                                         </div>
                                     </div>
                                 </div>
@@ -232,12 +238,7 @@
 
     <!-- Validation -->
     <script>
-        function checkInfoChange() {
-            let aux = $("#test1 input:not([readonly])");
-            console.log(aux);
-        }
-
-        $("#loginF").validate({
+        $("#profileForm").validate({
             rules: {
                 email: {
                     required: true,
@@ -267,7 +268,39 @@
                     minlength: "El telefono es muy corta",
                     maxlength: "El telefono es muy grande",
                 },
+                genero: {
+                    required: "Ingrese un género",
+                    minlength: "El género es muy corta",
+                    maxlength: "El género es muy grande",
+                },
+                avatar: {
+                    required: "ingrese un avatar",
+                },
             },
+        });
+
+        $("#saveChange").on("click", function (e) {
+            if ($("#profileForm").valid()) {
+                e.preventDefault();
+                let aux = $("#test1 input:not([readonly])");
+                for (let i = 0; i < aux.length; i++) {
+                    if (aux[i].placeholder == aux[i].value) {
+                        // romper
+                    }
+                }
+                $.ajax({
+                    url: "/changeInfoProfile",
+                    method: "post",
+                    dataType: "json",
+                    data: {},
+                }).done((d) => {
+                    if (d === "infoUpdated") {
+                        successAlert("Su informacion fue actualizada");
+                    } else if (d === "infoNotUpdated") {
+                        errorAlert("Su informacion no pudo ser actualizada");
+                    }
+                });
+            }
         });
     </script>
 </html>
