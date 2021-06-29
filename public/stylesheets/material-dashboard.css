@@ -13674,6 +13674,7 @@ select.form-control {
     padding-bottom: 10px;
     position: relative;
     margin: 8px 0 0;
+    margin-left: 125px;
 }
 
 .form-group .bmd-label-static {
