@@ -62,35 +62,91 @@
 
                     <!-- Contenido para el dashboard preceptor-->
                     <% if (rol[i] == 'preceptor') { %>
-                        <ul uk-accordion >
-                            <li class="uk-open">
-                                <a class="uk-accordion-title" >Martin Perez</a>
-                                <div class="uk-accordion-content">
-                                    <div id="grafico" class="tituloestudiante">
-                                        <h4>Martin Perez</h4>
-                                        <canvas id="MiGrafica" width="400" height="400"></canvas>
+                        <div class="jumbotron">
+                            <h1 class="display-4">Graficos de estudiantes</h1>
+                            <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
+                                <div>
+                                    <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
+                                        <h3 class="uk-card-title">Primer año</h3>
+                                        <div class="uk-inline">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option selected>Lengua</option>
+                                                <option value="1">Entornos Digitales</option>
+                                                <option value="2">Matematica</option>
+                                                <option value="3">Tecnologia</option>
+                                              </select>
+                                        </div>
+                                        <div id="grafico" class="tituloestudiante">
+                                            <canvas id="MiGrafica2" width="200" height="200"></canvas>
+                                        </div>
                                     </div>
                                 </div>
-                            </li>
-                            <li class="uk-open">
-                                <a class="uk-accordion-title" >Lucia hd</a>
-                                <div class="uk-accordion-content">
-                                    <div id="grafico" class="tituloestudiante">
-                                        <h4>Lucia hd</h4>
-                                        <canvas id="MiGrafica2" width="400" height="400"></canvas>
+                            </div>
+                            <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
+                                <div>
+                                    <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
+                                        <h3 class="uk-card-title">Segundo año</h3>
+                                        <div class="uk-inline">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option selected>Lengua</option>
+                                                <option value="1">Entornos Digitales</option>
+                                                <option value="2">Matematica</option>
+                                                <option value="3">Quimica</option>
+                                              </select>
+                                        </div>
+                                        <div id="grafico" class="tituloestudiante">
+                                            <canvas id="MiGrafica" width="200" height="200"></canvas>
+                                        </div>
                                     </div>
                                 </div>
-                            </li>
-                            <li class="uk-open">
-                                <a class="uk-accordion-title" >Martin Bustamante</a>
-                                <div class="uk-accordion-content">
-                                    <div id="grafico" class="tituloestudiante">
-                                        <h4>Martin Bustamante</h4>
-                                        <canvas id="MiGrafica3" width="400" height="400"></canvas>
+                            </div>
+                            <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
+                                <div>
+                                    <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
+                                        <h3 class="uk-card-title">Tercer año </h3>
+                                        <div class="uk-inline">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option selected>Lengua</option>
+                                                <option value="1">Entornos Digitales</option>
+                                                <option value="2">Matematica</option>
+                                                <option value="3">Biologia</option>
+                                              </select>
+                                        </div>
+                                        <div id="grafico" class="tituloestudiante">
+                                            <canvas id="MiGrafica3" width="200" height="200"></canvas>
+                                        </div>
                                     </div>
                                 </div>
-                            </li>
-                        </ul>
+                            </div>
+                            
+                            <!-- <ul uk-accordion >
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" >Martin Perez</a>
+                                    <div class="uk-accordion-content">
+                                        <div id="grafico" class="tituloestudiante">
+                                            <canvas id="MiGrafica" width="400" height="400"></canvas>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" >Lucia hd</a>
+                                    <div class="uk-accordion-content">
+                                        <div id="grafico" class="tituloestudiante">
+                                            <canvas id="MiGrafica2" width="400" height="400"></canvas>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" >Martin Bustamante</a>
+                                    <div class="uk-accordion-content">
+                                        <div id="grafico" class="tituloestudiante">
+                                            <canvas id="MiGrafica3" width="400" height="400"></canvas>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul> -->
+                          </div>
+                        
                         
                     <% } %>
 
@@ -196,6 +252,7 @@
                 });
             });
         </script>
+        <!-- grafico de etudiantes preceptor -->
         <script>
             let miCanvas=document.getElementById("MiGrafica").getContext("2d");
     
@@ -205,7 +262,7 @@
                     labels:["Logrado","Proceso","Pendiente"],
                     datasets:[
                         {
-                            data:[16,8,2],
+                            data:[10,8,2],
                             label: "perez",
                             backgroundColor: [
                             'rgb(54, 233, 0)',
@@ -229,7 +286,7 @@
                     labels:["Logrado","Proceso","Pendiente"],
                     datasets:[
                         {
-                            data:[2,8,40],
+                            data:[2,8,10],
                             label: "perez",
                             backgroundColor: [
                             'rgb(54, 233, 0)',
@@ -253,7 +310,7 @@
                     labels:["Logrado","Proceso","Pendiente"],
                     datasets:[
                         {
-                            data:[25,3,2],
+                            data:[5,3,7],
                             label: "perez",
                             backgroundColor: [
                             'rgb(54, 233, 0)',
