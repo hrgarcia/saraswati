@@ -31,6 +31,6 @@
     "popper": "^1.0.1",
     "react-inline-editing": "^1.0.10",
     "sharp": "^0.26.3",
-    "xlsx": "^0.16.7"
+    "xlsx": "^0.17.0"
   }
 }
