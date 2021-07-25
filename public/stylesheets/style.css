@@ -198,6 +198,35 @@ td.none {
     overflow-y: auto;
 }
 
-.tituloestudiante{
+.tituloestudiante {
     text-align: center;
+}
+
+.profileTd {
+    font-size: 15px;
+    line-height: 1.42857;
+    color: #999;
+    font-weight: 500;
+    font-family: "Roboto Slab", serif;
+}
+
+.inputCantEditing {
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.42857;
+    color: #030303;
+    font-weight: 500;
+    font-family: "Roboto Slab", serif;
+    cursor: default;
+}
+
+.inputCanEditing {
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.42857;
+    color: #030303;
+    font-weight: 500;
+    font-family: "Roboto Slab", serif;
+    cursor: text;
+    background: #e0eb46c2;
 }

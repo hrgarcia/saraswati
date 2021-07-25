@@ -24,9 +24,6 @@ function loadLearnings(file, con, typeOFile, trimester, idSubject) {
                 data = deleteDiacritics(data);
                 nameLearnings.push(data);
             }
-            // else{
-            //     SweetAlert error
-            // }
         });
         insertLearningsDB(con, nameLearnings, trimester, idSubject);
     }

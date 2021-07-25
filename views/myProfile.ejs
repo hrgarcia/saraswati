@@ -19,6 +19,8 @@
         <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+
         <%- include('fragment/background'); -%>
     </head>
 
@@ -52,7 +54,41 @@
                                     <div class="card-body">
                                         <div id="test1">
                                             <form id="profileForm" method="post">
-                                                <% for(let i = 1; i <= rol.length; i++) { %>
+                                                <% data[1].forEach(function(Profile){ %>
+                                                <div>
+                                                    <table>
+                                                        <tr>
+                                                            <td class="profileTd" width="20%">Nombre:</td>
+                                                            <td class="profileTd" width="50%"><input class="inputCantEditing" type="text" name="nombre" readonly onmousedown="return false;" value="<%-Profile['nombre']%>" /></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="profileTd" width="20%">Apellido:</td>
+                                                            <td class="profileTd" width="50%"><input class="inputCantEditing" type="text" name="apellido" readonly onmousedown="return false;" value="<%-Profile['apellido']%>" /></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="profileTd" width="20%">Email:</td>
+                                                            <td class="profileTd" width="50%"><input class="inputCanEditing" type="email" name="email" value="<%-Profile['email']%>" placeholder="<%-Profile['email']%>" /></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="profileTd" width="20%">Telefono:</td>
+                                                            <td class="profileTd" width="50%"><input class="inputCanEditing" type="text" name="telefono" value="<%-Profile['telefono']%>" placeholder="<%-Profile['telefono']%>" /></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="profileTd" width="20%">Género:</td>
+                                                            <td class="profileTd" width="50%"><input class="inputCanEditing" type="text" name="genero" value="<%-Profile['genero']%>" placeholder="<%-Profile['genero']%>" /></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="profileTd" width="20%">DNI:</td>
+                                                            <td class="profileTd" width="50%"><input class="inputCantEditing" type="text" name="dni" readonly onmousedown="return false;" value="<%-Profile['dni']%>" /></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="profileTd" width="20%">Nacimiento:</td>
+                                                            <td class="profileTd" width="50%"><input class="inputCantEditing" type="text" name="nacimiento" readonly onmousedown="return false;" value="<%-Profile['nacimiento']%>" /></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+
+                                                <% }); %> <% for(let i = 1; i <= rol.length; i++) { %>
 
                                                 <!-- Admin -->
                                                 <% if (rol[i-1] == 'administrador') { %>
@@ -78,132 +114,19 @@
 
                                                 <!-- profesor -->
                                                 <% if (rol[i-1] == 'profesor') { %> <% data[i].forEach(function(Profile){ %>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">Nombre: <input style="text-align: center" type="text" name="nombre" readonly onmousedown="return false;" value="<%-Profile['nombre']%>" /></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">Apellido: <input style="text-align: center" type="text" name="apellido" readonly onmousedown="return false;" value="<%-Profile['apellido']%>" /></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">Email: <input style="text-align: center" type="text" name="email" value="<%-Profile['email']%>" placeholder="<%-Profile['email']%>" /></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">Telefono: <input style="text-align: center" type="text" name="telefono" value="<%-Profile['telefono']%>" placeholder="<%-Profile['telefono']%>" /></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">Género: <input style="text-align: center" type="text" name="genero" value="<%-Profile['genero']%>" placeholder="<%-Profile['genero']%>" /></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">DNI: <input style="text-align: center" type="text" name="dni" readonly onmousedown="return false;" value="<%-Profile['dni']%>" /></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating"
-                                                                >Nacimieto: <input style="text-align: center" type="text" name="nacimiento" readonly onmousedown="return false;" value="<%-Profile['nacimiento']%>"
-                                                            /></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">Ingreso: <input style="text-align: center" type="text" name="ingreso" readonly onmousedown="return false;" value="<%-Profile['ingreso']%>" /></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">Estado: <input style="text-align: center" type="text" name="estado" readonly onmousedown="return false;" value="<%-Profile['estado']%>" /></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">avatar:</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <table>
+                                                    <tr>
+                                                        <td class="profileTd" width="22.5%">Ingreso:</td>
+                                                        <td class="profileTd" width="50%"><input class="inputCantEditing" type="text" name="ingreso" readonly onmousedown="return false;" value="<%-Profile['ingreso']%>" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="profileTd" width=22.5%">Estado:</td>
+                                                        <td class="profileTd" width="50%"><input class="inputCantEditing" type="text" name="estado" readonly onmousedown="return false;" value="<%-Profile['estado']%>" /></td>
+                                                    </tr>
+                                                </table>
                                                 <% }); %> <% } %>
                                                 <!-- estudiante -->
                                                 <% if (rol[i-1] == 'estudiante') { %> <% data[i].forEach(function(Profile){ %>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">Nombre: <input style="text-align: center" type="text" name="nombre" readonly onmousedown="return false;" value="<%-Profile['nombre']%>" /></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">Apellido: <input style="text-align: center" type="text" name="apellido" readonly onmousedown="return false;" value="<%-Profile['apellido']%>" /></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">Email: <input style="text-align: center" type="text" name="email" value="<%-Profile['email']%>" placeholder="<%-Profile['email']%>" /></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">Telefono: <input style="text-align: center" type="text" name="telefono" value="<%-Profile['telefono']%>" placeholder="<%-Profile['telefono']%>" /></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">Género: <input style="text-align: center" type="text" name="genero" value="<%-Profile['genero']%>" placeholder="<%-Profile['genero']%>" /></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">DNI: <input style="text-align: center" type="text" name="dni" readonly onmousedown="return false;" value="<%-Profile['dni']%>" /></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating"
-                                                                >Nacimieto: <input style="text-align: center" type="text" name="nacimiento" readonly onmousedown="return false;" value="<%-Profile['nacimiento']%>"
-                                                            /></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -283,23 +206,40 @@
             if ($("#profileForm").valid()) {
                 e.preventDefault();
                 let aux = $("#test1 input:not([readonly])");
-                for (let i = 0; i < aux.length; i++) {
+                let aux2 = {};
+                let flag = false;
+                for (let i = aux.length - 1; i >= 0; i--) {
                     if (aux[i].placeholder == aux[i].value) {
-                        // romper
+                        aux.splice(i,1);
+                    }
+                    else{
+                        aux2[aux[i].name] = aux[i].value;
+                        flag = true;
                     }
                 }
-                $.ajax({
-                    url: "/changeInfoProfile",
-                    method: "post",
-                    dataType: "json",
-                    data: {},
-                }).done((d) => {
-                    if (d === "infoUpdated") {
-                        successAlert("Su informacion fue actualizada");
-                    } else if (d === "infoNotUpdated") {
-                        errorAlert("Su informacion no pudo ser actualizada");
-                    }
-                });
+                if (flag) {
+                    aux2 = JSON.stringify(aux2);
+                    console.log("hubo modificaciones");
+                    $.ajax({
+                        url: "/changeInfoProfile",
+                        method: "post",
+                        dataType: "json",
+                        data: { info: `${aux2}` },
+                    }).done((d) => {
+                        for (let i = 0; i < aux.length; i++) {
+                            console.log(aux[i].placeholder)
+                            console.log(aux2);
+                            aux[i].placeholder = JSON.parse(aux2)[aux[i].name]
+                        }
+                        if (d === "infoUpdated") {
+                            successAlert("Su informacion fue actualizada");
+                        } else if (d === "infoNotUpdated") {
+                            errorAlert("Su informacion no pudo ser actualizada");
+                        }
+                    });
+                } else {
+                    errorAlert("No se modifico ningun dato");
+                }
             }
         });
     </script>

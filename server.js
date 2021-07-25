@@ -135,7 +135,6 @@ app.get("/dashboard", (req, res) => {
         async function sequentialQueries() {
             try {
                 const result = await Promise.all(auxData);
-                console.log(result);
 
                 res.render("dashboard.ejs", {
                     title: "InfoUser",
@@ -429,11 +428,21 @@ app.get("/backupDB", (req, res) => {
 
 // Post
 app.post("/changeInfoProfile", (req, res) => {
-    let query = "UPDATE";
-    con.query(query, (error, rows, fields) => {
-        if (error) throw res.json("infoNotUpdated");
-        res.json("infoUpdated");
-    });
+    let infoToChange = JSON.parse(req.body.info);
+    let rol = res.locals.rol;
+    let username = res.locals.username;
+
+    for (let i = 0; i < rol.length; i++) {
+        for (const key in infoToChange) {
+            let query = `UPDATE ${rol[i]} SET ${key} = ? WHERE nombreUsuario = ?`;
+            console.log(key, infoToChange[key]);
+            con.query(query, [infoToChange[key], username], (error, rows, fields) => {
+                if (error) throw error;
+            });
+        }
+    }
+
+    res.json("infoUpdated");
 });
 
 // Returns all students of the selected subject
@@ -476,40 +485,6 @@ app.post("/crearMateria", (req, res) => {
         if (error) throw error;
         res.redirect("/dashboard");
     });
-});
-
-app.post("/crearProfesor", urlencodedParser, (req, res) => {
-    // User Data
-    let user = req.body.user;
-    let avatar = req.body.avatar;
-    let salt = 10; // Standar value
-
-    // Teacher data
-    let name = req.body.name;
-    let lastName = req.body.lastName;
-    let dni = req.body.dni;
-    let telephone = req.body.telephone;
-    let email = req.body.email;
-    let gender = req.body.gender;
-    let birth = req.body.birth;
-    let entry = req.body.entry;
-    let state = req.body.state;
-
-    console.log("entre a la ruta");
-
-    // let query = "INSERT INTO profesor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?);";
-    // con.query(query, [user, name, lastName, dni, telephone, email, gender, birth, entry, state], (error, rows, fields) => {
-    //     if (error) throw error;
-    // });
-
-    // bcrypt.hash(req.body.password, salt, (err, encrypted) => {
-    //     let password = encrypted;
-    //     let query2 = "INSERT INTO usuario (nombreUsuario,pass,avatar) VALUES (?,?,?);";
-    //     con.query(query2, [user, password, avatar], (error, rows, fields) => {
-    //         if (error) throw error;
-    //         res.render("dashboard.ejs");
-    //     });
-    // });
 });
 
 app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
