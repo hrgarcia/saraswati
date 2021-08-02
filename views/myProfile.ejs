@@ -32,26 +32,23 @@
                 <div class="main-body">
                     <div class="container emp-profile">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div style="margin-top: 23%" class="card card-profile">
-                                    <div class="profile-img">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" />
-                                    </div>
-                                    <% data[0].forEach(function(Profile){ %>
-                                    <div class="card-body">
-                                        <h4 class="card-title"><%-Profile['nombreUsuario'] %></h4>
-                                        <p class="card-description">Don't be scared of the truth because we need to restart, Kanye..</p>
-                                    </div>
-                                    <% }); %>
-                                </div>
-                            </div>
+                            <div class="col-md-4"></div>
                             <div class="col-md-8">
                                 <div class="card">
-                                    <div class="card-header card-header-primary">
+                                    <div style="margin-top: 23%" class="card card-profile">
+                                        <div class="profile-img">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" />
+                                        </div>
+                                        <% data[0].forEach(function(Profile){ %>
+                                        <div class="card-body">
+                                            <h4 class="card-title"><%-Profile['nombreUsuario'] %></h4>
+                                        </div>
+                                        <% }); %>
+                                    </div>
                                         <h4 class="card-title">Informacion personal</h4>
                                         <p class="card-category">Escuela Experimental Pro-A</p>
-                                    </div>
-                                    <div class="card-body">
+                                    
+                                    <div class="card-body editFormulario">
                                         <div id="test1">
                                             <form id="profileForm" method="post">
                                                 <% data[1].forEach(function(Profile){ %>

@@ -145,7 +145,7 @@
                                     </div>
                                 </li>
                             </ul> -->
-                          </div>
+                        </div>
                         
                         
                     <% } %>
@@ -158,7 +158,7 @@
                             <div class="card" style="background-image: url('<%-InfoUser.imagen%>')">
                                 <div class="header">
                                     <div class="content">
-                                        <h4 class="subject title title-uppercase" myAtribute="0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- InfoUser['nombreMateria']%></h4>
+                                        <h4 class=" title title-uppercase cortado" myAtribute="0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- InfoUser['nombreMateria']%></h4>
                                         <h6 class="label label-danger" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black"><%- InfoUser['curso_descripcion']%></h6>
                                         <br />
                                         <br />
@@ -244,7 +244,7 @@
                         e.innerHTML = espacios[i].substring(0, 10) + "...";
                     }
                 });
-                $("li.nombreProfe").each((x, y) => {
+                $("li.teacher_name").each((x, y) => {
                     nombreMayuscula = $(y)
                         .text()
                         .replace(/\b\w/g, (l) => l.toUpperCase());
