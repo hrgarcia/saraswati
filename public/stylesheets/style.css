@@ -1,6 +1,7 @@
 .customJumbotron {
     width: 90%;
     margin: 0 auto;
+    background-color: #fff !important;
 }
 
 h1 {

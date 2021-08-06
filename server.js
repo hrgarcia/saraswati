@@ -11,6 +11,8 @@ const conection = require("./config/db");
 const pdf = require("html-pdf");
 const ejs = require("ejs");
 
+const dump = require('mysqldump');
+
 // Obtain the name of the file
 const storage = multer.diskStorage({
     filename: (req, file, cb) => {
@@ -421,8 +423,19 @@ app.get("/generarImagen", (req, res) => {
 
 //Rutas del rol administrador
 app.get("/backupDB", (req, res) => {
-    var exec = require("child_process").exec;
-    var child = exec(" mysqldump -u root -p '' 'saraswatidb' > dumpfilename.sql");
+    console.log("BACKUPDB");
+
+    dump({
+        connection: {
+            host: 'localhost',
+            user: 'root',
+            password: '',
+            database: 'saraswatidb',
+        },
+        dumpToFile: './dump.sql',
+    });
+    //var exec = require('child_process').exec;
+    //var child = exec(' mysqldump -u root -p saraswatidb > dumpfilename.sql');
     res.end;
 });
 
