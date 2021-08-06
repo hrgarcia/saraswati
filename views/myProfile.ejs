@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 
         <link rel="stylesheet" href="/stylesheets/style.css" />
+        <link rel="stylesheet" href="/stylesheets/uikit.min.css" />
 
         <%- include('fragment/background'); -%>
     </head>
@@ -53,41 +54,42 @@
                                             <form id="profileForm" method="post">
                                                 <% data[1].forEach(function(Profile){ %>
                                                 <div>
-                                                    <div class="col-sm-10 col-sm-offset-1" align="center">
-                                                        <div class="form-group">
+                                                    <div class="col-sm-10 col-sm-offset-1 " align="center">
+                                                        <div class="form-group uk-inline ">
                                                             <label> Nombre : </label>  
-                                                            <input  name="nombre"  class="uk-input uk-form-width-large inputCantEditing profileTd" type="text" readonly onmousedown="return false;" value="<%-Profile['nombre']%>" />
+                                                            <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
+                                                            <input  name="nombre"  class=" uk-input uk-form-width-medium inputCantEditing profileTd" type="text" readonly onmousedown="return false;" value="<%-Profile['nombre']%>" />
                                                         <div class="form-group">
                                                             <label> Apellido : </label>
-                                                            <input  name="apellido" class="uk-input uk-form-width-large inputCantEditing profileTd" type="text" readonly onmousedown="return false;"  value="<%-Profile['apellido']%>"  />
+                                                            <input  name="apellido" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" readonly onmousedown="return false;"  value="<%-Profile['apellido']%>"  />
                                                         </div>
                                                         <div class="form-group">
                                                             <label> Email: </label>
-                                                            <input  name="email" class="uk-input uk-form-width-large inputCantEditing profileTd" type="text"  value="<%-Profile['email']%>" />
+                                                            <input  name="email" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text"  value="<%-Profile['email']%>" />
                                                         </div> 
                                                          <div class="form-group">
                                                             <label> Telefono : </label>
-                                                            <input  name="telefono" class="uk-input uk-form-width-large inputCantEditing profileTd" type="text"   value="<%-Profile['telefono']%>"/>
+                                                            <input  name="telefono" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text"   value="<%-Profile['telefono']%>"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label> Genero : </label>
-                                                            <input  name="genero" class="uk-input uk-form-width-large inputCantEditing profileTd" type="text"  value="<%-Profile['genero']%>" />
+                                                            <input  name="genero" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text"  value="<%-Profile['genero']%>" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label> DNI : </label>
-                                                            <input  name="dni" class="uk-input uk-form-width-large inputCantEditing profileTd" type="text" readonly onmousedown="return false;" value="<%-Profile['dni']%>" />
+                                                            <input  name="dni" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" readonly onmousedown="return false;" value="<%-Profile['dni']%>" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label> Nacimiento : </label>
-                                                            <input  name="nacimiento" class="uk-input uk-form-width-large inputCantEditing profileTd" type="text" readonly onmousedown="return false;"   value="<%-Profile['nacimiento']%>"/>
+                                                            <input  name="nacimiento" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" readonly onmousedown="return false;"   value="<%-Profile['nacimiento']%>"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label> Ingreso : </label>
-                                                            <input  name="ingreso" class="uk-input uk-form-width-large inputCantEditing profileTd" type="text" readonly onmousedown="return false;"  value="<%-Profile['ingreso']%>"/>
+                                                            <input  name="ingreso" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" readonly onmousedown="return false;"  value="<%-Profile['ingreso']%>"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label> Estado : </label>
-                                                            <input  name="estado" class="uk-input uk-form-width-large inputCantEditing profileTd" type="text"  readonly onmousedown="return false;" value="<%-Profile['estado']%>"/>
+                                                            <input  name="estado" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text"  readonly onmousedown="return false;" value="<%-Profile['estado']%>"/>
                                                         </div>
 
                                                         
