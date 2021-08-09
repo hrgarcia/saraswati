@@ -10,8 +10,9 @@ const teacherFunctions = require("./external/teacherFunctions");
 const conection = require("./config/db");
 const pdf = require("html-pdf");
 const ejs = require("ejs");
+const cron = require("node-cron");
 
-const dump = require('mysqldump');
+const dump = require("mysqldump");
 
 // Obtain the name of the file
 const storage = multer.diskStorage({
@@ -19,6 +20,20 @@ const storage = multer.diskStorage({
         cb(null, file.originalname);
     },
 });
+
+// create an historial for DB versions
+// cron.schedule("10 * * * * *", () => {
+//     console.log("running a task every minute");
+//     dump({
+//         connection: {
+//             host: "localhost",
+//             user: "root",
+//             password: "",
+//             database: "saraswatidb",
+//         },
+//         dumpToFile: "./DB/saraswatidb.sql",
+//     });
+// });
 
 // Upload contains storage and verify that the storage content comes from the formImagen.ejs file, limits its upload to 1 MB and that it is the appropriate format
 var uploads = multer({
@@ -105,7 +120,6 @@ app.get("/dashboard", (req, res) => {
         for (let i = 0; i < rol.length; i++) {
             if (rol[i] == "administrador") {
                 console.log("soy administrador");
-                res.render("dashboard.ejs");
             }
             if (rol[i] == "preceptor") {
                 // async function getSubjects() {
@@ -421,24 +435,6 @@ app.get("/generarImagen", (req, res) => {
     res.render("generarImagen.ejs");
 });
 
-//Rutas del rol administrador
-app.get("/backupDB", (req, res) => {
-    console.log("BACKUPDB");
-
-    dump({
-        connection: {
-            host: 'localhost',
-            user: 'root',
-            password: '',
-            database: 'saraswatidb',
-        },
-        dumpToFile: './dump.sql',
-    });
-    //var exec = require('child_process').exec;
-    //var child = exec(' mysqldump -u root -p saraswatidb > dumpfilename.sql');
-    res.end;
-});
-
 // Post
 app.post("/changeInfoProfile", (req, res) => {
     let infoToChange = JSON.parse(req.body.info);
@@ -464,6 +460,7 @@ app.post("/estudianteMateria", (req, res) => {
     let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.nombreMateria = ? AND materia.curso_descripcion = estudiante.descripcion_curso INNER JOIN nota ON nota.dni_alumno = estudiante.dni AND nota.id_materia  = materia.id";
     con.query(query, [subjectName, subjectName], (error, rows, fields) => {
         if (error) throw error;
+        console.log(rows);
         res.render("listStudent.ejs", {
             title: "Student",
             data: rows,
