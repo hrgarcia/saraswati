@@ -42,6 +42,8 @@
 
         <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit-icons.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
         <%- include('fragment/background'); -%>
     </head>
@@ -64,60 +66,76 @@
                     <% if (rol[i] == 'preceptor') { %>
                         <div class="jumbotron">
                             <h1 class="display-4">Graficos de estudiantes</h1>
-                            <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
-                                <div>
-                                    <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
-                                        <h3 class="uk-card-title">Primer año</h3>
-                                        <div class="uk-inline">
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Lengua</option>
-                                                <option value="1">Entornos Digitales</option>
-                                                <option value="2">Matematica</option>
-                                                <option value="3">Tecnologia</option>
-                                              </select>
+                            
+                            <ul class="uk-grid-small uk-child-width-1-2 uk-child-width-1-4@s" uk-sortable="handle: .uk-card" uk-grid>
+                                <li>
+                                        <div class="uk-grid-small" uk-grid>
+                                            <div>
+                                                <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
+                                                    <h3 class="uk-card-title">Primer año</h3>
+                                                    <div class="uk-inline">
+                                                        <select class="form-select" aria-label="Default select example">
+                                                            <option selected>Lengua</option>
+                                                            <option value="1">Entornos Digitales</option>
+                                                            <option value="2">Matematica</option>
+                                                            <option value="3">Tecnologia</option>
+                                                          </select>
+                                                    </div>
+                                                    <div id="grafico" class="tituloestudiante">
+                                                        <canvas id="MiGrafica2" width="200" height="200"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div id="grafico" class="tituloestudiante">
-                                            <canvas id="MiGrafica2" width="200" height="200"></canvas>
+                                </li>
+                                <li>
+                                        <div class="uk-grid-small" uk-grid>
+                                            <div>
+                                                <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
+                                                    <h3 class="uk-card-title">Segundo año</h3>
+                                                    <div class="uk-inline">
+                                                        <select class="form-select" aria-label="Default select example">
+                                                            <option selected>Lengua</option>
+                                                            <option value="1">Entornos Digitales</option>
+                                                            <option value="2">Matematica</option>
+                                                            <option value="3">Quimica</option>
+                                                          </select>
+                                                    </div>
+                                                    <div id="grafico" class="tituloestudiante">
+                                                        <canvas id="MiGrafica" width="200" height="200"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </li>
+                                <li>
+                                    
+                                        <div class="uk-grid-small" uk-grid>                                
+                                            <div>
+                                            <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
+                                                <h3 class="uk-card-title">Tercer año </h3>
+                                                <div class="uk-inline">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>Lengua</option>
+                                                        <option value="1">Entornos Digitales</option>
+                                                        <option value="2">Matematica</option>
+                                                        <option value="3">Biologia</option>
+                                                      </select>
+                                                </div>
+                                                <div id="grafico" class="tituloestudiante">
+                                                    <canvas id="MiGrafica3" width="200" height="200"></canvas>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
-                                <div>
-                                    <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
-                                        <h3 class="uk-card-title">Segundo año</h3>
-                                        <div class="uk-inline">
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Lengua</option>
-                                                <option value="1">Entornos Digitales</option>
-                                                <option value="2">Matematica</option>
-                                                <option value="3">Quimica</option>
-                                              </select>
-                                        </div>
-                                        <div id="grafico" class="tituloestudiante">
-                                            <canvas id="MiGrafica" width="200" height="200"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
-                                <div>
-                                    <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
-                                        <h3 class="uk-card-title">Tercer año </h3>
-                                        <div class="uk-inline">
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Lengua</option>
-                                                <option value="1">Entornos Digitales</option>
-                                                <option value="2">Matematica</option>
-                                                <option value="3">Biologia</option>
-                                              </select>
-                                        </div>
-                                        <div id="grafico" class="tituloestudiante">
-                                            <canvas id="MiGrafica3" width="200" height="200"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    
+                                </li>
+                               
+                            </ul>
+
+                            
+                            
+                            
                             
                             <!-- <ul uk-accordion >
                                 <li class="uk-open">
@@ -300,6 +318,7 @@
                 responsive: true,
                 maintainAspectRatio: false,
             }
+            
             
         });  
             let miCanvas3=document.getElementById("MiGrafica3").getContext("2d");
