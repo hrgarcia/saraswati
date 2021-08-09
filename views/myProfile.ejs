@@ -8,9 +8,10 @@
 
         <!--     Fonts and icons     -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-
+        <link href="/stylesheets/themify-icons.css" rel="stylesheet" />
         <!-- Iconos Font Awesome -->
         <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+        
 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="/css/bootstrap.min.css" />
@@ -63,20 +64,22 @@
                                                             <label> Apellido : </label>
                                                             <input  name="apellido" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" readonly onmousedown="return false;"  value="<%-Profile['apellido']%>"  />
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group ">
                                                             <label> Email: </label>
-                                                            <input  name="email" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text"  value="<%-Profile['email']%>" />
+                                                            <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
+                                                            <input  name="email" class="uk-input uk-form-width-medium inputCanEditing profileTd" type="text"  value="<%-Profile['email']%>" placeholder="<%-Profile['email']%>" />
                                                         </div> 
                                                          <div class="form-group">
                                                             <label> Telefono : </label>
-                                                            <input  name="telefono" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text"   value="<%-Profile['telefono']%>"/>
+                                                            <input  name="telefono" class="uk-input uk-form-width-medium inputCanEditing profileTd" type="text"   value="<%-Profile['telefono']%>" placeholder="<%-Profile['telefono']%>"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label> Genero : </label>
-                                                            <input  name="genero" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text"  value="<%-Profile['genero']%>" />
+                                                            <input  name="genero" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text"  value="<%-Profile['genero']%>" placeholder="<%-Profile['genero']%>"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label> DNI : </label>
+                                                            <br>
                                                             <input  name="dni" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" readonly onmousedown="return false;" value="<%-Profile['dni']%>" />
                                                         </div>
                                                         <div class="form-group">
@@ -145,7 +148,7 @@
                                                 <% }); %> <% } %> <% } %>
                                             </form>
                                             <br />
-                                            <button id="saveChange">Guardar cambios</button>
+                                            <button  id="saveChange">Guardar cambios</button>
                                         </div>
                                     </div>
                                 </div>

@@ -14364,7 +14364,8 @@ fieldset[disabled] .form-group .form-control {
     color: rgba(255, 255, 255, 0.8);
 }
 .editFormulario{
-    text-align: center;
+    display: block;
+    align-self: center ;
 }
 
 .page-header.page-header-small {
