@@ -400,24 +400,31 @@ app.get("/borrarAprendizajes", (req, res) => {
 });
 
 app.get("/GenerateReport", (req, res) => {
-    ejs.renderFile("views/GenerateReport.ejs", { name: "Informes" }, (err, html) => {
-        if (err) throw err;
-        const options = {
-            format: "A4",
-            border: {
-                right: "8",
-            },
-        };
+    //variable para filtrar un usuario
+    let aux = "sevemonzon";
+    let query1 = "SELECT * FROM estudiante WHERE nombreUsuario = ?";
+    con.query(query1, [aux], (error, rows, fields) => {
+        if (error) throw error;
+        console.log("hola");
+        ejs.renderFile("views/GenerateReport.ejs", { name: "Informes" }, (err, html) => {
+            if (err) throw err;
+            const options = {
+                format: "A4",
+                border: {
+                    right: "8",
+                },
+            };
 
-        pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
-            if (err) {
-                res.send(err);
-            } else {
-                console.log("File created successfully");
-            }
+            pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
+                if (err) {
+                    res.send(err);
+                } else {
+                    console.log("File created successfully");
+                }
+            });
+            res.type("pdf");
+            res.download("uploads/report.pdf");
         });
-        res.type("pdf");
-        res.download("uploads/report.pdf");
     });
 });
 
