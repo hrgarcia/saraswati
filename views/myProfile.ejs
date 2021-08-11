@@ -37,11 +37,11 @@
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
                                 <div class="card" >
-                                    <div  class="card card-profile">
+                                    <!-- <div  class="card card-profile">
                                         <!-- <div class="profile-img">
                                             <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" />
                                         </div> -->
-                                        <% data[0].forEach(function(Profile){ %>
+                                        <!-- <% data[0].forEach(function(Profile){ %>
                                         <div class="card-body">
                                             <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" />
                                             <h4 class="card-title"><%-Profile['nombreUsuario'] %></h4>
@@ -50,10 +50,19 @@
                                             <p class="card-category">Escuela Experimental Pro-A</p>
                                         </div>
                                         <% }); %>
-                                    </div>
+                                    </div> --> 
                                         
                                     
-                                    <div class="card-body ">
+                                    <div class="card-body" align = "center">
+                                        <% data[0].forEach(function(Profile){ %>
+                                            <div class="card-body">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" />
+                                                <h4 class="card-title"><%-Profile['nombreUsuario'] %></h4>
+                                                <br>
+                                                <h4 class="card-title" >Informacion personal</h4>
+                                                <p class="card-category">Escuela Experimental Pro-A</p>
+                                            </div>
+                                            <% }); %>
                                         <div id="test1">
                                             <form id="profileForm" method="post">
                                                 <% data[1].forEach(function(Profile){ %>
@@ -61,23 +70,28 @@
                                                     <div class="col-sm-10 col-sm-offset-1 " align="center">
                                                         <div class="form-group uk-inline ">
                                                             <label> Nombre : </label>  
+                                                            <br>
                                                             <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
                                                             <input  name="nombre"  class=" uk-input uk-form-width-medium inputCantEditing profileTd" type="text" readonly onmousedown="return false;" value="<%-Profile['nombre']%>" />
                                                         <div class="form-group">
                                                             <label> Apellido : </label>
+                                                            <br>
                                                             <input  name="apellido" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" readonly onmousedown="return false;"  value="<%-Profile['apellido']%>"  />
                                                         </div>
                                                         <div class="form-group ">
                                                             <label> Email: </label>
+                                                            <br>
                                                             <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
                                                             <input  name="email" class="uk-input uk-form-width-medium inputCanEditing profileTd" type="text"  value="<%-Profile['email']%>" placeholder="<%-Profile['email']%>" />
                                                         </div> 
                                                          <div class="form-group">
                                                             <label> Telefono : </label>
+                                                            <br>
                                                             <input  name="telefono" class="uk-input uk-form-width-medium inputCanEditing profileTd" type="text"   value="<%-Profile['telefono']%>" placeholder="<%-Profile['telefono']%>"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label> Genero : </label>
+                                                            <br>
                                                             <input  name="genero" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" readonly onmousedown="return false;"  value="<%-Profile['genero']%>" />
                                                         </div>
                                                         <div class="form-group">
@@ -87,14 +101,17 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label> Nacimiento : </label>
+                                                            <br>
                                                             <input  name="nacimiento" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" readonly onmousedown="return false;"   value="<%-Profile['nacimiento']%>"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label> Ingreso : </label>
+                                                            <br>
                                                             <input  name="ingreso" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" readonly onmousedown="return false;"  value="<%-Profile['ingreso']%>"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label> Estado : </label>
+                                                            <br>
                                                             <input  name="estado" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text"  readonly onmousedown="return false;" value="<%-Profile['estado']%>"/>
                                                         </div>
 
@@ -151,9 +168,10 @@
                                                 <% }); %> <% } %> <% } %>
                                             </form>
                                             <br />
-                                            <button  id="saveChange">Guardar cambios</button>
+                                            
                                         </div>
                                     </div>
+                                    <button class="uk-button uk-button-text" style="margin-right: 500px;" id="saveChange">Guardar cambios</button>
                                 </div>
                             </div>
                         </div>
