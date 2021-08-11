@@ -14363,10 +14363,6 @@ fieldset[disabled] .form-group .form-control {
 .page-header .description {
     color: rgba(255, 255, 255, 0.8);
 }
-.editFormulario{
-    display: block;
-    align-self: center ;
-}
 
 .page-header.page-header-small {
     min-height: 60vh;
@@ -17815,8 +17811,9 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .card .card-body {
     padding: 0.9375rem 20px;
     position: relative;
-    /* border-color: #0000001f;
-  border-style: solid; */
+    display: block;
+    align-self: center ;
+    
 }
 
 .card .card-body .form-group {
