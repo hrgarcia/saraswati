@@ -44,6 +44,9 @@
         <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit-icons.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" /> 
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
         <%- include('fragment/background'); -%>
     </head>
@@ -66,7 +69,10 @@
                     <% if (rol[i] == 'preceptor') { %>
                         <div class="jumbotron">
                             <h1 class="display-4">Graficos de estudiantes</h1>
-                            
+                            <select class="js-example-basic-multiple" name="states[]" multiple="multiple"> 
+                                <option value="AL">Alabama</option> 
+                                <option value="WY">Wyoming</option> 
+                            </select>
                             <ul class="uk-grid-small uk-child-width-1-2 uk-child-width-1-4@s" uk-sortable="handle: .uk-card" uk-grid>
                                 <li>
                                         <div class="uk-grid-small" uk-grid>
@@ -218,6 +224,7 @@
             </div>
             <%- include('fragment/footer'); -%>
         </div>
+        
 
         <%- include('fragment/scripts'); -%>
 
