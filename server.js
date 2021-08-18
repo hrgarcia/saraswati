@@ -22,8 +22,11 @@ const storage = multer.diskStorage({
 });
 
 // create an historial for DB versions
-// cron.schedule("10 * * * * *", () => {
-//     console.log("running a task every minute");
+// cron.schedule("0 */3 * * *", () => {
+//     // “At minute 0 past every 3rd hour.”
+//     let x = new Date().toLocaleString().split("/").join("-");
+//     x = x.split(" ").join("-");
+//     x = x.split(":").join("-");
 //     dump({
 //         connection: {
 //             host: "localhost",
@@ -31,7 +34,28 @@ const storage = multer.diskStorage({
 //             password: "",
 //             database: "saraswatidb",
 //         },
-//         dumpToFile: "./DB/saraswatidb.sql",
+
+//         dumpToFile: `./DB/saraswatidb-${x}.sql`,
+//         timezone: "America/Argentina/Cordoba:180",
+//     });
+// });
+
+// create an historial for DB versions in Github
+// cron.schedule("0 0 1 1-12 *", () => {
+//     // At 00:00 on day-of-month 1 in every month from January through December.
+//     let x = new Date().toLocaleString().split("/").join("-");
+//     x = x.split(" ").join("-");
+//     x = x.split(":").join("-");
+//     dump({
+//         connection: {
+//             host: "localhost",
+//             user: "root",
+//             password: "",
+//             database: "saraswatidb",
+//         },
+
+//         dumpToFile: `./DB/saraswatidb-${x}.sql`,
+//         timezone: "America/Argentina/Cordoba:180",
 //     });
 // });
 
