@@ -82,12 +82,12 @@
                                                             <label> Email: </label>
                                                             <br>
                                                             <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
-                                                            <input  name="email" class="uk-input uk-form-width-medium inputCanEditing profileTd" type="text"  value="<%-Profile['email']%>" placeholder="<%-Profile['email']%>" />
+                                                            <input  name="email" class="uk-input uk-form-width-medium inputCanEditing profileTd" type="text" value="<%-Profile['email']%>" placeholder="<%-Profile['email']%>" />
                                                         </div> 
-                                                         <div class="form-group">
+                                                        <div class="form-group">
                                                             <label> Telefono : </label>
                                                             <br>
-                                                            <input  name="telefono" class="uk-input uk-form-width-medium inputCanEditing profileTd" type="text"   value="<%-Profile['telefono']%>" placeholder="<%-Profile['telefono']%>"/>
+                                                            <input  name="telefono" class="uk-input uk-form-width-medium inputCanEditing profileTd" type="text" value="<%-Profile['telefono']%>" placeholder="<%-Profile['telefono']%>"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label> Genero : </label>
@@ -260,8 +260,6 @@
                         data: { info: `${aux2}` },
                     }).done((d) => {
                         for (let i = 0; i < aux.length; i++) {
-                            console.log(aux[i].placeholder)
-                            console.log(aux2);
                             aux[i].placeholder = JSON.parse(aux2)[aux[i].name]
                         }
                         if (d === "infoUpdated") {

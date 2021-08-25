@@ -475,13 +475,24 @@ app.post("/changeInfoProfile", (req, res) => {
     for (let i = 0; i < rol.length; i++) {
         for (const key in infoToChange) {
             let query = `UPDATE ${rol[i]} SET ${key} = ? WHERE nombreUsuario = ?`;
-            console.log(key, infoToChange[key]);
             con.query(query, [infoToChange[key], username], (error, rows, fields) => {
                 if (error) throw error;
             });
         }
     }
 
+    res.json("infoUpdated");
+});
+
+app.post("/changeNumbersNotes", (req, res) => {
+    let infoToChange = JSON.parse(req.body.info);
+    for (let i = 0; i < infoToChange["data"].length; i++) {
+        let aux = infoToChange["data"][i]["namefield"];
+        let query = `UPDATE nota SET ${aux} = ? WHERE dni_alumno = ? AND id_materia = ?`;
+        con.query(query, [infoToChange["data"][i]["value"], infoToChange["data"][i]["dni"], infoToChange["data"][i]["idSubject"]], (error, rows, fields) => {
+            if (error) throw error;
+        });
+    }
     res.json("infoUpdated");
 });
 
