@@ -423,7 +423,7 @@ app.get("/borrarAprendizajes", (req, res) => {
     res.send("");
 });
 
-app.get("/GenerateReport", (req, res) => {
+app.get("/generarReporte", (req, res) => {
     //variable para filtrar un usuario
     let aux = "sevemonzon";
     let query1 = "SELECT * FROM estudiante WHERE nombreUsuario = ?";

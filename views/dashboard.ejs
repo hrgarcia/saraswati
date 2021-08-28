@@ -44,7 +44,7 @@
         <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit-icons.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" /> 
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
@@ -67,83 +67,71 @@
 
                     <!-- Contenido para el dashboard preceptor-->
                     <% if (rol[i] == 'preceptor') { %>
-                        <div class="jumbotron">
-                            <h1 class="display-4">Graficos de estudiantes</h1>
-                            <select class="js-example-basic-multiple" name="states[]" multiple="multiple"> 
-                                <option value="AL">Alabama</option> 
-                                <option value="WY">Wyoming</option> 
-                            </select>
-                            <ul class="uk-grid-small uk-child-width-1-2 uk-child-width-1-4@s" uk-sortable="handle: .uk-card" uk-grid>
-                                <li>
-                                        <div class="uk-grid-small" uk-grid>
-                                            <div>
-                                                <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
-                                                    <h3 class="uk-card-title">Primer año</h3>
-                                                    <div class="uk-inline">
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option selected>Lengua</option>
-                                                            <option value="1">Entornos Digitales</option>
-                                                            <option value="2">Matematica</option>
-                                                            <option value="3">Tecnologia</option>
-                                                          </select>
-                                                    </div>
-                                                    <div id="grafico" class="tituloestudiante">
-                                                        <canvas id="MiGrafica2" width="200" height="200"></canvas>
-                                                    </div>
-                                                </div>
+                    <div class="jumbotron">
+                        <h1 class="display-4">Graficos de estudiantes</h1>
+                        <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+                            <option value="AL">Alabama</option>
+                            <option value="WY">Wyoming</option>
+                        </select>
+                        <ul class="uk-grid-small uk-child-width-1-2 uk-child-width-1-4@s" uk-sortable="handle: .uk-card" uk-grid>
+                            <li>
+                                <div class="uk-grid-small" uk-grid>
+                                    <div>
+                                        <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
+                                            <h3 class="uk-card-title">Primer año</h3>
+                                            <div class="uk-inline">
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected>Lengua</option>
+                                                    <option value="1">Entornos Digitales</option>
+                                                    <option value="2">Matematica</option>
+                                                    <option value="3">Tecnologia</option>
+                                                </select>
                                             </div>
-                                        </div>
-                                </li>
-                                <li>
-                                        <div class="uk-grid-small" uk-grid>
-                                            <div>
-                                                <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
-                                                    <h3 class="uk-card-title">Segundo año</h3>
-                                                    <div class="uk-inline">
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option selected>Lengua</option>
-                                                            <option value="1">Entornos Digitales</option>
-                                                            <option value="2">Matematica</option>
-                                                            <option value="3">Quimica</option>
-                                                          </select>
-                                                    </div>
-                                                    <div id="grafico" class="tituloestudiante">
-                                                        <canvas id="MiGrafica" width="200" height="200"></canvas>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </li>
-                                <li>
-                                    
-                                        <div class="uk-grid-small" uk-grid>                                
-                                            <div>
-                                            <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
-                                                <h3 class="uk-card-title">Tercer año </h3>
-                                                <div class="uk-inline">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>Lengua</option>
-                                                        <option value="1">Entornos Digitales</option>
-                                                        <option value="2">Matematica</option>
-                                                        <option value="3">Biologia</option>
-                                                      </select>
-                                                </div>
-                                                <div id="grafico" class="tituloestudiante">
-                                                    <canvas id="MiGrafica3" width="200" height="200"></canvas>
-                                                </div>
+                                            <div id="grafico" class="tituloestudiante">
+                                                <canvas id="MiGrafica2" width="200" height="200"></canvas>
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                </li>
-                               
-                            </ul>
-
-                            
-                            
-                            
-                            
-                            <!-- <ul uk-accordion >
+                                </div>
+                            </li>
+                            <li>
+                                <div class="uk-grid-small" uk-grid>
+                                    <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
+                                        <h3 class="uk-card-title">Segundo año</h3>
+                                        <div class="uk-inline">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option selected>Lengua</option>
+                                                <option value="1">Entornos Digitales</option>
+                                                <option value="2">Matematica</option>
+                                                <option value="3">Quimica</option>
+                                            </select>
+                                        </div>
+                                        <div id="grafico" class="tituloestudiante">
+                                            <canvas id="MiGrafica" width="200" height="200"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="uk-grid-small" uk-grid>
+                                    <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
+                                        <h3 class="uk-card-title">Tercer año</h3>
+                                        <div class="uk-inline">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option selected>Lengua</option>
+                                                <option value="1">Entornos Digitales</option>
+                                                <option value="2">Matematica</option>
+                                                <option value="3">Biologia</option>
+                                            </select>
+                                        </div>
+                                        <div id="grafico" class="tituloestudiante">
+                                            <canvas id="MiGrafica3" width="200" height="200"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- <ul uk-accordion >
                                 <li class="uk-open">
                                     <a class="uk-accordion-title" >Martin Perez</a>
                                     <div class="uk-accordion-content">
@@ -169,9 +157,8 @@
                                     </div>
                                 </li>
                             </ul> -->
-                        </div>
-                        
-                        
+                    </div>
+
                     <% } %>
 
                     <!-- Cards del profesor -->
@@ -182,7 +169,7 @@
                             <div class="card" style="background-image: url('<%-InfoUser.imagen%>')">
                                 <div class="header">
                                     <div class="content">
-                                        <h4 class=" title title-uppercase cortado" myAtribute="0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- InfoUser['nombreMateria']%></h4>
+                                        <h4 class="title title-uppercase cortado" myAtribute="0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- InfoUser['nombreMateria']%></h4>
                                         <h6 class="label label-danger" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black"><%- InfoUser['curso_descripcion']%></h6>
                                         <br />
                                         <br />
@@ -220,11 +207,10 @@
                     <% if (rol[i] == 'estudiante') { %>
                     <p>Cosas del estudiante acá</p>
                     <% } %> <% } %>
-                    </div>
+                </div>
             </div>
             <%- include('fragment/footer'); -%>
         </div>
-        
 
         <%- include('fragment/scripts'); -%>
 
@@ -279,80 +265,63 @@
         </script>
         <!-- grafico de etudiantes preceptor -->
         <script>
-            let miCanvas=document.getElementById("MiGrafica").getContext("2d");
-    
-            var MiGrafica = new Chart(miCanvas,{
-                type:"pie",
-                data:{
-                    labels:["Logrado","Proceso","Pendiente"],
-                    datasets:[
-                        {
-                            data:[10,8,2],
-                            label: "perez",
-                            backgroundColor: [
-                            'rgb(54, 233, 0)',
-                            'rgb(255, 255, 0)',
-                            'rgb(255, 0, 0)',
-                            ],
-                        
-                        }]
-                    },
-                options: {
-                responsive: true,
-                maintainAspectRatio: false,
-            }
-            
-        });  
-            let miCanvas2=document.getElementById("MiGrafica2").getContext("2d");
-    
-            var MiGrafica2 = new Chart(miCanvas2,{
-                type:"pie",
-                data:{
-                    labels:["Logrado","Proceso","Pendiente"],
-                    datasets:[
-                        {
-                            data:[2,8,10],
-                            label: "perez",
-                            backgroundColor: [
-                            'rgb(54, 233, 0)',
-                            'rgb(255, 255, 0)',
-                            'rgb(255, 0, 0)',
-                            ],
-                        
-                        }]
-                    },
-                options: {
-                responsive: true,
-                maintainAspectRatio: false,
-            }
-            
-            
-        });  
-            let miCanvas3=document.getElementById("MiGrafica3").getContext("2d");
-    
-            var MiGrafica3 = new Chart(miCanvas3,{
-                type:"pie",
-                data:{
-                    labels:["Logrado","Proceso","Pendiente"],
-                    datasets:[
-                        {
-                            data:[5,3,7],
-                            label: "perez",
-                            backgroundColor: [
-                            'rgb(54, 233, 0)',
-                            'rgb(255, 255, 0)',
-                            'rgb(255, 0, 0)',
-                            ],
-                        
-                        }]
-                    },
-                options: {
-                responsive: true,
-                maintainAspectRatio: false,
-            }
-            
-        });  
-        </script>
+            let miCanvas = document.getElementById("MiGrafica").getContext("2d");
 
+            var MiGrafica = new Chart(miCanvas, {
+                type: "pie",
+                data: {
+                    labels: ["Logrado", "Proceso", "Pendiente"],
+                    datasets: [
+                        {
+                            data: [10, 8, 2],
+                            label: "perez",
+                            backgroundColor: ["rgb(54, 233, 0)", "rgb(255, 255, 0)", "rgb(255, 0, 0)"],
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                },
+            });
+            let miCanvas2 = document.getElementById("MiGrafica2").getContext("2d");
+
+            var MiGrafica2 = new Chart(miCanvas2, {
+                type: "pie",
+                data: {
+                    labels: ["Logrado", "Proceso", "Pendiente"],
+                    datasets: [
+                        {
+                            data: [2, 8, 10],
+                            label: "perez",
+                            backgroundColor: ["rgb(54, 233, 0)", "rgb(255, 255, 0)", "rgb(255, 0, 0)"],
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                },
+            });
+            let miCanvas3 = document.getElementById("MiGrafica3").getContext("2d");
+
+            var MiGrafica3 = new Chart(miCanvas3, {
+                type: "pie",
+                data: {
+                    labels: ["Logrado", "Proceso", "Pendiente"],
+                    datasets: [
+                        {
+                            data: [5, 3, 7],
+                            label: "perez",
+                            backgroundColor: ["rgb(54, 233, 0)", "rgb(255, 255, 0)", "rgb(255, 0, 0)"],
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                },
+            });
+        </script>
     </body>
 </html>
