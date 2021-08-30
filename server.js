@@ -430,7 +430,8 @@ app.get("/generarReporte", (req, res) => {
     con.query(query1, [aux], (error, rows, fields) => {
         if (error) throw error;
         console.log("hola");
-        ejs.renderFile("views/GenerateReport.ejs", { name: "Informes" }, (err, html) => {
+        console.log(rows);
+        ejs.renderFile("views/GenerateReport.ejs", { name: rows }, (err, html) => {
             if (err) throw err;
             const options = {
                 format: "A4",
