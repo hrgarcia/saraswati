@@ -119,6 +119,7 @@
                                             <button class="uk-button uk-button-default" type="button">Notas</button>
                                             <div id="notesDiv" class="uk-width-large" data-value="<%-Student['dni_alumno']%>" uk-dropdown="pos: right-center; mode: click">
                                                 <div class="uk-dropdown-grid uk-child-width-1-2@m" uk-grid>
+                                                    <br>
                                                     <div id="firstQuarter" data-value="1">
                                                         <ul class="uk-nav uk-dropdown-nav">
                                                             <li style="text-align:center" class="uk">1er Cuatrimestre</li>
@@ -141,6 +142,11 @@
                                                                 <span>nota 4</span>
                                                                 <br />
                                                                 <input class="inputCanEditing" placeholder="<%-Student['nota4']%>" value="<%-Student['nota4']%>" type="text" name="nota4" />
+                                                            </li>
+                                                            <li>
+                                                                <span>nota definitiva</span>
+                                                                <br />
+                                                                <input class="inputCanEditing" placeholder="<%-Student['nota_definitiva']%>" value="<%-Student['nota_definitiva']%>" type="text" name="nota_definitiva" />
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -171,7 +177,7 @@
                                                     </div>
                                                 </div>
                                                 <br>
-                                                <button class="uk-button uk-button-text saveChangeNotes" style="margin-right: 500px;" onclick="test()">Guardar cambios</button>
+                                                <button class="uk-button uk-button-text btn btn-primary" style="float: right; border: solid 2px" onclick="test()">Guardar</button>
                                             
                                             </div>
                                         </td>

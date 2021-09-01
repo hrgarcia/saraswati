@@ -36,33 +36,30 @@
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
-                                <div class="card" >
-                                   <!-- <div  class="card card-profile">
-                                         <div class="profile-img">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" />
-                                        </div>
-                                        <% data[0].forEach(function(Profile){ %>
-                                        <div class="card-body">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" />
-                                            <h4 class="card-title"><%-Profile['nombreUsuario'] %></h4>
-                                            <br>
-                                            <h4 class="card-title" >Informacion personal</h4>
-                                            <p class="card-category">Escuela Experimental Pro-A</p>
-                                        </div>
-                                        <% }); %>
-                                    </div> -->
-                                        
-                                    
+                                <div class="card" >                                    
                                     <div class="card-body" align = "center">
                                         <% data[0].forEach(function(Profile){ %>
                                             <div class="card-body">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" />
+                                                <% if(Profile['avatar'] == "0" ){ %>
+                                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" />
+                                                    
+                                                <% } else{ %>  
+                                                    <img src="/images/upload/avatars/<%-Profile['avatar']%>" alt="Admin" class="rounded-circle" width="150" />
+                                                <% } %>
+                                                
+                                                <form id="avatarForm" action="/subirFotos" method="post"  enctype="multipart/form-data">
+                                                    <input type="file" name="document" accept="image/png,image/jpeg" value="">
+                                                    <button type="submit">Guardar avatar</button>
+                                                </form>
+
+                                                <br>
+
                                                 <h4 class="card-title"><%-Profile['nombreUsuario'] %></h4>
                                                 <br>
                                                 <h4 class="card-title" >Informacion personal</h4>
                                                 <p class="card-category">Escuela Experimental Pro-A</p>
                                             </div>
-                                            <% }); %>
+                                        <% }); %>
                                         <div id="test1">
                                             <form id="profileForm" method="post">
                                                 <% data[1].forEach(function(Profile){ %>
@@ -71,7 +68,7 @@
                                                         <div class="form-group uk-inline " >
                                                             <label> Nombre  </label>  
                                                             <br>
-                                                            <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
+                                                            <!-- <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a> -->
                                                             <input  name="nombre"  class=" uk-input uk-form-width-medium inputCantEditing profileTd" style="    border: solid 2px #002e6394;;" type="text" readonly onmousedown="return false;" value="<%-Profile['nombre']%>" />
                                                         <div class="form-group">
                                                             <label> Apellido  </label>
@@ -81,7 +78,7 @@
                                                         <div class="form-group ">
                                                             <label> Email </label>
                                                             <br>
-                                                            <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
+                                                            <!-- <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a> -->
                                                             <input  name="email" class="uk-input uk-form-width-medium inputCanEditing profileTd" type="text" style="border: solid 2px " value="<%-Profile['email']%>" placeholder="<%-Profile['email']%>" />
                                                         </div> 
                                                         <div class="form-group">
@@ -92,7 +89,7 @@
                                                         <div class="form-group">
                                                             <label> Genero  </label>
                                                             <br>
-                                                            <input  name="genero" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text"style="border: solid 2px #002e6394;" readonly onmousedown="return false;"  value="<%-Profile['genero']%>" />
+                                                            <input  name="genero" class="uk-input uk-form-width-medium inputCanEditing profileTd" type="text"style="border: solid 2px #002e6394;" value="<%-Profile['genero']%>" placeholder="<%-Profile['genero']%>"/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label> DNI  </label>
@@ -195,6 +192,19 @@
 
     <!-- Validation -->
     <script>
+        $("#avatarForm").validate({
+            rules: {
+                document: {
+                    required: true,
+                }
+            },
+            messages: {
+                document: {
+                    required: "Ingrese un avatar",
+                }
+            },
+        });
+
         $("#profileForm").validate({
             rules: {
                 email: {

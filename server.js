@@ -513,15 +513,31 @@ app.post("/estudianteMateria", (req, res) => {
 
 // Resize avatar images
 app.post("/subirFotos", uploads, (req, res, next) => {
+    function getFileExtension(filename) {
+        return /[.]/.exec(filename) ? /[^.]+$/.exec(filename)[0] : undefined;
+    }
+
     let width = 800;
     let heigth = 600;
-    console.log("Imprimo " + req.file);
+    let usuario = res.locals.username;
+
+    let extension = getFileExtension(req.file.originalname);
+
     sharp(req.file.path)
         .resize(width, heigth)
-        .toFile("public/images/icons/avatar_" + req.file.originalname, (err) => {
+        .toFile("public/images/upload/avatars/avatar_" + usuario + "." + extension, (err) => {
             if (!err) {
                 console.log("El archivo se subio correctamente");
-                res.end();
+                let img = "avatar_" + usuario + "." + extension;
+                let query = "UPDATE usuario SET avatar = ? WHERE nombreUsuario = ?";
+                console.log(img);
+                console.log(usuario);
+                con.query(query, [img, usuario], (errs, result) => {
+                    if (errs) throw errs;
+                    console.log("se actualizo un dato en la db");
+                    console.log(result);
+                    res.redirect("/miperfil");
+                });
             }
         });
 });
