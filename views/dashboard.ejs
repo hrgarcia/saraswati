@@ -42,12 +42,9 @@
 
         <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit-icons.min.js"></script>
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-
+        <!-- Select2 -->
+        <link rel="stylesheet" href="/stylesheets/select2.min.css" />
         <%- include('fragment/background'); -%>
     </head>
 
@@ -68,11 +65,12 @@
                     <!-- Contenido para el dashboard preceptor-->
                     <% if (rol[i] == 'preceptor') { %>
                     <div class="jumbotron">
-                        <h1 class="display-4">Graficos de estudiantes</h1>
-                        <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+                        <select class="js-example-basic-single" name="state">
                             <option value="AL">Alabama</option>
                             <option value="WY">Wyoming</option>
                         </select>
+                        <h1 class="display-4">Graficos de estudiantes</h1>
+                        <div class="container"></div>
                         <ul class="uk-grid-small uk-child-width-1-2 uk-child-width-1-4@s" uk-sortable="handle: .uk-card" uk-grid>
                             <li>
                                 <div class="uk-grid-small" uk-grid>
@@ -224,6 +222,9 @@
         <script src="/javascripts/sweetAlerts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+        <!-- Select2 -->
+        <script src="/javascripts/select2.min.js"></script>
+
         <!-- editable -->
 
         <script>
@@ -265,6 +266,11 @@
         </script>
         <!-- grafico de etudiantes preceptor -->
         <script>
+            // Sofi de esta manera se inicializa el select2
+            $(document).ready(function () {
+                $(".js-example-basic-single").select2();
+            });
+
             let miCanvas = document.getElementById("MiGrafica").getContext("2d");
 
             var MiGrafica = new Chart(miCanvas, {

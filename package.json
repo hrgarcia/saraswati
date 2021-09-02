@@ -31,7 +31,6 @@
         "pdf-lib": "^1.11.2",
         "popper": "^1.0.1",
         "react-inline-editing": "^1.0.10",
-        "select2": "^4.1.0-rc.0",
         "sharp": "^0.26.3",
         "xlsx": "^0.17.1"
     },
