@@ -47,7 +47,7 @@
                             </h4>
                         </div>
                         <div class="col-md-2">
-                            <img class="img-head" src="/images/courseIcon/6to.png" />
+                            <img class="img-head" src="/images/courseIcon/<%-data[0].descripcion_curso-%>.png" />
                         </div>
                     </div>
                     
@@ -116,9 +116,12 @@
                                 <% data.forEach(function(Student){ %>    
                                     <tr>
                                         <td>
-                                            <button class="uk-button uk-button-default" type="button">Notas</button>
+                                            <!-- <span uk-icon= "file-text" class="botonNotas" type="button"></span> -->
+                                            <i type="button" title="Notas" class="far fa-file-alt fa-inform"></i>
+                                            <!-- <button class="uk-button uk-button-default" type="button">Notas</button> -->
                                             <div id="notesDiv" class="uk-width-large" data-value="<%-Student['dni_alumno']%>" uk-dropdown="pos: right-center; mode: click">
                                                 <div class="uk-dropdown-grid uk-child-width-1-2@m" uk-grid>
+                                                    <!-- <button type="button" uk-close></button> -->
                                                     <br>
                                                     <div id="firstQuarter" data-value="1">
                                                         <ul class="uk-nav uk-dropdown-nav">
@@ -177,7 +180,7 @@
                                                     </div>
                                                 </div>
                                                 <br>
-                                                <button class="uk-button uk-button-text btn btn-primary" style="float: right; border: solid 2px" onclick="test()">Guardar</button>
+                                                <button class="uk-button uk-button-text btn btn-primary" style="float: right;" onclick="test()">Guardar</button>
                                             
                                             </div>
                                         </td>
@@ -616,13 +619,9 @@
                             flag = true;
                         }
                     }
-                    console.log("aux",aux);
-                    console.log("aux2",aux2);
-                    
                     
                     if (flag) {
                         aux2 = JSON.stringify(aux2);
-                        console.log("hubo modificaciones");
                         $.ajax({
                             url: "/changeNumbersNotes",
                             method: "post",
@@ -630,8 +629,6 @@
                             data: { info: `${aux2}` },
                         }).done((d) => {
                             for (let i = 0; i < aux.length; i++) {
-                                console.log(aux[i].placeholder)
-                                console.log(aux2);
                                 aux[i].placeholder = JSON.parse(aux2)["data"][i]["value"]
                             }
                             if (d === "infoUpdated") {

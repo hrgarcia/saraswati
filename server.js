@@ -64,8 +64,9 @@ var uploads = multer({
     storage: storage,
     limits: { fileSize: 1 * 1024 * 1024 },
     fileFilter: (req, file, cb) => {
+        console.log("hola2");
         if (path.extname(file.originalname) !== ".png" && path.extname(file.originalname) !== ".jpg" && path.extname(file.originalname) !== ".gif" && path.extname(file.originalname) !== ".jpeg") {
-            console.log("no es una imagen");
+            cb(new Error("goes wrong on the mimetype!"), false);
         } else {
             cb(null, true);
         }
@@ -117,6 +118,7 @@ app.use((req, res, next) => {
     res.locals.rol = req.session.rol;
     res.locals.username = req.session.username;
     res.locals.toastrFlag = req.session.toastrFlag;
+    res.locals.routeAvatar = req.session.routeAvatar;
     next();
 });
 var urlencodedParser = bodyParser.urlencoded({
@@ -429,8 +431,6 @@ app.get("/generarReporte", (req, res) => {
     let query1 = "SELECT * FROM estudiante WHERE nombreUsuario = ?";
     con.query(query1, [aux], (error, rows, fields) => {
         if (error) throw error;
-        console.log("hola");
-        console.log(rows);
         ejs.renderFile("views/GenerateReport.ejs", { name: rows }, (err, html) => {
             if (err) throw err;
             const options = {
@@ -503,7 +503,6 @@ app.post("/estudianteMateria", (req, res) => {
     let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.nombreMateria = ? AND materia.curso_descripcion = estudiante.descripcion_curso INNER JOIN nota ON nota.dni_alumno = estudiante.dni AND nota.id_materia  = materia.id";
     con.query(query, [subjectName, subjectName], (error, rows, fields) => {
         if (error) throw error;
-        console.log(rows);
         res.render("listStudent.ejs", {
             title: "Student",
             data: rows,
@@ -512,34 +511,48 @@ app.post("/estudianteMateria", (req, res) => {
 });
 
 // Resize avatar images
-app.post("/subirFotos", uploads, (req, res, next) => {
-    function getFileExtension(filename) {
-        return /[.]/.exec(filename) ? /[^.]+$/.exec(filename)[0] : undefined;
-    }
+app.post("/subirFotos", (req, res) => {
+    console.log(req);
+    uploads(req, res, function (err) {
+        // FILE SIZE ERROR
+        if (err instanceof multer.MulterError) {
+            return res.end("Max file size 2MB allowed!");
+        }
 
-    let width = 800;
-    let heigth = 600;
-    let usuario = res.locals.username;
+        // INVALID FILE TYPE, message will return from fileFilter callback
+        else if (err) {
+            return res.end(err.message);
+        }
 
-    let extension = getFileExtension(req.file.originalname);
-
-    sharp(req.file.path)
-        .resize(width, heigth)
-        .toFile("public/images/upload/avatars/avatar_" + usuario + "." + extension, (err) => {
-            if (!err) {
-                console.log("El archivo se subio correctamente");
-                let img = "avatar_" + usuario + "." + extension;
-                let query = "UPDATE usuario SET avatar = ? WHERE nombreUsuario = ?";
-                console.log(img);
-                console.log(usuario);
-                con.query(query, [img, usuario], (errs, result) => {
-                    if (errs) throw errs;
-                    console.log("se actualizo un dato en la db");
-                    console.log(result);
-                    res.redirect("/miperfil");
-                });
+        // SUCCESS
+        else {
+            function getFileExtension(filename) {
+                return /[.]/.exec(filename) ? /[^.]+$/.exec(filename)[0] : undefined;
             }
-        });
+
+            let width = 800;
+            let heigth = 600;
+
+            let usuario = res.locals.username;
+            let extension = getFileExtension(req.file.originalname);
+
+            sharp(req.file.path)
+                .resize(width, heigth)
+                .toFile("public/images/upload/avatars/avatar_" + usuario + "." + extension, (err) => {
+                    if (!err) {
+                        console.log("El archivo se subio correctamente");
+                        let img = "avatar_" + usuario + "." + extension;
+                        let query = "UPDATE usuario SET avatar = ? WHERE nombreUsuario = ?";
+                        con.query(query, [img, usuario], (errs, result) => {
+                            if (errs) throw errs;
+                            res.locals.routeAvatar = img;
+                            req.session.routeAvatar = img;
+                            res.redirect("/miperfil");
+                        });
+                    }
+                });
+        }
+    });
 });
 
 // Create subject
@@ -560,9 +573,6 @@ app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
     let trimester = req.body.quarter;
     let idSubject = req.body.idSubject;
     let file = req.body.file;
-    console.log(trimester);
-    console.log(file);
-    console.log(idSubject);
 
     //teacherFunctions.loadLearnings(req.file.path, con, typeOFile, trimester, idSubject);
     res.redirect("/dashboard");
@@ -614,6 +624,10 @@ app.post("/login", (req, res) => {
             bcrypt.compare(password, rows[0]["pass"], (err, row) => {
                 if (row) {
                     req.session.loggedin = true;
+
+                    res.locals.routeAvatar = rows[0]["avatar"];
+                    req.session.routeAvatar = rows[0]["avatar"];
+
                     let query2 = "SELECT nombre FROM rol INNER JOIN usuario ON ? = rol.nombreUsuario AND rol.nombreUsuario = usuario.nombreUsuario ";
                     con.query(query2, [username], (error, rows, fields) => {
                         let arrRol = [];
@@ -646,6 +660,11 @@ app.post("/login", (req, res) => {
 
 app.use((req, res, next) => {
     res.status(404).render("404");
+});
+
+app.use(function (err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).render("505");
 });
 
 // End routes

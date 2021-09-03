@@ -230,4 +230,12 @@ td.none {
     font-family: "Roboto Slab", serif;
     cursor: text;
     background: #e0eb46c2;
+    width: 150px;
+}
+
+.uk-width-large {
+    z-index: 6;
+    border-color: #aaaaaa;
+    border-width: 5px;
+    border-style: solid;
 }

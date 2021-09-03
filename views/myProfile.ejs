@@ -48,9 +48,19 @@
                                                 <% } %>
                                                 
                                                 <form id="avatarForm" action="/subirFotos" method="post"  enctype="multipart/form-data">
-                                                    <input type="file" name="document" accept="image/png,image/jpeg" value="">
-                                                    <button type="submit">Guardar avatar</button>
+                                                    <input id="inputAvatar" type="file" name="document" accept="image/png,image/jpeg" value="">
+                                                    <button id="saveAvatar" type="submit">Guardar avatar</button>
                                                 </form>
+
+                                                <!-- <div class="js-upload uk-placeholder uk-text-center">
+                                                    <span uk-icon="icon: cloud-upload"></span>
+                                                    <span class="uk-text-middle">Attach binaries by dropping them here or</span>
+                                                    <div uk-form-custom>
+                                                        <input type="file" multiple>
+                                                        <span class="uk-link">selecting one</span>
+                                                    </div>
+                                                </div>
+                                                <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress> -->
 
                                                 <br>
 
@@ -142,7 +152,7 @@
 
                                                 <!-- profesor -->
                                                 <% if (rol[i-1] == 'profesor') { %> <% data[i].forEach(function(Profile){ %>
-                                               <!--  <table>
+                                                <!--  <table>
                                                     <tr>
                                                         <td class="profileTd" width="22.5%">Ingreso:</td>
                                                         <td class="profileTd" width="50%"><input class="inputCantEditing" type="text" name="ingreso" readonly onmousedown="return false;" value="<%-Profile['ingreso']%>" /></td>
@@ -189,6 +199,11 @@
     <!-- Own SweetAlert2 -->
     <script src="/javascripts/sweetAlerts.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Estilo de la datatable -->                        
+    <script src="/javascripts/uikit.min.js"></script>
+    <script src="/javascripts/uikit-icons.min.js"></script>
+
 
     <!-- Validation -->
     <script>
@@ -246,6 +261,34 @@
             },
         });
 
+        // Avatar ajax
+        // $("#saveAvatar").on("click", function (e) {
+        //     if ($("#avatarForm").valid()) {
+        //         console.log("hola");
+                
+        //         // e.preventDefault();
+                
+        //         let aux = document.getElementById("inputAvatar").files[0]
+        //         console.log(aux)
+        //         $.ajax({
+        //             url: "/subirFotos",
+        //             type: "post",
+        //             dataType: "html",
+        //             data: aux,
+        //             cache: false,
+        //             contentType: false,
+        //             processData: false
+        //         }).done((d) => {
+        //             // if (d === "infoUpdated") {
+        //             //     successAlert("Su informacion fue actualizada");
+        //             // } else if (d === "infoNotUpdated") {
+        //             //     errorAlert("Su informacion no pudo ser actualizada");
+        //             // }
+        //         });
+        //     }
+        // });
+
+        // Change info of MiPerfil ajax
         $("#saveChange").on("click", function (e) {
             if ($("#profileForm").valid()) {
                 e.preventDefault();
