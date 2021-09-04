@@ -593,6 +593,8 @@ app.post("/agregar", (req, res) => {
     let nombre = "profesor";
     let salt = 10; // Standar value
 
+    console.log("Obtengo la pass: " + password);
+
     bcrypt.hash(req.body.password, salt, (err, encrypted) => {
         let password = encrypted;
         let userquery = "INSERT INTO usuario(nombreUsuario,pass) VALUE (?,?)";
@@ -601,7 +603,7 @@ app.post("/agregar", (req, res) => {
         });
     });
 
-    let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
+    /*let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
     con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
         if (error) throw error;
     });
@@ -610,7 +612,7 @@ app.post("/agregar", (req, res) => {
     con.query(profequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, Ingreso, Estado], (error, rows, fields) => {
         if (error) throw error;
         res.redirect("/addTeacher.ejs");
-    });
+    });*/
 });
 
 //I compare the password entered to the one encrypted in the DB to be able to access the dashboard
@@ -658,13 +660,9 @@ app.post("/login", (req, res) => {
     });
 });
 
-
-
-
 app.get("/noLogueado", (req, res) => {
-    res.render("loggedOut.ejs")
-
-})
+    res.render("loggedOut.ejs");
+});
 
 app.use((req, res, next) => {
     res.status(404).render("404");
