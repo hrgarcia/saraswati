@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2021 at 04:15 AM
+-- Generation Time: Sep 05, 2021 at 05:00 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.27
 
@@ -185,6 +185,33 @@ INSERT INTO `estudianteaprendizaje` (`id`, `descripcion`, `estado`, `estudiante_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `frasesinspiradoras`
+--
+
+CREATE TABLE `frasesinspiradoras` (
+  `id` int(11) NOT NULL,
+  `frase` varchar(155) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `autor` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Dumping data for table `frasesinspiradoras`
+--
+
+INSERT INTO `frasesinspiradoras` (`id`, `frase`, `autor`) VALUES
+(1, 'El unico modo de hacer un buen trabajo es amar lo que haces', 'steve jobs'),
+(2, 'El dinero no es la clave del éxito; la libertad para poder crear lo es', 'nelson mandela'),
+(3, 'La inteligencia consiste no sólo en el conocimiento, sino también en la destreza de aplicar los conocimientos en la práctica', 'aristoteles'),
+(4, 'El trabajo duro hace que desaparezcan las arrugas de la mente y el espíritu', 'helena rubinstein '),
+(5, 'Cuéntamelo y me olvidaré. enséñamelo y lo recordaré. involúcrame y lo aprenderé', 'benjamin franklin'),
+(6, 'Para tener éxito tu deseo de alcanzarlo debe ser mayor que tu miedo al fracaso', 'bill cosby'),
+(7, 'sólo podemos ver poco del futuro, pero lo suficiete para darnos cuenta de que hay mucho que hacer', 'alan turing'),
+(8, 'Hay hombres que de su ciencia tienen la cabeza llena; Hay sabios de todas menas, mas digo sin ser muy ducho. Es mejor que aprender mucho el aprender cosas ', 'julio cortazar'),
+(9, 'La vida es tan corta y el oficio de vivir tan difícil, que cuando uno empieza a aprenderlo, ya hay que morirse', 'juan gelman');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `materia`
 --
 
@@ -346,7 +373,7 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`nombreUsuario`, `pass`, `avatar`) VALUES
 ('admin', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0'),
 ('amenieto', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0'),
-('hrgarcia', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0'),
+('hrgarcia', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', 'avatar_hrgarcia.jpg'),
 ('ianluciano', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0'),
 ('jolorenzo', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0'),
 ('juantorre', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0'),
@@ -392,6 +419,12 @@ ALTER TABLE `estudianteaprendizaje`
   ADD KEY `estudiante_id` (`estudiante_dni`),
   ADD KEY `periodo_id` (`periodo_id`,`materia_id`),
   ADD KEY `materia_id` (`materia_id`);
+
+--
+-- Indexes for table `frasesinspiradoras`
+--
+ALTER TABLE `frasesinspiradoras`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `materia`
@@ -457,6 +490,12 @@ ALTER TABLE `aprendizajes`
 --
 ALTER TABLE `estudianteaprendizaje`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
+
+--
+-- AUTO_INCREMENT for table `frasesinspiradoras`
+--
+ALTER TABLE `frasesinspiradoras`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `materia`

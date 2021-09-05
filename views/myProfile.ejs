@@ -48,20 +48,9 @@
                                                 <% } %>
                                                 
                                                 <form id="avatarForm" action="/subirFotos" method="post"  enctype="multipart/form-data">
-                                                    <input id="inputAvatar" type="file" name="document" accept="image/png,image/jpeg" value="">
-                                                    <button id="saveAvatar" type="submit">Guardar avatar</button>
+                                                    <input id="inputAvatar" type="file" name="document" accept="image/png, image/jpeg, image/gif, image/jpg" value="">
+                                                    <button id="saveAvatar" type="button">Guardar avatar</button>
                                                 </form>
-
-                                                <!-- <div class="js-upload uk-placeholder uk-text-center">
-                                                    <span uk-icon="icon: cloud-upload"></span>
-                                                    <span class="uk-text-middle">Attach binaries by dropping them here or</span>
-                                                    <div uk-form-custom>
-                                                        <input type="file" multiple>
-                                                        <span class="uk-link">selecting one</span>
-                                                    </div>
-                                                </div>
-                                                <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress> -->
-
                                                 <br>
 
                                                 <h4 class="card-title"><%-Profile['nombreUsuario'] %></h4>
@@ -261,32 +250,48 @@
             },
         });
 
+        function reloadPage() {
+            location.reload();
+        }
+        
         // Avatar ajax
-        // $("#saveAvatar").on("click", function (e) {
-        //     if ($("#avatarForm").valid()) {
-        //         console.log("hola");
+        $("#saveAvatar").on("click", function (e) {
+            if ($("#avatarForm").valid()) {
                 
-        //         // e.preventDefault();
-                
-        //         let aux = document.getElementById("inputAvatar").files[0]
-        //         console.log(aux)
-        //         $.ajax({
-        //             url: "/subirFotos",
-        //             type: "post",
-        //             dataType: "html",
-        //             data: aux,
-        //             cache: false,
-        //             contentType: false,
-        //             processData: false
-        //         }).done((d) => {
-        //             // if (d === "infoUpdated") {
-        //             //     successAlert("Su informacion fue actualizada");
-        //             // } else if (d === "infoNotUpdated") {
-        //             //     errorAlert("Su informacion no pudo ser actualizada");
-        //             // }
-        //         });
-        //     }
-        // });
+                // e.preventDefault();
+                let data = new FormData($('#avatarForm')[0]);
+
+                $.ajax({
+                    url: "/subirFotos",
+                    type: "post",
+                    dataType: "json",
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                }).done((d) => {
+                    if (d === "overToSize") {
+                        errorAlert("La imagen supera los 2 megas de tamaño");
+                    } 
+                    else if (d === "invalidType") {
+                        errorAlert("El archivo que intenta subir no es una imagen");
+                    } 
+                    else if(d === "updatedAvatar"){
+                        // successAlert("Imagen actualizada");
+						Swal.fire({
+							icon: "success",
+							title: "Imagen actualizada",
+							showConfirmButton: false,
+							timer: 1500,
+							timerProgressBar: true,
+							toast: true,
+							position: "top-end",
+						});
+                        setTimeout(reloadPage,2000);
+                    }
+                });
+            }
+        });
 
         // Change info of MiPerfil ajax
         $("#saveChange").on("click", function (e) {

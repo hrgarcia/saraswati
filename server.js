@@ -64,7 +64,6 @@ var uploads = multer({
     storage: storage,
     limits: { fileSize: 1 * 1024 * 1024 },
     fileFilter: (req, file, cb) => {
-        console.log("hola2");
         if (path.extname(file.originalname) !== ".png" && path.extname(file.originalname) !== ".jpg" && path.extname(file.originalname) !== ".gif" && path.extname(file.originalname) !== ".jpeg") {
             cb(new Error("goes wrong on the mimetype!"), false);
         } else {
@@ -119,6 +118,7 @@ app.use((req, res, next) => {
     res.locals.username = req.session.username;
     res.locals.toastrFlag = req.session.toastrFlag;
     res.locals.routeAvatar = req.session.routeAvatar;
+    res.locals.inspirationalPhrase = req.session.inspirationalPhrase;
     next();
 });
 var urlencodedParser = bodyParser.urlencoded({
@@ -174,6 +174,7 @@ app.get("/dashboard", (req, res) => {
                 console.log("soy estudiante");
             }
         }
+
         async function sequentialQueries() {
             try {
                 const result = await Promise.all(auxData);
@@ -186,6 +187,7 @@ app.get("/dashboard", (req, res) => {
                 console.log(error);
             }
         }
+
         sequentialQueries();
     }
 });
@@ -512,16 +514,15 @@ app.post("/estudianteMateria", (req, res) => {
 
 // Resize avatar images
 app.post("/subirFotos", (req, res) => {
-    console.log(req);
     uploads(req, res, function (err) {
         // FILE SIZE ERROR
         if (err instanceof multer.MulterError) {
-            return res.end("Max file size 2MB allowed!");
+            return res.json("overToSize");
         }
 
         // INVALID FILE TYPE, message will return from fileFilter callback
         else if (err) {
-            return res.end(err.message);
+            return res.json("invalidType");
         }
 
         // SUCCESS
@@ -540,14 +541,13 @@ app.post("/subirFotos", (req, res) => {
                 .resize(width, heigth)
                 .toFile("public/images/upload/avatars/avatar_" + usuario + "." + extension, (err) => {
                     if (!err) {
-                        console.log("El archivo se subio correctamente");
                         let img = "avatar_" + usuario + "." + extension;
                         let query = "UPDATE usuario SET avatar = ? WHERE nombreUsuario = ?";
                         con.query(query, [img, usuario], (errs, result) => {
                             if (errs) throw errs;
                             res.locals.routeAvatar = img;
                             req.session.routeAvatar = img;
-                            res.redirect("/miperfil");
+                            res.json("updatedAvatar");
                         });
                     }
                 });
@@ -646,7 +646,14 @@ app.post("/login", (req, res) => {
                         res.locals.toastrFlag = true;
                         req.session.toastrFlag = true;
 
-                        res.json("loginOk");
+                        let query3 = "SELECT frase,autor FROM frasesinspiradoras";
+                        con.query(query3, (error, rows, fields) => {
+                            i = Math.floor(Math.random() * (rows.length + 1));
+                            aux = rows[i]["autor"].replace(/\b\w/g, (l) => l.toUpperCase());
+                            res.locals.inspirationalPhrase = [rows[i]["frase"], aux, rows[i]["frase"].length];
+                            req.session.inspirationalPhrase = [rows[i]["frase"], aux, rows[i]["frase"].length];
+                            res.json("loginOk");
+                        });
                     });
                 } else {
                     res.json("wrongPass");
