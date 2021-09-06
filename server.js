@@ -595,7 +595,7 @@ app.post("/agregar", (req, res) => {
 
     console.log("Obtengo la pass: " + password);
 
-    bcrypt.hash(req.body.password, salt, (err, encrypted) => {
+    bcrypt.hash(password, salt, (err, encrypted) => {
         let password = encrypted;
         let userquery = "INSERT INTO usuario(nombreUsuario,pass) VALUE (?,?)";
         con.query(userquery, [nickname, password], (error, rows, fields) => {
@@ -603,7 +603,7 @@ app.post("/agregar", (req, res) => {
         });
     });
 
-    /*let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
+    let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
     con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
         if (error) throw error;
     });
@@ -612,7 +612,7 @@ app.post("/agregar", (req, res) => {
     con.query(profequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, Ingreso, Estado], (error, rows, fields) => {
         if (error) throw error;
         res.redirect("/addTeacher.ejs");
-    });*/
+    });
 });
 
 //I compare the password entered to the one encrypted in the DB to be able to access the dashboard
