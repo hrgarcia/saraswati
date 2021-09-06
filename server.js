@@ -589,18 +589,22 @@ app.post("/agregar", (req, res) => {
     let telefono = req.body.telefono;
     let genero = req.body.genero;
     let Estado = req.body.Estado;
-    let password = "123"
+    let password = "123";
     let nombre = "profesor";
     let salt = 10; // Standar value
 
     console.log("Obtengo la pass: " + password);
-
+    console.log("Entrando al hash");
     bcrypt.hash(password, salt, (err, encrypted) => {
-        let password = encrypted;
-        let userquery = "INSERT INTO usuario(nombreUsuario,pass) VALUE (?,?)";
-        con.query(userquery, [nickname, password], (error, rows, fields) => {
-            if (error) throw error;
-        });
+        if (encrypted) {
+            let password = encrypted;
+            let userquery = "INSERT INTO usuario(nombreUsuario,pass,avatar) VALUE (?,?,?)";
+            con.query(userquery, [nickname, password, "0"], (error, rows, fields) => {
+                if (error) throw error;
+            });
+        } else {
+            console.log(error);
+        }
     });
 
     let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
@@ -608,11 +612,11 @@ app.post("/agregar", (req, res) => {
         if (error) throw error;
     });
 
-    let profequery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    /*let profequery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
     con.query(profequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, Ingreso, Estado], (error, rows, fields) => {
         if (error) throw error;
         res.redirect("/addTeacher.ejs");
-    });
+    });*/
 });
 
 //I compare the password entered to the one encrypted in the DB to be able to access the dashboard
