@@ -589,7 +589,7 @@ app.post("/agregar", (req, res) => {
     let telefono = req.body.telefono;
     let genero = req.body.genero;
     let Estado = req.body.Estado;
-    let password = req.body.password;
+    let password = "123"
     let nombre = "profesor";
     let salt = 10; // Standar value
 
