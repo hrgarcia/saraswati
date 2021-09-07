@@ -65,10 +65,6 @@
                     <!-- Contenido para el dashboard preceptor-->
                     <% if (rol[i] == 'preceptor') { %>
                     <div class="jumbotron">
-                        <select class="js-example-basic-single" name="state">
-                            <option value="AL">Alabama</option>
-                            <option value="WY">Wyoming</option>
-                        </select>
                         <h1 class="display-4">Graficos de estudiantes</h1>
                         <div class="container"></div>
                         <ul class="uk-grid-small uk-child-width-1-2 uk-child-width-1-4@s" uk-sortable="handle: .uk-card" uk-grid>
@@ -76,15 +72,15 @@
                                 <div class="uk-grid-small" uk-grid>
                                     <div>
                                         <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
-                                            <h3 class="uk-card-title">Primer año</h3>
-                                            <div class="uk-inline">
-                                                <select class="form-select" aria-label="Default select example">
+                                            
+                                            <h3 class="uk-card-title">Primer año</h3>  
+                                                <select class="js-example-basic-single" name="state">
                                                     <option selected>Lengua</option>
                                                     <option value="1">Entornos Digitales</option>
                                                     <option value="2">Matematica</option>
                                                     <option value="3">Tecnologia</option>
-                                                </select>
-                                            </div>
+                                                </select> 
+                                           
                                             <div id="grafico" class="tituloestudiante">
                                                 <canvas id="MiGrafica2" width="200" height="200"></canvas>
                                             </div>
@@ -97,7 +93,7 @@
                                     <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
                                         <h3 class="uk-card-title">Segundo año</h3>
                                         <div class="uk-inline">
-                                            <select class="form-select" aria-label="Default select example">
+                                            <select class="js-example-basic-single" name="state">
                                                 <option selected>Lengua</option>
                                                 <option value="1">Entornos Digitales</option>
                                                 <option value="2">Matematica</option>
@@ -115,7 +111,7 @@
                                     <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
                                         <h3 class="uk-card-title">Tercer año</h3>
                                         <div class="uk-inline">
-                                            <select class="form-select" aria-label="Default select example">
+                                            <select class="js-example-basic-single" name="state">
                                                 <option selected>Lengua</option>
                                                 <option value="1">Entornos Digitales</option>
                                                 <option value="2">Matematica</option>
