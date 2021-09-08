@@ -1,3 +1,4 @@
+
 const express = require("express");
 const path = require("path");
 const app = express();
@@ -427,30 +428,33 @@ app.get("/borrarAprendizajes", (req, res) => {
     res.send("");
 });
 
-app.get("/generarReporte", (req, res) => {
-    //variable para filtrar un usuario
-    let aux = "sevemonzon";
-    let query1 = "SELECT * FROM estudiante WHERE nombreUsuario = ?";
-    con.query(query1, [aux], (error, rows, fields) => {
-        if (error) throw error;
-        ejs.renderFile("views/GenerateReport.ejs", { name: rows }, (err, html) => {
-            if (err) throw err;
-            const options = {
-                format: "A4",
-                border: {
-                    right: "8",
-                },
-            };
+app.get("/generarReporte/:dni", (req, res) => {
+    console.log(req.params.dni);  // result: test
+    let dni = req.params.dni;
 
-            pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
-                if (err) {
-                    res.send(err);
-                } else {
-                    console.log("File created successfully");
-                }
-            });
-            res.type("pdf");
-            res.download("uploads/report.pdf");
+     let query1 = "SELECT apellido FROM estudiante WHERE nombre = ?";
+     con.query(query1, [dni] ,(error, rows, fields) => {
+         if (error) throw error;
+         console.log(rows);
+
+         ejs.renderFile("views/GenerateReport.ejs", { name: rows }, (err, html) => {
+             if (err) throw err;
+             const options = {
+                 format: "A4",
+                 border: {
+                     right: "8",
+                 },
+             };
+
+             pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
+                 if (err) {
+                     res.send(err);
+                 } else {
+                     console.log("Pdf creado");
+                 }
+             });
+             res.type("pdf");
+             res.download("uploads/report.pdf");
         });
     });
 });
