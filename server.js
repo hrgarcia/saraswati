@@ -191,6 +191,10 @@ app.get("/dashboard", (req, res) => {
 
         sequentialQueries();
     }
+    else{
+        res.render("loggedOut.ejs");
+    }
+    
 });
 
 app.get("/formularioImagen", (req, res) => {
