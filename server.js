@@ -473,6 +473,9 @@ app.get("/generarImagen", (req, res) => {
     res.render("generarImagen.ejs");
 });
 
+app.get("/crearSlider", (req, res) => {
+    res.render("generarSlider.ejs");
+});
 // Post
 app.post("/changeInfoProfile", (req, res) => {
     let infoToChange = JSON.parse(req.body.info);

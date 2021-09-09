@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Crear Slider</title>
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css" />
+
+        <!-- Iconos Font Awesome -->
+        <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+        <link href="stylesheets/themify-icons.css" rel="stylesheet" />
+
+        <!-- Nuestros estilos -->
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+
+        <!-- Wizard Style -->
+        <link rel="stylesheet" href="/stylesheets/paper-bootstrap-wizard.css" />
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
+        <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css" />
+
+        <!-- CSS Files -->
+        <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+
+        <!-- Animate css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
+
+        <!-- Estilo de el formulario -->
+        <link rel="apple-touch-icon" sizes="76x76" href="images/imgEstudiante/apple-icon.png" />
+        <link rel="icon" type="image/png" href="images/imgEstudiante/favicon.png" />
+
+        <!-- uikit -->
+        <link rel="stylesheet" href="/stylesheets/uikit.min.css" />
+
+        <%- include('fragment/background'); -%>
+    </head>
+    <body>
+        <%- include('fragment/sidebar'); -%>
+        <div data-value="<%-username%>" id="main-panel" class="main-panel">
+            <div class="content">
+                <%- include('fragment/navbar'); -%>
+                <form>
+                    
+                    <h1>titulo</h1>
+                        <div class="uk-margin">
+                            <input class="uk-input uk-form-width-medium uk-form-large" type="text" placeholder="Large">
+                        </div>
+                    <h1>Subtitulo</h1>
+                        <div class="uk-margin">
+                            <input class="uk-input uk-form-width-medium uk-form-large" type="text" placeholder="Large">
+                        </div>
+                        <h1>texto</h1>
+                        <div class="uk-margin">
+                            <input class="uk-input uk-form-width-medium uk-form-large" type="text" placeholder="Large">
+                        </div>
+                    
+                    
+
+                    <div class="uk-margin">
+                        <div uk-form-custom>
+                            <input type="file">
+                            <button class="uk-button uk-button-default" type="button" tabindex="-1"></button>
+                        </div>
+                    </div>
+                
+                </form>
+            <%- include('fragment/footer'); -%>
+        </div>
+    </body>
+</html>
+
+<!--   Core JS Files   -->
+<script src="javascripts/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="javascripts/bootstrap.min.js" type="text/javascript"></script>
+<script src="javascripts/jquery.bootstrap.wizard.js" type="text/javascript"></script>
+
+<!--  Plugin for the Wizard -->
+<script src="javascript/demo.js" type="text/javascript"></script>
+<script src="javascripts/paper-bootstrap-wizard.js" type="text/javascript"></script>
+
+<!-- Jquery Validate -->
+<script src="javascripts/jquery.validate.min.js" type="text/javascript"></script>

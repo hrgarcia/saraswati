@@ -79,8 +79,7 @@
                                                     <option value="1">Entornos Digitales</option>
                                                     <option value="2">Matematica</option>
                                                     <option value="3">Tecnologia</option>
-                                                </select> 
-                                           
+                                                </select>
                                             <div id="grafico" class="tituloestudiante">
                                                 <canvas id="MiGrafica2" width="200" height="200"></canvas>
                                             </div>
@@ -157,7 +156,7 @@
 
                     <!-- Cards del profesor -->
                     <% if (rol[i] == 'profesor') { %>
-                        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="autoplay: true; ratio: 16:9;animation: fade">
+                        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="autoplay: true; ratio: 8:2;animation: fade" style="top: -55px;">
 
                             <ul class="uk-slideshow-items">
                                 <li>
@@ -185,7 +184,6 @@
                             <ul class="uk-slideshow-nav uk-dotnav uk-flex-center uk-margin"></ul>
                         </div>
                         
-                        <br>
                     <div class="form-row">
                         <% data[0].forEach(function(InfoUser){ %>
                         <div class="col-md-3" style="margin-left: 50px; cursor: pointer">
