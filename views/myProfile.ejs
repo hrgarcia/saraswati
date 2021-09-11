@@ -54,9 +54,6 @@
                                                 <br>
 
                                                 <h4 class="card-title"><%-Profile['nombreUsuario'] %></h4>
-                                                <br>
-                                                <h4 class="card-title" >Informacion personal</h4>
-                                                <p class="card-category">Escuela Experimental Pro-A</p>
                                             </div>
                                         <% }); %>
                                         <div id="test1">
@@ -100,18 +97,16 @@
                                                             <br>
                                                             <input  name="nacimiento" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" style="border: solid 2px #d2d2d2;" readonly onmousedown="return false;"   value="<%-Profile['nacimiento']%>"/>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label> Ingreso  </label>
-                                                            <br>
-                                                            <input  name="ingreso" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" style="border: solid 2px #d2d2d2;" readonly onmousedown="return false;"  value="<%-Profile['ingreso']%>"/>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label> Estado  </label> 
-                                                            <br>
-                                                            <input  name="estado" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" style="border: solid 2px #d2d2d2;"  readonly onmousedown="return false;" value="<%-Profile['estado']%>"/>
-                                                        </div>
 
-                                                        
+                                                        <div class="js-upload uk-placeholder uk-text-center">
+                                                            <span uk-icon="icon: cloud-upload"></span>
+                                                            <span class="uk-text-middle">Attach binaries by dropping them here or</span>
+                                                            <div uk-form-custom>
+                                                                <input type="file" name="document" multiple>
+                                                                <span class="uk-link">selecting one</span>
+                                                            </div>
+                                                        </div>
+                                                        <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
                                                     </div>
                                                 </div>
 
@@ -141,16 +136,16 @@
 
                                                 <!-- profesor -->
                                                 <% if (rol[i-1] == 'profesor') { %> <% data[i].forEach(function(Profile){ %>
-                                                <!--  <table>
-                                                    <tr>
-                                                        <td class="profileTd" width="22.5%">Ingreso:</td>
-                                                        <td class="profileTd" width="50%"><input class="inputCantEditing" type="text" name="ingreso" readonly onmousedown="return false;" value="<%-Profile['ingreso']%>" /></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="profileTd" width=22.5%">Estado:</td>
-                                                        <td class="profileTd" width="50%"><input class="inputCantEditing" type="text" name="estado" readonly onmousedown="return false;" value="<%-Profile['estado']%>" /></td>
-                                                    </tr>
-                                                </table> -->
+                                                <div class="form-group">
+                                                    <label> Ingreso  </label>
+                                                    <br>
+                                                    <input  name="ingreso" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" style="border: solid 2px #d2d2d2;" readonly onmousedown="return false;"  value="<%-Profile['ingreso']%>"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label> Estado  </label> 
+                                                    <br>
+                                                    <input  name="estado" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" style="border: solid 2px #d2d2d2;"  readonly onmousedown="return false;" value="<%-Profile['estado']%>"/>
+                                                </div>
                                                 <% }); %> <% } %>
                                                 <!-- estudiante -->
                                                 <% if (rol[i-1] == 'estudiante') { %> <% data[i].forEach(function(Profile){ %>
@@ -175,7 +170,6 @@
                     </div>
                 </div>
             </div>
-            
         </div>
         <%- include('fragment/footer'); -%>
         <%- include('fragment/scripts'); -%>
@@ -192,6 +186,70 @@
     <!-- Estilo de la datatable -->                        
     <script src="/javascripts/uikit.min.js"></script>
     <script src="/javascripts/uikit-icons.min.js"></script>
+
+    <!-- wea -->
+    <script>
+
+        var bar = document.getElementById('js-progressbar');
+    
+        
+        UIkit.upload('.js-upload', {
+    
+            url: 'subirFotos',
+            
+            allow : '*.(jpg|jpeg|gif|png)',
+            param: "file[]",
+            beforeSend: function () {
+                console.log('beforeSend', arguments);
+            },
+            beforeAll: function () {
+                console.log('beforeAll', arguments);
+            },
+            load: function () {
+                console.log('load', arguments);
+            },
+            error: function () {
+                console.log('error', arguments);
+            },
+            complete: function () {
+                console.log('complete', arguments);
+            },
+    
+            loadStart: function (e) {
+                console.log('loadStart', arguments);
+    
+                bar.removeAttribute('hidden');
+                bar.max = e.total;
+                bar.value = e.loaded;
+            },
+    
+            progress: function (e) {
+                console.log('progress', arguments);
+    
+                bar.max = e.total;
+                bar.value = e.loaded;
+            },
+    
+            loadEnd: function (e) {
+                console.log('loadEnd', arguments);
+    
+                bar.max = e.total;
+                bar.value = e.loaded;
+            },
+    
+            completeAll: function () {
+                console.log('completeAll', arguments);
+    
+                setTimeout(function () {
+                    bar.setAttribute('hidden', 'hidden');
+                }, 1000);
+    
+                alert('Upload Completed');
+            }
+    
+        });
+    
+    </script>
 
 
     <!-- Validation -->

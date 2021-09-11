@@ -1,4 +1,3 @@
-
 const express = require("express");
 const path = require("path");
 const app = express();
@@ -190,11 +189,9 @@ app.get("/dashboard", (req, res) => {
         }
 
         sequentialQueries();
-    }
-    else{
+    } else {
         res.render("loggedOut.ejs");
     }
-    
 });
 
 app.get("/formularioImagen", (req, res) => {
@@ -433,32 +430,32 @@ app.get("/borrarAprendizajes", (req, res) => {
 });
 
 app.get("/generarReporte/:dni", (req, res) => {
-    console.log(req.params.dni);  // result: test
+    console.log(req.params.dni); // result: test
     let dni = req.params.dni;
 
-     let query1 = "SELECT apellido FROM estudiante WHERE nombre = ?";
-     con.query(query1, [dni] ,(error, rows, fields) => {
-         if (error) throw error;
-         console.log(rows);
+    let query1 = "SELECT apellido FROM estudiante WHERE nombre = ?";
+    con.query(query1, [dni], (error, rows, fields) => {
+        if (error) throw error;
+        console.log(rows);
 
-         ejs.renderFile("views/GenerateReport.ejs", { name: rows }, (err, html) => {
-             if (err) throw err;
-             const options = {
-                 format: "A4",
-                 border: {
-                     right: "8",
-                 },
-             };
+        ejs.renderFile("views/GenerateReport.ejs", { name: rows }, (err, html) => {
+            if (err) throw err;
+            const options = {
+                format: "A4",
+                border: {
+                    right: "8",
+                },
+            };
 
-             pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
-                 if (err) {
-                     res.send(err);
-                 } else {
-                     console.log("Pdf creado");
-                 }
-             });
-             res.type("pdf");
-             res.download("uploads/report.pdf");
+            pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
+                if (err) {
+                    res.send(err);
+                } else {
+                    console.log("Pdf creado");
+                }
+            });
+            res.type("pdf");
+            res.download("uploads/report.pdf");
         });
     });
 });
@@ -474,7 +471,13 @@ app.get("/estadoToastr", (req, res) => {
 });
 
 app.get("/generarImagen", (req, res) => {
-    res.render("generarImagen.ejs");
+    let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ?";
+    con.query(query, [res.locals.username], (error, rows) => {
+        res.render("changePassword.ejs", {
+            title: "User",
+            data: rows,
+        });
+    });
 });
 
 app.get("/crearSlider", (req, res) => {
@@ -589,7 +592,40 @@ app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
     res.redirect("/dashboard");
 });
 
+app.post("/changePassword", (req, res) => {
+    let salt = 10;
+    let newPass = req.body.pass;
+
+    let query = "SELECT pass FROM usuario WHERE nombreUsuario = ?";
+    con.query(query, [res.locals.username], (error, rows, fields) => {
+        if (error) throw error;
+        bcrypt.compare(newPass, rows[0]["pass"], (err, row) => {
+            if (!row) {
+                let query = "UPDATE usuario SET pass = ?, contraseña_cambiada = 'true' WHERE nombreUsuario = ?";
+                bcrypt.hash(newPass, salt, (err, encrypted) => {
+                    newPass = encrypted;
+                    con.query(query, [newPass, res.locals.username], (error, rows, fields) => {
+                        if (error) throw error;
+                        res.json("passwordChanged");
+                    });
+                });
+            } else {
+                res.json("passwordNotChanged");
+            }
+        });
+    });
+});
+
 app.post("/agregar", (req, res) => {
+    function generatePassword(length) {
+        let pass = "";
+        let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        for (i = 0; i < length; i++) {
+            pass += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return pass;
+    }
+
     let nickname = req.body.nickname;
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;
@@ -600,34 +636,26 @@ app.post("/agregar", (req, res) => {
     let telefono = req.body.telefono;
     let genero = req.body.genero;
     let Estado = req.body.Estado;
-    let password = "123";
+    let password = generatePassword(12);
     let nombre = "profesor";
     let salt = 10; // Standar value
 
-    console.log("Obtengo la pass: " + password);
-    console.log("Entrando al hash");
     bcrypt.hash(password, salt, (err, encrypted) => {
-        if (encrypted) {
-            let password = encrypted;
-            let userquery = "INSERT INTO usuario(nombreUsuario,pass,avatar) VALUE (?,?,?)";
-            con.query(userquery, [nickname, password, "0"], (error, rows, fields) => {
+        password = encrypted;
+        let userquery = "INSERT INTO usuario (nombreUsuario,pass,avatar) VALUE (?,?,?)";
+        con.query(userquery, [nickname, password, "0"], (error, rows, fields) => {
+            if (error) throw error;
+            let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
+            con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
                 if (error) throw error;
+                let profequery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                con.query(profequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, Ingreso, Estado], (error, rows, fields) => {
+                    if (error) throw error;
+                    res.redirect("/dashboard");
+                });
             });
-        } else {
-            console.log(error);
-        }
+        });
     });
-
-    let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
-    con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
-        if (error) throw error;
-    });
-
-    /*let profequery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
-    con.query(profequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, Ingreso, Estado], (error, rows, fields) => {
-        if (error) throw error;
-        res.redirect("/addTeacher.ejs");
-    });*/
 });
 
 //I compare the password entered to the one encrypted in the DB to be able to access the dashboard
@@ -640,36 +668,40 @@ app.post("/login", (req, res) => {
         if (rows.length > 0) {
             bcrypt.compare(password, rows[0]["pass"], (err, row) => {
                 if (row) {
-                    req.session.loggedin = true;
+                    res.locals.username = username;
+                    req.session.username = username;
 
-                    res.locals.routeAvatar = rows[0]["avatar"];
-                    req.session.routeAvatar = rows[0]["avatar"];
+                    if (rows[0]["contraseña_cambiada"] === "true") {
+                        req.session.loggedin = true;
 
-                    let query2 = "SELECT nombre FROM rol INNER JOIN usuario ON ? = rol.nombreUsuario AND rol.nombreUsuario = usuario.nombreUsuario ";
-                    con.query(query2, [username], (error, rows, fields) => {
-                        let arrRol = [];
-                        for (let i = 0; i < rows.length; i++) {
-                            arrRol.push(rows[i].nombre);
-                        }
+                        res.locals.routeAvatar = rows[0]["avatar"];
+                        req.session.routeAvatar = rows[0]["avatar"];
 
-                        res.locals.rol = arrRol;
-                        req.session.rol = arrRol;
+                        let query2 = "SELECT nombre FROM rol INNER JOIN usuario ON ? = rol.nombreUsuario AND rol.nombreUsuario = usuario.nombreUsuario ";
+                        con.query(query2, [username], (error, rows, fields) => {
+                            let arrRol = [];
+                            for (let i = 0; i < rows.length; i++) {
+                                arrRol.push(rows[i].nombre);
+                            }
 
-                        res.locals.username = username;
-                        req.session.username = username;
+                            res.locals.rol = arrRol;
+                            req.session.rol = arrRol;
 
-                        res.locals.toastrFlag = true;
-                        req.session.toastrFlag = true;
+                            res.locals.toastrFlag = true;
+                            req.session.toastrFlag = true;
 
-                        let query3 = "SELECT frase,autor FROM frasesinspiradoras";
-                        con.query(query3, (error, rows, fields) => {
-                            i = Math.floor(Math.random() * (rows.length + 1));
-                            aux = rows[i]["autor"].replace(/\b\w/g, (l) => l.toUpperCase());
-                            res.locals.inspirationalPhrase = [rows[i]["frase"], aux, rows[i]["frase"].length];
-                            req.session.inspirationalPhrase = [rows[i]["frase"], aux, rows[i]["frase"].length];
-                            res.json("loginOk");
+                            let query3 = "SELECT frase,autor FROM frasesinspiradoras";
+                            con.query(query3, (error, rows, fields) => {
+                                i = Math.floor(Math.random() * rows.length);
+                                aux = rows[i]["autor"].replace(/\b\w/g, (l) => l.toUpperCase());
+                                res.locals.inspirationalPhrase = [rows[i]["frase"], aux, rows[i]["frase"].length];
+                                req.session.inspirationalPhrase = [rows[i]["frase"], aux, rows[i]["frase"].length];
+                                res.json("loginOk");
+                            });
                         });
-                    });
+                    } else {
+                        res.json("changePassword");
+                    }
                 } else {
                     res.json("wrongPass");
                     // console.log("El usuario existe pero la contraseña es incorrecta");
@@ -677,7 +709,6 @@ app.post("/login", (req, res) => {
             });
         } else {
             res.json("userNotExist");
-            // Toastr (wrong credentials)
         }
     });
 });

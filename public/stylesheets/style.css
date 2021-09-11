@@ -239,3 +239,7 @@ td.none {
     border-width: 5px;
     border-style: solid;
 }
+
+.animate__animated.animate__backInLeft {
+    animation-duration: 5s;
+}
