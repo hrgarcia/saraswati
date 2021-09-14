@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 05, 2021 at 05:00 AM
+-- Generation Time: Sep 11, 2021 at 04:49 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.27
 
@@ -98,7 +98,6 @@ INSERT INTO `estudiante` (`dni`, `nombre`, `apellido`, `genero`, `fecha_nacimien
 (35311971, 'josue', 'lorenzo', 'm', '08/5/2003', '32132131', 'jouselorenzo@gmail.com', '3511597479', 'sexto año', 'jolorenzo'),
 (35321158, 'amelia', 'nieto', 'f', '06/4/2003', '23232324', 'amelianieto@gmail.com', '3514327852', 'sexto año', 'amenieto'),
 (35321871, 'lucina', 'romero', 'f', '13/12/2003', '32132131', 'lucinaromero@gmail.com', '3513507449', 'sexto año', 'luromero'),
-(43215971, 'juan', 'gomis', 'm', '11/12/2002', '6544322', 'juangomis@gmail.com', '3513507875', 'sexto año', 'jugomis'),
 (44785621, 'laia', 'quinteros', 'f', '11/10/2002', '987654', 'laiaquintero@gmail.com', '3511597423', 'sexto año', 'laiaquiros'),
 (45215181, 'paola', 'albert', 'f', '13/12/2003', '2131232', 'paolalbert@gmail.com', '3514324762', 'cuarto año', 'paoalbert'),
 (45215981, 'juan', 'torre', 'm', '02/1/2003', '567890', 'juantorre@gmail.com', '3513487665', 'sexto año', 'juantorre'),
@@ -128,56 +127,48 @@ INSERT INTO `estudianteaprendizaje` (`id`, `descripcion`, `estado`, `estudiante_
 (103, 'aprendizaje 1', 'proceso', 35311971, 1, 1),
 (104, 'aprendizaje 1', 'pendiente', 35321158, 1, 1),
 (105, 'aprendizaje 1', 'pendiente', 35321871, 1, 1),
-(106, 'aprendizaje 1', 'pendiente', 43215971, 1, 1),
 (107, 'aprendizaje 1', 'pendiente', 44785621, 1, 1),
 (108, 'aprendizaje 1', 'pendiente', 45215981, 1, 1),
 (109, 'aprendizaje 1', 'pendiente', 88888881, 1, 1),
 (110, 'aprendizaje 2', 'aprobado', 35311971, 1, 1),
 (111, 'aprendizaje 2', 'pendiente', 35321158, 1, 1),
 (112, 'aprendizaje 2', 'pendiente', 35321871, 1, 1),
-(113, 'aprendizaje 2', 'pendiente', 43215971, 1, 1),
 (114, 'aprendizaje 2', 'pendiente', 44785621, 1, 1),
 (115, 'aprendizaje 2', 'pendiente', 45215981, 1, 1),
 (116, 'aprendizaje 2', 'pendiente', 88888881, 1, 1),
 (117, 'aprendizaje 3', 'aprobado', 35311971, 1, 1),
 (118, 'aprendizaje 3', 'pendiente', 35321158, 1, 1),
 (119, 'aprendizaje 3', 'pendiente', 35321871, 1, 1),
-(120, 'aprendizaje 3', 'pendiente', 43215971, 1, 1),
 (121, 'aprendizaje 3', 'pendiente', 44785621, 1, 1),
 (122, 'aprendizaje 3', 'pendiente', 45215981, 1, 1),
 (123, 'aprendizaje 3', 'pendiente', 88888881, 1, 1),
 (124, 'aprendizaje 4', 'proceso', 35311971, 1, 1),
 (125, 'aprendizaje 4', 'pendiente', 35321158, 1, 1),
 (126, 'aprendizaje 4', 'pendiente', 35321871, 1, 1),
-(127, 'aprendizaje 4', 'pendiente', 43215971, 1, 1),
 (128, 'aprendizaje 4', 'pendiente', 44785621, 1, 1),
 (129, 'aprendizaje 4', 'pendiente', 45215981, 1, 1),
 (130, 'aprendizaje 4', 'pendiente', 88888881, 1, 1),
 (131, 'aprendizaje 5', 'pendiente', 35311971, 1, 1),
 (132, 'aprendizaje 5', 'pendiente', 35321158, 1, 1),
 (133, 'aprendizaje 5', 'pendiente', 35321871, 1, 1),
-(134, 'aprendizaje 5', 'pendiente', 43215971, 1, 1),
 (135, 'aprendizaje 5', 'pendiente', 44785621, 1, 1),
 (136, 'aprendizaje 5', 'pendiente', 45215981, 1, 1),
 (137, 'aprendizaje 5', 'pendiente', 88888881, 1, 1),
 (138, 'aprendizaje 5', 'pendiente', 35311971, 1, 1),
 (139, 'aprendizaje 5', 'pendiente', 35321158, 1, 1),
 (140, 'aprendizaje 5', 'pendiente', 35321871, 1, 1),
-(141, 'aprendizaje 5', 'pendiente', 43215971, 1, 1),
 (142, 'aprendizaje 5', 'pendiente', 44785621, 1, 1),
 (143, 'aprendizaje 5', 'pendiente', 45215981, 1, 1),
 (144, 'aprendizaje 5', 'pendiente', 88888881, 1, 1),
 (145, 'aprendizaje 6', 'pendiente', 35311971, 1, 1),
 (146, 'aprendizaje 6', 'pendiente', 35321158, 1, 1),
 (147, 'aprendizaje 6', 'pendiente', 35321871, 1, 1),
-(148, 'aprendizaje 6', 'pendiente', 43215971, 1, 1),
 (149, 'aprendizaje 6', 'pendiente', 44785621, 1, 1),
 (150, 'aprendizaje 6', 'pendiente', 45215981, 1, 1),
 (151, 'aprendizaje 6', 'pendiente', 88888881, 1, 1),
 (152, 'aprendizaje 7', 'pendiente', 35311971, 1, 1),
 (153, 'aprendizaje 7', 'pendiente', 35321158, 1, 1),
 (154, 'aprendizaje 7', 'pendiente', 35321871, 1, 1),
-(155, 'aprendizaje 7', 'pendiente', 43215971, 1, 1),
 (156, 'aprendizaje 7', 'pendiente', 44785621, 1, 1),
 (157, 'aprendizaje 7', 'pendiente', 45215981, 1, 1),
 (158, 'aprendizaje 7', 'pendiente', 88888881, 1, 1);
@@ -363,27 +354,27 @@ CREATE TABLE `tutor` (
 CREATE TABLE `usuario` (
   `nombreUsuario` varchar(11) COLLATE utf8_spanish_ci NOT NULL,
   `pass` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `avatar` varchar(155) COLLATE utf8_spanish_ci NOT NULL
+  `avatar` varchar(155) COLLATE utf8_spanish_ci NOT NULL,
+  `contraseña_cambiada` varchar(50) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`nombreUsuario`, `pass`, `avatar`) VALUES
-('admin', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0'),
-('amenieto', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0'),
-('hrgarcia', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', 'avatar_hrgarcia.jpg'),
-('ianluciano', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0'),
-('jolorenzo', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0'),
-('juantorre', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0'),
-('jugomis', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0'),
-('kaestebanez', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0'),
-('laiaquiros', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0'),
-('lmazzola', '$2b$10$5wJpY.4Jlc3u7FHuqotgiuaWpDpoksvHY9EHmX6OY.66IlUoP6z5W', '0'),
-('luromero', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0'),
-('paoalbert', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0'),
-('sevemonzon', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0');
+INSERT INTO `usuario` (`nombreUsuario`, `pass`, `avatar`, `contraseña_cambiada`) VALUES
+('admin', '$2b$10$5wJpY.4Jlc3u7FHuqotgiuaWpDpoksvHY9EHmX6OY.66IlUoP6z5W', 'avatar_admin.jpg', 'false'),
+('amenieto', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
+('hrgarcia', '$2b$10$6BuPgA13Ky/D270vz8AOBOEoyV/koNaPzM2OKH.dxWA.karLXkMy2', 'avatar_hrgarcia.jpg', 'true'),
+('ianluciano', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
+('jolorenzo', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
+('juantorre', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
+('kaestebanez', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
+('laiaquiros', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
+('lmazzola', '$2b$10$TvFydFnH7Ut4z9wlP218vOIV.jtKPDhtsRQmD9i2fyEQmdxWWTphK', '0', 'true'),
+('luromero', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
+('paoalbert', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
+('sevemonzon', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false');
 
 --
 -- Indexes for dumped tables
@@ -519,7 +510,7 @@ ALTER TABLE `periodo`
 -- AUTO_INCREMENT for table `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
