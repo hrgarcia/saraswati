@@ -429,10 +429,9 @@ app.get("/borrarAprendizajes", (req, res) => {
 });
 
 app.get("/generarReporte/:dni", (req, res) => {
-    console.log(req.params.dni);  // result: test
     let dni = req.params.dni;
 
-     let query1 = "SELECT apellido FROM estudiante WHERE nombre = ?";
+     let query1 = "SELECT * FROM estudiante WHERE dni = ?";
      con.query(query1, [dni] ,(error, rows, fields) => {
          if (error) throw error;
          console.log(rows);
