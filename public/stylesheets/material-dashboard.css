@@ -6641,7 +6641,12 @@ button.bg-dark:focus {
     border-top-left-radius: 0.25rem !important;
     border-bottom-left-radius: 0.25rem !important;
 }
-
+.perfect-circle {
+    display: inline-block;
+    width: 70px;
+    height: 50px;
+    border-radius:70%;
+}    
 .rounded-circle {
     border-radius: 50% !important;
     border: solid 3px #002e6394;
@@ -14054,12 +14059,10 @@ fieldset[disabled] .form-group .form-control {
 
 .navbar .collapse .navbar-nav .nav-item .nav-link {
     position: relative;
-    padding: 10px 15px;
     font-weight: 400;
     font-size: 12px;
     text-transform: uppercase;
-    border-radius: 3px;
-    line-height: 20px;
+    border-radius: 50%;
     margin-left: 5px;
     color: inherit;
 }

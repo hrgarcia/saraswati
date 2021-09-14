@@ -4,9 +4,7 @@
         <div id="divPhrases" class="">
             <font size="2">
                 <blockquote>
-                    <p style="color: white; text-align: center;font-size: small;" class="uk-margin-small-bottom">"<%-inspirationalPhrase[0]%>." 
-                        <footer style="color: rgb(231, 231, 231);float: right;"><%-inspirationalPhrase[1]%></footer>
-                    </p>
+                    <p style="color: white; text-align: center" class="uk-margin-small-bottom">"<%-inspirationalPhrase[0]%>." <footer style="color: rgb(231, 231, 231)"><%-inspirationalPhrase[1]%></footer></p>
                 </blockquote>
             </font>
         </div>
@@ -36,10 +34,9 @@
             <li class="nav-item dropdown">
                 <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <% if(routeAvatar != "0"){ %>
-                    <!-- <img class="rounded-circle" src="/images/upload/avatars/<%-routeAvatar%>" width="60" height="50" /> -->
-                    <img style="border: solid 0px;"class="rounded-circle" alt="10x10" src="/images/upload/avatars/<%-routeAvatar%>" width="60" height="50" data-holder-rendered="true">
+                    <img  src="/images/upload/avatars/<%-routeAvatar%>" class="perfect-circle" height="20" width="20" >
                     <% } else{ %>
-                    <img src="/images/upload/avatars/avatarDefault.png" width="50" height="50" />
+                    <img class="perfect-circle" src="/images/upload/avatars/avatarDefault.png"/>
                     <% } %>
                     <p class="d-lg-none d-md-block">Account</p>
                 </a>
