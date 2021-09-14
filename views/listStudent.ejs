@@ -25,7 +25,6 @@
 
         <!-- CSS Files -->
         <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
-        <link href="/stylesheets/toastr.css" rel="stylesheet" />
         <!-- Animate css -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
         <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
@@ -43,93 +42,160 @@
                         <div class="col-md-10">
                             <h1 class="display-4 tituloSecundario">Lista de estudiantes</h1>
                             
-                            <h4 class="text-table tituloSecundario" data-value="<%- data[0].id_materia -%>" data-value2="<%- data[0].nombreMateria -%>" data-value3="<%- data[0].curso_descripcion -%>" id="subjectName">
+                            <h4 class="text-table tituloSecundario" id="subjectName" data-value="<%- data[0].id_materia -%>" data-value2="<%- data[0].nombreMateria -%>" data-value3="<%- data[0].curso_descripcion -%>" >
                                 Estudiantes del espacio curricular: <%- data[0].nombreMateria -%>
                             </h4>
                         </div>
-                        <div class="col-md-2">
-                            <img class="img-head" src="/images/6to1.png" />
-                        </div>
-                        <a class="loadLearning mr" data-toggle="modal" data-target="#createLearningsFile" data-toggle="tooltip" data-placement="bottom" title="Cargar Aprendizajes">
-                            <i class="fa fa-plus my-float"></i>
-                        </a>
                     </div>
                     
                     <hr class="my-4" />
                     <div class="uk-overflow-auto">
                         <div>
-                            <button class="uk-button uk-button-default" type="button" uk-toggle="target: #toggle-usage">Ayuda(Mostrar/Ocultar)</button>
-                            <p id="toggle-usage">Hola soy un mensaje de ayuda proveninente de un planeta superior al tuyo, humano...</p>
+                            <button class="uk-button arrow-icon" type="button" uk-toggle="target: #toggle-usage" aria-expanded="false">Cargar aprendizaje</button>
+                            <div id="toggle-usage" class="divToggle-Usage" hidden>
+                                <br>
+                                <div>
+                                    <span class="uk-text-danger" style="margin-left: 5%;">Instrucciones: Arrastre a la zona posterior un archivo de</span>
+                                    <u class="uk-text-danger" data-uk-tooltip title='<img width="800" height="600" alt="DEKUmodewelt" src="images/tutorials/txt.png">'>texto</u>
+                                    <span class="uk-text-danger">o </span>
+                                    <u class="uk-text-danger"data-uk-tooltip title='<img width="600" height="600 alt="DEKUmodewelt" src="images/tutorials/excel.png">'>excel</u>
+                                    <span class="uk-text-danger">con los aprendizajes</span>
+                                </div>
+                                <br>
+                                <form action="/cargarAprendizaje" method="post" enctype="multipart/form-data">
+                                    <input style="display:none;" name="idSubject" value="<%- data[0].id -%>"></input>
+                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid" style="margin-left: 3.1%;">
+                                        <p>Cuatrimestre</p>
+                                        <label><input class="uk-radio" style="border-color: black;" type="radio" value="1" name="quarter" checked> 1</label>
+                                        <label><input class="uk-radio" style="border-color: black;" type="radio" value="2" name="quarter"> 2</label>
+                                    </div>
+                                    <div class="js-upload uk-placeholder uk-text-center">
+                                        <span uk-icon="icon: cloud-upload"></span>
+                                        <span class="uk-text-middle">Arrastre un archivo para cargar los aprendizajes o </span>
+                                        <div uk-form-custom>
+                                            <input name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/plain" type="file">
+                                            <span class="uk-link">selecione uno</span>
+                                        </div>
+                                    </div>
+                                    <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+                                    <br>
+                                </form>
+                            </div>
                         </div>
                         <table id="fresh-table" class="uk-table uk-table-responsive uk-table-shrink uk-table-hover uk-table-justify uk-table-striped uk-table-small" style="width: 100%">
                             <thead>
+                                <th >
+                                </th>
                                 <th data-field="name">
-                                    <i class="fas fa-user-graduate color-icon" data-sortable="true"></i>
                                     Nombre
                                 </th>
+
                                 <th data-field="surname">
-                                    <i class="fas fa-user-graduate color-icon" data-sortable="true"></i>
                                     Apellido
                                 </th>
                                 
-                                <th data-field="birt">
-                                    <i class="fa fa-calendar color-icon mb 5" aria-hidden="true" id="nota" onclick="inlineEditing()"></i>
-                                    Notas
-                                    
-                                </th>
                                 <th data-field="dni">
-                                    <i class="fa fa-address-card color-icon" aria-hidden="true"></i>
                                     DNI
                                 </th>
+
                                 <th data-field="email ">
-                                    <i class="fa fa-envelope color-icon" aria-hidden="true"></i>
                                     Email
                                 </th>
+                                
                                 <th data-field="telephone">
-                                    <i class="fa fa-phone color-icon" aria-hidden="true"></i>
                                     Telefono
                                 </th>
-                                <th data-field="genero">
-                                    <i class="fas fa-venus-mars color-icon"></i>
-                                    Genero
-                                </th>
                                 <th data-field="actions" data-formatter="operateFormatter" data-events="operateEvents">
-                                    <i class="fa fa-lightbulb-o color-icon" aria-hidden="true"></i>
                                     Acciones
                                 </th>
                             </thead>
-                            
-                            <% data.forEach(function(Student){ %>    
-                            <tr>
-                                <td><%-Student['nombre']%></td>
-                                <td><%-Student['apellido']%></td>
-                                <% if (Student['nota_definitiva'] == "nd" ) { %>
-                                    <td><span class="badgeNotaNd"><%-Student['nota_definitiva']%></span></td>
-                                <% } %> <% if (parseFloat(Student['nota_definitiva']) < 3) { %>
-                                    <td><span class="badgeNotaDisapproved"><%-Student['nota_definitiva']%></span></td>
-                                <% } %> <% if (parseFloat(Student['nota_definitiva']) <= 6 && parseFloat(Student['nota_definitiva']) > 3) { %>
-                                    <td><span class="badgeNotaWorking"><%-Student['nota_definitiva']%></span></td>
-                                <% } %> <% if (parseFloat(Student['nota_definitiva']) <= 10 && parseFloat(Student['nota_definitiva']) > 6) { %>
-                                    <td><span class="badgeNotaPassed"><%-Student['nota_definitiva']%></span></td>
-                                <% } %>
-                                <td><%-Student['dni']%></td>
-                                <td><%-Student['email']%></td>
-                                <td><%-Student['telefono']%></td>
-                                <td><%-Student['genero']%></td>
-                                <td><span class="uk-badge"><%-Student['nota_definitiva']%></span></td>
-                                <td></td>
-                            </tr>
-                            <% }); %>
-                            
+                            <form id="notesForm" method="post">
+                                <% data.forEach(function(Student){ %>    
+                                    <tr>
+                                        <td>
+                                            <!-- <span uk-icon= "file-text" class="botonNotas" type="button"></span> -->
+                                            <i type="button" title="Notas" class="far fa-file-alt fa-inform"></i>
+                                            <!-- <button class="uk-button uk-button-default" type="button">Notas</button> -->
+                                            <div id="notesDiv" class="uk-width-large" data-value="<%-Student['dni_alumno']%>" uk-dropdown="pos: right-center; mode: click">
+                                                <div class="uk-dropdown-grid uk-child-width-1-2@m" uk-grid>
+                                                    <!-- <button type="button" uk-close></button> -->
+                                                    <br>
+                                                    <div id="firstQuarter" data-value="1">
+                                                        <ul class="uk-nav uk-dropdown-nav">
+                                                            <li style="text-align:center" class="uk">1er Cuatrimestre</li>
+                                                            <li>
+                                                                <span>nota 1</span>
+                                                                <br />
+                                                                <input class="inputCanEditing" placeholder="<%-Student['nota1']%>" value="<%-Student['nota1']%>" type="text" name="nota1"/>
+                                                            </li>
+                                                            <li>
+                                                                <span>nota 2</span>
+                                                                <br />
+                                                                <input class="inputCanEditing" placeholder="<%-Student['nota2']%>" value="<%-Student['nota2']%>" type="text" name="nota2" />
+                                                            </li>
+                                                            <li>
+                                                                <span>nota 3</span>
+                                                                <br />
+                                                                <input class="inputCanEditing" placeholder="<%-Student['nota3']%>" value="<%-Student['nota3']%>" type="text" name="nota3" />
+                                                            </li>
+                                                            <li>
+                                                                <span>nota 4</span>
+                                                                <br />
+                                                                <input class="inputCanEditing" placeholder="<%-Student['nota4']%>" value="<%-Student['nota4']%>" type="text" name="nota4" />
+                                                            </li>
+                                                            <li>
+                                                                <span>nota definitiva</span>
+                                                                <br />
+                                                                <input class="inputCanEditing" placeholder="<%-Student['nota_definitiva']%>" value="<%-Student['nota_definitiva']%>" type="text" name="nota_definitiva" />
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div id="secodQuarter" data-value="2">
+                                                        <ul class="uk-nav uk-dropdown-nav">
+                                                            <li style="text-align:center" class="uk">2do Cuatrimestre</li>
+                                                            <li>
+                                                                <span>nota 1</span>
+                                                                <br />
+                                                                <input class="inputCanEditing" placeholder="<%-Student['nota5']%>" value="<%-Student['nota5']%>" type="text" name="nota5" />
+                                                            </li>
+                                                            <li>
+                                                                <span>nota 2</span>
+                                                                <br />
+                                                                <input class="inputCanEditing" placeholder="<%-Student['nota6']%>" value="<%-Student['nota6']%>" type="text" name="nota6" />
+                                                            </li>
+                                                            <li>
+                                                                <span>nota 3</span>
+                                                                <br />
+                                                                <input class="inputCanEditing" placeholder="<%-Student['nota7']%>" value="<%-Student['nota7']%>" type="text" name="nota7" />
+                                                            </li>
+                                                            <li>
+                                                                <span>nota 4</span>
+                                                                <br />
+                                                                <input class="inputCanEditing" placeholder="<%-Student['nota8']%>" value="<%-Student['nota8']%>" type="text" name="nota8" />
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <button class="uk-button uk-button-text btn btn-primary" style="float: right;" onclick="test()">Guardar</button>
+                                            
+                                            </div>
+                                        </td>
+                                        <td><%-Student['nombre']%></td>
+                                        <td><%-Student['apellido']%></td>
+                                        <td><%-Student['dni']%></td>
+                                        <td><%-Student['email']%></td>
+                                        <td><%-Student['telefono']%></td>
+                                        <td></td>
+                                    </tr>
+                                <% }); %>
+                            </form>
                         </table>
-                        <a href="#" style="float: right;background-color: inherit;" uk-totop uk-scroll></a>
-                    </div>
-                    
+                    </div>    
+                    <a href="#" style="float:right;" uk-totop uk-scroll></a>         
                 </div>
             </div>
-
             <!-- Learnings popup -->
-
             <div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content" id="modal">
@@ -143,44 +209,28 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="modal-dialog" style="overflow-y: initial;">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title tituloPrincipal" style="color: black;">Pendiente</h5>
-                                            </div>
-                                            <div class="modal-body" style="overflow-y: auto; height: 50vh;">
-                                                <p id="listPending" style="color: black;"></p>   
-                                            </div>
+                                    <h4 style="text-align:center;" class="tituloSecundario">Pendiente</h4>
+                                    <div class="sortable-learnings">
+                                        <div id="listPending" class="pendiente" uk-sortable="group: sortable-group, handle: .uk-sortable-handle">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="modal-dialog" style="overflow-y: initial;">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title tituloPrincipal" style="color: black;">Proceso</h5>
-                                            </div>
-                                            <div class="modal-body" style="overflow-y: auto; height: 50vh;">
-                                                <p id="listProcess" style="color: black;"></p>   
-                                            </div>
+                                    <h4 style="text-align:center;" class="tituloSecundario">Proceso</h4>
+                                    <div class="sortable-learnings">
+                                        <div id="listProcess" class="proceso" uk-sortable="group: sortable-group, handle: .uk-sortable-handle">
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-md-4">
-                                    <div class="modal-dialog" style="overflow-y: initial;">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title tituloPrincipal" style="color: black;">Aprobado</h5>
-                                            </div>
-                                            <div class="modal-body" style="overflow-y: auto; height: 50vh;">
-                                                <p id="listApproved" style="color: black;"></p>   
-                                            </div>
-                                        </div>
+                                    <h4 style="text-align:center;" class="tituloSecundario">Aprobado</h4>
+                                    <div class="sortable-learnings">
+                                        <div id="listApproved" class="aprobado" uk-sortable="group: sortable-group, handle: .uk-sortable-handle">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div id="trashLearnings" class="col-md-3">
+                                <div id="trashLearnings" class="col-md-3" uk-sortable="group: sortable-group, handle: .uk-sortable-handle">
                                     <button class="trash custom-btn btn-2">
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -196,7 +246,7 @@
                                     </button>
                                 </div>
                                 <div class="col-md-3">
-                                    <button class="custom-btn btn-2" onclick="saveLearnings()">
+                                    <button class="custom-btn btn-2" onclick="saveAlert()">
                                         <i class="fas fa-save"></i>
                                     </button>
                                 </div>
@@ -204,10 +254,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                </div>
+            </div>    
 
             <!-- Create learnings popup -->
-
             <div class="modal fade bd-example-modal-lg" id="newLearning" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content" id="modal">
@@ -237,75 +287,11 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Create learnings for Excel or Txt -->
-
-            <div class="modal fade bd-example-modal-lg" id="createLearningsFile" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content" id="modal">
-                        <div class="modal-header" style="border-bottom: 1px solid #ffffff !important">
-                            <h5 class="modal-title tituloPrincipal" id="exampleModalLabel">Crear aprendizajes con un archivo</h5>
-                            <h5 class="modal-title" id="isChangedLearnState" style="text-indent: 350px"></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="/cargarAprendizaje" id="learningsExcelForm" method="POST" enctype="multipart/form-data">
-                                <div>
-									<p class="category tituloSecundario" style="color: rgb(228, 216, 216)">Trimestre</p>
-									<div class="form-check form-check-radio form-check-inline">
-										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="trimester" id="inlineRadio1" value="1" checked> 1
-											<span class="circle">
-												<span class="check"></span>
-											</span>
-										</label>
-									</div>
-									<div class="form-check form-check-radio form-check-inline">
-										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="trimester" id="inlineRadio2" value="2"> 2
-											<span class="circle">
-												<span class="check"></span>
-											</span>
-										</label>
-									</div>
-                                </div>
-                                <div>
-                                    <p class="category tituloSecundario" style="color: rgb(255, 255, 255)">Tipo de archivo</p>
-                                    <div class="form-check form-check-radio form-check-inline">
-										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="typeOFile" id="radioExcel" onchange="changeInputFileType()" value="excel" checked> Excel
-											<span class="circle">
-												<span class="check"></span>
-											</span>
-										</label>
-									</div>
-                                    <div class="form-check form-check-radio form-check-inline">
-										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="typeOFile" id="radioTxt" onchange="changeInputFileType()" value="txt"> Txt
-											<span class="circle">
-												<span class="check"></span>
-											</span>
-										</label>
-									</div>
-                                </div>
-                                <input style="display:none;" name="idSubject" value="<%- data[0].id -%>"></input>
-                                <div class="modal-footer">
-                                    <input type="file" name="learnings" id="inputFileType" dataVal="hola" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" placeholder="Ingrese un archivo" />
-									<button type="submit" id="buttonLoadLearnings" class="btn btn-primary">Cargar</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <%- include('fragment/footer'); -%>
         </div>
+
         <%- include('fragment/scripts'); -%>
         <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         
         <!-- datatable js -->
         <script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
@@ -315,166 +301,73 @@
         <script src="/javascripts/uikit.min.js"></script>
         <script src="/javascripts/uikit-icons.min.js"></script>
 
-        <!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
+        <!-- Jquery Validate -->
         <script src="javascripts/jquery.validate.min.js" type="text/javascript"></script>
-        <script src= "https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
+        
+        <!-- Own SweetAlert2 -->
+        <script src="/javascripts/sweetAlerts.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <!-- Spinner Script -->
-        <script>
-            $('#learningsExcelForm').submit(function(event){
-                if($('#learningsExcelForm').valid()){
-                    $('#buttonLoadLearnings').empty();
-                    $('#buttonLoadLearnings').append('<span class="spinner-border spinner-border-sm"  aria-hidden="true"></span>');
-                }
-            });
-        </script>
-        
-        <!-- Validation -->
-        <script>
-            $("#learningsExcelForm").validate({
-                rules: {
-                    learnings: {
-                        required: true
-                    }
-                },
-                messages:{
-                    learnings:{
-                        required: "Por favor ingrese un archivo",
-                        accept: "ingrese el tipo de archivo seleccionado"
-                    }
-                }
-            });
-            function changeInputFileType(){
-                if( $('#radioExcel').prop('checked') ) {
-                    $('#inputFileType').attr("accept", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-                }
-                else{
-                    $('#inputFileType').attr("accept", "text/plain");
-                }
-            }
-        </script>
-        
         <!-- Sortable Functions -->
         <script type="text/javascript">
-            const listApproved = document.getElementById("listApproved");
-            const listProgress = document.getElementById("listProcess");
-            const listPending = document.getElementById("listPending");
             var deleteLearnings = [];
-
-            Sortable.create(listApproved, {
-                group: {
-                    name: "statuslearning",
-                },
-                animation: 150,
-                easing: "cubic-bezier(0.895,0.03,0.685,0.22)",
-                chosenClass: "sortableChosen",
-                dragClass: "sortableDrag",
-                onAdd: function (evt) {
-                    //first time
-                    if (evt.item.getAttribute("originLearn") == "" && evt.item.getAttribute("data-value") == 0) {
-                        evt.item.setAttribute("data-value", "1");
-                        evt.item.setAttribute("originLearn", evt.from.getAttribute("id"));
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                        document.getElementById("isChangedLearnState").innerHTML = "";
-                    } else if (evt.item.getAttribute("originLearn") != evt.to.getAttribute("id")) {
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                        document.getElementById("isChangedLearnState").innerHTML = "";
-                    }
-                    //come back home
-                    else if (evt.item.getAttribute("originLearn") == evt.to.getAttribute("id")) {
-                        evt.item.setAttribute("data-value", "0");
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                    }
-                },
-                onEnd: function (evt) {
-                    if (evt.to.id == "trashLearnings") {
-                        $(evt.item).remove();
-                        deleteLearnings.push(evt);
-                        document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
-                    }
-                },
+            let sortableListPending = UIkit.sortable("#listPending");
+            UIkit.util.on(sortableListPending.$el, "added", function(item, sortable) {
+                let actualItem = item.detail[1];
+                let futureSide = item.detail[0].$el;
+                if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 0) {
+                    actualItem.setAttribute("data-value", "1");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                } 
+                else if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 1) {
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                    // document.getElementById("isChangedLearnState").innerHTML = "";
+                }
+                else if (actualItem.getAttribute("originLearn") == futureSide.id) {
+                    actualItem.setAttribute("data-value", "0");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                }
             });
-            Sortable.create(listProgress, {
-                group: {
-                    name: "statuslearning",
-                },
-                animation: 150,
-                easing: "cubic-bezier(0.895,0.03,0.685,0.22)",
-                chosenClass: "sortableChosen",
-                dragClass: "sortableDrag",
-                onAdd: function (evt) {
-                    //first time
-                    if (evt.item.getAttribute("originLearn") == "" && evt.item.getAttribute("data-value") == 0) {
-                        evt.item.setAttribute("data-value", "1");
-                        evt.item.setAttribute("originLearn", evt.from.getAttribute("id"));
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                        document.getElementById("isChangedLearnState").innerHTML = "";
-                    } else if (evt.item.getAttribute("originLearn") != evt.to.getAttribute("id")) {
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                        document.getElementById("isChangedLearnState").innerHTML = "";
-                    }
-                    //come back home
-                    else if (evt.item.getAttribute("originLearn") == evt.to.getAttribute("id")) {
-                        evt.item.setAttribute("data-value", "0");
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                    }
-                },
-                onEnd: function (evt) {
-                    if (evt.to.id == "trashLearnings") {
-                        $(evt.item).remove();
-                        deleteLearnings.push(evt);
-                        document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
-                    }
-                },
+            let sortableListProcess = UIkit.sortable("#listProcess");
+            UIkit.util.on(sortableListProcess.$el, "added", function(item, sortable) {
+                let actualItem = item.detail[1];
+                let futureSide = item.detail[0].$el;
+                if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 0) {
+                    actualItem.setAttribute("data-value", "1");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                } 
+                else if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 1) {
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                }
+                else if (actualItem.getAttribute("originLearn") == futureSide.id) {
+                    actualItem.setAttribute("data-value", "0");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                }
             });
-
-            Sortable.create(listPending, {
-                group: {
-                    name: "statuslearning",
-                },
-                animation: 150,
-                easing: "cubic-bezier(0.895,0.03,0.685,0.22)",
-                chosenClass: "sortableChosen",
-                dragClass: "sortableDrag",
-                onAdd: function (evt) {
-                    if (evt.item.getAttribute("originLearn") == "" && evt.item.getAttribute("data-value") == 0) {
-                        evt.item.setAttribute("data-value", "1");
-                        evt.item.setAttribute("originLearn", evt.from.getAttribute("id"));
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                        document.getElementById("isChangedLearnState").innerHTML = "";
-                    } else if (evt.item.getAttribute("originLearn") != evt.to.getAttribute("id")) {
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                        document.getElementById("isChangedLearnState").innerHTML = "";
-                    } else if (evt.item.getAttribute("originLearn") == evt.to.getAttribute("id")) {
-                        evt.item.setAttribute("data-value", "0");
-                        evt.item.classList.replace(evt.item.classList[1], evt.to.classList[1]);
-                    }
-                },
-                onEnd: function (evt) {
-                    if (evt.to.id == "trashLearnings") {
-                        $(evt.item).remove();
-                        deleteLearnings.push(evt);
-                        document.getElementById("isChangedLearnState").innerHTML = "Se borro un aprendizaje(guardar)";
-                    }
-                },
+            let sortableListApproved = UIkit.sortable("#listApproved");
+            UIkit.util.on(sortableListApproved.$el, "added", function(item, sortable) {
+                let actualItem = item.detail[1];
+                let futureSide = item.detail[0].$el;
+                if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 0) {
+                    actualItem.setAttribute("data-value", "1");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                } 
+                else if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 1) {
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                }
+                else if (actualItem.getAttribute("originLearn") == futureSide.id) {
+                    actualItem.setAttribute("data-value", "0");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                }
             });
-            Sortable.create(trashLearnings, {
-                group: {
-                    name: "statuslearning",
-                },
-                chosenClass: "sortableChosen",
-                dragClass: "sortableDrag",
-                filter: ".trash",
-                sort: false,
-                put: false,
+            let sortableTrashLearnings = UIkit.sortable("#trashLearnings");
+            UIkit.util.on(sortableTrashLearnings.$el, "added", function(item, sortable) {
+                let actualItem = item.detail[1];
+                let futureSide = item.detail[0].$el;
+                $(actualItem).remove();
+                deleteLearnings.push(actualItem);
             });
-        </script>
-
-        <!-- boostrap DataTable -->
-        <script type="text/javascript">
-            var $table = $("#fresh-table");
-            var $alertBtn = $("#alertBtn");
-
             function saveLearnings() {
                 let dni = $("#learningsStudent").attr("data-value");
                 let listLearnings = [$(".pendiente"), $(".proceso"), $(".aprobado")];
@@ -484,29 +377,45 @@
                     proceso: [],
                     aprobado: [],
                 };
-                //chequeamos si hubieron cambios
+                let previusAlert = false;
                 for (let i = 0; i < listLearnings.length; i++) {
-                    for (let j = 0; j < listLearnings[i].length; j++) {
-                        console.log((listLearnings[i][j].children[0].innerHTML).trim());
+                    for (let j = 1; j < listLearnings[i].length; j++) {
                         if (listLearnings[i][j].getAttribute("data-value") == 1) {
-                            infoLearnings[listLearnings[i][j].classList[1]].push({name: (listLearnings[i][j].children[0].innerHTML).trim(),});
+                            infoLearnings[listLearnings[i][j].classList[0]].push({name: listLearnings[i][j].childNodes[1].innerHTML.toLowerCase()});
+                            
+                            listLearnings[i][j].setAttribute("data-value", "0");
+                            if(listLearnings[i][j].classList[0] == "pendiente"){
+                                listLearnings[i][j].setAttribute("originLearn", "listPending");
+                            }
+                            if(listLearnings[i][j].classList[0] == "proceso"){
+                                listLearnings[i][j].setAttribute("originLearn", "listProcess");
+                            }
+                            if(listLearnings[i][j].classList[0] == "aprobado"){
+                                listLearnings[i][j].setAttribute("originLearn", "listApproved");
+                            }
                         }
                     }
                 }
+                
                 if (infoLearnings["pendiente"].length > 0 || infoLearnings["proceso"].length > 0 || infoLearnings["aprobado"].length > 0) {
                     $.get("guardarAprendizajes", { data: infoLearnings }, function (res) {
-                        document. getElementById ( " isChangedLearnState " ). innerHTML  =  " Cambios guardados " ;
+                        successAlert("Cambios guardados");
+                        previusAlert = true;
                     });
                 }
                 if (deleteLearnings.length > 0) {
-                    //detectar cual se borro y modificar la db
                     for (let i = 0; i < deleteLearnings.length; i++) {
-                        deleteLearnings[i] = (deleteLearnings[i].item.lastChild.innerHTML).trim();
+                        deleteLearnings[i] = deleteLearnings[i].childNodes[1].innerHTML.toLowerCase();
                     }
                     $.get("borrarAprendizajes", { data: deleteLearnings }, function (res) {
-                        document. getElementById ( " isChangedLearnState " ). innerHTML  =  " Cambios guardados " ;
                         deleteLearnings = [];
+                        if(!previusAlert){
+                            successAlert("Aprendizajes borrados");
+                        }
                     });
+                }
+                else{
+                    errorAlert("No hay cambios para realizar");
                 }
             }
             function addLearning(newLearningData) {
@@ -517,39 +426,41 @@
                 // course
                 newLearningData.push(document.getElementById("subjectName").getAttribute("data-value3"));
                 $.get("agregarAprendizajes", { newLearningData }, function (res) {
-                    $("#listPending").append("<div class='list-group-item pendiente sortableStyle' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" + " " + newLearningData[0] + "</p></div>");
-                    document.getElementById("isChangedLearnState").innerHTML = "Se creo un nuevo aprendizaje";
+                    $("#listPending").append("<div class='pendiente uk-margin uk-card uk-card-default uk-card-body uk-card-small' originLearn='listPending' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `<span class="text">${newLearningData[0]}</span></div>`);
                 });
             }
-            function pdf(){
-                $.get("GenerateReport", { "hola":"hola" }, function (res) {
-                });
-            }
+        </script>        
 
+        <!-- boostrap DataTable -->
+        <script type="text/javascript">
+            var $table = $("#fresh-table");
+            var $alertBtn = $("#alertBtn");
+            function pdf(){
+                $.get("GenerateReport", function (res) {
+                });
+            }
             window.operateEvents = {
                 "click .like": function (e, value, row, index) {
                     alert("You click like icon, row: " + JSON.stringify(row));
                     console.log(value, row, index);
                 },
                 "click .edit": function (e, value, row, index) {
-                    $.get("obtenerAprendizajes", { dni: row.dni }, function (res) {
+                    
+                    $.get("obtenerAprendizajes", { dni: row.dni, idSubject:document.getElementById("subjectName").getAttribute("data-value")}, function (res) {
                         if ($("#learningsStudent").attr("data-value") != row.dni) {
                             $("#listApproved").empty();
                             $("#listProcess").empty();
                             $("#listPending").empty();
                             for (let i = 0; i < res.length; i++) {
+                                let allText = res[i].descripcion.charAt(0).toUpperCase();
+                                let restCh = res[i].descripcion.substring(1, res[i].descripcion.length);
+                                allText = allText.concat(restCh);
                                 if (res[i].estado == "aprobado") {
-                                    $(document).ready(() => {
-                                        $("#listApproved").append("<div class='list-group-item aprobado sortableStyle' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" + " " + res[i].descripcion + "</p></div>");
-                                    });
+                                    $("#listApproved").append("<div class='aprobado uk-margin uk-card uk-card-default uk-card-body uk-card-small' originLearn='listApproved' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `<span class="text">${allText}</span></div>`);
                                 } else if (res[i].estado == "proceso") {
-                                    $(document).ready(() => {
-                                        $("#listProcess").append("<div class='list-group-item proceso sortableStyle' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" +  " " + res[i].descripcion + "</p></div>");
-                                    });
+                                    $("#listProcess").append("<div class='proceso uk-margin uk-card uk-card-default uk-card-body uk-card-small' originLearn='listProcess' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `<span class="text">${allText}</span></div>`);
                                 } else {
-                                    $(document).ready(() => {
-                                        $("#listPending").append("<div class='list-group-item pendiente sortableStyle' originLearn='' data-value='0'><p class='fas fa-bars bg-danger mb-3'>" +  " " + res[i].descripcion + "</p></div>");
-                                    });
+                                    $("#listPending").append("<div class='pendiente uk-margin uk-card uk-card-default uk-card-body uk-card-small' originLearn='listPending' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `<span class="text">${allText}</span></div>`);
                                 }
                             }
                             $("#learningsStudent").attr("data-value", row.dni);
@@ -557,13 +468,11 @@
                     });
                 },
             };
-
             function operateFormatter(value, row, index) {
                 return [
                     '<a style="background-color:inherit !important;" rel="tooltip" title="Generar informe" class="table-action like" href="javascript:pdf()" title="Like">',
                     '<i class="far fa-file-alt fa-inform"></i>',
                     "</a>",
-
                     '<a style="background-color:inherit !important;" rel="tooltip" title="Editar" class="table-action edit" href="javascript:void(0)" title="Edit" data-toggle="modal" data-target="#learningsStudent">',
                     '<i style="color:none !important;" class="fa fa-edit"></i>',
                     "</a>",
@@ -590,6 +499,146 @@
                     },
                 });
             });
+        </script>
+
+        <!-- Notes Validation -->
+        <script>
+            $("#notesForm").validate({
+                rules: {
+                    nota1: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 2,
+                        digits: true
+                    },
+                    nota2: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 2,
+                        digits: true
+                    },
+                    nota3: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 2,
+                        digits: true
+                    },
+                    nota4: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 2,
+                        digits: true
+                    },
+                    nota5: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 2,
+                        digits: true
+                    },
+                    nota6: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 2,
+                        digits: true
+                    },
+                    nota7: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 2,
+                        digits: true
+                    },
+                    nota8: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 2,
+                        digits: true
+                    }
+                },
+                messages: {
+                    nota1: {
+                        required: "Ingrese una nota",
+                        minlength: "Ingrese algun numero o un '-' ",
+                        maxlength: "Ingrese alguna nota valida",
+                    },
+                    nota2: {
+                        required: "Ingrese una nota",
+                        minlength: "Ingrese algun numero o un '-' ",
+                        maxlength: "Ingrese alguna nota valida",
+                    },
+                    nota3: {
+                        required: "Ingrese una nota",
+                        minlength: "Ingrese algun numero o un '-' ",
+                        maxlength: "Ingrese alguna nota valida",
+                    },
+                    nota4: {
+                        required: "Ingrese una nota",
+                        minlength: "Ingrese algun numero o un '-' ",
+                        maxlength: "Ingrese alguna nota valida",
+                    },
+                    nota5: {
+                        required: "Ingrese una nota",
+                        minlength: "Ingrese algun numero o un '-' ",
+                        maxlength: "Ingrese alguna nota valida",
+                    },
+                    nota6: {
+                        required: "Ingrese una nota",
+                        minlength: "Ingrese algun numero o un '-' ",
+                        maxlength: "Ingrese alguna nota valida",
+                    },
+                    nota7: {
+                        required: "Ingrese una nota",
+                        minlength: "Ingrese algun numero o un '-' ",
+                        maxlength: "Ingrese alguna nota valida",
+                    },
+                    nota8: {
+                        required: "Ingrese una nota",
+                        minlength: "Ingrese algun numero o un '-' ",
+                        maxlength: "Ingrese alguna nota valida",
+                    }
+                },
+            });
+
+            function test(){
+                if ($("#notesForm").valid()) {
+                    // e.preventDefault();
+                    let aux = $("#notesDiv input");
+                    let aux2 = {"data":[]};
+                    let flag = false;
+                    idSubject = document.getElementById("subjectName").getAttribute("data-value");
+                    for (let i = aux.length - 1; i >= 0; i--) {
+                        if (aux[i].placeholder == aux[i].value) {
+                            aux.splice(i,1);
+                        }
+                        else{
+                            let dni = aux[i].closest('#notesDiv').getAttribute("data-value")
+                            
+                            aux2["data"].push({'dni':dni, 'namefield':aux[i].name, 'value':aux[i].value, 'idSubject':idSubject});                     
+                            flag = true;
+                        }
+                    }
+                    
+                    if (flag) {
+                        aux2 = JSON.stringify(aux2);
+                        $.ajax({
+                            url: "/changeNumbersNotes",
+                            method: "post",
+                            dataType: "json",
+                            data: { info: `${aux2}` },
+                        }).done((d) => {
+                            for (let i = 0; i < aux.length; i++) {
+                                aux[i].placeholder = JSON.parse(aux2)["data"][i]["value"]
+                            }
+                            if (d === "infoUpdated") {
+                                successAlert("Su informacion fue actualizada");
+                            } else if (d === "infoNotUpdated") {
+                                errorAlert("Su informacion no pudo ser actualizada");
+                            }
+                        });
+                    } else {
+                        errorAlert("No se modifico ningun dato");
+                    }
+                }
+            }
         </script>
     </body>
 </html>

@@ -694,8 +694,9 @@ textarea {
 button,
 input {
     overflow: visible;
-    border: 2px solid rgb(10, 130, 199);
-    border-radius: 4px;
+    border: 2px solid rgba(4, 68, 131, 0.692);
+    border-radius: 2px;
+    background-color: #f5f3f0b0;
 }
 
 button,
@@ -881,7 +882,7 @@ h6,
     font-weight: 300;
     line-height: 1.2;
     margin-top: 30px;
-    text-shadow: -2px -2px 1px #000;
+    text-shadow: -2px -2px 20px #000
 }
 .text-table {
     font-size: 1.3rem;
@@ -5200,7 +5201,7 @@ tbody.collapse.show {
 .jumbotron {
     padding: 2rem 1rem;
     margin-bottom: 2rem;
-    background-color: #e9ecef;
+    background-color: #e9ecef61;
     border-radius: 0.3rem;
 }
 
@@ -6643,7 +6644,7 @@ button.bg-dark:focus {
 
 .rounded-circle {
     border-radius: 50% !important;
-    border: solid 2px #f3f3f394;
+    border: solid 3px #002e6394;
 }
 
 .rounded-0 {
@@ -9492,22 +9493,27 @@ a.text-dark:focus {
 }
 
 .btn.btn-primary {
-    color: #fff;
-    background: #4d9efa;
-    box-shadow: 0 2px 2px 0 rgba(156, 39, 176, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2), 6px 7px 5px 0 rgb(237 89 85 / 29%);
+    color: #ffffff;
+    background: #1757a0;
+    box-shadow: 0 2px 2px 0 rgb(156 39 176 / 14%), 0 3px 1px -2px rgb(156 39 176 / 20%), 6px 7px 5px 0 rgb(85 164 237 / 29%);
 }
-
+.containerLog{
+	position : absolute;
+	width : 100%;
+	height : 100%;
+    background-color: rgb(59, 191, 231);
+}
 .btn.btn-primary:hover {
     color: #fff;
-    background-color: #9124a3;
+    background-color: #9024a300;
     border-color: #701c7e;
 }
 
 .btn.btn-primary:focus,
 .btn.btn-primary.focus,
 .btn.btn-primary:hover {
-    color: #fff;
-    background-color: #9124a3;
+    color: rgb(255, 255, 255);
+    background-color: #2471c9b9;
     border-color: #701c7e;
 }
 
@@ -10121,7 +10127,7 @@ a.text-dark:focus {
 .btn,
 .btn.btn-default {
     color: #fff;
-    background-color: #164980;
+    background-color: #bf4041;
     box-shadow: 0 2px 2px 0 rgba(153, 153, 153, 0.14), 0 3px 1px -2px rgba(153, 153, 153, 0.2), 0 1px 5px 0 rgba(153, 153, 153, 0.12);
 }
 
@@ -10139,7 +10145,7 @@ a.text-dark:focus {
 .btn.btn-default.focus,
 .btn.btn-default:hover {
     color: #fff;
-    background-color: #164980;
+    background-color: #c54d4d;
     border-color: #7a7a7a;
 }
 
@@ -13673,6 +13679,7 @@ select.form-control {
     padding-bottom: 10px;
     position: relative;
     margin: 8px 0 0;
+    margin-left: 125px;
 }
 
 .form-group .bmd-label-static {
@@ -14392,6 +14399,14 @@ fieldset[disabled] .form-group .form-control {
     content: "";
 }
 
+.editar{
+    border-top-color:#008697;
+    border-left-color: #18ce0f;
+}
+
+
+
+
 .page-header:before {
     background-color: rgba(0, 0, 0, 0.3);
 }
@@ -14434,7 +14449,7 @@ h3,
     font-family: "Roboto Slab", serif;
     line-height: 1.4em;
     margin: 0px 0 0px;
-    background: linear-gradient(281deg, #8e0303, #523e43);
+    background: linear-gradient(281deg, #8c0f0f00, #a726264a);
     box-shadow: 0 2px 2px 0 rgba(0, 188, 212, 0.14), 0 3px 1px -2px rgba(0, 188, 212, 0.2), 0 1px 5px 0 rgba(0, 188, 212, 0.12);
     color: #fff;
 }
@@ -17056,7 +17071,7 @@ thead.thead-inverse th,
 
 body {
     background-color: #eee;
-    color: #3c4858;
+    color: #000000;
     font-weight: 300;
 }
 
@@ -17432,13 +17447,13 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 }
 
 .card {
-    border: 3px;
+    
     margin-bottom: 30px;
     margin-top: 130px;
     border-radius: 6px;
     color: #93b8fa;
     background: #fff;
-    border-color: #00000042;
+    border-color: black;
     width: 100%;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
@@ -17450,6 +17465,20 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
     color: #fffbfb;
     background: #fff;
     margin-left: 90px;
+    border-color: #00000042;
+    width: 80%;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+
+.cardTutor {
+    border: 3px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    border-radius: 6px;
+    color: #fffbfb;
+    background: #fff;
+    margin-left: 100px;
     border-color: #00000042;
     width: 80%;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
@@ -17795,8 +17824,9 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .card .card-body {
     padding: 0.9375rem 20px;
     position: relative;
-    /* border-color: #0000001f;
-  border-style: solid; */
+    display: block;
+    align-self: center ;
+    
 }
 
 .card .card-body .form-group {

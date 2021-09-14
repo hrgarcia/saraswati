@@ -10,6 +10,9 @@ const teacherFunctions = require("./external/teacherFunctions");
 const conection = require("./config/db");
 const pdf = require("html-pdf");
 const ejs = require("ejs");
+const cron = require("node-cron");
+
+const dump = require("mysqldump");
 
 // Obtain the name of the file
 const storage = multer.diskStorage({
@@ -18,18 +21,56 @@ const storage = multer.diskStorage({
     },
 });
 
+// create an historial for DB versions
+// cron.schedule("0 */3 * * *", () => {
+//     // “At minute 0 past every 3rd hour.”
+//     let x = new Date().toLocaleString().split("/").join("-");
+//     x = x.split(" ").join("-");
+//     x = x.split(":").join("-");
+//     dump({
+//         connection: {
+//             host: "localhost",
+//             user: "root",
+//             password: "",
+//             database: "saraswatidb",
+//         },
+
+//         dumpToFile: `./DB/saraswatidb-${x}.sql`,
+//         timezone: "America/Argentina/Cordoba:180",
+//     });
+// });
+
+// create an historial for DB versions in Github
+// cron.schedule("0 0 1 1-12 *", () => {
+//     // At 00:00 on day-of-month 1 in every month from January through December.
+//     let x = new Date().toLocaleString().split("/").join("-");
+//     x = x.split(" ").join("-");
+//     x = x.split(":").join("-");
+//     dump({
+//         connection: {
+//             host: "localhost",
+//             user: "root",
+//             password: "",
+//             database: "saraswatidb",
+//         },
+
+//         dumpToFile: `./DB/saraswatidb-${x}.sql`,
+//         timezone: "America/Argentina/Cordoba:180",
+//     });
+// });
+
 // Upload contains storage and verify that the storage content comes from the formImagen.ejs file, limits its upload to 1 MB and that it is the appropriate format
 var uploads = multer({
     storage: storage,
     limits: { fileSize: 1 * 1024 * 1024 },
     fileFilter: (req, file, cb) => {
         if (path.extname(file.originalname) !== ".png" && path.extname(file.originalname) !== ".jpg" && path.extname(file.originalname) !== ".gif" && path.extname(file.originalname) !== ".jpeg") {
-            console.log("no es una imagen");
+            cb(new Error("goes wrong on the mimetype!"), false);
         } else {
             cb(null, true);
         }
     },
-}).single("avatar");
+}).single("document");
 
 const storageAprendizajes = multer.diskStorage({
     filename: (req, file, cb) => {
@@ -76,6 +117,8 @@ app.use((req, res, next) => {
     res.locals.rol = req.session.rol;
     res.locals.username = req.session.username;
     res.locals.toastrFlag = req.session.toastrFlag;
+    res.locals.routeAvatar = req.session.routeAvatar;
+    res.locals.inspirationalPhrase = req.session.inspirationalPhrase;
     next();
 });
 var urlencodedParser = bodyParser.urlencoded({
@@ -96,23 +139,63 @@ app.get("/", (req, res) => {
 
 app.get("/dashboard", (req, res) => {
     if (req.session.loggedin) {
-        let query = "SELECT * FROM materia  INNER JOIN profesor ON materia.profesor_usuario = profesor.usuario AND ? = materia.profesor_usuario";
-        con.query(query, [res.locals.username], (error, rows, fields) => {
-            if (error) throw error;
-            res.render("dashboard.ejs", {
-                title: "Subjects",
-                data: rows,
-            });
-        });
+        let rol = res.locals.rol;
+        let username = res.locals.username;
+        var auxData = [];
+
+        for (let i = 0; i < rol.length; i++) {
+            if (rol[i] == "administrador") {
+                console.log("soy administrador");
+            }
+            if (rol[i] == "preceptor") {
+                // async function getSubjects() {
+                //     let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
+                //     return new Promise((resolve, reject) => {
+                //         con.query(query, [username], (error, rows) => {
+                //             return resolve(rows);
+                //         });
+                //     });
+                // }
+                // auxData.push(getSubjects());
+                console.log("soy preceptor");
+            }
+            if (rol[i] == "profesor") {
+                async function getSubjects() {
+                    let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
+                    return new Promise((resolve, reject) => {
+                        con.query(query, [username], (error, rows) => {
+                            return resolve(rows);
+                        });
+                    });
+                }
+                auxData.push(getSubjects());
+            }
+            if (rol[i] == "estudiante") {
+                console.log("soy estudiante");
+            }
+        }
+
+        async function sequentialQueries() {
+            try {
+                const result = await Promise.all(auxData);
+
+                res.render("dashboard.ejs", {
+                    title: "InfoUser",
+                    data: result,
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        sequentialQueries();
+    } else {
+        res.render("loggedOut.ejs");
     }
 });
 
 app.get("/formularioImagen", (req, res) => {
     res.render("formularioImagen.ejs");
-});
-
-app.get("/cargarAprendizajes", (req, res) => {
-    res.render("loadLearning.ejs");
 });
 
 app.get("/logout", (req, res) => {
@@ -121,7 +204,14 @@ app.get("/logout", (req, res) => {
 });
 
 app.get("/agregarProfesor", (req, res) => {
-    res.render("addTeacher.ejs");
+    let query = "SELECT * FROM materia WHERE profesor_usuario = ? ";
+    con.query(query, ["lmazzola"], (error, rows, fields) => {
+        for (let index = 0; index < rows.length; index++) {}
+        res.render("addTeacher.ejs", {
+            title: "Materias",
+            data: rows,
+        });
+    });
 });
 
 app.get("/agregarUsuario", (req, res) => {
@@ -140,10 +230,6 @@ app.get("/agregarMateria", (req, res) => {
 
 app.get("/agregarPreceptor", (req, res) => {
     res.render("addPreceptor.ejs");
-});
-
-app.get("/estadisticas", (req, res) => {
-    res.render("statistics.ejs");
 });
 
 app.get("/datatable", (req, res) => {
@@ -196,14 +282,81 @@ app.get("/listarUsuarios", (req, res) => {
 });
 
 app.get("/miPerfil", (req, res) => {
-    let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
-    con.query(query, [res.locals.username], (error, rows, fields) => {
-        if (error) throw error;
-        res.render("myProfile.ejs", {
-            title: "Perfil",
-            data: rows,
+    let rol = res.locals.rol;
+    let username = res.locals.username;
+    var auxData = [];
+
+    async function infoProfile() {
+        let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ?";
+        return new Promise((resolve, reject) => {
+            con.query(query, [username], (error, rows) => {
+                return resolve(rows);
+            });
         });
-    });
+    }
+    auxData.push(infoProfile());
+
+    for (let i = 0; i < rol.length; i++) {
+        if (rol[i] == "administrador") {
+            // async function infoProfile() {
+            //     let query = "SELECT * FROM admin";
+            //     return new Promise((resolve, reject) => {
+            //         con.query(query, [username], (error, rows) => {
+            //             return resolve(rows);
+            //         });
+            //     });
+            // }
+            // auxData.push(infoProfile());
+            console.log("soy administrador");
+        }
+        if (rol[i] == "preceptor") {
+            // async function infoProfile() {
+            //     let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
+            //     return new Promise((resolve, reject) => {
+            //         con.query(query, [username], (error, rows) => {
+            //             return resolve(rows);
+            //         });
+            //     });
+            // }
+            // auxData.push(infoProfile());
+            console.log("soy preceptor");
+        }
+        if (rol[i] == "profesor") {
+            async function infoProfile() {
+                let query = "SELECT * FROM profesor WHERE nombreUsuario = ?";
+                return new Promise((resolve, reject) => {
+                    con.query(query, [username], (error, rows) => {
+                        return resolve(rows);
+                    });
+                });
+            }
+            auxData.push(infoProfile());
+        }
+        if (rol[i] == "estudiante") {
+            // async function infoProfile() {
+            //     let query = "SELECT * FROM estudiate";
+            //     return new Promise((resolve, reject) => {
+            //         con.query(query, [username], (error, rows) => {
+            //             return resolve(rows);
+            //         });
+            //     });
+            // }
+            // auxData.push(infoProfile());
+            console.log("soy estudiante");
+        }
+    }
+    async function sequentialQueries() {
+        try {
+            const result = await Promise.all(auxData);
+            res.render("myProfile.ejs", {
+                title: "Profile",
+                data: result,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    sequentialQueries();
 });
 
 app.get("/obtenerAprendizajes", (req, res) => {
@@ -213,6 +366,7 @@ app.get("/obtenerAprendizajes", (req, res) => {
         res.send(rows);
     });
 });
+
 app.get("/guardarAprendizajes", (req, res) => {
     let query = "UPDATE estudianteaprendizaje SET estado = ? WHERE estudianteaprendizaje.descripcion = ? AND estudianteaprendizaje.estudiante_dni = ?";
     let dni = 0;
@@ -275,6 +429,37 @@ app.get("/borrarAprendizajes", (req, res) => {
     res.send("");
 });
 
+app.get("/generarReporte/:dni", (req, res) => {
+    console.log(req.params.dni); // result: test
+    let dni = req.params.dni;
+
+    let query1 = "SELECT apellido FROM estudiante WHERE nombre = ?";
+    con.query(query1, [dni], (error, rows, fields) => {
+        if (error) throw error;
+        console.log(rows);
+
+        ejs.renderFile("views/GenerateReport.ejs", { name: rows }, (err, html) => {
+            if (err) throw err;
+            const options = {
+                format: "A4",
+                border: {
+                    right: "8",
+                },
+            };
+
+            pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
+                if (err) {
+                    res.send(err);
+                } else {
+                    console.log("Pdf creado");
+                }
+            });
+            res.type("pdf");
+            res.download("uploads/report.pdf");
+        });
+    });
+});
+
 app.get("/cambiarEstadoToastr", (req, res) => {
     res.locals.toastrFlag = false;
     req.session.toastrFlag = false;
@@ -285,15 +470,47 @@ app.get("/estadoToastr", (req, res) => {
     res.send(res.locals.toastrFlag);
 });
 
-app.get("/editarPerfil", (req, res) => {
-    let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ? ";
-    con.query(query, [res.locals.username], (error, rows, fields) => {
-        if (error) throw error;
-        res.render("edit.ejs", {
-            title: "Perfil",
+app.get("/generarImagen", (req, res) => {
+    let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ?";
+    con.query(query, [res.locals.username], (error, rows) => {
+        res.render("changePassword.ejs", {
+            title: "User",
             data: rows,
         });
     });
+});
+
+app.get("/crearSlider", (req, res) => {
+    res.render("generarSlider.ejs");
+});
+// Post
+app.post("/changeInfoProfile", (req, res) => {
+    let infoToChange = JSON.parse(req.body.info);
+    let rol = res.locals.rol;
+    let username = res.locals.username;
+
+    for (let i = 0; i < rol.length; i++) {
+        for (const key in infoToChange) {
+            let query = `UPDATE ${rol[i]} SET ${key} = ? WHERE nombreUsuario = ?`;
+            con.query(query, [infoToChange[key], username], (error, rows, fields) => {
+                if (error) throw error;
+            });
+        }
+    }
+
+    res.json("infoUpdated");
+});
+
+app.post("/changeNumbersNotes", (req, res) => {
+    let infoToChange = JSON.parse(req.body.info);
+    for (let i = 0; i < infoToChange["data"].length; i++) {
+        let aux = infoToChange["data"][i]["namefield"];
+        let query = `UPDATE nota SET ${aux} = ? WHERE dni_alumno = ? AND id_materia = ?`;
+        con.query(query, [infoToChange["data"][i]["value"], infoToChange["data"][i]["dni"], infoToChange["data"][i]["idSubject"]], (error, rows, fields) => {
+            if (error) throw error;
+        });
+    }
+    res.json("infoUpdated");
 });
 
 // Returns all students of the selected subject
@@ -310,18 +527,46 @@ app.post("/estudianteMateria", (req, res) => {
 });
 
 // Resize avatar images
-app.post("/subirFotos", uploads, (req, res, next) => {
-    let width = 800;
-    let heigth = 600;
+app.post("/subirFotos", (req, res) => {
+    uploads(req, res, function (err) {
+        // FILE SIZE ERROR
+        if (err instanceof multer.MulterError) {
+            return res.json("overToSize");
+        }
 
-    sharp(req.file.path)
-        .resize(width, heigth)
-        .toFile("public/images/icons/avatar_" + req.file.originalname, (err) => {
-            if (!err) {
-                console.log("El archivo se subio correctamente");
-                res.end();
+        // INVALID FILE TYPE, message will return from fileFilter callback
+        else if (err) {
+            return res.json("invalidType");
+        }
+
+        // SUCCESS
+        else {
+            function getFileExtension(filename) {
+                return /[.]/.exec(filename) ? /[^.]+$/.exec(filename)[0] : undefined;
             }
-        });
+
+            let width = 800;
+            let heigth = 600;
+
+            let usuario = res.locals.username;
+            let extension = getFileExtension(req.file.originalname);
+
+            sharp(req.file.path)
+                .resize(width, heigth)
+                .toFile("public/images/upload/avatars/avatar_" + usuario + "." + extension, (err) => {
+                    if (!err) {
+                        let img = "avatar_" + usuario + "." + extension;
+                        let query = "UPDATE usuario SET avatar = ? WHERE nombreUsuario = ?";
+                        con.query(query, [img, usuario], (errs, result) => {
+                            if (errs) throw errs;
+                            res.locals.routeAvatar = img;
+                            req.session.routeAvatar = img;
+                            res.json("updatedAvatar");
+                        });
+                    }
+                });
+        }
+    });
 });
 
 // Create subject
@@ -338,83 +583,100 @@ app.post("/crearMateria", (req, res) => {
     });
 });
 
-app.post("/crearProfesor", urlencodedParser, (req, res) => {
-    // User Data
-    let user = req.body.user;
-    let avatar = req.body.avatar;
-    let salt = 10; // Standar value
-
-    // Teacher data
-    let name = req.body.name;
-    let lastName = req.body.lastName;
-    let dni = req.body.dni;
-    let telephone = req.body.telephone;
-    let email = req.body.email;
-    let gender = req.body.gender;
-    let birth = req.body.birth;
-    let entry = req.body.entry;
-    let state = req.body.state;
-
-    console.log("entre a la ruta");
-
-    // let query = "INSERT INTO profesor (usuario,nombre,apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?);";
-    // con.query(query, [user, name, lastName, dni, telephone, email, gender, birth, entry, state], (error, rows, fields) => {
-    //     if (error) throw error;
-    // });
-
-    // bcrypt.hash(req.body.password, salt, (err, encrypted) => {
-    //     let password = encrypted;
-    //     let query2 = "INSERT INTO usuario (nombreUsuario,pass,avatar) VALUES (?,?,?);";
-    //     con.query(query2, [user, password, avatar], (error, rows, fields) => {
-    //         if (error) throw error;
-    //         res.render("dashboard.ejs");
-    //     });
-    // });
-});
-
 app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
-    let typeOFile = req.body.typeOFile;
-    let trimester = req.body.trimester;
+    let trimester = req.body.quarter;
     let idSubject = req.body.idSubject;
+    let file = req.body.file;
 
-    teacherFunctions.loadLearnings(req.file.path, con, typeOFile, trimester, idSubject);
+    //teacherFunctions.loadLearnings(req.file.path, con, typeOFile, trimester, idSubject);
     res.redirect("/dashboard");
 });
 
-app.get("/GenerateReport", (req, res) => {
-    ejs.renderFile("views/GenerateReport.ejs", { name: "Informes" }, (err, html) => {
-        if (err) throw err;
-        const options = {
-            format: "A4",
-            border: {
-                right: "8",
-            },
-        };
+app.post("/changePassword", (req, res) => {
+    let salt = 10;
+    let newPass = req.body.pass;
 
-        pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
-            if (err) {
-                res.send(err);
+    let query = "SELECT pass FROM usuario WHERE nombreUsuario = ?";
+    con.query(query, [res.locals.username], (error, rows, fields) => {
+        if (error) throw error;
+        bcrypt.compare(newPass, rows[0]["pass"], (err, row) => {
+            if (!row) {
+                let query = "UPDATE usuario SET pass = ?, contraseña_cambiada = 'true' WHERE nombreUsuario = ?";
+                bcrypt.hash(newPass, salt, (err, encrypted) => {
+                    newPass = encrypted;
+                    con.query(query, [newPass, res.locals.username], (error, rows, fields) => {
+                        if (error) throw error;
+                        res.json("passwordChanged");
+                    });
+                });
             } else {
-                console.log("File created successfully");
+                res.json("passwordNotChanged");
             }
         });
-        res.type("pdf");
-        res.download("uploads/report.pdf");
+    });
+});
+
+app.post("/agregar", (req, res) => {
+    function generatePassword(length) {
+        let pass = "";
+        let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        for (i = 0; i < length; i++) {
+            pass += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return pass;
+    }
+
+    let nickname = req.body.nickname;
+    let firstname = req.body.firstname;
+    let lastname = req.body.lastname;
+    let email = req.body.email;
+    let Ingreso = req.body.Ingreso;
+    let fecha_nacimiento = req.body.fecha_nacimiento;
+    let dni = req.body.dni;
+    let telefono = req.body.telefono;
+    let genero = req.body.genero;
+    let Estado = req.body.Estado;
+    let password = generatePassword(12);
+    let nombre = "profesor";
+    let salt = 10; // Standar value
+
+    bcrypt.hash(password, salt, (err, encrypted) => {
+        password = encrypted;
+        let userquery = "INSERT INTO usuario (nombreUsuario,pass,avatar) VALUE (?,?,?)";
+        con.query(userquery, [nickname, password, "0"], (error, rows, fields) => {
+            if (error) throw error;
+            let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
+            con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
+                if (error) throw error;
+                let profequery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                con.query(profequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, Ingreso, Estado], (error, rows, fields) => {
+                    if (error) throw error;
+                    res.redirect("/dashboard");
+                });
+            });
+        });
     });
 });
 
 //I compare the password entered to the one encrypted in the DB to be able to access the dashboard
 app.post("/login", (req, res) => {
-    let username = req.body.username;
-    let password = req.body.password;
+    let username = req.body.user;
+    let password = req.body.pass;
 
-    if (username && password) {
-        let query = "SELECT * FROM usuario WHERE nombreUsuario = ?";
-        con.query(query, [username], (error, rows, fields) => {
-            if (rows.length > 0) {
-                bcrypt.compare(password, rows[0]["pass"], (err, row) => {
-                    if (row) {
+    let query = "SELECT * FROM usuario WHERE nombreUsuario = ?";
+    con.query(query, [username], (error, rows, fields) => {
+        if (rows.length > 0) {
+            bcrypt.compare(password, rows[0]["pass"], (err, row) => {
+                if (row) {
+                    res.locals.username = username;
+                    req.session.username = username;
+
+                    if (rows[0]["contraseña_cambiada"] === "true") {
                         req.session.loggedin = true;
+
+                        res.locals.routeAvatar = rows[0]["avatar"];
+                        req.session.routeAvatar = rows[0]["avatar"];
+
                         let query2 = "SELECT nombre FROM rol INNER JOIN usuario ON ? = rol.nombreUsuario AND rol.nombreUsuario = usuario.nombreUsuario ";
                         con.query(query2, [username], (error, rows, fields) => {
                             let arrRol = [];
@@ -425,29 +687,43 @@ app.post("/login", (req, res) => {
                             res.locals.rol = arrRol;
                             req.session.rol = arrRol;
 
-                            res.locals.username = username;
-                            req.session.username = username;
-
                             res.locals.toastrFlag = true;
                             req.session.toastrFlag = true;
 
-                            res.redirect("/dashboard");
+                            let query3 = "SELECT frase,autor FROM frasesinspiradoras";
+                            con.query(query3, (error, rows, fields) => {
+                                i = Math.floor(Math.random() * rows.length);
+                                aux = rows[i]["autor"].replace(/\b\w/g, (l) => l.toUpperCase());
+                                res.locals.inspirationalPhrase = [rows[i]["frase"], aux, rows[i]["frase"].length];
+                                req.session.inspirationalPhrase = [rows[i]["frase"], aux, rows[i]["frase"].length];
+                                res.json("loginOk");
+                            });
                         });
+                    } else {
+                        res.json("changePassword");
                     }
-                });
-            } else {
-                console.log("credenciales incorrectas");
-                // Toastr (wrong credentials)
-            }
-        });
-    } else {
-        console.log("ingresa lgo");
-        // Toastr (you have to write a username and password)
-    }
+                } else {
+                    res.json("wrongPass");
+                    // console.log("El usuario existe pero la contraseña es incorrecta");
+                }
+            });
+        } else {
+            res.json("userNotExist");
+        }
+    });
+});
+
+app.get("/noLogueado", (req, res) => {
+    res.render("loggedOut.ejs");
 });
 
 app.use((req, res, next) => {
     res.status(404).render("404");
+});
+
+app.use(function (err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).render("505");
 });
 
 // End routes

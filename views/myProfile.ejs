@@ -1,172 +1,394 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>Datos de perfil</title>
+        <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
 
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>
-		Datos de perfil
-	</title>
-	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-	<!--     Fonts and icons     -->
-	<link rel="stylesheet" type="text/css"
-		href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-	<!-- Iconos Font Awesome -->
-	<script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="/css/bootstrap.min.css">
-	<!-- CSS Files -->
-	<link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
-	<link href="/stylesheets/editar.css" rel="stylesheet" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
-	<%- include('fragment/background'); -%>
-</head>
+        <!--     Fonts and icons     -->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+        <link href="/stylesheets/themify-icons.css" rel="stylesheet" />
+        <!-- Iconos Font Awesome -->
+        <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+        
 
-<body class="">
-	<%- include('fragment/sidebar'); -%>
-	<div class="main-panel">
-		<%- include('fragment/navbar'); -%>
-		<div class="content">
-			<div class="container">
-			  <div class="main-body">
-				<div class="container emp-profile">
-					<div class="row">
-						<div class="col-md-4">
-							<div class="profile-img">
-								<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
-								class="rounded-circle" width="150">
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="profile-head">
-								<h4>
-									<tbody>
-										<% data.forEach(function(Usuario){ %>
-										<tr>
-											<td><%- Usuario['nombreUsuario'] %></td>
-										</tr>
-										<% }); %>
-									</tbody>
-								  </h4>
-								  <p class="letter">Escuela Experimental Pro-A</p>
-								  <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<div class="col-ml-12">
-								<div class="profile-work">
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-										  <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-smartphone"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg> Celular</h6>
-										  <span class="letter">351 320 232</span>
-										</li>
-										<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-										  <h6 class="mb-0"><svg width="24" height="24" viewBox="0 0 16 16" class="bi bi-telephone" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"></path></svg> Telefono</h6>
-										  <span class="letter">3537821</span>
-										</li>
-										<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-										  <h6 class="mb-0"><svg width="24" height="24"  viewBox="0 0 16 16" class="bi bi-envelope" fill="currentColor" xmlns="http://www.w3.org/2000/svg">><path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/></svg> G-mail</h6>
-										  <span class="letter">hrg@gmail.com</span>
-										</li>
-										<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-										  <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></svg>Git Hub</h6>
-										  <span class="letter">@hrg</span>
-										</li>
-									  </ul>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-8">
-							<div class="tab-content profile-tab" id="myTabContent">
-								<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-									<div class="row">
-										<div class="col-md-6">
-										  <h6 class="letter">Nombre y Apellido</h6>
-										</div>
-										<div class="col-sm-3 letter">
-										  Kenneth Valdez
-										</div>
-									  </div>
-									  <hr>
-									  <div class="row">
-										<div class="col-md-6">
-										  <h6 class="letter">D.N.I</h6>
-										</div>
-										<div class="col-sm-3 letter" id="textoo">
-										  89.324.109
-										</div>
-									  </div>
-									  <hr>
-									  <div class="row">
-										<div class="col-md-6">
-										  <h6 class="letter">Ciudad</h6>
-										</div>
-										<div class="col-sm-3 letter">
-										  Córdoba, Argentina
-										</div>
-									  </div>
-									  <hr>
-									  <div class="row">
-										<div class="col-md-6">
-										  <h6 class="letter">Nacimiento</h6>
-										</div>
-										<div class="col-sm-3 letter">
-										  02/10/2000
-										</div>
-									  </div>
-									  <hr>
-									  <div class="row">
-										<div class="col-md-6">
-										  <h6 class="letter">ingreso</h6>
-										</div>
-										<div class="col-sm-3 letter">
-										  02/10/2000
-										</div>
-									  </div>
-									  <hr>
-									  <div class="row">
-										<div class="col-md-6">
-										  <h6 class="letter">Horas catedras</h6>
-										</div>
-										<div class="col-sm-3 letter">
-										  240
-										</div>
-									  </div>
-									  <hr>
-									  <div class="row">
-										<div class="col-md-6">
-										  <h6 class="letter">Materias</h6>
-										</div>
-										<div class="col-sm-3 letter">
-										  Programación 
-										  Estructura y Almacenamiento de Datos
-										  Robotica
-										</div>
-									  </div>
-									  <hr>
-									  <div class="row">
-										<div class="col-md-6">
-										  <h6 class="letter">Alumnos</h6>
-										</div>
-										<div class="col-sm-3 letter">
-										  100
-										</div>
-									  </div>
-									</div>
-								  </div>
-								</div>
-								</div>
-							</div>
-						</div>
-					</div>      
-				</div>
-			</div>
-		</div>
-		<%- include('fragment/footer'); -%>
-	</div>
-	<%- include('fragment/scripts'); -%>
-</body>
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css" />
 
+        <!-- CSS Files -->
+        <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+        <link rel="stylesheet" href="/stylesheets/uikit.min.css" />
+
+        <%- include('fragment/background'); -%>
+    </head>
+
+    <body>
+        <%- include('fragment/sidebar'); -%>
+        <div class="main-panel">
+            <%- include('fragment/navbar'); -%>
+            <div class="content">
+                <div class="main-body">
+                    <div class="container emp-profile">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <div class="card" >                                    
+                                    <div class="card-body" align = "center">
+                                        <% data[0].forEach(function(Profile){ %>
+                                            <div class="card-body">
+                                                <% if(Profile['avatar'] == "0" ){ %>
+                                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" />
+                                                    
+                                                <% } else{ %>  
+                                                    <img src="/images/upload/avatars/<%-Profile['avatar']%>" alt="Admin" class="rounded-circle" width="150" />
+                                                <% } %>
+                                                
+                                                <form id="avatarForm" action="/subirFotos" method="post"  enctype="multipart/form-data">
+                                                    <input id="inputAvatar" type="file" name="document" accept="image/png, image/jpeg, image/gif, image/jpg" value="">
+                                                    <button id="saveAvatar" type="button">Guardar avatar</button>
+                                                </form>
+                                                <br>
+
+                                                <h4 class="card-title"><%-Profile['nombreUsuario'] %></h4>
+                                            </div>
+                                        <% }); %>
+                                        <div id="test1">
+                                            <form id="profileForm" method="post">
+                                                <% data[1].forEach(function(Profile){ %>
+                                                <div>
+                                                    <div class="col-sm-10 col-sm-offset-1 " align="center">
+                                                        <div class="form-group uk-inline " >
+                                                            <label> Nombre  </label>  
+                                                            <br>
+                                                            <!-- <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a> -->
+                                                            <input  name="nombre"  class=" uk-input uk-form-width-medium inputCantEditing profileTd" style="border: solid 2px #d2d2d2;" type="text" readonly onmousedown="return false;" value="<%-Profile['nombre']%>" />
+                                                        <div class="form-group">
+                                                            <label> Apellido  </label>
+                                                            <br>
+                                                            <input  name="apellido" class="uk-input uk-form-width-medium inputCantEditing profileTd" style="border: solid 2px #d2d2d2;" type="text" readonly onmousedown="return false;"  value="<%-Profile['apellido']%>"  />
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label> Email </label>
+                                                            <br>
+                                                            <!-- <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a> -->
+                                                            <input  name="email" class="uk-input uk-form-width-medium inputCanEditing profileTd" type="text" style="border: solid 2px #d2d2d2;" value="<%-Profile['email']%>" placeholder="<%-Profile['email']%>" />
+                                                        </div> 
+                                                        <div class="form-group">
+                                                            <label> Telefono  </label>
+                                                            <br>
+                                                            <input  name="telefono" class="uk-input uk-form-width-medium inputCanEditing profileTd" style="border: solid 2px #d2d2d2;" type="text" value="<%-Profile['telefono']%>" placeholder="<%-Profile['telefono']%>"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label> Genero  </label>
+                                                            <br>
+                                                            <input  name="genero" class="uk-input uk-form-width-medium inputCanEditing profileTd" type="text"style="border: solid 2px #d2d2d2;" value="<%-Profile['genero']%>" placeholder="<%-Profile['genero']%>"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label> DNI  </label>
+                                                            <br>
+                                                            <input  name="dni" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text"style="border: solid 2px #d2d2d2;" readonly onmousedown="return false;" value="<%-Profile['dni']%>" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label> Nacimiento  </label>
+                                                            <br>
+                                                            <input  name="nacimiento" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" style="border: solid 2px #d2d2d2;" readonly onmousedown="return false;"   value="<%-Profile['nacimiento']%>"/>
+                                                        </div>
+
+                                                        <div class="js-upload uk-placeholder uk-text-center">
+                                                            <span uk-icon="icon: cloud-upload"></span>
+                                                            <span class="uk-text-middle">Attach binaries by dropping them here or</span>
+                                                            <div uk-form-custom>
+                                                                <input type="file" name="document" multiple>
+                                                                <span class="uk-link">selecting one</span>
+                                                            </div>
+                                                        </div>
+                                                        <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+                                                    </div>
+                                                </div>
+
+                                                <% }); %> <% for(let i = 1; i <= rol.length; i++) { %>
+
+                                                <!-- Admin -->
+                                                <% if (rol[i-1] == 'administrador') { %>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">adminisitrador</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% } %>
+
+                                                <!-- preceptor -->
+                                                <% if (rol[i-1] == 'preceptor') { %>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">preceptor</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% } %>
+
+                                                <!-- profesor -->
+                                                <% if (rol[i-1] == 'profesor') { %> <% data[i].forEach(function(Profile){ %>
+                                                <div class="form-group">
+                                                    <label> Ingreso  </label>
+                                                    <br>
+                                                    <input  name="ingreso" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" style="border: solid 2px #d2d2d2;" readonly onmousedown="return false;"  value="<%-Profile['ingreso']%>"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label> Estado  </label> 
+                                                    <br>
+                                                    <input  name="estado" class="uk-input uk-form-width-medium inputCantEditing profileTd" type="text" style="border: solid 2px #d2d2d2;"  readonly onmousedown="return false;" value="<%-Profile['estado']%>"/>
+                                                </div>
+                                                <% }); %> <% } %>
+                                                <!-- estudiante -->
+                                                <% if (rol[i-1] == 'estudiante') { %> <% data[i].forEach(function(Profile){ %>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Curso: <input style="text-align: center" type="text" name="curso" readonly onmousedown="return false;" value="<%-Profile['descripcion_curso']%>" /></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% }); %> <% } %> <% } %>
+                                            </form>
+                                            <br />
+                                            
+                                        </div>
+                                    </div>
+                                    <button class="uk-button btn btn-danger" id="saveChange">Guardar cambios</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include('fragment/footer'); -%>
+        <%- include('fragment/scripts'); -%>
+    </body>
+
+    <!-- jquery/jqueryValidate -->
+    <script src="/javascripts/core/jquery.min.js"></script>
+    <script src="javascripts/jquery.validate.min.js" type="text/javascript"></script>
+
+    <!-- Own SweetAlert2 -->
+    <script src="/javascripts/sweetAlerts.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Estilo de la datatable -->                        
+    <script src="/javascripts/uikit.min.js"></script>
+    <script src="/javascripts/uikit-icons.min.js"></script>
+
+    <!-- wea -->
+    <script>
+
+        var bar = document.getElementById('js-progressbar');
+    
+        
+        UIkit.upload('.js-upload', {
+    
+            url: 'subirFotos',
+            
+            allow : '*.(jpg|jpeg|gif|png)',
+            param: "file[]",
+            beforeSend: function () {
+                console.log('beforeSend', arguments);
+            },
+            beforeAll: function () {
+                console.log('beforeAll', arguments);
+            },
+            load: function () {
+                console.log('load', arguments);
+            },
+            error: function () {
+                console.log('error', arguments);
+            },
+            complete: function () {
+                console.log('complete', arguments);
+            },
+    
+            loadStart: function (e) {
+                console.log('loadStart', arguments);
+    
+                bar.removeAttribute('hidden');
+                bar.max = e.total;
+                bar.value = e.loaded;
+            },
+    
+            progress: function (e) {
+                console.log('progress', arguments);
+    
+                bar.max = e.total;
+                bar.value = e.loaded;
+            },
+    
+            loadEnd: function (e) {
+                console.log('loadEnd', arguments);
+    
+                bar.max = e.total;
+                bar.value = e.loaded;
+            },
+    
+            completeAll: function () {
+                console.log('completeAll', arguments);
+    
+                setTimeout(function () {
+                    bar.setAttribute('hidden', 'hidden');
+                }, 1000);
+    
+                alert('Upload Completed');
+            }
+    
+        });
+    
+    </script>
+
+
+    <!-- Validation -->
+    <script>
+        $("#avatarForm").validate({
+            rules: {
+                document: {
+                    required: true,
+                }
+            },
+            messages: {
+                document: {
+                    required: "Ingrese un avatar",
+                }
+            },
+        });
+
+        $("#profileForm").validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true,
+                },
+                telefono: {
+                    required: true,
+                    minlength: 10,
+                    maxlength: 10,
+                },
+                genero: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 12,
+                },
+                avatar: {
+                    required: true,
+                },
+            },
+            messages: {
+                email: {
+                    required: "Ingrese un email",
+                    email: "Ingrese un email con el formato correcto",
+                },
+                telefono: {
+                    required: "Ingrese un telefono",
+                    minlength: "El telefono es muy corta",
+                    maxlength: "El telefono es muy grande",
+                },
+                genero: {
+                    required: "Ingrese un género",
+                    minlength: "El género es muy corta",
+                    maxlength: "El género es muy grande",
+                },
+                avatar: {
+                    required: "ingrese un avatar",
+                },
+            },
+        });
+
+        function reloadPage() {
+            location.reload();
+        }
+        
+        // Avatar ajax
+        $("#saveAvatar").on("click", function (e) {
+            if ($("#avatarForm").valid()) {
+                
+                // e.preventDefault();
+                let data = new FormData($('#avatarForm')[0]);
+
+                $.ajax({
+                    url: "/subirFotos",
+                    type: "post",
+                    dataType: "json",
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                }).done((d) => {
+                    if (d === "overToSize") {
+                        errorAlert("La imagen supera los 2 megas de tamaño");
+                    } 
+                    else if (d === "invalidType") {
+                        errorAlert("El archivo que intenta subir no es una imagen");
+                    } 
+                    else if(d === "updatedAvatar"){
+                        // successAlert("Imagen actualizada");
+						Swal.fire({
+							icon: "success",
+							title: "Imagen actualizada",
+							showConfirmButton: false,
+							timer: 1500,
+							timerProgressBar: true,
+							toast: true,
+							position: "top-end",
+						});
+                        setTimeout(reloadPage,2000);
+                    }
+                });
+            }
+        });
+
+        // Change info of MiPerfil ajax
+        $("#saveChange").on("click", function (e) {
+            if ($("#profileForm").valid()) {
+                e.preventDefault();
+                let aux = $("#test1 input:not([readonly])");
+                let aux2 = {};
+                let flag = false;
+                for (let i = aux.length - 1; i >= 0; i--) {
+                    if (aux[i].placeholder == aux[i].value) {
+                        aux.splice(i,1);
+                    }
+                    else{
+                        aux2[aux[i].name] = aux[i].value;
+                        flag = true;
+                    }
+                }
+                if (flag) {
+                    aux2 = JSON.stringify(aux2);
+                    console.log("hubo modificaciones");
+                    $.ajax({
+                        url: "/changeInfoProfile",
+                        method: "post",
+                        dataType: "json",
+                        data: { info: `${aux2}` },
+                    }).done((d) => {
+                        for (let i = 0; i < aux.length; i++) {
+                            aux[i].placeholder = JSON.parse(aux2)[aux[i].name]
+                        }
+                        if (d === "infoUpdated") {
+                            successAlert("Su informacion fue actualizada");
+                        } else if (d === "infoNotUpdated") {
+                            errorAlert("Su informacion no pudo ser actualizada");
+                        }
+                    });
+                } else {
+                    errorAlert("No se modifico ningun dato");
+                }
+            }
+        });
+    </script>
 </html>

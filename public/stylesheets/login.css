@@ -17,20 +17,19 @@ body {
     background-color: #f5f5f5;
 }
 
-
 .form-signin {
     width: 100%;
     max-width: 330px;
     padding: 15px;
     margin: auto;
     background-color: #ffffff;
-    -webkit-box-shadow: 9px 7px 134px 53px rgba(0,0,0,0.67);
-    -moz-box-shadow: 9px 7px 134px 53px rgba(0,0,0,0.67);
-    box-shadow: 9px 7px 134px 53px rgba(0,0,0,0.67);
+    -webkit-box-shadow: 9px 7px 134px 53px rgba(0, 0, 0, 0.67);
+    -moz-box-shadow: 9px 7px 134px 53px rgba(0, 0, 0, 0.67);
+    box-shadow: 9px 7px 134px 53px rgba(0, 0, 0, 0.67);
     border-radius: 21px 21px 21px 21px;
     -moz-border-radius: 21px 21px 21px 21px;
     -webkit-border-radius: 21px 21px 21px 21px;
-    border: 0px solid #000000;
+    border: 1px solid #000000;
 }
 
 .form-signin .checkbox {
@@ -75,7 +74,7 @@ body {
 }
 
 .colortext .anim-shape:nth-child(1) {
-    fill: #0E1826;
+    fill: #0e1826;
 }
 
 .colortext .anim-shape:nth-child(2) {
@@ -83,15 +82,15 @@ body {
 }
 
 .colortext .anim-shape:nth-child(3) {
-    fill: #65BFA6;
+    fill: #65bfa6;
 }
 
 .colortext .anim-shape:nth-child(4) {
-    fill: #F2CD5C;
+    fill: #f2cd5c;
 }
 
 .colortext .anim-shape:nth-child(5) {
-    fill: #F26444;
+    fill: #f26444;
 }
 
 .shadow {
@@ -102,7 +101,7 @@ body {
 
 .anim-shape--shadow {
     fill: #000;
-    fill-opacity: .2;
+    fill-opacity: 0.2;
 }
 
 @-webkit-keyframes moving-panel {
@@ -116,7 +115,7 @@ body {
     100% {
         -webkit-transform: scale(1, 1) translate(20px, 0);
         transform: scale(1, 1) translate(20px, 0);
-        }
+    }
 }
 
 svg {
@@ -125,6 +124,20 @@ svg {
     height: 100%;
 }
 
-.form-control, .is-focused .form-control {
-    background-image: linear-gradient(to top, #00357C 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+.form-control,
+.is-focused .form-control {
+    background-image: linear-gradient(to top, #00357c 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+}
+
+label.error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    padding: 1px 20px 1px 20px;
+}
+.valid {
+    color: #1dbe00;
+    background-color: #8bff96af;
+    border-color: #a7fb9c;
+    padding: 1px 20px 1px 20px;
 }

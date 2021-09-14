@@ -6,63 +6,196 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
         <title>Panel principal del sistema</title>
         <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+
         <!--     Fonts and icons     -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="/css/bootstrap.min.css" />
+
         <!-- Iconos Font Awesome -->
         <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+
         <!-- Nuestros estilos -->
         <link rel="stylesheet" href="/stylesheets/style.css" />
 
-        <!-- Estilos de las tarjetas de los curricular_space curriculares -->
+        <!-- Estilos de las tarjetas de los espacios curriculares -->
         <link rel="stylesheet" href="/stylesheets/cardsStyle.css" />
 
         <!-- CSS Files -->
         <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
-        <link href="/stylesheets/toastr.css" rel="stylesheet" />
+
         <!-- Animate css -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 
         <!-- Cards 2.0  -->
         <link href="/stylesheets/hipster_cards.css" rel="stylesheet" />
-        <link href="/stylesheets/demo.css" rel="stylesheet" />
 
         <!--     Cards 2.0 Fonts and icons     -->
         <link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:700,100,400|Roboto:400,700|Playfair+Display+SC:400,700" rel="stylesheet" type="text/css" />
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/css/uikit.min.css" />
+
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit-icons.min.js"></script>
+
+        <!-- Select2 -->
+        <link rel="stylesheet" href="/stylesheets/select2.min.css" />
         <%- include('fragment/background'); -%>
     </head>
 
     <body>
         <%- include('fragment/sidebar'); -%>
         <div data-value="<%-username%>" id="main-panel" class="main-panel">
-            <!--  contenido   -->
-
             <div class="content">
                 <%- include('fragment/navbar'); -%>
                 <div class="container">
-                    <!--Contenido principal acá -->
-                    <!-- <button onclick="createPdf()">Create PDF</button> -->
                     <br />
                     <br />
+                    <% for(var i = 0; i < rol.length; i++) { %>
+                    <!-- Contenido para el dashboard administrador -->
+                    <% if (rol[i] == 'administrador') { %>
+                    <p>Cosas del administrador acá</p>
+                    <% } %>
+
+                    <!-- Contenido para el dashboard preceptor-->
+                    <% if (rol[i] == 'preceptor') { %>
+                    <div class="jumbotron">
+                        <h1 class="display-4">Graficos de estudiantes</h1>
+                        <div class="container"></div>
+                        <ul class="uk-grid-small uk-child-width-1-2 uk-child-width-1-4@s" uk-sortable="handle: .uk-card" uk-grid>
+                            <li>
+                                <div class="uk-grid-small" uk-grid>
+                                    <div>
+                                        <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
+                                            <h3 class="uk-card-title">Primer año</h3>
+                                            <select class="js-example-basic-single" name="state">
+                                                <option selected>Lengua</option>
+                                                <option value="1">Entornos Digitales</option>
+                                                <option value="2">Matematica</option>
+                                                <option value="3">Tecnologia</option>
+                                            </select>
+                                            <div id="grafico" class="tituloestudiante">
+                                                <canvas id="MiGrafica2" width="200" height="200"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="uk-grid-small" uk-grid>
+                                    <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
+                                        <h3 class="uk-card-title">Segundo año</h3>
+                                        <div class="uk-inline">
+                                            <select class="js-example-basic-single" name="state">
+                                                <option selected>Lengua</option>
+                                                <option value="1">Entornos Digitales</option>
+                                                <option value="2">Matematica</option>
+                                                <option value="3">Quimica</option>
+                                            </select>
+                                        </div>
+                                        <div id="grafico" class="tituloestudiante">
+                                            <canvas id="MiGrafica" width="200" height="200"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="uk-grid-small" uk-grid>
+                                    <div class="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light">
+                                        <h3 class="uk-card-title">Tercer año</h3>
+                                        <div class="uk-inline">
+                                            <select class="js-example-basic-single" name="state">
+                                                <option selected>Lengua</option>
+                                                <option value="1">Entornos Digitales</option>
+                                                <option value="2">Matematica</option>
+                                                <option value="3">Biologia</option>
+                                            </select>
+                                        </div>
+                                        <div id="grafico" class="tituloestudiante">
+                                            <canvas id="MiGrafica3" width="200" height="200"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- <ul uk-accordion >
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" >Martin Perez</a>
+                                    <div class="uk-accordion-content">
+                                        <div id="grafico" class="tituloestudiante">
+                                            <canvas id="MiGrafica" width="400" height="400"></canvas>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" >Lucia hd</a>
+                                    <div class="uk-accordion-content">
+                                        <div id="grafico" class="tituloestudiante">
+                                            <canvas id="MiGrafica2" width="400" height="400"></canvas>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" >Martin Bustamante</a>
+                                    <div class="uk-accordion-content">
+                                        <div id="grafico" class="tituloestudiante">
+                                            <canvas id="MiGrafica3" width="400" height="400"></canvas>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul> -->
+                    </div>
+
+                    <% } %>
+
+                    <!-- Cards del profesor -->
+                    <% if (rol[i] == 'profesor') { %>
+                    <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="autoplay: true; ratio: 8:2;animation: fade" style="top: -55px">
+                        <ul class="uk-slideshow-items">
+                            <li>
+                                <div class="uk-position-cover">
+                                    <img src="images/noticia/pastelitos.jpg" alt="" uk-cover />
+                                </div>
+                            </li>
+                            <li>
+                                <div class="uk-position-cover">
+                                    <img src="images/noticia/photo.jpg" alt="" uk-cover />
+                                </div>
+                                <div class="uk-position-cover" uk-slideshow-parallax="opacity: 0,0,0.2; backgroundColor: #000,#000"></div>
+                                <div class="uk-position-center uk-position-medium uk-text-center">
+                                    <div uk-slideshow-parallax="scale: 1,1,0.8">
+                                        <h2 uk-slideshow-parallax="x: 200,0,0">Heading</h2>
+                                        <p uk-slideshow-parallax="x: 400,0,0;">Lorem ipsum dolor sit amet.</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+
+                        <ul class="uk-slideshow-nav uk-dotnav uk-flex-center uk-margin"></ul>
+                    </div>
+
                     <div class="form-row">
-                        <% data.forEach(function(Subjects){ %>
-                        <div class="col-md-3" style="margin-left: 50px">
-                            <div class="card" style="background-image: url('<%-Subjects.imagen%>')">
+                        <% data[0].forEach(function(InfoUser){ %>
+                        <div class="col-md-3" style="margin-left: 50px; cursor: pointer">
+                            <div class="card" style="background-image: url('<%-InfoUser.imagen%>')">
                                 <div class="header">
                                     <div class="content">
-                                        <h4 class="subject title title-uppercase" myAtribute = "0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- Subjects['nombreMateria']%></h4>
-                                        <h6 class="label label-danger" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black"><%- Subjects['curso_descripcion']%></h6>
+                                        <h4 class="title title-uppercase cortado" myAtribute="0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- InfoUser['nombreMateria']%></h4>
+                                        <h6 class="label label-danger" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black"><%- InfoUser['curso_descripcion']%></h6>
                                         <br />
                                         <br />
                                         <br />
                                         <div>
-                                            <li class="fas fa-clock teacher_name" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 215px"><%- " " + Subjects['nombre']%> <%- Subjects['apellido']%></li>
+                                            <li class="fas fa-clock teacher_name" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 215px"><%- " " + InfoUser['nombre']%> <%- InfoUser['apellido']%></li>
                                             <br />
-                                            <li class="fas fa-user" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 245px"><%- " " + Subjects['horasCatedra']%> Horas cátedras</li>
+                                            <li class="fas fa-user" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 245px"><%- " " + InfoUser['horasCatedra']%> Horas cátedras</li>
                                         </div>
                                     </div>
                                 </div>
@@ -73,7 +206,7 @@
                                                 style="padding-left: 40px; padding-right: 50px; padding-top: 25px; float: right !important"
                                                 type="submit"
                                                 name="subjectName"
-                                                value="<%- Subjects['nombreMateria']%>"
+                                                value="<%- InfoUser['nombreMateria']%>"
                                                 class="btn btn-danger btn-fab btn-fab btn-round"
                                             >
                                                 <i class="material-icons">login</i>
@@ -81,12 +214,17 @@
                                         </form>
                                     </div>
                                 </div>
-                                <%- include('fragment/chart'); -%>
                                 <div class="filter"></div>
                             </div>
                         </div>
                         <% }); %>
                     </div>
+                    <% } %>
+
+                    <!-- Contenido para el dashboard estudiante -->
+                    <% if (rol[i] == 'estudiante') { %>
+                    <p>Cosas del estudiante acá</p>
+                    <% } %> <% } %>
                 </div>
             </div>
             <%- include('fragment/footer'); -%>
@@ -94,48 +232,123 @@
 
         <%- include('fragment/scripts'); -%>
 
+        <!-- Jquery -->
         <script src="/javascripts/plugins/jquery-3.5.1.js"></script>
-        <script src="/javascripts/toastr.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="/javascripts/hipster-cards.js"></script>
-        <script src="/javascripts/cardsDemo.js"></script>
-        <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
-        <script src="https://unpkg.com/downloadjs@1.4.7"></script>
-        <script>
-            toastr.options.progressBar = true;
-            toastr.options.closeMethod = "fadeOut";
-            toastr.options.closeDuration = 300;
 
-            let usernameToastr = document.getElementById("main-panel");
+        <!-- Cards Js -->
+        <script src="/javascripts/hipster-cards.js"></script>
+
+        <!-- Own SweetAlert2 -->
+        <script src="/javascripts/sweetAlerts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!-- Select2 -->
+        <script src="/javascripts/select2.min.js"></script>
+
+        <!-- editable -->
+
+        <script>
+            let usernameAlert = document.getElementById("main-panel");
+            usernameAlert = usernameAlert.getAttribute("data-value");
 
             window.onload = () => {
-                $.get("estadoToastr", { data: 0 }, function (res) {
+                $.get("estadoToastr", function (res) {
                     if (res) {
-                        $.get("cambiarEstadoToastr", { data: 0 }, function (res) {
+                        $.get("cambiarEstadoToastr", function (res) {
                             //
                         });
-                        toastr.success("bienvenido " + usernameToastr.getAttribute("data-value"));
+                        //
+                        const element = document.getElementById("divPhrases");
+                        element.classList.add("animate__animated", "animate__backInLeft");
+                        welcomeLogin(usernameAlert);
                     }
                 });
             };
         </script>
         <script>
             $(document).ready(function () {
-                //Arreglo para alojar todos los nombres de curricular_space curriculares del profe en cuestión
-                let curricular_space = [];
-                let uppercase_name = [];
+                //Arreglo para alojar todos los nombres de espacios curriculares del profe en cuestión
+                let espacios = [];
+                let nombreMayuscula = [];
                 //Con un foreach guardamos cada nombre espacio curricular en el arreglo
-                $("h4.subject").each((i, e) => {
-                    curricular_space.push($(e).text());
-                    e.setAttribute("myAtribute",i);
-                    if (curricular_space[i].length > 15) {
-                        e.innerHTML = curricular_space[i].substring(0,10) +  "...";
+                $("h4.cortado").each((i, e) => {
+                    espacios.push($(e).text());
+                    e.setAttribute("miAtributo", i);
+                    if (espacios[i].length > 15) {
+                        e.innerHTML = espacios[i].substring(0, 10) + "...";
                     }
                 });
-                $("li.teacher_name").each((x,y) => {
-                    uppercase_name = $(y).text().replace(/\b\w/g, l => l.toUpperCase())
-                    y.innerHTML = uppercase_name;
-                })
+                $("li.teacher_name").each((x, y) => {
+                    nombreMayuscula = $(y)
+                        .text()
+                        .replace(/\b\w/g, (l) => l.toUpperCase());
+                    y.innerHTML = nombreMayuscula;
+                });
+            });
+        </script>
+        <!-- grafico de etudiantes preceptor -->
+        <script>
+            // Sofi de esta manera se inicializa el select2
+            $(document).ready(function () {
+                $(".js-example-basic-single").select2();
+            });
+
+            let miCanvas = document.getElementById("MiGrafica").getContext("2d");
+
+            var MiGrafica = new Chart(miCanvas, {
+                type: "pie",
+                data: {
+                    labels: ["Logrado", "Proceso", "Pendiente"],
+                    datasets: [
+                        {
+                            data: [10, 8, 2],
+                            label: "perez",
+                            backgroundColor: ["rgb(54, 233, 0)", "rgb(255, 255, 0)", "rgb(255, 0, 0)"],
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                },
+            });
+            let miCanvas2 = document.getElementById("MiGrafica2").getContext("2d");
+
+            var MiGrafica2 = new Chart(miCanvas2, {
+                type: "pie",
+                data: {
+                    labels: ["Logrado", "Proceso", "Pendiente"],
+                    datasets: [
+                        {
+                            data: [2, 8, 10],
+                            label: "perez",
+                            backgroundColor: ["rgb(54, 233, 0)", "rgb(255, 255, 0)", "rgb(255, 0, 0)"],
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                },
+            });
+            let miCanvas3 = document.getElementById("MiGrafica3").getContext("2d");
+
+            var MiGrafica3 = new Chart(miCanvas3, {
+                type: "pie",
+                data: {
+                    labels: ["Logrado", "Proceso", "Pendiente"],
+                    datasets: [
+                        {
+                            data: [5, 3, 7],
+                            label: "perez",
+                            backgroundColor: ["rgb(54, 233, 0)", "rgb(255, 255, 0)", "rgb(255, 0, 0)"],
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                },
             });
         </script>
     </body>

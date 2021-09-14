@@ -1,12 +1,12 @@
 .customJumbotron {
     width: 90%;
     margin: 0 auto;
+    background-color: #fff !important;
 }
 
 h1 {
     font-size: 150px;
 }
-
 
 .animate__animated.animate__pulse {
     --animate-delay: 1.5s;
@@ -64,7 +64,7 @@ td.none {
     text-align: center;
     color: black;
 }
-.badgeNotaNd{
+.badgeNotaNd {
     box-sizing: border-box;
     min-width: 35px;
     height: 35px;
@@ -73,12 +73,12 @@ td.none {
     vertical-align: middle;
     background: #6a6b6bc7;
     color: rgb(0, 0, 0);
-    font-size: .875rem;
+    font-size: 0.875rem;
     display: inline-flex;
     justify-content: center;
     align-items: center;
 }
-.badgeNotaDisapproved{
+.badgeNotaDisapproved {
     box-sizing: border-box;
     min-width: 35px;
     height: 35px;
@@ -87,12 +87,12 @@ td.none {
     vertical-align: middle;
     background: #f01e1e9d;
     color: rgb(0, 0, 0);
-    font-size: .875rem;
+    font-size: 0.875rem;
     display: inline-flex;
     justify-content: center;
     align-items: center;
 }
-.badgeNotaWorking{
+.badgeNotaWorking {
     box-sizing: border-box;
     min-width: 35px;
     height: 35px;
@@ -101,12 +101,12 @@ td.none {
     vertical-align: middle;
     background: #f5ff6694;
     color: rgb(0, 0, 0);
-    font-size: .875rem;
+    font-size: 0.875rem;
     display: inline-flex;
     justify-content: center;
     align-items: center;
 }
-.badgeNotaPassed{
+.badgeNotaPassed {
     box-sizing: border-box;
     min-width: 35px;
     height: 35px;
@@ -115,7 +115,7 @@ td.none {
     vertical-align: middle;
     background: #47ee5581;
     color: rgb(0, 0, 0);
-    font-size: .875rem;
+    font-size: 0.875rem;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -184,18 +184,62 @@ td.none {
     box-shadow: 2px 2px 3px #999;
 }
 
-.my-float {
-    margin-top: 22px;
+.divToggle-Usage {
+    background-color: rgba(144, 143, 143, 0.192);
 }
 
-.sortableStyle {
-    cursor: move;
+.js-upload:hover {
+    background-color: rgba(51, 51, 51, 0.1);
 }
-.sortableStyle.sortableChosen {
-    transform: scale(1.1);
-    box-shadow: 20px 20px 20px rgba(149, 153, 159, 0.16);
-    cursor: pointer;
+
+.sortable-learnings {
+    background-color: rgba(51, 51, 51, 0.048);
+    max-height: 300px;
+    height: 80%;
+    overflow-y: auto;
 }
-.sortableStyle.sortableDrag {
-    opacity: 0;
+
+.tituloestudiante {
+    text-align: center;
+}
+
+.profileTd {
+    font-size: 15px;
+    line-height: 1.42857;
+    color: #999;
+    font-weight: 500;
+    font-family: "Roboto Slab", serif;
+}
+
+.inputCantEditing {
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.42857;
+    color: #030303;
+    font-weight: 500;
+    font-family: "Roboto Slab", serif;
+    cursor: default;
+}
+
+.inputCanEditing {
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.42857;
+    color: #030303;
+    font-weight: 500;
+    font-family: "Roboto Slab", serif;
+    cursor: text;
+    background: #e0eb46c2;
+    width: 150px;
+}
+
+.uk-width-large {
+    z-index: 6;
+    border-color: #aaaaaa;
+    border-width: 5px;
+    border-style: solid;
+}
+
+.animate__animated.animate__backInLeft {
+    animation-duration: 5s;
 }

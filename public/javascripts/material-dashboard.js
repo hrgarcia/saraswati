@@ -718,6 +718,9 @@ md = {
 // be triggered. The function will be called after it stops being called for
 // N milliseconds. If `immediate` is passed, trigger the function on the
 // leading edge, instead of the trailing.
+$(document).ready(function() {
+  $('.js-example-basic-single').select2();
+});
 
 function debounce(func, wait, immediate) {
   var timeout;
