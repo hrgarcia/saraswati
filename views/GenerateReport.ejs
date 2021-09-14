@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <!-- Nuestros estilos -->
+  <!-- <link rel="stylesheet" href="/stylesheets/pdf.css" /> -->
+
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -8,35 +13,26 @@
     </head>
 
     <body>
-        <style>
-            .ft10 {
-                font-size: 11px;
-                font-family: Times;
-                color: #000000;
-            }
-            .ft11 {
-                font-size: 11px;
-                font-family: Times;
-                color: #000000;
-            }
-            .ft12 {
-                font-size: 19px;
-                font-family: Times;
-                color: #000000;
-            }
-            .ft13 {
-                font-size: 11px;
-                line-height: 16px;
-                font-family: Times;
-                color: #000000;
-            }
-            .ft14 {
-                font-size: 11px;
-                line-height: 16px;
-                font-family: Times;
-                color: #000000;
-            }
-        </style>
+        <div class="jumbotron">
+            <h1 class="display-4">Juan Perez</h1>
+            <h3 class="lead">Informe del espacio</h3>
+            <h2>ENTORNOS DIGITALES</h2>
+            <hr class="my-4">
+            <img src="https://panorama.oei.org.ar/_dev2/wp-content/uploads/2017/07/proa.png" class="img" />
+
+            <div id="page1-div">
+                <p style="position: absolute; top: 168px; left: 39px; white-space: nowrap" class="ft10">Escuela:</p>
+                <p style="position: absolute; top: 244px; left: 39px; white-space: nowrap" class="ft10"><b>INFORMATICA CON FORMACION ESPECIALIZADA EN&nbsp;</b></p>
+                <p style="position: absolute; top: 260px; left: 77px; white-space: nowrap" class="ft11"><b>DESARROLLO DE SOFTWARE</b></p>
+                <p style="position: absolute; top: 168px; left: 96px; white-space: nowrap" class="ft13">
+                    <b>PROGRAMA DE DESARROLLO EDUCATIVO - NIVEL&nbsp;<br />SECUNDARIO - ESCUELA EXPERIMENTAL CON&nbsp;<br />ÉNFASIS EN TECNOLOGÍAS DE LA INFORMACIÓN Y&nbsp;<br />LA COMUNICACIÓN</b>
+                </p>
+            </div>
+            
+
+        </div>
+
+        <!-- <% name.forEach(function(InfoUser){ %>
 
         <% name.forEach(function(InfoUser){ %>
         <h1><%- InfoUser['nombre']%></h1>
