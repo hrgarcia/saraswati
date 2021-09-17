@@ -139,65 +139,62 @@ app.get("/", (req, res) => {
 });
 
 app.get("/dashboard", (req, res) => {
-    if(req.session.loggedin){
-        if (req.session.loggedin) {
-            let rol = res.locals.rol;
-            let username = res.locals.username;
-            var auxData = [];
+    if (req.session.logged) {
+        let rol = res.locals.rol;
+        let username = res.locals.username;
+        var auxData = [];
 
-            for (let i = 0; i < rol.length; i++) {
-                if (rol[i] == "administrador") {
-                    console.log("soy administrador");
-                }
-                if (rol[i] == "preceptor") {
-                    // async function getSubjects() {
-                    //     let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
-                    //     return new Promise((resolve, reject) => {
-                    //         con.query(query, [username], (error, rows) => {
-                    //             return resolve(rows);
-                    //         });
-                    //     });
-                    // }
-                    // auxData.push(getSubjects());
-                    console.log("soy preceptor");
-                }
-                if (rol[i] == "profesor") {
-                    async function getSubjects() {
-                        let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
-                        return new Promise((resolve, reject) => {
-                            con.query(query, [username], (error, rows) => {
-                                return resolve(rows);
-                            });
+        for (let i = 0; i < rol.length; i++) {
+            if (rol[i] == "administrador") {
+                console.log("soy administrador");
+            }
+            if (rol[i] == "preceptor") {
+                // async function getSubjects() {
+                //     let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
+                //     return new Promise((resolve, reject) => {
+                //         con.query(query, [username], (error, rows) => {
+                //             return resolve(rows);
+                //         });
+                //     });
+                // }
+                // auxData.push(getSubjects());
+                console.log("soy preceptor");
+            }
+            if (rol[i] == "profesor") {
+                async function getSubjects() {
+                    let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
+                    return new Promise((resolve, reject) => {
+                        con.query(query, [username], (error, rows) => {
+                            return resolve(rows);
                         });
-                    }
-                    auxData.push(getSubjects());
-                }
-                if (rol[i] == "estudiante") {
-                    console.log("soy estudiante");
-                }
-            }
-
-            async function sequentialQueries() {
-                try {
-                    const result = await Promise.all(auxData);
-
-                    res.render("dashboard.ejs", {
-                        title: "InfoUser",
-                        data: result,
                     });
-                } catch (error) {
-                    console.log(error);
                 }
+                auxData.push(getSubjects());
             }
-
-            sequentialQueries();
-        } else {
-            res.render("loggedOut.ejs");
+            if (rol[i] == "estudiante") {
+                console.log("soy estudiante");
+            }
         }
-    }
-    else{
+
+        async function sequentialQueries() {
+            try {
+                const result = await Promise.all(auxData);
+
+                res.render("dashboard.ejs", {
+                    title: "InfoUser",
+                    data: result,
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        sequentialQueries();
+    } else {
         res.redirect("/")
     }
+    
+
 });
 
 app.get("/formularioImagen", (req, res) => {
@@ -616,50 +613,47 @@ app.post("/estudianteMateria", (req, res) => {
 
 // Resize avatar images
 app.post("/subirFotos", (req, res) => {
-    if(req.session.logged){
-        uploads(req, res, function (err) {
-            // FILE SIZE ERROR
-            if (err instanceof multer.MulterError) {
-                return res.json("overToSize");
+    uploads(req, res, function (err) {
+        // FILE SIZE ERROR
+        if (err instanceof multer.MulterError) {
+            return res.json("overToSize");
+        }
+
+        // INVALID FILE TYPE, message will return from fileFilter callback
+        else if (err) {
+            return res.json("invalidType");
+        }
+
+        // SUCCESS
+        else {
+            function getFileExtension(filename) {
+                return /[.]/.exec(filename) ? /[^.]+$/.exec(filename)[0] : undefined;
             }
 
-            // INVALID FILE TYPE, message will return from fileFilter callback
-            else if (err) {
-                return res.json("invalidType");
-            }
+            let width = 800;
+            let heigth = 600;
 
-            // SUCCESS
-            else {
-                function getFileExtension(filename) {
-                    return /[.]/.exec(filename) ? /[^.]+$/.exec(filename)[0] : undefined;
-                }
+            let usuario = res.locals.username;
+            let extension = getFileExtension(req.file.originalname);
 
-                let width = 800;
-                let heigth = 600;
+            sharp(req.file.path)
+                .resize(width, heigth)
+                .toFile("public/images/upload/avatars/avatar_" + usuario + "." + extension, (err) => {
+                    if (!err) {
+                        let img = "avatar_" + usuario + "." + extension;
+                        let query = "UPDATE usuario SET avatar = ? WHERE nombreUsuario = ?";
+                        con.query(query, [img, usuario], (errs, result) => {
+                            if (errs) throw errs;
+                            res.locals.routeAvatar = img;
+                            req.session.routeAvatar = img;
+                            res.json("updatedAvatar");
+                        });
+                    }
+                });
+        }
+    });
+    
 
-                let usuario = res.locals.username;
-                let extension = getFileExtension(req.file.originalname);
-
-                sharp(req.file.path)
-                    .resize(width, heigth)
-                    .toFile("public/images/upload/avatars/avatar_" + usuario + "." + extension, (err) => {
-                        if (!err) {
-                            let img = "avatar_" + usuario + "." + extension;
-                            let query = "UPDATE usuario SET avatar = ? WHERE nombreUsuario = ?";
-                            con.query(query, [img, usuario], (errs, result) => {
-                                if (errs) throw errs;
-                                res.locals.routeAvatar = img;
-                                req.session.routeAvatar = img;
-                                res.json("updatedAvatar");
-                            });
-                        }
-                    });
-            }
-        });
-    }
-    else{
-        res.redirect("/")
-    }
 });
 
 // Create subject
