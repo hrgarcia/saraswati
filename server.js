@@ -119,7 +119,7 @@ app.use((req, res, next) => {
     res.locals.toastrFlag = req.session.toastrFlag;
     res.locals.routeAvatar = req.session.routeAvatar;
     res.locals.inspirationalPhrase = req.session.inspirationalPhrase;
-    res.locals.logged = req.session.logged
+    res.locals.logged = req.session.logged;
     next();
 });
 var urlencodedParser = bodyParser.urlencoded({
@@ -191,18 +191,15 @@ app.get("/dashboard", (req, res) => {
 
         sequentialQueries();
     } else {
-        res.redirect("/")
+        res.redirect("/");
     }
-    
-
 });
 
 app.get("/formularioImagen", (req, res) => {
-    if(req.session.logged){
+    if (req.session.logged) {
         res.render("formularioImagen.ejs");
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
@@ -212,7 +209,7 @@ app.get("/logout", (req, res) => {
 });
 
 app.get("/agregarProfesor", (req, res) => {
-    if(req.session.logged){
+    if (req.session.logged) {
         let query = "SELECT * FROM materia WHERE profesor_usuario = ? ";
         con.query(query, ["lmazzola"], (error, rows, fields) => {
             for (let index = 0; index < rows.length; index++) {}
@@ -221,23 +218,21 @@ app.get("/agregarProfesor", (req, res) => {
                 data: rows,
             });
         });
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
 app.get("/agregarUsuario", (req, res) => {
-    if(req.session.logged){
+    if (req.session.logged) {
         res.render("addUser.ejs");
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
 app.get("/agregarMateria", (req, res) => {
-    if(req.session.logged){
+    if (req.session.logged) {
         let query = "SELECT usuario FROM profesor";
         con.query(query, (error, rows, fields) => {
             res.render("addSubject.ejs", {
@@ -245,33 +240,29 @@ app.get("/agregarMateria", (req, res) => {
                 data: rows,
             });
         });
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
 app.get("/agregarPreceptor", (req, res) => {
-    if(req.session.logged){
-
+    if (req.session.logged) {
         res.render("addPreceptor.ejs");
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
 app.get("/datatable", (req, res) => {
-    if(req.session.logged){
+    if (req.session.logged) {
         res.render("datatable.ejs");
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
 app.get("/cargarVistaEstudiante", (req, res) => {
-    if(req.session.logged){
+    if (req.session.logged) {
         let username = res.locals.username;
         let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.curso_descripcion = estudiante.descripcion_curso AND materia.profesor_usuario = ?";
         let cursos = [];
@@ -288,25 +279,21 @@ app.get("/cargarVistaEstudiante", (req, res) => {
                 data2: cursos,
             });
         });
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
 app.get("/agregarEstudiante", (req, res) => {
-    if(req.session.logged){
+    if (req.session.logged) {
         res.render("addStudent.ejs");
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
 app.get("/listarProfesores", (req, res) => {
-    if(req.session.logged){
-
-    
+    if (req.session.logged) {
         let query = "SELECT * FROM profesor";
         con.query(query, (error, rows, fields) => {
             if (error) throw error;
@@ -315,14 +302,13 @@ app.get("/listarProfesores", (req, res) => {
                 data: rows,
             });
         });
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
 app.get("/listarUsuarios", (req, res) => {
-    if(req.session.logged){
+    if (req.session.logged) {
         let query = "SELECT * FROM usuario, materia";
         con.query(query, (error, rows, fields) => {
             if (error) throw error;
@@ -331,20 +317,16 @@ app.get("/listarUsuarios", (req, res) => {
                 data: rows,
             });
         });
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
 app.get("/miPerfil", (req, res) => {
-
     let rol = res.locals.rol;
     let username = res.locals.username;
     var auxData = [];
-    if(req.session.logged){
-
-    
+    if (req.session.logged) {
         async function infoProfile() {
             let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ?";
             return new Promise((resolve, reject) => {
@@ -416,26 +398,24 @@ app.get("/miPerfil", (req, res) => {
             }
         }
         sequentialQueries();
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
 app.get("/obtenerAprendizajes", (req, res) => {
-    if(req.session.logged){
+    if (req.session.logged) {
         let query = "SELECT * FROM estudianteaprendizaje WHERE estudianteaprendizaje.estudiante_dni = ?";
         con.query(query, [req.query.dni], (error, rows, fields) => {
             if (error) throw error;
             res.send(rows);
         });
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
-app.get("/guardarAprendizajes", (req, res) => {    
+app.get("/guardarAprendizajes", (req, res) => {
     let query = "UPDATE estudianteaprendizaje SET estado = ? WHERE estudianteaprendizaje.descripcion = ? AND estudianteaprendizaje.estudiante_dni = ?";
     let dni = 0;
     for (let key in req.query.data) {
@@ -454,7 +434,7 @@ app.get("/guardarAprendizajes", (req, res) => {
 });
 
 app.get("/agregarAprendizajes", (req, res) => {
-    if(req.session.logged){    
+    if (req.session.logged) {
         // Create the learning in the learning table
         // (Positions) 0 = name L / 1 = period Name / 2 = subj id / 3 = subj name / 4 = course
         let idPeriod = 1;
@@ -481,14 +461,13 @@ app.get("/agregarAprendizajes", (req, res) => {
         });
 
         res.send("");
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
 app.get("/borrarAprendizajes", (req, res) => {
-    if(req.session.logged){
+    if (req.session.logged) {
         let query1 = "DELETE FROM aprendizajes WHERE descripcion = ?";
         let query2 = "DELETE FROM estudianteaprendizaje WHERE descripcion = ?";
         for (let i = 0; i < req.query.data.length; i++) {
@@ -502,14 +481,13 @@ app.get("/borrarAprendizajes", (req, res) => {
         }
 
         res.send("");
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
 app.get("/generarReporte/:dni", (req, res) => {
-    if(req.session.logged){
+    if (req.session.logged) {
         console.log(req.params.dni); // result: test
         let dni = req.params.dni;
 
@@ -538,9 +516,8 @@ app.get("/generarReporte/:dni", (req, res) => {
                 res.download("uploads/report.pdf");
             });
         });
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
@@ -583,7 +560,6 @@ app.post("/changeInfoProfile", (req, res) => {
     }
 
     res.json("infoUpdated");
-    
 });
 
 app.post("/changeNumbersNotes", (req, res) => {
@@ -652,13 +628,11 @@ app.post("/subirFotos", (req, res) => {
                 });
         }
     });
-    
-
 });
 
 // Create subject
 app.post("/crearMateria", (req, res) => {
-    if(req.session.logged){
+    if (req.session.logged) {
         let name = req.body.name;
         let image = req.body.image;
         let teachingHours = req.body.teachingHours;
@@ -669,25 +643,21 @@ app.post("/crearMateria", (req, res) => {
             if (error) throw error;
             res.redirect("/dashboard");
         });
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
 app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
-    if(req.session.logged){
-
-        
+    if (req.session.logged) {
         let trimester = req.body.quarter;
         let idSubject = req.body.idSubject;
         let file = req.body.file;
 
         //teacherFunctions.loadLearnings(req.file.path, con, typeOFile, trimester, idSubject);
         res.redirect("/dashboard");
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
@@ -716,9 +686,7 @@ app.post("/changePassword", (req, res) => {
 });
 
 app.post("/agregar", (req, res) => {
-    if(req.session.logged){
-
-    
+    if (req.session.logged) {
         function generatePassword(length) {
             let pass = "";
             let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -758,9 +726,8 @@ app.post("/agregar", (req, res) => {
                 });
             });
         });
-    }
-    else{
-        res.redirect("/")
+    } else {
+        res.redirect("/");
     }
 });
 
@@ -777,7 +744,9 @@ app.post("/login", (req, res) => {
                     req.session.username = username;
 
                     if (rows[0]["contraseña_cambiada"] === "true") {
-                        req.session.loggedin = true;
+                        res.locals.logged = true;
+                        req.session.logged = true;
+
                         res.locals.routeAvatar = rows[0]["avatar"];
                         req.session.routeAvatar = rows[0]["avatar"];
 
@@ -806,15 +775,14 @@ app.post("/login", (req, res) => {
                     } else {
                         res.json("changePassword");
                     }
-                    } else {
-                        res.json("wrongPass");
-                        // console.log("El usuario existe pero la contraseña es incorrecta");
-                    }
-                });
-            } else {
-                res.json("userNotExist");
-            }
-        });
+                } else {
+                    res.json("wrongPass");
+                }
+            });
+        } else {
+            res.json("userNotExist");
+        }
+    });
 });
 
 app.get("/noLogueado", (req, res) => {
@@ -828,7 +796,7 @@ app.use((req, res, next) => {
 app.use(function (err, req, res, next) {
     console.error(err.stack);
     res.status(500).render("505");
-}); 
+});
 
 // End routes
 app.listen(2500, () => {
