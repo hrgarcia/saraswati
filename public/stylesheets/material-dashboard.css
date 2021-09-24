@@ -6643,10 +6643,10 @@ button.bg-dark:focus {
 }
 .perfect-circle {
     display: inline-block;
-    width: 70px;
-    height: 50px;
+    width: 57px;
+    height: 37px;
     border-radius:70%;
-}    
+}
 .rounded-circle {
     border-radius: 50% !important;
     border: solid 3px #002e6394;
