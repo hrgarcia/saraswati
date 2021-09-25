@@ -544,6 +544,49 @@ app.get("/generarImagen", (req, res) => {
 app.get("/crearSlider", (req, res) => {
     res.render("generarSlider.ejs");
 });
+
+app.get("/estadisticasEstudiante", (req, res) => {
+    if (req.session.logged) {
+        res.render("studentStadistics.ejs");
+    } else {
+        res.redirect("/");
+    }
+});
+
+app.get("/obtenerEstadisiticasEstudiates", (req, res) => {
+    let arr = {};
+    // let query = "SELECT nombreMateria, curso_descripcion FROM materia WHERE profesor_usuario = ?";
+    let query = "SELECT * FROM estudiante INNER JOIN materia ON profesor_usuario = ? AND materia.curso_descripcion = estudiante.descripcion_curso INNER JOIN nota ON nota.dni_alumno = estudiante.dni AND nota.id_materia = materia.id";
+    con.query(query, [res.locals.username], (error, rows, fields) => {
+        if (error) throw error;
+        for (let i = 0; i < rows.length; i++) {
+            let aux = rows[i]["descripcion_curso"].toString();
+            if (Object.keys(arr).includes(aux)) {
+                arr[aux].push({
+                    subject: rows[i].nombreMateria,
+                    subjectId: rows[i].id_materia,
+                    dni: rows[i].dni,
+                    nombre: rows[i].nombre,
+                    apellido: rows[i].apellido,
+                    notas: [rows[i].nota1, rows[i].nota2, rows[i].nota3, rows[i].nota4, rows[i].nota5, rows[i].nota6, rows[i].nota7, rows[i].nota8, rows[i].nota_definitiva],
+                });
+            } else {
+                arr[aux] = [
+                    {
+                        subject: rows[i].nombreMateria,
+                        subjectId: rows[i].id,
+                        dni: rows[i].dni,
+                        nombre: rows[i].nombre,
+                        apellido: rows[i].apellido,
+                        notas: [rows[i].nota1, rows[i].nota2, rows[i].nota3, rows[i].nota4, rows[i].nota5, rows[i].nota6, rows[i].nota7, rows[i].nota8, rows[i].nota_definitiva],
+                    },
+                ];
+            }
+        }
+        res.send(arr);
+    });
+});
+
 // Post
 app.post("/changeInfoProfile", (req, res) => {
     let infoToChange = JSON.parse(req.body.info);

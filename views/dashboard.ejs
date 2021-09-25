@@ -123,40 +123,14 @@
                                 </div>
                             </li>
                         </ul>
-                        <!-- <ul uk-accordion >
-                                <li class="uk-open">
-                                    <a class="uk-accordion-title" >Martin Perez</a>
-                                    <div class="uk-accordion-content">
-                                        <div id="grafico" class="tituloestudiante">
-                                            <canvas id="MiGrafica" width="400" height="400"></canvas>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="uk-open">
-                                    <a class="uk-accordion-title" >Lucia hd</a>
-                                    <div class="uk-accordion-content">
-                                        <div id="grafico" class="tituloestudiante">
-                                            <canvas id="MiGrafica2" width="400" height="400"></canvas>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="uk-open">
-                                    <a class="uk-accordion-title" >Martin Bustamante</a>
-                                    <div class="uk-accordion-content">
-                                        <div id="grafico" class="tituloestudiante">
-                                            <canvas id="MiGrafica3" width="400" height="400"></canvas>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul> -->
                     </div>
 
                     <% } %>
 
                     <!-- Cards del profesor -->
                     <% if (rol[i] == 'profesor') { %>
-                    <br>
-                    <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="autoplay: true; ratio: 8:2;animation: fade" style="top: -65px;">
+                    <br />
+                    <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="autoplay: true; ratio: 8:2;animation: fade" style="top: -65px">
                         <ul class="uk-slideshow-items">
                             <li>
                                 <div class="uk-position-cover">
@@ -181,10 +155,10 @@
 
                         <ul class="uk-slideshow-nav uk-dotnav uk-flex-center uk-margin"></ul>
                     </div>
-
+                    <br />
                     <div class="form-row">
                         <% data[0].forEach(function(InfoUser){ %>
-                        <div class="col-md-3" style="margin-left: 50px; cursor: pointer;margin-bottom: 30px;">
+                        <div class="col-md-3" style="margin-left: 50px; cursor: pointer; margin-bottom: 30px">
                             <div class="card" style="background-image: url('<%-InfoUser.imagen%>')">
                                 <div class="header">
                                     <div class="content">
@@ -227,7 +201,7 @@
                     <p>Cosas del estudiante acá</p>
                     <% } %> <% } %>
                 </div>
-                <a href="#" uk-totop uk-scroll style="float:right;color:#fff;"></a>
+                <a href="#" uk-totop uk-scroll style="float: right; color: #fff"></a>
             </div>
             <%- include('fragment/footer'); -%>
         </div>
