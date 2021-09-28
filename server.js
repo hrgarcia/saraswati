@@ -109,6 +109,7 @@ app.use(
         secret: "secret",
         resave: true,
         saveUninitialized: true,
+        logged: false,
     })
 );
 
@@ -135,6 +136,7 @@ app.set("view engine", "ejs");
 
 // Routes
 app.get("/", (req, res) => {
+    req.session.logged = false;
     res.render("login.ejs");
 });
 
@@ -785,6 +787,7 @@ app.post("/login", (req, res) => {
                 if (row) {
                     res.locals.username = username;
                     req.session.username = username;
+                    req.session.logged = true;
 
                     if (rows[0]["contraseña_cambiada"] === "true") {
                         res.locals.logged = true;
@@ -842,6 +845,6 @@ app.use(function (err, req, res, next) {
 });
 
 // End routes
-app.listen(2500, () => {
+app.listen(3000, () => {
     console.log("El servidor corriendo en el puerto 2500");
 });
