@@ -211,47 +211,93 @@ app.get("/logout", (req, res) => {
 });
 
 app.get("/agregarProfesor", (req, res) => {
-    if (req.session.logged) {
+    let rol = res.locals.rol;
+    let flagRol; 
+    if (!req.session.logged) {
+        res.redirect("/");
+    }
+    else{
+        flagRol = false;
+        for (let i = 0; i < rol.length; i++) {
+            if(rol[i] == "preceptor"){
+                flagRol = true;
+            }
+        }
+    }
+    if(flagRol){
         let query = "SELECT * FROM materia WHERE profesor_usuario = ? ";
         con.query(query, ["lmazzola"], (error, rows, fields) => {
-            for (let index = 0; index < rows.length; index++) {}
             res.render("addTeacher.ejs", {
                 title: "Materias",
                 data: rows,
             });
         });
-    } else {
-        res.redirect("/");
     }
+    else{
+            res.redirect("/dashboard")
+        }
 });
 
 app.get("/agregarUsuario", (req, res) => {
-    if (req.session.logged) {
-        res.render("addUser.ejs");
-    } else {
-        res.redirect("/");
+    let rol = res.locals.rol;
+    for (let i = 0; i < rol.length; i++){
+        if (req.session.logged) {
+            if(rol[i] == "administrador") {
+                res.render("addUser.ejs");
+            } 
+            else {
+                res.redirect("/dashboard");
+            }
+        }
+        else{
+            res.redirect("/");
+        }
+                
     }
 });
 
 app.get("/agregarMateria", (req, res) => {
-    if (req.session.logged) {
-        let query = "SELECT usuario FROM profesor";
-        con.query(query, (error, rows, fields) => {
-            res.render("addSubject.ejs", {
-                title: "Teachers",
-                data: rows,
-            });
-        });
-    } else {
+    let rol = res.locals.rol;
+    if (!req.session.logged) {
         res.redirect("/");
+    }
+    else{
+        let flagRol = false;
+        for (let i = 0; i < rol.length; i++) {
+            if(rol[i] == "preceptor"){
+                flagRol = true;
+            }
+        }
+        if(flagRol){
+            let query = "SELECT usuario FROM profesor";
+            con.query(query, (error, rows, fields) => {
+                res.render("addSubject.ejs", {
+                    title: "Teachers",
+                    data: rows,
+                });
+            });
+        }
+        else{
+            res.redirect("/dashboard")
+        }
     }
 });
 
 app.get("/agregarPreceptor", (req, res) => {
-    if (req.session.logged) {
-        res.render("addPreceptor.ejs");
-    } else {
-        res.redirect("/");
+    let rol = res.locals.rol;
+    for (let i = 0; i < rol.length; i++){
+        if (req.session.logged) {
+            if(rol[i] == "administrador"){
+                res.render("addPreceptor.ejs");
+            }
+            else{
+                res.redirect("/dashboard")
+            }
+            
+        } 
+        else {
+            res.redirect("/");
+        }
     }
 });
 
@@ -264,6 +310,7 @@ app.get("/datatable", (req, res) => {
 });
 
 app.get("/cargarVistaEstudiante", (req, res) => {
+
     if (req.session.logged) {
         let username = res.locals.username;
         let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.curso_descripcion = estudiante.descripcion_curso AND materia.profesor_usuario = ?";
@@ -287,12 +334,29 @@ app.get("/cargarVistaEstudiante", (req, res) => {
 });
 
 app.get("/agregarEstudiante", (req, res) => {
-    if (req.session.logged) {
-        res.render("addStudent.ejs");
-    } else {
+    let rol = res.locals.rol;
+    let flagRol; 
+    if (!req.session.logged) {
         res.redirect("/");
     }
+    else{
+        flagRol = false;
+        for (let i = 0; i < rol.length; i++) {
+            if(rol[i] == "preceptor"){
+                flagRol = true;
+            }
+        }
+    }
+    if(flagRol){
+        res.render("addStudent.ejs");
+    }
+    else{
+        res.redirect("/dashboard")
+    }
+
 });
+
+
 
 app.get("/listarProfesores", (req, res) => {
     if (req.session.logged) {
