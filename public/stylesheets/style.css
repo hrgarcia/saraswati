@@ -1,3 +1,7 @@
+.hoverRemoved:hover{
+    background-color: inherit;
+}
+
 .customJumbotron {
     width: 90%;
     margin: 0 auto;
@@ -15,8 +19,8 @@ h1 {
 }
 
 .navbarBackground {
-    background: rgb(167, 25, 25);
-    background: linear-gradient(90deg, rgba(167, 25, 25, 1) 0%, rgba(196, 26, 69, 1) 21%, rgba(144, 64, 84, 1) 38%, rgba(94, 89, 91, 1) 61%, rgba(0, 0, 0, 1) 100%);
+    background: rgb(255,255,255);
+background: linear-gradient(90deg, rgba(255,255,255,1) 10%, rgba(0,0,0,1) 52%, rgba(0,0,0,1) 100%);
 }
 
 .footerBackground {

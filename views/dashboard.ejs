@@ -127,14 +127,15 @@
                     <% } %>
 
                     <!-- Cards del profesor -->
+
                     <% if (rol[i] == 'profesor') { %>
                     <br />
 
                     <br />
                     <div class="form-row">
                         <% data[0].forEach(function(InfoUser){ %>
-                        <div class="col-md-3" style="margin-left: 50px; cursor: pointer; margin-top: 70px">
-                            <div class="card" style="background-image: url('<%-InfoUser.imagen%>')">
+                        <div class="col-md-3" style="margin-left: 65px; cursor: pointer; margin-top: -45px">
+                            <div class="card" style="margin-top: 55px; background-image: url('<%-InfoUser.imagen%>')">
                                 <div class="header">
                                     <div class="content">
                                         <h4 class="title title-uppercase cortado" myAtribute="0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- InfoUser['nombreMateria']%></h4>
@@ -176,7 +177,6 @@
                     <p>Cosas del estudiante acá</p>
                     <% } %> <% } %>
                 </div>
-                <a href="#" uk-totop uk-scroll style="float: right; color: #fff"></a>
             </div>
             <%- include('fragment/footer'); -%>
         </div>
