@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 11, 2021 at 04:49 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.3.27
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 30-09-2021 a las 23:02:59
+-- Versión del servidor: 10.4.21-MariaDB
+-- Versión de PHP: 7.3.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `saraswatidb`
+-- Base de datos: `saraswatidb`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `aprendizajes`
+-- Estructura de tabla para la tabla `aprendizajes`
 --
 
 CREATE TABLE `aprendizajes` (
@@ -35,7 +35,7 @@ CREATE TABLE `aprendizajes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Dumping data for table `aprendizajes`
+-- Volcado de datos para la tabla `aprendizajes`
 --
 
 INSERT INTO `aprendizajes` (`id`, `descripcion`, `id_materia`, `id_periodo`) VALUES
@@ -51,7 +51,7 @@ INSERT INTO `aprendizajes` (`id`, `descripcion`, `id_materia`, `id_periodo`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `curso`
+-- Estructura de tabla para la tabla `curso`
 --
 
 CREATE TABLE `curso` (
@@ -59,7 +59,7 @@ CREATE TABLE `curso` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Dumping data for table `curso`
+-- Volcado de datos para la tabla `curso`
 --
 
 INSERT INTO `curso` (`descripcion`) VALUES
@@ -73,7 +73,7 @@ INSERT INTO `curso` (`descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `estudiante`
+-- Estructura de tabla para la tabla `estudiante`
 --
 
 CREATE TABLE `estudiante` (
@@ -90,7 +90,7 @@ CREATE TABLE `estudiante` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Dumping data for table `estudiante`
+-- Volcado de datos para la tabla `estudiante`
 --
 
 INSERT INTO `estudiante` (`dni`, `nombre`, `apellido`, `genero`, `fecha_nacimiento`, `legajo`, `email`, `telefono`, `descripcion_curso`, `nombreUsuario`) VALUES
@@ -107,7 +107,7 @@ INSERT INTO `estudiante` (`dni`, `nombre`, `apellido`, `genero`, `fecha_nacimien
 -- --------------------------------------------------------
 
 --
--- Table structure for table `estudianteaprendizaje`
+-- Estructura de tabla para la tabla `estudianteaprendizaje`
 --
 
 CREATE TABLE `estudianteaprendizaje` (
@@ -120,7 +120,7 @@ CREATE TABLE `estudianteaprendizaje` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
--- Dumping data for table `estudianteaprendizaje`
+-- Volcado de datos para la tabla `estudianteaprendizaje`
 --
 
 INSERT INTO `estudianteaprendizaje` (`id`, `descripcion`, `estado`, `estudiante_dni`, `periodo_id`, `materia_id`) VALUES
@@ -176,7 +176,7 @@ INSERT INTO `estudianteaprendizaje` (`id`, `descripcion`, `estado`, `estudiante_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `frasesinspiradoras`
+-- Estructura de tabla para la tabla `frasesinspiradoras`
 --
 
 CREATE TABLE `frasesinspiradoras` (
@@ -186,7 +186,7 @@ CREATE TABLE `frasesinspiradoras` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
--- Dumping data for table `frasesinspiradoras`
+-- Volcado de datos para la tabla `frasesinspiradoras`
 --
 
 INSERT INTO `frasesinspiradoras` (`id`, `frase`, `autor`) VALUES
@@ -203,7 +203,7 @@ INSERT INTO `frasesinspiradoras` (`id`, `frase`, `autor`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `materia`
+-- Estructura de tabla para la tabla `materia`
 --
 
 CREATE TABLE `materia` (
@@ -216,7 +216,7 @@ CREATE TABLE `materia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Dumping data for table `materia`
+-- Volcado de datos para la tabla `materia`
 --
 
 INSERT INTO `materia` (`id`, `nombreMateria`, `imagen`, `horasCatedra`, `profesor_usuario`, `curso_descripcion`) VALUES
@@ -232,7 +232,7 @@ INSERT INTO `materia` (`id`, `nombreMateria`, `imagen`, `horasCatedra`, `profeso
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nota`
+-- Estructura de tabla para la tabla `nota`
 --
 
 CREATE TABLE `nota` (
@@ -252,7 +252,7 @@ CREATE TABLE `nota` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
--- Dumping data for table `nota`
+-- Volcado de datos para la tabla `nota`
 --
 
 INSERT INTO `nota` (`id`, `nota1`, `nota2`, `nota3`, `nota4`, `nota5`, `nota6`, `nota7`, `nota8`, `nota_definitiva`, `id_materia`, `descripcion_curso`, `dni_alumno`) VALUES
@@ -264,7 +264,7 @@ INSERT INTO `nota` (`id`, `nota1`, `nota2`, `nota3`, `nota4`, `nota5`, `nota6`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `periodo`
+-- Estructura de tabla para la tabla `periodo`
 --
 
 CREATE TABLE `periodo` (
@@ -273,7 +273,7 @@ CREATE TABLE `periodo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
--- Dumping data for table `periodo`
+-- Volcado de datos para la tabla `periodo`
 --
 
 INSERT INTO `periodo` (`id`, `descripcion`) VALUES
@@ -283,7 +283,7 @@ INSERT INTO `periodo` (`id`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `profesor`
+-- Estructura de tabla para la tabla `profesor`
 --
 
 CREATE TABLE `profesor` (
@@ -300,17 +300,18 @@ CREATE TABLE `profesor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Dumping data for table `profesor`
+-- Volcado de datos para la tabla `profesor`
 --
 
 INSERT INTO `profesor` (`nombreUsuario`, `nombre`, `apellido`, `dni`, `telefono`, `email`, `genero`, `nacimiento`, `ingreso`, `estado`) VALUES
 ('hrgarcia', 'hector', 'garcia', '23146758', '3513506446', 'dreamallica@gmail.com', 'indefinide', '23/09/2000', '07/03/2015', 'titular'),
-('lmazzola', 'lucas', 'mazzola', '23232322', '3514467892', 'lucasmazz@gmail.com', 'indefinido', '23/09/2000', '07/03/2015', 'titular');
+('lmazzola', 'lucas', 'mazzola', '23232322', '3514467892', 'lucasmazz@gmail.com', 'indefinido', '23/09/2000', '07/03/2015', 'titular'),
+('pedro', 'juan', 'wdaa', '30883670', '332131212321', 'dreamadaw@gmail.com', 'Masculino', '1111-11-11', '1211-03-12', 'Titular');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rol`
+-- Estructura de tabla para la tabla `rol`
 --
 
 CREATE TABLE `rol` (
@@ -320,19 +321,20 @@ CREATE TABLE `rol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Dumping data for table `rol`
+-- Volcado de datos para la tabla `rol`
 --
 
 INSERT INTO `rol` (`id`, `nombre`, `nombreUsuario`) VALUES
 (5, 'preceptor', 'lmazzola'),
 (6, 'profesor', 'hrgarcia'),
 (7, 'profesor', 'lmazzola'),
-(12, 'administrador', 'admin');
+(12, 'administrador', 'admin'),
+(16, 'profesor', 'pedro');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tutor`
+-- Estructura de tabla para la tabla `tutor`
 --
 
 CREATE TABLE `tutor` (
@@ -348,7 +350,7 @@ CREATE TABLE `tutor` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -359,11 +361,11 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`nombreUsuario`, `pass`, `avatar`, `contraseña_cambiada`) VALUES
-('admin', '$2b$10$5wJpY.4Jlc3u7FHuqotgiuaWpDpoksvHY9EHmX6OY.66IlUoP6z5W', 'avatar_admin.jpg', 'false'),
+('admin', '$2b$10$5wJpY.4Jlc3u7FHuqotgiuaWpDpoksvHY9EHmX6OY.66IlUoP6z5W', '0', 'true'),
 ('amenieto', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
 ('hrgarcia', '$2b$10$6BuPgA13Ky/D270vz8AOBOEoyV/koNaPzM2OKH.dxWA.karLXkMy2', 'avatar_hrgarcia.jpg', 'true'),
 ('ianluciano', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
@@ -374,14 +376,15 @@ INSERT INTO `usuario` (`nombreUsuario`, `pass`, `avatar`, `contraseña_cambiada`
 ('lmazzola', '$2b$10$TvFydFnH7Ut4z9wlP218vOIV.jtKPDhtsRQmD9i2fyEQmdxWWTphK', '0', 'true'),
 ('luromero', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
 ('paoalbert', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
+('pedro', '$2b$10$eHIdP.k56x//5y1smPf3LuAXOCkqwd.q1RpxQm8amyaghSycVyUJK', '0', ''),
 ('sevemonzon', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false');
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `aprendizajes`
+-- Indices de la tabla `aprendizajes`
 --
 ALTER TABLE `aprendizajes`
   ADD PRIMARY KEY (`id`),
@@ -389,13 +392,13 @@ ALTER TABLE `aprendizajes`
   ADD KEY `id_periodo` (`id_periodo`);
 
 --
--- Indexes for table `curso`
+-- Indices de la tabla `curso`
 --
 ALTER TABLE `curso`
   ADD PRIMARY KEY (`descripcion`);
 
 --
--- Indexes for table `estudiante`
+-- Indices de la tabla `estudiante`
 --
 ALTER TABLE `estudiante`
   ADD PRIMARY KEY (`dni`),
@@ -403,7 +406,7 @@ ALTER TABLE `estudiante`
   ADD KEY `nombreUsuario` (`nombreUsuario`);
 
 --
--- Indexes for table `estudianteaprendizaje`
+-- Indices de la tabla `estudianteaprendizaje`
 --
 ALTER TABLE `estudianteaprendizaje`
   ADD PRIMARY KEY (`id`),
@@ -412,13 +415,13 @@ ALTER TABLE `estudianteaprendizaje`
   ADD KEY `materia_id` (`materia_id`);
 
 --
--- Indexes for table `frasesinspiradoras`
+-- Indices de la tabla `frasesinspiradoras`
 --
 ALTER TABLE `frasesinspiradoras`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `materia`
+-- Indices de la tabla `materia`
 --
 ALTER TABLE `materia`
   ADD PRIMARY KEY (`id`),
@@ -426,7 +429,7 @@ ALTER TABLE `materia`
   ADD KEY `curso_descripcion` (`curso_descripcion`);
 
 --
--- Indexes for table `nota`
+-- Indices de la tabla `nota`
 --
 ALTER TABLE `nota`
   ADD PRIMARY KEY (`id`),
@@ -435,103 +438,103 @@ ALTER TABLE `nota`
   ADD KEY `descripcion_curso` (`descripcion_curso`);
 
 --
--- Indexes for table `periodo`
+-- Indices de la tabla `periodo`
 --
 ALTER TABLE `periodo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `profesor`
+-- Indices de la tabla `profesor`
 --
 ALTER TABLE `profesor`
   ADD PRIMARY KEY (`nombreUsuario`);
 
 --
--- Indexes for table `rol`
+-- Indices de la tabla `rol`
 --
 ALTER TABLE `rol`
   ADD PRIMARY KEY (`id`),
   ADD KEY `nombre_usuario` (`nombreUsuario`);
 
 --
--- Indexes for table `tutor`
+-- Indices de la tabla `tutor`
 --
 ALTER TABLE `tutor`
   ADD PRIMARY KEY (`dni`),
   ADD KEY `estudiante_dni` (`estudiante_dni`);
 
 --
--- Indexes for table `usuario`
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`nombreUsuario`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `aprendizajes`
+-- AUTO_INCREMENT de la tabla `aprendizajes`
 --
 ALTER TABLE `aprendizajes`
   MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
--- AUTO_INCREMENT for table `estudianteaprendizaje`
+-- AUTO_INCREMENT de la tabla `estudianteaprendizaje`
 --
 ALTER TABLE `estudianteaprendizaje`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
--- AUTO_INCREMENT for table `frasesinspiradoras`
+-- AUTO_INCREMENT de la tabla `frasesinspiradoras`
 --
 ALTER TABLE `frasesinspiradoras`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `materia`
+-- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT for table `nota`
+-- AUTO_INCREMENT de la tabla `nota`
 --
 ALTER TABLE `nota`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
--- AUTO_INCREMENT for table `periodo`
+-- AUTO_INCREMENT de la tabla `periodo`
 --
 ALTER TABLE `periodo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `rol`
+-- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `aprendizajes`
+-- Filtros para la tabla `aprendizajes`
 --
 ALTER TABLE `aprendizajes`
   ADD CONSTRAINT `aprendizajes_ibfk_1` FOREIGN KEY (`id_materia`) REFERENCES `materia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `aprendizajes_ibfk_2` FOREIGN KEY (`id_periodo`) REFERENCES `periodo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `estudiante`
+-- Filtros para la tabla `estudiante`
 --
 ALTER TABLE `estudiante`
   ADD CONSTRAINT `estudiante_ibfk_1` FOREIGN KEY (`descripcion_curso`) REFERENCES `curso` (`descripcion`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `estudiante_ibfk_2` FOREIGN KEY (`nombreUsuario`) REFERENCES `usuario` (`nombreUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `estudianteaprendizaje`
+-- Filtros para la tabla `estudianteaprendizaje`
 --
 ALTER TABLE `estudianteaprendizaje`
   ADD CONSTRAINT `estudianteaprendizaje_ibfk_1` FOREIGN KEY (`estudiante_dni`) REFERENCES `estudiante` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -539,14 +542,14 @@ ALTER TABLE `estudianteaprendizaje`
   ADD CONSTRAINT `estudianteaprendizaje_ibfk_3` FOREIGN KEY (`materia_id`) REFERENCES `materia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `materia`
+-- Filtros para la tabla `materia`
 --
 ALTER TABLE `materia`
   ADD CONSTRAINT `materia_ibfk_1` FOREIGN KEY (`profesor_usuario`) REFERENCES `profesor` (`nombreUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `materia_ibfk_2` FOREIGN KEY (`curso_descripcion`) REFERENCES `curso` (`descripcion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `nota`
+-- Filtros para la tabla `nota`
 --
 ALTER TABLE `nota`
   ADD CONSTRAINT `nota_ibfk_2` FOREIGN KEY (`id_materia`) REFERENCES `materia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -554,13 +557,13 @@ ALTER TABLE `nota`
   ADD CONSTRAINT `nota_ibfk_4` FOREIGN KEY (`descripcion_curso`) REFERENCES `curso` (`descripcion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `rol`
+-- Filtros para la tabla `rol`
 --
 ALTER TABLE `rol`
   ADD CONSTRAINT `rol_ibfk_1` FOREIGN KEY (`nombreUsuario`) REFERENCES `usuario` (`nombreUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tutor`
+-- Filtros para la tabla `tutor`
 --
 ALTER TABLE `tutor`
   ADD CONSTRAINT `tutor_ibfk_1` FOREIGN KEY (`estudiante_dni`) REFERENCES `estudiante` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE;
