@@ -27,7 +27,6 @@
     </head>
 
     <body>
-        <%- include('fragment/sidebar'); -%>
         <div class="main-panel" data-value="<%-username%>" id="main-panel">
             <div class="container">
                 <%- include('fragment/navbar'); -%>
@@ -116,15 +115,15 @@
                             <div class="tab-pane" id="account">
                                 <div class="row">
                                     <% data.forEach(function(Materias){ %>
-                                        <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-checkbox">
-                                                <input type="checkbox" name="jobb" value="Design" />
-                                                <div class="card card-checkboxes card-hover-effect">
-                                                    <i class="fas fa-graduation-cap"></i>
-                                                    <p><%- Materias["nombreMateria"] %></p>                                            
-                                                </div>
+                                    <div class="col-sm-4">
+                                        <div class="choice" data-toggle="wizard-checkbox">
+                                            <input type="checkbox" name="jobb" value="Design" />
+                                            <div class="card card-checkboxes card-hover-effect">
+                                                <i class="fas fa-graduation-cap"></i>
+                                                <p><%- Materias["nombreMateria"] %></p>
                                             </div>
                                         </div>
+                                    </div>
                                     <% }); %>
                                 </div>
                             </div>
@@ -136,19 +135,19 @@
                                     <div class="col-sm-7 col-sm-offset-1">
                                         <div class="form-group">
                                             <label>Fecha de nacimiento</label>
-                                            <input type="date" name= "fecha_nacimiento"class="form-control" placeholder="10/12/2003" />
+                                            <input type="date" name="fecha_nacimiento" class="form-control" placeholder="10/12/2003" />
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>DNI</label>
-                                            <input type="text" class="form-control" placeholder="323232" name= "dni"/>
+                                            <input type="text" class="form-control" placeholder="323232" name="dni" />
                                         </div>
                                     </div>
                                     <div class="col-sm-5 col-sm-offset-1">
                                         <div class="form-group">
                                             <label>Número de teléfono</label>
-                                            <input type="text" class="form-control" placeholder="35135..." name="telefono"/>
+                                            <input type="text" class="form-control" placeholder="35135..." name="telefono" />
                                         </div>
                                     </div>
                                     <div class="col-sm-5">
@@ -176,7 +175,7 @@
                         <div class="wizard-footer">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <input type="button" class="btn btn-next btn-fill btn-warning btn-wd d-grid gap-2 d-md-flex justify-content-md-end" name="siguiente" value="Siguiente" />
-                                <input type="submit" class="btn btn-finish btn-fill btn-warning btn-wd"  name="cargar" value="Cargar" />
+                                <input type="submit" class="btn btn-finish btn-fill btn-warning btn-wd" name="cargar" value="Cargar" />
                             </div>
                             <div class="pull-left">
                                 <input type="button" class="btn btn-previous btn-default btn-wd" name="volver" value="Volver" />
@@ -188,7 +187,7 @@
             </div>
             <%- include('fragment/footer'); -%>
         </div>
-            <%- include('fragment/scripts'); -%>
+        <%- include('fragment/scripts'); -%>
     </body>
 
     <!--   Core JS Files   -->

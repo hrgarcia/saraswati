@@ -1,12 +1,17 @@
-<nav class="navbar navbar-expand-lg bg-dark navbar-absolute fixed-top navbarBackground">
+<nav uk-sticky class="navbar navbar-expand-lg bg-dark navbar-absolute fixed-top navbarBackground">
     <div class="container-fluid">
-        <div id="divPhrases" class="">
+        <div style="padding-top: inherit; padding-bottom: 20px" class="logo animate__animated animate__bounce">
+            <a href="http://localhost:2500/dashboard" target="">
+                <img class="dashboardIcon" src="/images/logoSinFondo.png" title="Volver al inicio" height="200" width="200" alt="" />
+            </a>
+        </div>
+        <!-- <div id="divPhrases" class="">
             <h5>
                 <blockquote>
                     <p style="color: white; text-align: center" class="uk-margin-small-bottom">"<%-inspirationalPhrase[0]%>." <footer style="color: rgb(231, 231, 231);float: right;"><%-inspirationalPhrase[1]%></footer></p>
                 </blockquote>
             </h5>
-        </div>
+        </div> -->
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -33,9 +38,9 @@
             <li class="nav-item dropdown">
                 <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <% if(routeAvatar != "0"){ %>
-                    <img  src="/images/upload/avatars/<%-routeAvatar%>" class="perfect-circle" height="20" width="20" >
+                    <img src="/images/upload/avatars/<%-routeAvatar%>" class="perfect-circle" height="20" width="20" />
                     <% } else{ %>
-                    <img class="perfect-circle" src="/images/upload/avatars/avatarDefault.png"/>
+                    <img class="perfect-circle" src="/images/upload/avatars/avatarDefault.png" />
                     <% } %>
                     <p class="d-lg-none d-md-block">Account</p>
                 </a>
