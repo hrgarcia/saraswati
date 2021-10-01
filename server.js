@@ -805,8 +805,8 @@ app.post("/agregar", (req, res) => {
 
         bcrypt.hash(password, salt, (err, encrypted) => {
             password = encrypted;
-            let userquery = "INSERT INTO usuario (nombreUsuario,pass,avatar) VALUE (?,?,?)";
-            con.query(userquery, [nickname, password, "0"], (error, rows, fields) => {
+            let userquery = "INSERT INTO usuario (nombreUsuario,pass,avatar, contraseña_cambiada) VALUE (?,?,?,?)";
+            con.query(userquery, [nickname, password, "0", false], (error, rows, fields) => {
                 if (error) throw error;
                 let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
                 con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
