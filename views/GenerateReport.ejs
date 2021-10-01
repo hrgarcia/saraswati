@@ -13,44 +13,53 @@
     </head>
 
     <body>
+        <% name.forEach(function(InfoUser){ %>
         <div class="jumbotron">
-            <h1 class="display-4">Juan Perez</h1>
+            <img src="https://panorama.oei.org.ar/_dev2/wp-content/uploads/2017/07/proa.png" class="img" alt="" width="200 " height="200" align ="right" align = "top"/>
+            <h1 class="lead"><%- InfoUser['nombre']%> <%- InfoUser['apellido']%></h1>
             <h3 class="lead">Informe del espacio</h3>
             <h2>ENTORNOS DIGITALES</h2>
             <hr class="my-4">
-            <img src="https://panorama.oei.org.ar/_dev2/wp-content/uploads/2017/07/proa.png" class="img" />
-
             <div id="page1-div">
-                <p style="position: absolute; top: 168px; left: 39px; white-space: nowrap" class="ft10">Escuela:</p>
-                <p style="position: absolute; top: 244px; left: 39px; white-space: nowrap" class="ft10"><b>INFORMATICA CON FORMACION ESPECIALIZADA EN&nbsp;</b></p>
-                <p style="position: absolute; top: 260px; left: 77px; white-space: nowrap" class="ft11"><b>DESARROLLO DE SOFTWARE</b></p>
-                <p style="position: absolute; top: 168px; left: 96px; white-space: nowrap" class="ft13">
+                <h3  class="lead">Escuela:</h3>
+                <p  class="ft10"><b>INFORMATICA CON FORMACION ESPECIALIZADA EN&nbsp;</b></p>
+                <p  class="ft11"><b>DESARROLLO DE SOFTWARE</b></p>
+                <p  class="ft13">
                     <b>PROGRAMA DE DESARROLLO EDUCATIVO - NIVEL&nbsp;<br />SECUNDARIO - ESCUELA EXPERIMENTAL CON&nbsp;<br />ÉNFASIS EN TECNOLOGÍAS DE LA INFORMACIÓN Y&nbsp;<br />LA COMUNICACIÓN</b>
                 </p>
-            </div>
+            </div> 
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2>Nombre:  <%- InfoUser['nombre']%></h2>
+
+                    </div>
+                    <div class="col-sm">
+                        <h2>Apellido:  <%- InfoUser['apellido']%></h2>
+
+                        
+                    </div>
+                    <div class="col-sm">
+                        <h2>Dni:  <%- InfoUser['dni']%></h2>
+
+                    </div>
+                    <div class="col-sm">
+                        <h2>Gmail:  <%- InfoUser['email']%></h2>
+                        
+                    </div>  
+                    <div class="col-sm">
+                        <h2>Curso:  <%- InfoUser['descripcion_curso']%></h2>
+                        
+                    </div>      
+    
+            <% }); %>
+                        
+                </div>
+              </div>
             
 
         </div>
-
-        <!-- <% name.forEach(function(InfoUser){ %>
-
-        <% name.forEach(function(InfoUser){ %>
-        <h1><%- InfoUser['nombre']%></h1>
-        <h2><%- InfoUser['dni']%></h2>
-        <p><%- InfoUser['apellido']%></p>
-        <p><%- InfoUser['email']%></p>
-
-
-        <% }); %>
-
-        <div id="page1-div">
-            <img src="/public/images/imgPDF/target001.png" alt="background image" />
-            <p style="position: absolute; top: 168px; left: 39px; white-space: nowrap" class="ft10">Escuela:</p>
-            <p style="position: absolute; top: 244px; left: 39px; white-space: nowrap" class="ft10">Plan:&nbsp;<b>INFORMATICA CON FORMACION ESPECIALIZADA EN&nbsp;</b></p>
-            <p style="position: absolute; top: 260px; left: 77px; white-space: nowrap" class="ft11"><b>DESARROLLO DE SOFTWARE</b></p>
-            <p style="position: absolute; top: 168px; left: 96px; white-space: nowrap" class="ft13">
-                <b>PROGRAMA DE DESARROLLO EDUCATIVO - NIVEL&nbsp;<br />SECUNDARIO - ESCUELA EXPERIMENTAL CON&nbsp;<br />ÉNFASIS EN TECNOLOGÍAS DE LA INFORMACIÓN Y&nbsp;<br />LA COMUNICACIÓN</b>
-            </p>
-        </div>
+        
     </body>
 </html>
