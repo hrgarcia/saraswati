@@ -15422,9 +15422,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
     font-size: 13px;
     padding: 10px 15px;
 }
-a:hover {
-    background-color: #3c73a5;
-}
+
 
 .sidebar .sidebar-background {
     position: absolute;
