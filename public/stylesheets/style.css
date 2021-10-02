@@ -11,7 +11,9 @@
 h1 {
     font-size: 150px;
 }
-
+.btn-next{
+    margin-left: 20px;
+}
 .animate__animated.animate__pulse {
     --animate-delay: 1.5s;
     --animate-duration: 8s;
@@ -246,7 +248,4 @@ td.none {
 
 .animate__animated.animate__backInLeft {
     animation-duration: 5s;
-}
-.dashboardIcon:hover {
-    h
 }
