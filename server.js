@@ -540,9 +540,13 @@ app.get("/generarReporte/:dni", (req, res) => {
     if (req.session.logged) {
         console.log(req.params.dni); // result: test
         let dni = req.params.dni;
+        let materia = req.body.materia;
+        console.log(req.body.idSubject);
 
-        let query1 = "SELECT apellido FROM estudiante WHERE nombre = ?";
+        let query1 = "SELECT * FROM estudiante WHERE dni = ?";
+        let query2 ="SELECT * FROM materia INNER JOIN nota ON id_materia = ?";
         con.query(query1, [dni], (error, rows, fields) => {
+            con.query(query2, [materia], (error, rows, fields) => { 
             if (error) throw error;
             console.log(rows);
 
@@ -566,9 +570,14 @@ app.get("/generarReporte/:dni", (req, res) => {
                 res.download("uploads/report.pdf");
             });
         });
-    } else {
-        res.redirect("/");
-    }
+
+    // } else {
+    //     res.redirect("/");
+    // }
+});
+    
+    };
+
 });
 
 app.get("/cambiarEstadoToastr", (req, res) => {
@@ -805,8 +814,8 @@ app.post("/agregar", (req, res) => {
 
         bcrypt.hash(password, salt, (err, encrypted) => {
             password = encrypted;
-            let userquery = "INSERT INTO usuario (nombreUsuario,pass,avatar) VALUE (?,?,?)";
-            con.query(userquery, [nickname, password, "0"], (error, rows, fields) => {
+            let userquery = "INSERT INTO usuario (nombreUsuario,pass,avatar, contraseña_cambiada) VALUE (?,?,?,?)";
+            con.query(userquery, [nickname, password, "0", false], (error, rows, fields) => {
                 if (error) throw error;
                 let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
                 con.query(rolquery, [nombre, nickname], (error, rows, fields) => {

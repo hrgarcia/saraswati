@@ -11,7 +11,9 @@
 h1 {
     font-size: 150px;
 }
-
+.btn-next{
+    margin-left: 20px;
+}
 .animate__animated.animate__pulse {
     --animate-delay: 1.5s;
     --animate-duration: 8s;
@@ -32,7 +34,21 @@ background: linear-gradient(90deg, rgba(255,255,255,1) 10%, rgba(0,0,0,1) 52%, r
     background: rgb(167, 25, 25);
     background: linear-gradient(90deg, rgba(167, 25, 25, 1) 0%, rgba(196, 26, 69, 1) 21%, rgba(144, 64, 84, 1) 38%, rgba(94, 89, 91, 1) 61%, rgba(0, 0, 0, 1) 100%);
 }
-
+.uk-form-icon {
+    
+    width: 100%;
+    font-size: 0.9em;
+    border: none;
+    background-position: 9px center;
+    background-size: 20px;
+    display: flex;
+    align-items:flex-end;
+    width: 300px;
+    padding-left: 48px;
+    height: 30px;
+    border: 1px solid rgba(9, 113, 163, 1);
+    border-radius: 3px;
+}
 td.disapproved {
     width: 2px;
     height: 6px;
@@ -246,7 +262,4 @@ td.none {
 
 .animate__animated.animate__backInLeft {
     animation-duration: 5s;
-}
-.dashboardIcon:hover {
-    h
 }

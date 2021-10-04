@@ -436,14 +436,12 @@
         <script type="text/javascript">
             var $table = $("#fresh-table");
             var $alertBtn = $("#alertBtn");
-            function pdf(){
-                $.get("GenerateReport", function (res) {
-                });
-            }
+
             window.operateEvents = {
                 "click .like": function (e, value, row, index) {
-                    alert("You click like icon, row: " + JSON.stringify(row));
-                    console.log(value, row, index);
+                    $.get(`generarReporte/${row.dni}`,{idSubject:document.getElementById("subjectName").getAttribute("data-value")},function (res) {
+                        alert("Tu PDF se descargo :D ")
+                    });
                 },
                 "click .edit": function (e, value, row, index) {
                     
