@@ -41,7 +41,7 @@
                     <p class="d-lg-none d-md-block">Acciones</p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                    <% if (rol[i] == 'profesor') { %>
+                    <% for(let i = 0; i < rol.length; i++) { %> <% if (rol[i] == 'profesor') { %>
                     <a class="dropdown-item" href="cargarVistaEstudiante"><i class="material-icons" style="position: relative; left: -5px">account_circle</i>Listado de estudiantes</a>
                     <a class="dropdown-item" href="estadisticasEstudiante"><i class="material-icons" style="position: relative; left: -5px">equalizer</i>Estadísticas</a>
                     <% } %> <% if (rol[i] == 'preceptor') { %>
@@ -56,7 +56,7 @@
                     <% } %> <% if (rol[i] == 'estudiante') { %>
                     <a class="dropdown-item" href="#"><i class="material-icons" style="position: relative; left: -5px">collections_bookmark</i>Estado académico</a>
                     <a class="dropdown-item" href="#"><i class="material-icons" style="position: relative; left: -5px">school</i>Profesores</a>
-                    <% } %>
+                    <% } %> <% } %>
                 </div>
             </li>
             <li class="nav-item dropdown">
