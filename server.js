@@ -544,40 +544,38 @@ app.get("/generarReporte/:dni", (req, res) => {
         console.log(req.body.idSubject);
 
         let query1 = "SELECT * FROM estudiante WHERE dni = ?";
-        let query2 ="SELECT * FROM materia INNER JOIN nota ON id_materia = ?";
+        let query2 = "SELECT * FROM materia INNER JOIN nota ON id_materia = ?";
         con.query(query1, [dni], (error, rows, fields) => {
-            con.query(query2, [materia], (error, rows, fields) => { 
-            if (error) throw error;
-            console.log(rows);
+            con.query(query2, [materia], (error, rows, fields) => {
+                if (error) throw error;
+                console.log(rows);
 
-            ejs.renderFile("views/GenerateReport.ejs", { name: rows }, (err, html) => {
-                if (err) throw err;
-                const options = {
-                    format: "A4",
-                    border: {
-                        right: "8",
-                    },
-                };
+                ejs.renderFile("views/GenerateReport.ejs", { name: rows }, (err, html) => {
+                    if (err) throw err;
+                    const options = {
+                        format: "A4",
+                        border: {
+                            right: "8",
+                        },
+                    };
 
-                pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
-                    if (err) {
-                        res.send(err);
-                    } else {
-                        console.log("Pdf creado");
-                    }
+                    pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
+                        if (err) {
+                            res.send(err);
+                        } else {
+                            console.log("Pdf creado");
+                        }
+                    });
+                    res.type("pdf");
+                    res.download("uploads/report.pdf");
                 });
-                res.type("pdf");
-                res.download("uploads/report.pdf");
             });
+
+            // } else {
+            //     res.redirect("/");
+            // }
         });
-
-    // } else {
-    //     res.redirect("/");
-    // }
-});
-    
-    };
-
+    }
 });
 
 app.get("/cambiarEstadoToastr", (req, res) => {
@@ -613,13 +611,16 @@ app.get("/estadisticasEstudiante", (req, res) => {
 });
 
 app.get("/obtenerEstadisiticasEstudiates", (req, res) => {
+    console.log("entre");
     let arr = {};
     // let query = "SELECT nombreMateria, curso_descripcion FROM materia WHERE profesor_usuario = ?";
     let query = "SELECT * FROM estudiante INNER JOIN materia ON profesor_usuario = ? AND materia.curso_descripcion = estudiante.descripcion_curso INNER JOIN nota ON nota.dni_alumno = estudiante.dni AND nota.id_materia = materia.id";
     con.query(query, [res.locals.username], (error, rows, fields) => {
         if (error) throw error;
+
         for (let i = 0; i < rows.length; i++) {
             let aux = rows[i]["descripcion_curso"].toString();
+            // Agregar lo aprendizajes
             if (Object.keys(arr).includes(aux)) {
                 arr[aux].push({
                     subject: rows[i].nombreMateria,

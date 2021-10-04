@@ -49,43 +49,46 @@
                 <div class="container">
                     <br />
                     <div class="jumbotron" style="background: white">
-                        <div>
-                            <div>
+                        <div class="row" align="center">
+                            <div class="col-md-6">
                                 <label style="font-weight: 600" for="course">Curso</label>
                                 <br />
                                 <select id="course" class="js-example-basic-single" style="width: 50%" name="course">
                                     <option></option>
                                 </select>
                             </div>
-                            <br />
-                            <div>
+
+                            <div class="col-md-6">
                                 <label style="font-weight: 600" for="subjects">Materia</label>
                                 <br />
                                 <select id="subjects" class="js-example-basic-single" style="width: 50%" name="subjects">
                                     <option></option>
                                 </select>
                             </div>
-                            <br />
 
-                            <div>
+                            <div class="col-md-6" style="margin-top: 20px">
                                 <label style="font-weight: 600" for="student">Estudiantes</label>
                                 <br />
                                 <select id="student" class="js-example-basic-single" style="width: 50%" name="student">
                                     <option></option>
                                 </select>
+                                <br />
                             </div>
-                            <br />
 
-                            <div>
-                                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                                    <label> <input class="uk-radio" type="radio" name="radio2" checked /> Cuatrimestral </label>
-                                    <label><input class="uk-radio" type="radio" name="radio2" /> Anual</label>
-                                </div>
+                            <div class="col-md-6" style="margin-top: 20px">
+                                <label style="font-weight: 600" for="trimester"> Cuatrimestre </label>
+                                <br />
+                                <select id="trimester" class="js-example-basic-single" style="width: 50%" name="student">
+                                    <option>Primer cuatrimestre</option>
+                                    <option>Segundo cuatrimestre</option>
+                                    <option>Anual</option>
+                                </select>
                             </div>
                         </div>
                         <br />
                         <br />
-                        <canvas id="myChart" width="400" height="400"></canvas>
+                        <h1 id="titleGraph" style="text-align: center">Grafico por defecto</h1>
+                        <canvas id="myChart" width="200" height="150"></canvas>
                     </div>
                 </div>
             </div>
@@ -96,9 +99,6 @@
 
         <!-- Jquery -->
         <script src="/javascripts/plugins/jquery-3.5.1.js"></script>
-
-        <!-- Cards Js
-        <script src="/javascripts/hipster-cards.js"></script> -->
 
         <!-- Own SweetAlert2 -->
         <script src="/javascripts/sweetAlerts.js"></script>
@@ -118,18 +118,24 @@
         <script>
             var info;
             var courseSelect;
-            var subjectsSelect;
+            var subjectSelect = "";
+            var studentSelectDni = "";
+            var flagTrimester = "1";
 
             var $courseSelect = $("#course");
-            var $subjectsSelect = $("#subjects");
+            var $subjectSelect = $("#subjects");
             var $studentSelect = $("#student");
+            var $trimesterSelect = $("#trimester");
+
+            var myChart;
+            var graphArea = document.getElementById("myChart").getContext("2d");
 
             $(document).ready(function () {
                 $courseSelect.select2({
                     placeholder: "Seleccione un curso",
                     allowClear: true,
                 });
-                $subjectsSelect.select2({
+                $subjectSelect.select2({
                     placeholder: "Seleccione una materia",
                     allowClear: true,
                 });
@@ -147,6 +153,7 @@
                 $.get("obtenerEstadisiticasEstudiates", function (res) {
                     setter(res);
                     let aux = Object.keys(res);
+                    console.log(aux);
                     for (let i = 0; i < aux.length; i++) {
                         let newOption = new Option(aux[i], aux[i], false, false);
                         $courseSelect.append(newOption);
@@ -154,45 +161,122 @@
                 });
             };
 
-            $courseSelect.on("change", function (e) {
-                $subjectsSelect.empty();
+            $courseSelect.on("select2:select", function (e) {
+                $subjectSelect.empty();
                 $studentSelect.empty();
 
                 courseSelect = $(e.currentTarget).val();
 
+                let newOption = new Option("", "", false, true);
+                $subjectSelect.append(newOption);
                 // Add the options for the subjects button
                 let lastOption;
                 for (let i = 0; i < info[courseSelect].length; i++) {
                     if (info[courseSelect][i].subject != lastOption) {
-                        let newOption = new Option(info[courseSelect][i].subject, info[courseSelect][i].subject, true, true);
-                        $subjectsSelect.append(newOption);
+                        let newOption = new Option(info[courseSelect][i].subject, info[courseSelect][i].subject, false, false);
+                        $subjectSelect.append(newOption);
                         lastOption = info[courseSelect][i].subject;
                     }
                 }
-
-                // Show the graph with the data I have
             });
-            $subjectsSelect.on("change", function (e) {
+
+            $subjectSelect.on("select2:select", function (e) {
                 $studentSelect.empty();
-                subjectsSelect = $(e.currentTarget).val();
+                subjectSelect = $(e.currentTarget).val();
+
+                let newOption = new Option("", "", false, true);
+                $studentSelect.append(newOption);
 
                 // Add the options for the students button
                 for (let i = 0; i < info[courseSelect].length; i++) {
-                    if (info[courseSelect][i].subject == subjectsSelect) {
-                        console.log("hola");
-                        let newOption = new Option(info[courseSelect][i].nombre + " " + info[courseSelect][i].apellido, info[courseSelect][i].dni, true, true);
+                    if (info[courseSelect][i].subject == subjectSelect) {
+                        let newOption = new Option(info[courseSelect][i].nombre + " " + info[courseSelect][i].apellido, info[courseSelect][i].dni, false, false);
                         $studentSelect.append(newOption);
                     }
                 }
                 // Show the graph with the data I have
-            });
-            $studentSelect.on("change", function (e) {
-                console.log("cambie de estudiante");
-                // Show the graph with the data I have
+                if (studentSelectDni == "") {
+                    subjectGraph();
+                }
             });
 
-            let ctx = document.getElementById("myChart").getContext("2d");
-            let myChart = new Chart(ctx, {
+            $studentSelect.on("select2:select", function (e) {
+                studentSelectDni = $(e.currentTarget).val();
+                // Show the graph with the data I have
+                studentGraph();
+            });
+
+            $studentSelect.on("select2:unselect", function (e) {
+                studentSelectDni = "";
+            });
+
+            $trimesterSelect.on("select2:select", function (e) {
+                let actualSelection = $(e.currentTarget).val().toLowerCase();
+                if (actualSelection == "primer cuatrimestre") {
+                    flagTrimester = 1;
+                } else if (actualSelection == "segundo cuatrimestre") {
+                    flagTrimester = 2;
+                } else {
+                    flagTrimester = "annual";
+                }
+            });
+
+            function subjectGraph() {
+                document.getElementById("titleGraph").innerHTML = subjectSelect.charAt(0).toUpperCase() + subjectSelect.slice(1);
+                myChart.destroy();
+                console.log(info[courseSelect]);
+                if (flagTrimester == 1) {
+                } else if (actualSelection == "segundo cuatrimestre") {
+                    flagTrimester = 2;
+                } else {
+                    flagTrimester = "annual";
+                }
+
+                var data = {
+                    datasets: [
+                        {
+                            data: [11, 16, 7, 3, 14],
+                            backgroundColor: ["#FF6384", "#4BC0C0", "#FFCE56", "#E7E9ED", "#36A2EB"],
+                            label: "My dataset", // for legend
+                        },
+                    ],
+                    labels: ["Red", "Green", "Yellow", "Grey", "Blue"],
+                };
+
+                new Chart(graphArea, {
+                    data: data,
+                    type: "polarArea",
+                });
+            }
+
+            function studentGraph() {
+                myChart.destroy();
+
+                myChart = new Chart(graphArea, {
+                    type: "bar",
+                    data: {
+                        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                        datasets: [
+                            {
+                                label: "# Estudiantes",
+                                data: [12, 19, 3, 5, 2, 3],
+                                backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(255, 206, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(255, 159, 64, 0.2)"],
+                                borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)", "rgba(153, 102, 255, 1)", "rgba(255, 159, 64, 1)"],
+                                borderWidth: 1,
+                            },
+                        ],
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                            },
+                        },
+                    },
+                });
+            }
+            //  Default graph
+            myChart = new Chart(graphArea, {
                 type: "bar",
                 data: {
                     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
