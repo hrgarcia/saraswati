@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="/css/bootstrap.min.css" />
-  <!-- Nuestros estilos -->
-  <!-- <link rel="stylesheet" href="/stylesheets/pdf.css" /> -->
+<!-- Bootstrap -->
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<!-- Nuestros estilos -->
+<!-- <link rel="stylesheet" href="/stylesheets/pdf.css" /> -->
 
 <html lang="en">
     <head>
@@ -13,53 +13,73 @@
     </head>
 
     <body>
-        <% name.forEach(function(InfoUser){ %>
+        <% datosAlumno.forEach(function(InfoUser){ %>
         <div class="jumbotron">
-            <img src="https://panorama.oei.org.ar/_dev2/wp-content/uploads/2017/07/proa.png" class="img" alt="" width="200 " height="200" align ="right" align = "top"/>
-            <h1 class="lead"><%- InfoUser['nombre']%> <%- InfoUser['apellido']%></h1>
+            <img
+                src="https://panorama.oei.org.ar/_dev2/wp-content/uploads/2017/07/proa.png"
+                class="img"
+                alt=""
+                width="200 "
+                height="200"
+                align="right"
+                align="top"
+            />
+            <h1 class="lead">
+                <%- InfoUser['nombre']%> <%- InfoUser['apellido']%>
+            </h1>
             <h3 class="lead">Informe del espacio</h3>
             <h2>ENTORNOS DIGITALES</h2>
-            <hr class="my-4">
+            <hr class="my-4" />
             <div id="page1-div">
-                <h3  class="lead">Escuela:</h3>
-                <p  class="ft10"><b>INFORMATICA CON FORMACION ESPECIALIZADA EN&nbsp;</b></p>
-                <p  class="ft11"><b>DESARROLLO DE SOFTWARE</b></p>
-                <p  class="ft13">
-                    <b>PROGRAMA DE DESARROLLO EDUCATIVO - NIVEL&nbsp;<br />SECUNDARIO - ESCUELA EXPERIMENTAL CON&nbsp;<br />ÉNFASIS EN TECNOLOGÍAS DE LA INFORMACIÓN Y&nbsp;<br />LA COMUNICACIÓN</b>
+                <h3 class="lead">Escuela:</h3>
+                <p class="ft10">
+                    <b>INFORMATICA CON FORMACION ESPECIALIZADA EN&nbsp;</b>
                 </p>
-            </div> 
-            
+                <p class="ft11"><b>DESARROLLO DE SOFTWARE</b></p>
+                <p class="ft13">
+                    <b
+                        >PROGRAMA DE DESARROLLO EDUCATIVO - NIVEL&nbsp;<br />SECUNDARIO
+                        - ESCUELA EXPERIMENTAL CON&nbsp;<br />ÉNFASIS EN
+                        TECNOLOGÍAS DE LA INFORMACIÓN Y&nbsp;<br />LA
+                        COMUNICACIÓN</b
+                    >
+                </p>
+            </div>
+
             <div class="container">
                 <div class="row">
                     <div class="col-sm">
-                        <h2>Nombre:  <%- InfoUser['nombre']%></h2>
-
+                        <h2>Nombre: <%- InfoUser['nombre']%></h2>
                     </div>
                     <div class="col-sm">
-                        <h2>Apellido:  <%- InfoUser['apellido']%></h2>
-
-                        
+                        <h2>Apellido: <%- InfoUser['apellido']%></h2>
                     </div>
                     <div class="col-sm">
-                        <h2>Dni:  <%- InfoUser['dni']%></h2>
-
+                        <h2>Dni: <%- InfoUser['dni']%></h2>
                     </div>
                     <div class="col-sm">
-                        <h2>Gmail:  <%- InfoUser['email']%></h2>
-                        
-                    </div>  
+                        <h2>Gmail: <%- InfoUser['email']%></h2>
+                    </div>
                     <div class="col-sm">
-                        <h2>Curso:  <%- InfoUser['descripcion_curso']%></h2>
-                        
-                    </div>      
-    
-            <% }); %>
-                        
+                        <h2>Curso: <%- InfoUser['descripcion_curso']%></h2>
+                    </div>
+
+                    <% }); %> <% dataNotas[0].forEach(function(NotasEstu){ %>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <h2>
+                                    Materia: <%- NotasEstu['nombreMateria']%>
+                                </h2>
+                            </div>
+                            <div class="col-sm">
+                                <h2>Notas: <%- NotasEstu['nota1']%></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
                 </div>
-              </div>
-            
-
+            </div>
         </div>
-        
     </body>
 </html>
