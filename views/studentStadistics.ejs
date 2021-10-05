@@ -1,303 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <title>Estadisticas</title>
-        <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>Estadisticas</title>
+		<meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
 
-        <!--     Fonts and icons     -->
-        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+		<!--     Fonts and icons     -->
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 
-        <!-- Bootstrap -->
-        <link rel="stylesheet" href="/css/bootstrap.min.css" />
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
 
-        <!-- Iconos Font Awesome -->
-        <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+		<!-- Iconos Font Awesome -->
+		<script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
 
-        <!-- Nuestros estilos -->
-        <link rel="stylesheet" href="/stylesheets/style.css" />
+		<!-- Nuestros estilos -->
+		<link rel="stylesheet" href="/stylesheets/style.css" />
 
-        <!-- Estilos de las tarjetas de los espacios curriculares -->
-        <!-- <link rel="stylesheet" href="/stylesheets/cardsStyle.css" /> -->
+		<!-- Estilos de las tarjetas de los espacios curriculares -->
+		<!-- <link rel="stylesheet" href="/stylesheets/cardsStyle.css" /> -->
 
-        <!-- CSS Files -->
-        <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+		<!-- CSS Files -->
+		<link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
 
-        <!-- Animate css -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+		<!-- Animate css -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 
-        <!-- Cards 2.0  -->
-        <!-- <link href="/stylesheets/hipster_cards.css" rel="stylesheet" /> -->
+		<!-- Cards 2.0  -->
+		<!-- <link href="/stylesheets/hipster_cards.css" rel="stylesheet" /> -->
 
-        <!--     Cards 2.0 Fonts and icons     -->
-        <link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:700,100,400|Roboto:400,700|Playfair+Display+SC:400,700" rel="stylesheet" type="text/css" />
+		<!--     Cards 2.0 Fonts and icons     -->
+		<link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:700,100,400|Roboto:400,700|Playfair+Display+SC:400,700" rel="stylesheet" type="text/css" />
 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/css/uikit.min.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/css/uikit.min.css" />
 
-        <!-- Select2 -->
-        <link rel="stylesheet" href="/stylesheets/select2.min.css" />
-        <%- include('fragment/background'); -%>
-    </head>
+		<!-- Select2 -->
+		<link rel="stylesheet" href="/stylesheets/select2.min.css" />
+		<%- include('fragment/background'); -%>
+	</head>
 
-    <body>
-        <div id="main-panel" class="main-panel">
-            <div class="content">
-                <%- include('fragment/navbar'); -%>
-                <div class="container">
-                    <br />
-                    <div class="jumbotron" style="background: white">
-                        <div class="row" align="center">
-                            <div class="col-md-6">
-                                <label style="font-weight: 600" for="course">Curso</label>
-                                <br />
-                                <select id="course" class="js-example-basic-single" style="width: 50%" name="course">
-                                    <option></option>
-                                </select>
-                            </div>
+	<body>
+		<div id="main-panel" class="main-panel">
+			<div class="content">
+				<%- include('fragment/navbar'); -%>
+				<div class="container">
+					<br />
+					<div class="jumbotron" style="background: white">
+						<div class="row" align="center">
+							<div class="col-md-6">
+								<label style="font-weight: 600" for="course">Curso</label>
+								<br />
+								<select id="course" class="js-example-basic-single" style="width: 50%" name="course">
+									<option></option>
+								</select>
+							</div>
 
-                            <div class="col-md-6">
-                                <label style="font-weight: 600" for="subjects">Materia</label>
-                                <br />
-                                <select id="subjects" class="js-example-basic-single" style="width: 50%" name="subjects">
-                                    <option></option>
-                                </select>
-                            </div>
+							<div class="col-md-6">
+								<label style="font-weight: 600" for="subjects">Materia</label>
+								<br />
+								<select id="subjects" class="js-example-basic-single" style="width: 50%" name="subjects">
+									<option></option>
+								</select>
+							</div>
 
-                            <div class="col-md-6" style="margin-top: 20px">
-                                <label style="font-weight: 600" for="student">Estudiantes</label>
-                                <br />
-                                <select id="student" class="js-example-basic-single" style="width: 50%" name="student">
-                                    <option></option>
-                                </select>
-                                <br />
-                            </div>
+							<div class="col-md-6" style="margin-top: 20px">
+								<label style="font-weight: 600" for="student">Estudiantes</label>
+								<br />
+								<select id="student" class="js-example-basic-single" style="width: 50%" name="student">
+									<option></option>
+								</select>
+								<br />
+							</div>
 
-                            <div class="col-md-6" style="margin-top: 20px">
-                                <label style="font-weight: 600" for="trimester"> Cuatrimestre </label>
-                                <br />
-                                <select id="trimester" class="js-example-basic-single" style="width: 50%" name="student">
-                                    <option>Primer cuatrimestre</option>
-                                    <option>Segundo cuatrimestre</option>
-                                    <option>Anual</option>
-                                </select>
-                            </div>
-                        </div>
-                        <br />
-                        <br />
-                        <h1 id="titleGraph" style="text-align: center">Grafico por defecto</h1>
-                        <canvas id="myChart" width="200" height="150"></canvas>
-                    </div>
-                </div>
-            </div>
-            <%- include('fragment/footer'); -%>
-        </div>
+							<div class="col-md-6" style="margin-top: 20px">
+								<label style="font-weight: 600" for="trimester"> Cuatrimestre </label>
+								<br />
+								<select id="trimester" class="js-example-basic-single" style="width: 50%" name="student">
+									<option>Primer cuatrimestre</option>
+									<option>Segundo cuatrimestre</option>
+									<option>Anual</option>
+								</select>
+							</div>
+						</div>
+						<br />
+						<br />
+						<h1 id="titleGraph" style="text-align: center">Grafico por defecto</h1>
+						<canvas id="myChart" width="200" height="150"></canvas>
+					</div>
+				</div>
+			</div>
+			<%- include('fragment/footer'); -%>
+		</div>
 
-        <%- include('fragment/scripts'); -%>
+		<%- include('fragment/scripts'); -%>
 
-        <!-- Jquery -->
-        <script src="/javascripts/plugins/jquery-3.5.1.js"></script>
+		<!-- Jquery -->
+		<script src="/javascripts/plugins/jquery-3.5.1.js"></script>
 
-        <!-- Own SweetAlert2 -->
-        <script src="/javascripts/sweetAlerts.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		<!-- Own SweetAlert2 -->
+		<script src="/javascripts/sweetAlerts.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <!-- Select2 -->
-        <script src="/javascripts/select2.min.js"></script>
+		<!-- Select2 -->
+		<script src="/javascripts/select2.min.js"></script>
 
-        <!-- Chart js -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
+		<!-- Chart js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
 
-        <!-- Uikit -->
-        <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit-icons.min.js"></script>
+		<!-- Uikit -->
+		<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit-icons.min.js"></script>
 
-        <script>
-            var info;
-            var courseSelect;
-            var subjectSelect = "";
-            var studentSelectDni = "";
-            var flagTrimester = "1";
+		<script>
+			var info;
+			var courseSelect;
+			var subjectSelect = "";
+			var studentSelectDni = "";
+			var flagTrimester = "1";
 
-            var $courseSelect = $("#course");
-            var $subjectSelect = $("#subjects");
-            var $studentSelect = $("#student");
-            var $trimesterSelect = $("#trimester");
+			var $courseSelect = $("#course");
+			var $subjectSelect = $("#subjects");
+			var $studentSelect = $("#student");
+			var $trimesterSelect = $("#trimester");
 
-            var myChart;
-            var graphArea = document.getElementById("myChart").getContext("2d");
+			var myChart;
+			var graphArea = document.getElementById("myChart").getContext("2d");
 
-            $(document).ready(function () {
-                $courseSelect.select2({
-                    placeholder: "Seleccione un curso",
-                    allowClear: true,
-                });
-                $subjectSelect.select2({
-                    placeholder: "Seleccione una materia",
-                    allowClear: true,
-                });
-                $studentSelect.select2({
-                    placeholder: "Seleccione un estudiante",
-                    allowClear: true,
-                });
-            });
+			$(document).ready(function () {
+				$courseSelect.select2({
+					placeholder: "Seleccione un curso",
+					allowClear: true,
+				});
+				$subjectSelect.select2({
+					placeholder: "Seleccione una materia",
+					allowClear: true,
+				});
+				$studentSelect.select2({
+					placeholder: "Seleccione un estudiante",
+					allowClear: true,
+				});
+			});
 
-            function setter(aux) {
-                info = aux;
-            }
+			function setter(aux) {
+				info = aux;
+			}
 
-            window.onload = () => {
-                $.get("obtenerEstadisiticasEstudiates", function (res) {
-                    setter(res);
-                    let aux = Object.keys(res);
-                    console.log(aux);
-                    for (let i = 0; i < aux.length; i++) {
-                        let newOption = new Option(aux[i], aux[i], false, false);
-                        $courseSelect.append(newOption);
-                    }
-                });
-            };
+			window.onload = () => {
+				$.get("obtenerEstadisiticasEstudiates", function (res) {
+					setter(res);
+					let aux = Object.keys(res);
+					console.log(aux);
+					for (let i = 0; i < aux.length; i++) {
+						let newOption = new Option(aux[i], aux[i], false, false);
+						$courseSelect.append(newOption);
+					}
+				});
+			};
 
-            $courseSelect.on("select2:select", function (e) {
-                $subjectSelect.empty();
-                $studentSelect.empty();
+			$courseSelect.on("select2:select", function (e) {
+				$subjectSelect.empty();
+				$studentSelect.empty();
 
-                courseSelect = $(e.currentTarget).val();
+				courseSelect = $(e.currentTarget).val();
 
-                let newOption = new Option("", "", false, true);
-                $subjectSelect.append(newOption);
-                // Add the options for the subjects button
-                let lastOption;
-                for (let i = 0; i < info[courseSelect].length; i++) {
-                    if (info[courseSelect][i].subject != lastOption) {
-                        let newOption = new Option(info[courseSelect][i].subject, info[courseSelect][i].subject, false, false);
-                        $subjectSelect.append(newOption);
-                        lastOption = info[courseSelect][i].subject;
-                    }
-                }
-            });
+				let newOption = new Option("", "", false, true);
+				$subjectSelect.append(newOption);
+				// Add the options for the subjects button
+				let lastOption;
+				for (let i = 0; i < info[courseSelect].length; i++) {
+					if (info[courseSelect][i].subject != lastOption) {
+						let newOption = new Option(info[courseSelect][i].subject, info[courseSelect][i].subject, false, false);
+						$subjectSelect.append(newOption);
+						lastOption = info[courseSelect][i].subject;
+					}
+				}
+			});
 
-            $subjectSelect.on("select2:select", function (e) {
-                $studentSelect.empty();
-                subjectSelect = $(e.currentTarget).val();
+			$subjectSelect.on("select2:select", function (e) {
+				$studentSelect.empty();
+				subjectSelect = $(e.currentTarget).val();
 
-                let newOption = new Option("", "", false, true);
-                $studentSelect.append(newOption);
+				let newOption = new Option("", "", false, true);
+				$studentSelect.append(newOption);
 
-                // Add the options for the students button
-                for (let i = 0; i < info[courseSelect].length; i++) {
-                    if (info[courseSelect][i].subject == subjectSelect) {
-                        let newOption = new Option(info[courseSelect][i].nombre + " " + info[courseSelect][i].apellido, info[courseSelect][i].dni, false, false);
-                        $studentSelect.append(newOption);
-                    }
-                }
-                // Show the graph with the data I have
-                if (studentSelectDni == "") {
-                    subjectGraph();
-                }
-            });
+				// Add the options for the students button
+				for (let i = 0; i < info[courseSelect].length; i++) {
+					if (info[courseSelect][i].subject == subjectSelect) {
+						let newOption = new Option(info[courseSelect][i].nombre + " " + info[courseSelect][i].apellido, info[courseSelect][i].dni, false, false);
+						$studentSelect.append(newOption);
+					}
+				}
+				// Show the graph with the data I have
+				if (studentSelectDni == "") {
+					subjectGraph();
+				}
+			});
 
-            $studentSelect.on("select2:select", function (e) {
-                studentSelectDni = $(e.currentTarget).val();
-                // Show the graph with the data I have
-                studentGraph();
-            });
+			$studentSelect.on("select2:select", function (e) {
+				studentSelectDni = $(e.currentTarget).val();
+				// Show the graph with the data I have
+				studentGraph();
+			});
 
-            $studentSelect.on("select2:unselect", function (e) {
-                studentSelectDni = "";
-            });
+			$studentSelect.on("select2:unselect", function (e) {
+				studentSelectDni = "";
+			});
 
-            $trimesterSelect.on("select2:select", function (e) {
-                let actualSelection = $(e.currentTarget).val().toLowerCase();
-                if (actualSelection == "primer cuatrimestre") {
-                    flagTrimester = 1;
-                } else if (actualSelection == "segundo cuatrimestre") {
-                    flagTrimester = 2;
-                } else {
-                    flagTrimester = "annual";
-                }
-            });
+			$trimesterSelect.on("select2:select", function (e) {
+				let actualSelection = $(e.currentTarget).val().toLowerCase();
+				if (actualSelection == "primer cuatrimestre") {
+					flagTrimester = 1;
+				} else if (actualSelection == "segundo cuatrimestre") {
+					flagTrimester = 2;
+				} else {
+					flagTrimester = "annual";
+				}
+			});
 
-            function subjectGraph() {
-                document.getElementById("titleGraph").innerHTML = subjectSelect.charAt(0).toUpperCase() + subjectSelect.slice(1);
-                myChart.destroy();
-                console.log(info[courseSelect]);
-                if (flagTrimester == 1) {
-                } else if (actualSelection == "segundo cuatrimestre") {
-                    flagTrimester = 2;
-                } else {
-                    flagTrimester = "annual";
-                }
+			function subjectGraph() {
+				document.getElementById("titleGraph").innerHTML = subjectSelect.charAt(0).toUpperCase() + subjectSelect.slice(1);
+				myChart.destroy();
+				console.log(info[courseSelect]);
+				let auxInfo;
+				let counteData = [0, 0, 0, 0, 0];
+				let divider = 4;
+				for (let i = 0; i < info[courseSelect].length; i++) {
+					// Get the grades depending on the semester
+					if (flagTrimester == 1) {
+						auxInfo = info[courseSelect][i]["notas"].slice(0, 4);
+					} else if (flagTrimester == 2) {
+						auxInfo = info[courseSelect][i]["notas"].slice(4, 8);
+					} else {
+						divider = 9;
+						auxInfo = info[courseSelect][i]["notas"].slice(0, 9);
+					}
 
-                var data = {
-                    datasets: [
-                        {
-                            data: [11, 16, 7, 3, 14],
-                            backgroundColor: ["#FF6384", "#4BC0C0", "#FFCE56", "#E7E9ED", "#36A2EB"],
-                            label: "My dataset", // for legend
-                        },
-                    ],
-                    labels: ["Red", "Green", "Yellow", "Grey", "Blue"],
-                };
+					// las sumo y las divido dependiendo del cuatrimestre
+					let count = 0;
+					for (let i = 0; i < auxInfo.length; i++) {
+						count += parseInt(auxInfo[i]);
+					}
+					count = Math.round(count / divider);
+					console.log(count);
 
-                new Chart(graphArea, {
-                    data: data,
-                    type: "polarArea",
-                });
-            }
+					if (count >= 7) {
+						counteData[0]++;
+					} else if (count < 7 && count > 3) {
+						counteData[1]++;
+					} else if (count <= 3 && count > 0) {
+						counteData[2]++;
+					} else if (count == 0) {
+						counteData[3]++;
+					}
 
-            function studentGraph() {
-                myChart.destroy();
+					console.log(counteData);
+				}
 
-                myChart = new Chart(graphArea, {
-                    type: "bar",
-                    data: {
-                        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                        datasets: [
-                            {
-                                label: "# Estudiantes",
-                                data: [12, 19, 3, 5, 2, 3],
-                                backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(255, 206, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(255, 159, 64, 0.2)"],
-                                borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)", "rgba(153, 102, 255, 1)", "rgba(255, 159, 64, 1)"],
-                                borderWidth: 1,
-                            },
-                        ],
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                            },
-                        },
-                    },
-                });
-            }
-            //  Default graph
-            myChart = new Chart(graphArea, {
-                type: "bar",
-                data: {
-                    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                    datasets: [
-                        {
-                            label: "# of Votes",
-                            data: [12, 19, 3, 5, 2, 3],
-                            backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(255, 206, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(255, 159, 64, 0.2)"],
-                            borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)", "rgba(153, 102, 255, 1)", "rgba(255, 159, 64, 1)"],
-                            borderWidth: 1,
-                        },
-                    ],
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                        },
-                    },
-                },
-            });
-        </script>
-    </body>
+				let data = {
+					datasets: [
+						{
+							data: counteData,
+							backgroundColor: ["#12CA00", "#FFCE56", "#FF6384", "#E7E9ED", "#36A2EB"],
+							label: "Estudiantes y sus notas", // for legend
+						},
+					],
+					labels: ["+7", "-7", "-3", "0"],
+				};
+
+				new Chart(graphArea, {
+					data: data,
+					type: "polarArea",
+				});
+			}
+
+			function studentGraph() {
+				myChart.destroy();
+
+				myChart = new Chart(graphArea, {
+					type: "bar",
+					data: {
+						labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+						datasets: [
+							{
+								label: "# Estudiantes",
+								data: [12, 19, 3, 5, 2, 3],
+								backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(255, 206, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(255, 159, 64, 0.2)"],
+								borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)", "rgba(153, 102, 255, 1)", "rgba(255, 159, 64, 1)"],
+								borderWidth: 1,
+							},
+						],
+					},
+					options: {
+						scales: {
+							y: {
+								beginAtZero: true,
+							},
+						},
+					},
+				});
+			}
+			//  Default graph
+			myChart = new Chart(graphArea, {
+				type: "bar",
+				data: {
+					labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+					datasets: [
+						{
+							label: "# of Votes",
+							data: [12, 19, 3, 5, 2, 3],
+							backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(255, 206, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(255, 159, 64, 0.2)"],
+							borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)", "rgba(153, 102, 255, 1)", "rgba(255, 159, 64, 1)"],
+							borderWidth: 1,
+						},
+					],
+				},
+				options: {
+					scales: {
+						y: {
+							beginAtZero: true,
+						},
+					},
+				},
+			});
+		</script>
+	</body>
 </html>
