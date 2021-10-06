@@ -230,13 +230,19 @@ app.get("/agregarProfesor", (req, res) => {
         }
     }
     if (flagRol) {
-        let query = "SELECT * FROM materia WHERE profesor_usuario = ? ";
-        con.query(query, ["lmazzola"], (error, rows, fields) => {
-            res.render("addTeacher.ejs", {
-                title: "Materias",
-                data: rows,
-            });
-        });
+        let todas_materias = [
+            {materia:'matematica'},{materia: 'fvt'},{materia: 'programacion 5'},{materia: 'testing'}
+      
+        ]
+		let query = "SELECT nombreMateria FROM materia ";
+		con.query(query, (error, rows, fields) => {
+			// let diferencia = todas_materias.filter(i => !rows.includes(i))
+            console.log(Object.values(rows));
+			res.render("addTeacher.ejs", {
+				title: "Materias",
+				data: rows,
+			});
+		});
     } else {
         res.redirect("/dashboard");
     }
