@@ -240,10 +240,8 @@ app.get("/agregarProfesor", (req, res) => {
             }
 
 			let diferencia = todas_materias.filter(i => !materias_db.includes(i));
-            console.log(diferencia);
 			res.render("addTeacher.ejs", {
-				title: "Materias",
-				data: rows,
+				data: diferencia,
 			});
 
 		});
