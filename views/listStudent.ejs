@@ -114,7 +114,7 @@
                                     <tr>
                                         <td>
                                             <!-- <span uk-icon= "file-text" class="botonNotas" type="button"></span> -->
-                                            <i type="button" title="Notas" class="far fa-file-alt fa-inform"></i>
+                                            <i type="button" title="Notas" style="color:black; font-size:27px;margin-left:5px;" class="material-icons">class</i>
                                             <!-- <button class="uk-button uk-button-default" type="button">Notas</button> -->
                                             <div id="notesDiv" class="uk-width-large" data-value="<%-Student['dni_alumno']%>" uk-dropdown="pos: right-center; mode: click">
                                                 <div class="uk-dropdown-grid uk-child-width-1-2@m" uk-grid>
@@ -207,7 +207,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="row">
+                            <div class="row" style="margin-left: 37px !important;">
                                 <div class="col-md-4">
                                     <h4 style="text-align:center;" class="tituloSecundario">Pendiente</h4>
                                     <div class="sortable-learnings">
@@ -470,10 +470,10 @@
             function operateFormatter(value, row, index) {
                 return [
                     '<a style="background-color:inherit !important;" rel="tooltip" title="Generar informe" class="table-action like" href="javascript:pdf()" title="Like">',
-                    '<i class="far fa-file-alt fa-inform"></i>',
+                    '<i style="color:red; font-size:27px;margin-left:5px;" class="material-icons">picture_as_pdf</i>',
                     "</a>",
                     '<a style="background-color:inherit !important;" rel="tooltip" title="Editar" class="table-action edit" href="javascript:void(0)" title="Edit" data-toggle="modal" data-target="#learningsStudent">',
-                    '<i style="color:none !important;" class="fa fa-edit"></i>',
+                    '<i style="color:black; font-size:27px;margin-left:5px;" class="material-icons">assignment</i>',
                     "</a>",
                 ].join("");
             }

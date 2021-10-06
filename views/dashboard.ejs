@@ -63,7 +63,8 @@
 
                     <!-- Contenido para el dashboard preceptor-->
                     <% if (rol[i] == 'preceptor') { %>
-                    <div class="jumbotron">
+                    <!-- Contenido exclusivo del preceptor acá -->
+                    <!-- <div class="jumbotron">
                         <h1 class="display-4">Graficos de estudiantes</h1>
                         <div class="container"></div>
                         <ul class="uk-grid-small uk-child-width-1-2 uk-child-width-1-4@s" uk-sortable="handle: .uk-card" uk-grid>
@@ -122,16 +123,13 @@
                                 </div>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
 
                     <% } %>
 
                     <!-- Cards del profesor -->
 
                     <% if (rol[i] == 'profesor') { %>
-                    <br />
-
-                    <br />
                     <div class="form-row">
                         <% data[0].forEach(function(InfoUser){ %>
                         <div class="col-md-3" style="margin-left: 65px; cursor: pointer; margin-top: -45px">
