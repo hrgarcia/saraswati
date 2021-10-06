@@ -230,18 +230,22 @@ app.get("/agregarProfesor", (req, res) => {
         }
     }
     if (flagRol) {
-        let todas_materias = [
-            {materia:'matematica'},{materia: 'fvt'},{materia: 'programacion 5'},{materia: 'testing'}
-      
-        ]
+        let todas_materias = ['matematica', 'fvt', 'programacion 5', 'testing'];
 		let query = "SELECT nombreMateria FROM materia ";
 		con.query(query, (error, rows, fields) => {
-			// let diferencia = todas_materias.filter(i => !rows.includes(i))
-            console.log(Object.values(rows));
+            let materias_db = [];
+            for (let index = 0; index < rows.length; index++) {
+                materias_db.push(rows[index].nombreMateria)
+                
+            }
+
+			let diferencia = todas_materias.filter(i => !materias_db.includes(i));
+            console.log(diferencia);
 			res.render("addTeacher.ejs", {
 				title: "Materias",
 				data: rows,
 			});
+
 		});
     } else {
         res.redirect("/dashboard");
