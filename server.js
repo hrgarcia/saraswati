@@ -907,58 +907,60 @@ app.post("/agregar", (req, res) => {
         let firstname = req.body.firstname;
         let lastname = req.body.lastname;
         let email = req.body.email;
-        let Ingreso = req.body.Ingreso;
+        let ingreso = req.body.Ingreso;
         let fecha_nacimiento = req.body.fecha_nacimiento;
         let dni = req.body.dni;
         let telefono = req.body.telefono;
         let genero = req.body.genero;
-        let Estado = req.body.Estado;
+        let estado = req.body.estado;
         let password = generatePassword(12);
         let nombre = "profesor";
         let salt = 10; // Standar value
+        let subjectName = req.body.subject;
 
-        bcrypt.hash(password, salt, (err, encrypted) => {
-            password = encrypted;
-            let userquery =
-                "INSERT INTO usuario (nombreUsuario,pass,avatar, contraseña_cambiada) VALUE (?,?,?,?)";
-            con.query(
-                userquery,
-                [nickname, password, "0", false],
-                (error, rows, fields) => {
-                    if (error) throw error;
-                    let rolquery =
-                        "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
-                    con.query(
-                        rolquery,
-                        [nombre, nickname],
-                        (error, rows, fields) => {
-                            if (error) throw error;
-                            let profequery =
-                                "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
-                            con.query(
-                                profequery,
-                                [
-                                    nickname,
-                                    firstname,
-                                    lastname,
-                                    dni,
-                                    telefono,
-                                    email,
-                                    genero,
-                                    fecha_nacimiento,
-                                    Ingreso,
-                                    Estado,
-                                ],
-                                (error, rows, fields) => {
-                                    if (error) throw error;
-                                    res.redirect("/dashboard");
-                                }
-                            );
-                        }
-                    );
-                }
-            );
-        });
+    //     bcrypt.hash(password, salt, (err, encrypted) => {
+    //         password = encrypted;
+    //         let userquery =
+    //             "INSERT INTO usuario (nombreUsuario,pass,avatar, contraseña_cambiada) VALUE (?,?,?,?)";
+    //         con.query(
+    //             userquery,
+    //             [nickname, password, "0", false],
+    //             (error, rows, fields) => {
+    //                 if (error) throw error;
+    //                 let rolquery =
+    //                     "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
+    //                 con.query(
+    //                     rolquery,
+    //                     [nombre, nickname],
+    //                     (error, rows, fields) => {
+    //                         if (error) throw error;
+    //                         let profequery =
+    //                             "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    //                         con.query(
+    //                             profequery,
+    //                             [
+    //                                 nickname,
+    //                                 firstname,
+    //                                 lastname,
+    //                                 dni,
+    //                                 telefono,
+    //                                 email,
+    //                                 genero,
+    //                                 fecha_nacimiento,
+    //                                 Ingreso,
+    //                                 Estado,
+    //                             ],
+    //                             (error, rows, fields) => {
+    //                                 if (error) throw error;
+    //                                 let query4 = "UPDATE materia SET profesor_usuario = "
+    //                                 // res.redirect("/dashboard");
+    //                             }
+    //                         );
+    //                     }
+    //                 );
+    //             }
+    //         );
+    //     });
     } else {
         res.redirect("/");
     }

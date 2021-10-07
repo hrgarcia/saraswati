@@ -109,7 +109,7 @@
                                     </div>
                                 </div>
 
-                                <input type="button"  id= "First"class="btn btn-next  btn-fill btn-warning btn-wd d-grid gap-2 d-md-flex justify-content-md-end" name="siguiente" value="Siguiente" />
+                                <input type="button" class="btn btn-next  btn-fill btn-warning btn-wd d-grid gap-2 d-md-flex justify-content-md-end" name="siguiente" value="Siguiente" />
                             </div>
                             <div class="tab-pane" id="account">
                                 <div class="row">
@@ -130,7 +130,6 @@
                                     <div class="col-sm-5 col-sm-offset-1">
                                         <div class="form-group">
                                             <label>Número de teléfono</label>
-
                                             <input type="text" id="telefono" class="form-control" placeholder="35135..." name="telefono" />
                                         </div>
                                     </div>
@@ -141,26 +140,28 @@
                                                 <option value="Masculino">Masculino</option>
                                                 <option value="Femenino">Femenino</option>
                                                 <option value="Indefinido">Indefinido</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-5">
                                         <div class="form-group">
-                                            <label>Estado</label><br />
-                                            <select name="Estado" id="estado class="form-control">
+                                            <label>Estado</label>
+                                            <br />
+                                            <select name="estado" id="estado" class="form-control">
                                                 <option value="Titular">Titular</option>
                                                 <option value="Suplente">Suplente</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                <input type="button" id= "second" class="btn btn-next  btn-fill btn-warning btn-wd d-grid gap-2 d-md-flex justify-content-md-end" name="siguiente" value="Siguiente" />
+                                <input type="button" class="btn btn-next  btn-fill btn-warning btn-wd d-grid gap-2 d-md-flex justify-content-md-end" name="siguiente" value="Siguiente" />
                             </div>
                             <div class="tab-pane" id="address">
                                 <div class="row">
                                     <% for(var i = 0; i < data.length; i++) { %>
                                         <div class="col-sm-4">
                                             <div class="choice" data-toggle="wizard-checkbox">
-                                                <input type="checkbox" name="jobb" value="Design" />
+                                                <input type="checkbox" name="subject[]" value="<%- data[i] -%>" />
                                                 <div class="card card-checkboxes card-hover-effect">
                                                     <i class="fas fa-graduation-cap"></i>
                                                     <p><%- data[i] -%></p>
@@ -169,7 +170,7 @@
                                         </div>
                                     <% } %>
                                 </div>
-                                <input type="button" id= "third" class="btn btn-finish btn-fill btn-warning btn-wd" name="cargar" value="Cargar" />
+                                <input type="submit" class="btn btn-finish btn-fill btn-warning btn-wd" name="cargar" value="Cargar" />
                                 <input type="button" class="btn btn-previous btn-default btn-wd" name="volver" value="Volver" />  
                             </div>
                         </div>
@@ -180,57 +181,7 @@
         </div>
         <%- include('fragment/scripts'); -%>
     </body>
-    <script>
-        // $("#second").on("click", function (e) {
-        //         if ($("#addTeacher").valid()) {
-        //             e.preventDefault();
-        //             let username= $.trim($("#NombreUsuario").val());
-        //             let name = $.trim($("#Nombre").val());
-        //             let lastname = $.trim($("#Apellido").val());
-        //             let email = $.trim($("#Gmail").val());
-        //             let ingreso = $.trim($("#Ingreso").val());
-        //             let birth = $.trim($("#nacimiento").val());
-        //             let dni = $.trim($("#dni").val());
-        //             let phone = $.trim($("#telefono").val());
-        //             let genre = $.trim($("#genero").val());
-        //             let estado = $.trim($("#estado").val());
-                    
-        //             $.ajax({
-        //                 url: "/agregarProfesor",
-        //                 method: "post",
-        //                 dataType: "json",
-        //                 data: { user: username, nameuser: name, lastname:lastname, email: email, ingreso: ingreso, fecha_nacimiento: birth, DNI: dni, telofono:phone, genero: genre , estado: estado  },
-        //             }).done((d) => {
-
-        //             })
-        //         }
-        // })
-
-
-        $("#third").on("click", function (e) {
-            if ($("#addTeacher").valid()) {
-                e.preventDefault();
-                let valor;
-                let aux = $(".inputCheckbox")
-                aux.each(()=>{
-                    if($(this).is(":checked")){
-                        valor = $(this).val();
-                        console.log(valor);
-                    }
-                })
-                    
-                    // $.ajax({
-                    //     url: "/agregarProfesor",
-                    //     method: "post",
-                    //     dataType: "json",
-                    //     data: { materia: valor },
-                    // }).done((d) => {
-                        
-                    // })
-
-                }
-        })
-    </script>
+    
     <!--   Core JS Files   -->
     <script src="javascripts/jquery-2.2.4.min.js" type="text/javascript"></script>
     <script src="javascripts/bootstrap.min.js" type="text/javascript"></script>
