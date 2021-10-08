@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/css/style.css" />
 <nav uk-sticky class="navbar navbar-expand-lg bg-dark navbar-absolute fixed-top navbarBackground">
     <div class="container-fluid">
         <div style="padding-top: inherit; margin-bottom: -13px; margin-top: -15px" class="logo animate__animated animate__bounce">
@@ -19,13 +20,13 @@
             <li class="nav-item dropdown">
                 <a class="nav-link hoverRemoved" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="material-icons">notifications</i>
-                    <span class="notification">3</span>
+                    <!-- <span class="notification"><%-notificaciones.length-%></span> -->
                     <p class="d-lg-none d-md-block">Some Actions</p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#"><i class="material-icons" style="position: relative; left: -5px">event_note</i>Reunión institucional 14-10-20</a>
-                    <a class="dropdown-item" href="#"><i class="material-icons" style="position: relative; left: -5px">event</i>Acto del día de la soberanía</a>
-                    <a class="dropdown-item" href="#"><i class="material-icons" style="position: relative; left: -5px">class</i>Cierre del 1er cuatrimestre</a>
+<!--                     <% for(let i = 0; i < notificaciones.length; i++) { %>
+                        <a class="dropdown-item" href="#"><i class="material-icons" style="position: relative; left: -5px">event_note</i><%-notificaciones[i]['titulo']-%>, <%-notificaciones[i]['fechaEvento']-%></i><i class="tags"><%-notificaciones[i]['tags']-%></i></a>
+                    <% } %> -->
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -46,6 +47,7 @@
                     <a class="dropdown-item" href="backupDB"><i class="material-icons" style="position: relative; left: -5px">file_download</i>Backup de la DB</a>
                     <a class="dropdown-item" href="generarImagen"><i class="material-icons" style="position: relative; left: -5px">feedback</i>Multer</a>
                     <a class="dropdown-item" href="crearSlider"><i class="material-icons" style="position: relative; left: -5px">note_add</i>Agregar slider</a>
+                    <!-- <a class="dropdown-item" href="crearNotificaciones"><i class="material-icons" style="position: relative; left: -5px">note_add</i>Crear notifiaciones</a> -->
                     <% } %> <% if (rol[i] == 'estudiante') { %>
                     <a class="dropdown-item" href="#"><i class="material-icons" style="position: relative; left: -5px">collections_bookmark</i>Estado académico</a>
                     <a class="dropdown-item" href="#"><i class="material-icons" style="position: relative; left: -5px">school</i>Profesores</a>

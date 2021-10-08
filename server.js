@@ -126,6 +126,7 @@ app.use((req, res, next) => {
     res.locals.routeAvatar = req.session.routeAvatar;
     res.locals.inspirationalPhrase = req.session.inspirationalPhrase;
     res.locals.logged = req.session.logged;
+	/* 	res.locals.notificaciones = req.session.notificaciones; */
     next();
 });
 var urlencodedParser = bodyParser.urlencoded({
@@ -1032,6 +1033,47 @@ app.post("/login", (req, res) => {
         }
     });
 });
+
+/* app.get("/crearNotificaciones", (req, res) => {
+	let query = "SELECT * FROM notificaciones";
+	con.query(query, (error, rows) => {
+		console.log(rows);
+		res.render("addNotificacions.ejs", {
+			title: "Notificaciones",
+			data: rows,
+		});
+	});
+});
+
+app.post("/crearNotificaciones", (req, res) => {
+	let titulo = req.body.titulo;
+	let fechaEvento = req.body.fechaEvento;
+	let fechaLanzamiento = req.body.fechaLanzamiento;
+	let tags = req.body.tags;
+	let dia = new Date().toISOString().slice(0, 10).replace('T', ' ');
+
+	titulo = titulo.toLowerCase();
+	tags = tags.toLowerCase();
+	fechaEvento = fechaEvento.substring(8, 10) + "-" + fechaEvento.substring(5, 7) + "-" + fechaEvento.substring(0, 4);
+
+	let querySelect = "SELECT count(*) FROM notificaciones";
+	con.query(querySelect, (error, rows) => {
+		console.log(rows[0]['count(*)'])
+
+		if (rows[0]['count(*)'] < 6){
+			let query = "INSERT INTO notificaciones (titulo,fechaEvento,fechaLanzamiento,tags) VALUES (?,?,?,?);";
+			console.log(titulo, fechaEvento, fechaLanzamiento, tags);
+			con.query(query, [titulo, fechaEvento, fechaLanzamiento, tags], (error, rows, fields) => {
+				if (error) throw error;
+				res.json("crearNotificacion");
+
+			});
+		}
+		else{
+			res.json("limiteAlcanzado");
+		}
+	});
+}); */
 
 app.get("/noLogueado", (req, res) => {
     res.render("loggedOut.ejs");

@@ -263,3 +263,10 @@ td.none {
 .animate__animated.animate__backInLeft {
     animation-duration: 5s;
 }
+
+.tags{
+    position: relative; top: -12px; left: -50px;
+    padding:10px;font-size:12px;
+    padding:0px;margin:0px;
+    background:rgb(105, 105, 105);-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;color:rgb(255, 255, 255);float:left;height:22px;line-height:22px;margin:0 5px 5px 0;padding:0 5px;list-style:none;
+}
