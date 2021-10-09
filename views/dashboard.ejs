@@ -1,70 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
-        <title>Panel principal del sistema</title>
-        <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+		<title>Panel principal del sistema</title>
+		<meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
 
-        <!--     Fonts and icons     -->
-        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+		<!--     Fonts and icons     -->
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 
-        <!-- Bootstrap -->
-        <link rel="stylesheet" href="/css/bootstrap.min.css" />
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
 
-        <!-- Iconos Font Awesome -->
-        <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+		<!-- Iconos Font Awesome -->
+		<script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
 
-        <!-- Nuestros estilos -->
-        <link rel="stylesheet" href="/stylesheets/style.css" />
+		<!-- Nuestros estilos -->
+		<link rel="stylesheet" href="/stylesheets/style.css" />
 
-        <!-- Estilos de las tarjetas de los espacios curriculares -->
-        <link rel="stylesheet" href="/stylesheets/cardsStyle.css" />
+		<!-- Estilos de las tarjetas de los espacios curriculares -->
+		<link rel="stylesheet" href="/stylesheets/cardsStyle.css" />
 
-        <!-- CSS Files -->
-        <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+		<!-- CSS Files -->
+		<link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
 
-        <!-- Animate css -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+		<!-- Animate css -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 
-        <!-- Cards 2.0  -->
-        <link href="/stylesheets/hipster_cards.css" rel="stylesheet" />
+		<!-- Cards 2.0  -->
+		<link href="/stylesheets/hipster_cards.css" rel="stylesheet" />
 
-        <!--     Cards 2.0 Fonts and icons     -->
-        <link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:700,100,400|Roboto:400,700|Playfair+Display+SC:400,700" rel="stylesheet" type="text/css" />
+		<!--     Cards 2.0 Fonts and icons     -->
+		<link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:700,100,400|Roboto:400,700|Playfair+Display+SC:400,700" rel="stylesheet" type="text/css" />
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/css/uikit.min.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/css/uikit.min.css" />
 
-        <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit-icons.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit-icons.min.js"></script>
 
-        <!-- Select2 -->
-        <link rel="stylesheet" href="/stylesheets/select2.min.css" />
-        <%- include('fragment/background'); -%>
-    </head>
+		<!-- Select2 -->
+		<link rel="stylesheet" href="/stylesheets/select2.min.css" />
+		<%- include('fragment/background'); -%>
+	</head>
 
-    <body>
-        <div data-value="<%-username%>" id="main-panel" class="main-panel">
-            <div class="content">
-                <%- include('fragment/navbar'); -%>
-                <div class="container">
-                    <br />
-                    <br />
-                    <% for(var i = 0; i < rol.length; i++) { %>
-                    <!-- Contenido para el dashboard administrador -->
-                    <% if (rol[i] == 'administrador') { %>
-                    <p>Cosas del administrador acá</p>
-                    <% } %>
+	<body>
+		<div data-value="<%-username%>" id="main-panel" class="main-panel">
+			<div class="content">
+				<%- include('fragment/navbar'); -%>
+				<div class="container">
+					<br />
+					<br />
+					<% for(var i = 0; i < rol.length; i++) { %>
+					<!-- Contenido para el dashboard administrador -->
+					<% if (rol[i] == 'administrador') { %>
+					<p>Cosas del administrador acá</p>
+					<% } %>
 
-                    <!-- Contenido para el dashboard preceptor-->
-                    <% if (rol[i] == 'preceptor') { %>
-                    <!-- Contenido exclusivo del preceptor acá -->
-                    <!-- <div class="jumbotron">
+					<!-- Contenido para el dashboard preceptor-->
+					<% if (rol[i] == 'preceptor') { %>
+					<!-- Contenido exclusivo del preceptor acá -->
+					<!-- <div class="jumbotron">
                         <h1 class="display-4">Graficos de estudiantes</h1>
                         <div class="container"></div>
                         <ul class="uk-grid-small uk-child-width-1-2 uk-child-width-1-4@s" uk-sortable="handle: .uk-card" uk-grid>
@@ -125,180 +125,180 @@
                         </ul>
                     </div> -->
 
-                    <% } %>
+					<% } %>
 
-                    <!-- Cards del profesor -->
+					<!-- Cards del profesor -->
 
-                    <% if (rol[i] == 'profesor') { %>
-                    <div class="form-row">
-                        <% data[0].forEach(function(InfoUser){ %>
-                        <div class="col-md-3" style="margin-left: 65px; cursor: pointer; margin-top: -45px">
-                            <div class="card" style="margin-top: 55px; background-image: url('<%-InfoUser.imagen%>')">
-                                <div class="header">
-                                    <div class="content">
-                                        <h4 class="title title-uppercase cortado" myAtribute="0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- InfoUser['nombreMateria']%></h4>
-                                        <h6 class="label label-danger" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black"><%- InfoUser['curso_descripcion']%></h6>
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <div>
-                                            <li class="fas fa-user teacher_name" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 215px"><%- " " + InfoUser['nombre']%> <%- InfoUser['apellido']%></li>
-                                            <br />
-                                            <li class="fas fa-clock" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 245px"><%- " " + InfoUser['horasCatedra']%> Horas cátedras</li>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="category">
-                                    <div class="content" style="padding-right: 0%; padding-bottom: 0%">
-                                        <form action="/estudianteMateria" method="POST">
-                                            <button
-                                                style="padding-left: 40px; padding-right: 50px; padding-top: 25px; float: right !important"
-                                                type="submit"
-                                                name="subjectName"
-                                                value="<%- InfoUser['nombreMateria']%>"
-                                                class="btn btn-danger btn-fab btn-fab btn-round"
-                                            >
-                                                <i class="material-icons">login</i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="filter"></div>
-                            </div>
-                        </div>
-                        <% }); %>
-                    </div>
-                    <% } %>
+					<% if (rol[i] == 'profesor') { %>
+					<div class="form-row">
+						<% data[0].forEach(function(InfoUser){ %>
+						<div class="col-md-3" style="margin-left: 65px; cursor: pointer; margin-top: -45px">
+							<div class="card" style="margin-top: 55px; background-image: url('<%-InfoUser.imagen%>')">
+								<div class="header">
+									<div class="content">
+										<h4 class="title title-uppercase cortado" myAtribute="0" style="color: rgb(255, 255, 255); text-shadow: 4px 4px 4px black"><%- InfoUser['nombreMateria']%></h4>
+										<h6 class="label label-danger" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black"><%- InfoUser['curso_descripcion']%></h6>
+										<br />
+										<br />
+										<br />
+										<div>
+											<li class="fas fa-user teacher_name" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 215px"><%- " " + InfoUser['nombre']%> <%- InfoUser['apellido']%></li>
+											<br />
+											<li class="fas fa-clock" style="color: rgb(255, 255, 255); text-shadow: 1px 1px 2px black; position: absolute; top: 245px"><%- " " + InfoUser['horasCatedra']%> Horas cátedras</li>
+										</div>
+									</div>
+								</div>
+								<div class="category">
+									<div class="content" style="padding-right: 0%; padding-bottom: 0%">
+										<form action="/estudianteMateria" method="POST">
+											<button
+												style="padding-left: 40px; padding-right: 50px; padding-top: 25px; float: right !important"
+												type="submit"
+												name="subjectName"
+												value="<%- InfoUser['nombreMateria']%>"
+												class="btn btn-danger btn-fab btn-fab btn-round"
+											>
+												<i class="material-icons">login</i>
+											</button>
+										</form>
+									</div>
+								</div>
+								<div class="filter"></div>
+							</div>
+						</div>
+						<% }); %>
+					</div>
+					<% } %>
 
-                    <!-- Contenido para el dashboard estudiante -->
-                    <% if (rol[i] == 'estudiante') { %>
-                    <p>Cosas del estudiante acá</p>
-                    <% } %> <% } %>
-                </div>
-            </div>
-            <%- include('fragment/footer'); -%>
-        </div>
+					<!-- Contenido para el dashboard estudiante -->
+					<% if (rol[i] == 'estudiante') { %>
+					<p>Cosas del estudiante acá</p>
+					<% } %> <% } %>
+				</div>
+			</div>
+			<%- include('fragment/footer'); -%>
+		</div>
 
-        <%- include('fragment/scripts'); -%>
+		<%- include('fragment/scripts'); -%>
 
-        <!-- Jquery -->
-        <script src="/javascripts/plugins/jquery-3.5.1.js"></script>
+		<!-- Jquery -->
+		<script src="/javascripts/plugins/jquery-3.5.1.js"></script>
 
-        <!-- Cards Js -->
-        <script src="/javascripts/hipster-cards.js"></script>
+		<!-- Cards Js -->
+		<script src="/javascripts/hipster-cards.js"></script>
 
-        <!-- Own SweetAlert2 -->
-        <script src="/javascripts/sweetAlerts.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		<!-- Own SweetAlert2 -->
+		<script src="/javascripts/sweetAlerts.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <!-- Select2 -->
-        <script src="/javascripts/select2.min.js"></script>
+		<!-- Select2 -->
+		<script src="/javascripts/select2.min.js"></script>
 
-        <!-- editable -->
+		<!-- editable -->
 
-        <script>
-            let usernameAlert = document.getElementById("main-panel");
-            usernameAlert = usernameAlert.getAttribute("data-value");
+		<script>
+			let usernameAlert = document.getElementById("main-panel");
+			usernameAlert = usernameAlert.getAttribute("data-value");
 
-            window.onload = () => {
-                $.get("estadoToastr", function (res) {
-                    if (res) {
-                        $.get("cambiarEstadoToastr", function (res) {
-                            //
-                        });
-                        //
-                        const element = document.getElementById("divPhrases");
-                        element.classList.add("animate__animated", "animate__backInLeft");
-                        welcomeLogin(usernameAlert);
-                    }
-                });
-            };
-        </script>
-        <script>
-            $(document).ready(function () {
-                //Arreglo para alojar todos los nombres de espacios curriculares del profe en cuestión
-                let espacios = [];
-                let nombreMayuscula = [];
-                //Con un foreach guardamos cada nombre espacio curricular en el arreglo
-                $("h4.cortado").each((i, e) => {
-                    espacios.push($(e).text());
-                    e.setAttribute("miAtributo", i);
-                    if (espacios[i].length > 15) {
-                        e.innerHTML = espacios[i].substring(0, 10) + "...";
-                    }
-                });
-                $("li.teacher_name").each((x, y) => {
-                    nombreMayuscula = $(y)
-                        .text()
-                        .replace(/\b\w/g, (l) => l.toUpperCase());
-                    y.innerHTML = nombreMayuscula;
-                });
-            });
-        </script>
-        <!-- grafico de etudiantes preceptor -->
-        <script>
-            // Sofi de esta manera se inicializa el select2
-            $(document).ready(function () {
-                $(".js-example-basic-single").select2();
-            });
+			window.onload = () => {
+				$.get("estadoToastr", function (res) {
+					if (res) {
+						$.get("cambiarEstadoToastr", function (res) {
+							//
+						});
+						//
+						const element = document.getElementById("divPhrases");
+						element.classList.add("animate__animated", "animate__backInLeft");
+						welcomeLogin(usernameAlert);
+					}
+				});
+			};
+		</script>
+		<script>
+			$(document).ready(function () {
+				//Arreglo para alojar todos los nombres de espacios curriculares del profe en cuestión
+				let espacios = [];
+				let nombreMayuscula = [];
+				//Con un foreach guardamos cada nombre espacio curricular en el arreglo
+				$("h4.cortado").each((i, e) => {
+					espacios.push($(e).text());
+					e.setAttribute("miAtributo", i);
+					if (espacios[i].length > 15) {
+						e.innerHTML = espacios[i].substring(0, 10) + "...";
+					}
+				});
+				$("li.teacher_name").each((x, y) => {
+					nombreMayuscula = $(y)
+						.text()
+						.replace(/\b\w/g, (l) => l.toUpperCase());
+					y.innerHTML = nombreMayuscula;
+				});
+			});
+		</script>
+		<!-- grafico de etudiantes preceptor -->
+		<script>
+			// Sofi de esta manera se inicializa el select2
+			$(document).ready(function () {
+				$(".js-example-basic-single").select2();
+			});
 
-            let miCanvas = document.getElementById("MiGrafica").getContext("2d");
+			let miCanvas = document.getElementById("MiGrafica").getContext("2d");
 
-            var MiGrafica = new Chart(miCanvas, {
-                type: "pie",
-                data: {
-                    labels: ["Logrado", "Proceso", "Pendiente"],
-                    datasets: [
-                        {
-                            data: [10, 8, 2],
-                            label: "perez",
-                            backgroundColor: ["rgb(54, 233, 0)", "rgb(255, 255, 0)", "rgb(255, 0, 0)"],
-                        },
-                    ],
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                },
-            });
-            let miCanvas2 = document.getElementById("MiGrafica2").getContext("2d");
+			var MiGrafica = new Chart(miCanvas, {
+				type: "pie",
+				data: {
+					labels: ["Logrado", "Proceso", "Pendiente"],
+					datasets: [
+						{
+							data: [10, 8, 2],
+							label: "perez",
+							backgroundColor: ["rgb(54, 233, 0)", "rgb(255, 255, 0)", "rgb(255, 0, 0)"],
+						},
+					],
+				},
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+				},
+			});
+			let miCanvas2 = document.getElementById("MiGrafica2").getContext("2d");
 
-            var MiGrafica2 = new Chart(miCanvas2, {
-                type: "pie",
-                data: {
-                    labels: ["Logrado", "Proceso", "Pendiente"],
-                    datasets: [
-                        {
-                            data: [2, 8, 10],
-                            label: "perez",
-                            backgroundColor: ["rgb(54, 233, 0)", "rgb(255, 255, 0)", "rgb(255, 0, 0)"],
-                        },
-                    ],
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                },
-            });
-            let miCanvas3 = document.getElementById("MiGrafica3").getContext("2d");
+			var MiGrafica2 = new Chart(miCanvas2, {
+				type: "pie",
+				data: {
+					labels: ["Logrado", "Proceso", "Pendiente"],
+					datasets: [
+						{
+							data: [2, 8, 10],
+							label: "perez",
+							backgroundColor: ["rgb(54, 233, 0)", "rgb(255, 255, 0)", "rgb(255, 0, 0)"],
+						},
+					],
+				},
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+				},
+			});
+			let miCanvas3 = document.getElementById("MiGrafica3").getContext("2d");
 
-            var MiGrafica3 = new Chart(miCanvas3, {
-                type: "pie",
-                data: {
-                    labels: ["Logrado", "Proceso", "Pendiente"],
-                    datasets: [
-                        {
-                            data: [5, 3, 7],
-                            label: "perez",
-                            backgroundColor: ["rgb(54, 233, 0)", "rgb(255, 255, 0)", "rgb(255, 0, 0)"],
-                        },
-                    ],
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                },
-            });
-        </script>
-    </body>
+			var MiGrafica3 = new Chart(miCanvas3, {
+				type: "pie",
+				data: {
+					labels: ["Logrado", "Proceso", "Pendiente"],
+					datasets: [
+						{
+							data: [5, 3, 7],
+							label: "perez",
+							backgroundColor: ["rgb(54, 233, 0)", "rgb(255, 255, 0)", "rgb(255, 0, 0)"],
+						},
+					],
+				},
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+				},
+			});
+		</script>
+	</body>
 </html>
