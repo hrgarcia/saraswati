@@ -20,11 +20,13 @@
 			<li class="nav-item dropdown">
 				<a class="nav-link hoverRemoved" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<i class="material-icons">notifications</i>
-					<span class="notification">1</span>
+					<span class="notification"><%-notificaciones.length-%></span>
 					<p class="d-lg-none d-md-block">Some Actions</p>
 				</a>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-					<a href="">provisorio</a>
+					<% for(let i = 0; i < notificaciones.length; i++) { %>
+                        <a class="dropdown-item" href="#"><i class="material-icons" style="position: relative; left: -5px">event_note</i><%-notificaciones[i]['titulo']-%>, <%-notificaciones[i]['fechaEvento']-%></i><i class="tags"><%-notificaciones[i]['tags']-%></i></a>
+                    <% } %>
 				</div>
 			</li>
 			<li class="nav-item dropdown">

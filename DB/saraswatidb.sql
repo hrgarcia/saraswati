@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-09-2021 a las 23:02:59
+-- Tiempo de generación: 11-10-2021 a las 06:03:44
 -- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 7.3.30
+-- Versión de PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -176,33 +176,6 @@ INSERT INTO `estudianteaprendizaje` (`id`, `descripcion`, `estado`, `estudiante_
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `frasesinspiradoras`
---
-
-CREATE TABLE `frasesinspiradoras` (
-  `id` int(11) NOT NULL,
-  `frase` varchar(155) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `autor` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
---
--- Volcado de datos para la tabla `frasesinspiradoras`
---
-
-INSERT INTO `frasesinspiradoras` (`id`, `frase`, `autor`) VALUES
-(1, 'El unico modo de hacer un buen trabajo es amar lo que haces', 'steve jobs'),
-(2, 'El dinero no es la clave del éxito; la libertad para poder crear lo es', 'nelson mandela'),
-(3, 'La inteligencia consiste no sólo en el conocimiento, sino también en la destreza de aplicar los conocimientos en la práctica', 'aristoteles'),
-(4, 'El trabajo duro hace que desaparezcan las arrugas de la mente y el espíritu', 'helena rubinstein '),
-(5, 'Cuéntamelo y me olvidaré. enséñamelo y lo recordaré. involúcrame y lo aprenderé', 'benjamin franklin'),
-(6, 'Para tener éxito tu deseo de alcanzarlo debe ser mayor que tu miedo al fracaso', 'bill cosby'),
-(7, 'sólo podemos ver poco del futuro, pero lo suficiete para darnos cuenta de que hay mucho que hacer', 'alan turing'),
-(8, 'Hay hombres que de su ciencia tienen la cabeza llena; Hay sabios de todas menas, mas digo sin ser muy ducho. Es mejor que aprender mucho el aprender cosas ', 'julio cortazar'),
-(9, 'La vida es tan corta y el oficio de vivir tan difícil, que cuando uno empieza a aprenderlo, ya hay que morirse', 'juan gelman');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `materia`
 --
 
@@ -256,10 +229,34 @@ CREATE TABLE `nota` (
 --
 
 INSERT INTO `nota` (`id`, `nota1`, `nota2`, `nota3`, `nota4`, `nota5`, `nota6`, `nota7`, `nota8`, `nota_definitiva`, `id_materia`, `descripcion_curso`, `dni_alumno`) VALUES
-(51, '6', '3', '8', '6', '1', '6', '8', '9', '10', 1, 'sexto año', 35321158),
-(52, '9', '3', '4', '6', '0', '0', '0', '0', '0', 1, 'sexto año', 35321871),
+(51, '10', '3', '8', '6', '5', '6', '8', '9', '10', 1, 'sexto año', 35321158),
+(52, '9', '3', '4', '6', '10', '0', '0', '0', '0', 1, 'sexto año', 35321871),
 (53, '6', '2', '3', '2', '6', '8', '9', '2', '0', 1, 'sexto año', 88888881),
-(54, '10', '10', '10', '10', '10', '9', '8', '7', '10', 1, 'sexto año', 35311971);
+(54, '10', '10', '10', '10', '10', '9', '8', '7', '10', 1, 'sexto año', 35311971),
+(55, '5', '8', '5', '5', '8', '6', '9', '9', '8', 18, 'sexto año', 35321158),
+(56, '10', '7', '7', '8', '6', '9', '8', '7', '10', 17, 'cuarto año', 35311932);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `notificaciones`
+--
+
+CREATE TABLE `notificaciones` (
+  `titulo` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `fechaEvento` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `fechaLanzamiento` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `tags` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `notificaciones`
+--
+
+INSERT INTO `notificaciones` (`titulo`, `fechaEvento`, `fechaLanzamiento`, `tags`) VALUES
+('dia del estudiante', '26-09-2021', '2021-09-27', 'festejo '),
+('dia de la madre', '26-09-2021', '2021-10-27', 'justicia social dia social '),
+('dia de tu vieja', '26-09-2021', '2021-10-20', 'festejo ');
 
 -- --------------------------------------------------------
 
@@ -304,9 +301,8 @@ CREATE TABLE `profesor` (
 --
 
 INSERT INTO `profesor` (`nombreUsuario`, `nombre`, `apellido`, `dni`, `telefono`, `email`, `genero`, `nacimiento`, `ingreso`, `estado`) VALUES
-('hrgarcia', 'hector', 'garcia', '23146758', '3513506446', 'dreamallica@gmail.com', 'indefinide', '23/09/2000', '07/03/2015', 'titular'),
-('lmazzola', 'lucas', 'mazzola', '23232322', '3514467892', 'lucasmazz@gmail.com', 'indefinido', '23/09/2000', '07/03/2015', 'titular'),
-('pedro', 'juan', 'wdaa', '30883670', '332131212321', 'dreamadaw@gmail.com', 'Masculino', '1111-11-11', '1211-03-12', 'Titular');
+('hrgarcia', 'hector', 'garcia', '23146758', '3513507865', 'dreamallica@gmail.com', 'femenino', '23/09/2000', '07/03/2015', 'titular'),
+('lmazzola', 'lucas', 'mazzola', '23232322', '3514467892', 'lucasmazz@gmail.com', 'indefinido', '23/09/2000', '07/03/2015', 'titular');
 
 -- --------------------------------------------------------
 
@@ -328,8 +324,7 @@ INSERT INTO `rol` (`id`, `nombre`, `nombreUsuario`) VALUES
 (5, 'preceptor', 'lmazzola'),
 (6, 'profesor', 'hrgarcia'),
 (7, 'profesor', 'lmazzola'),
-(12, 'administrador', 'admin'),
-(16, 'profesor', 'pedro');
+(12, 'administrador', 'admin');
 
 -- --------------------------------------------------------
 
@@ -365,9 +360,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`nombreUsuario`, `pass`, `avatar`, `contraseña_cambiada`) VALUES
-('admin', '$2b$10$5wJpY.4Jlc3u7FHuqotgiuaWpDpoksvHY9EHmX6OY.66IlUoP6z5W', '0', 'true'),
+('admin', '$2b$10$fvHSEyookLoc0IYKLjoLXuq0Xt5jMMMeiILHHYb4MaUHArV1PqZdy', '0', 'true'),
 ('amenieto', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
-('hrgarcia', '$2b$10$6BuPgA13Ky/D270vz8AOBOEoyV/koNaPzM2OKH.dxWA.karLXkMy2', 'avatar_hrgarcia.jpg', 'true'),
+('hrgarcia', '$2b$10$Kw3d1dDmUZ3iq/35Xs1rs.AMi60fTL7q0tjtJHW1EuItykp82JKoK', 'avatar_hrgarcia.jpg', 'true'),
 ('ianluciano', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
 ('jolorenzo', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
 ('juantorre', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
@@ -376,7 +371,6 @@ INSERT INTO `usuario` (`nombreUsuario`, `pass`, `avatar`, `contraseña_cambiada`
 ('lmazzola', '$2b$10$TvFydFnH7Ut4z9wlP218vOIV.jtKPDhtsRQmD9i2fyEQmdxWWTphK', '0', 'true'),
 ('luromero', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
 ('paoalbert', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
-('pedro', '$2b$10$eHIdP.k56x//5y1smPf3LuAXOCkqwd.q1RpxQm8amyaghSycVyUJK', '0', ''),
 ('sevemonzon', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false');
 
 --
@@ -413,12 +407,6 @@ ALTER TABLE `estudianteaprendizaje`
   ADD KEY `estudiante_id` (`estudiante_dni`),
   ADD KEY `periodo_id` (`periodo_id`,`materia_id`),
   ADD KEY `materia_id` (`materia_id`);
-
---
--- Indices de la tabla `frasesinspiradoras`
---
-ALTER TABLE `frasesinspiradoras`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `materia`
@@ -486,12 +474,6 @@ ALTER TABLE `estudianteaprendizaje`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
--- AUTO_INCREMENT de la tabla `frasesinspiradoras`
---
-ALTER TABLE `frasesinspiradoras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
@@ -501,7 +483,7 @@ ALTER TABLE `materia`
 -- AUTO_INCREMENT de la tabla `nota`
 --
 ALTER TABLE `nota`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT de la tabla `periodo`
@@ -513,7 +495,7 @@ ALTER TABLE `periodo`
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Restricciones para tablas volcadas

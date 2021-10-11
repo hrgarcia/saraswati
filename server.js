@@ -93,7 +93,7 @@ var aprendizajesExcel = multer({
 // Parse application/x-www-form-urlencoded
 app.use(
 	bodyParser.urlencoded({
-		extended: false,
+		extended: true,
 	})
 );
 
@@ -122,7 +122,7 @@ app.use((req, res, next) => {
 	res.locals.routeAvatar = req.session.routeAvatar;
 	res.locals.inspirationalPhrase = req.session.inspirationalPhrase;
 	res.locals.logged = req.session.logged;
-	/* 	res.locals.notificaciones = req.session.notificaciones; */
+	res.locals.notificaciones = req.session.notificaciones;
 	next();
 });
 var urlencodedParser = bodyParser.urlencoded({
@@ -147,6 +147,17 @@ app.get("/dashboard", (req, res) => {
 		let rol = res.locals.rol;
 		let username = res.locals.username;
 		var auxData = [];
+		let peticionNotificacion = [];
+
+		async function obtenerNotificaciones() {
+			let query = "SELECT * FROM notificaciones";
+			return new Promise((resolve, reject) => {
+				con.query(query, (error, rows) => {
+					return resolve(rows);
+				});
+			});
+		}
+		peticionNotificacion.push(obtenerNotificaciones());
 
 		for (let i = 0; i < rol.length; i++) {
 			if (rol[i] == "administrador") {
@@ -183,7 +194,9 @@ app.get("/dashboard", (req, res) => {
 		async function sequentialQueries() {
 			try {
 				const result = await Promise.all(auxData);
-
+				aux = await Promise.all(peticionNotificacion);
+				res.locals.notificaciones = aux[0];
+				req.session.notificaciones = aux[0];
 				res.render("dashboard.ejs", {
 					title: "InfoUser",
 					data: result,
@@ -596,18 +609,15 @@ app.get("/generarReporteExcel/:dni/:idMateria", (req, res) => {
 			console.log("puedo acceder");
 			let dni = req.params.dni;
 			let idMateria = req.params.idMateria;
-			let query1 = "SELECT * FROM estudiante WHERE dni = ?";
-			let query2 = "SELECT nombreMateria, nota1, nota2, nota3, nota4, nota5, nota6, nota7, nota8 FROM materia INNER JOIN nota ON materia.id = ? WHERE nota.dni_alumno = ? AND nota.id_materia = ?";
-			con.query(query1, [dni], (error, infoAlumno, fields) => {
-				con.query(query2, [idMateria, dni, idMateria], (error, notasAlumno, fields) => {
-					if (error) throw error;
-					console.log(infoAlumno, "alumno");
-					console.log(notasAlumno, "notas ");
-					const ws = xlsx.utils.json_to_sheet(data);
-					const wb = xlsx.utils.book_new();
-					xlsx.utils.book_append_sheet(wb, ws, "Responses");
-					xlsx.writeFile(wb, "sampleData.export.xlsx");
-				});
+			let query =
+				"SELECT dni, nombre, apellido, email, telefono, nombreMateria, nota1, nota2, nota3, nota4, nota5, nota6, nota7, nota8, nota_definitiva FROM materia INNER JOIN nota ON materia.id = ? AND nota.dni_alumno = ? AND nota.id_materia = ? INNER JOIN estudiante ON dni = ?";
+			con.query(query, [idMateria, dni, idMateria, dni], (error, notasAlumno, fields) => {
+				if (error) throw error;
+				const ws = xlsx.utils.json_to_sheet(notasAlumno);
+				const wb = xlsx.utils.book_new();
+				xlsx.utils.book_append_sheet(wb, ws, "Notas");
+				// Hacer que se descargue donde lo eliga el usuario
+				xlsx.writeFile(wb, `notas_${notasAlumno[0].nombre}_${notasAlumno[0].apellido}.xlsx`);
 			});
 		} else {
 			res.redirect("/dashboard");
@@ -839,64 +849,44 @@ app.post("/agregar", (req, res) => {
 			return pass;
 		}
 
-		let nickname = req.body.nickname;
-		let firstname = req.body.firstname;
-		let lastname = req.body.lastname;
-		let email = req.body.email;
-		let ingreso = req.body.Ingreso;
-		let fecha_nacimiento = req.body.fecha_nacimiento;
-		let dni = req.body.dni;
-		let telefono = req.body.telefono;
-		let genero = req.body.genero;
-		let estado = req.body.estado;
+		let nickname = req.body.nickname.toLowerCase();
+		let firstname = req.body.firstname.toLowerCase();
+		let lastname = req.body.lastname.toLowerCase();
+		let email = req.body.email.toLowerCase();
+		let ingreso = req.body.ingreso.toLowerCase();
+		let fecha_nacimiento = req.body.fecha_nacimiento.toLowerCase();
+		let dni = req.body.dni.toLowerCase();
+		let telefono = req.body.telefono.toLowerCase();
+		let genero = req.body.genero.toLowerCase();
+		let estado = req.body.estado.toLowerCase();
 		let password = generatePassword(12);
 		let nombre = "profesor";
 		let salt = 10; // Standar value
-		let subjectName = req.body.subject;
+		// let nombreMateria = req.body.materias;
 
-		//     bcrypt.hash(password, salt, (err, encrypted) => {
-		//         password = encrypted;
-		//         let userquery =
-		//             "INSERT INTO usuario (nombreUsuario,pass,avatar, contraseña_cambiada) VALUE (?,?,?,?)";
-		//         con.query(
-		//             userquery,
-		//             [nickname, password, "0", false],
-		//             (error, rows, fields) => {
-		//                 if (error) throw error;
-		//                 let rolquery =
-		//                     "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
-		//                 con.query(
-		//                     rolquery,
-		//                     [nombre, nickname],
-		//                     (error, rows, fields) => {
-		//                         if (error) throw error;
-		//                         let profequery =
-		//                             "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
-		//                         con.query(
-		//                             profequery,
-		//                             [
-		//                                 nickname,
-		//                                 firstname,
-		//                                 lastname,
-		//                                 dni,
-		//                                 telefono,
-		//                                 email,
-		//                                 genero,
-		//                                 fecha_nacimiento,
-		//                                 Ingreso,
-		//                                 Estado,
-		//                             ],
-		//                             (error, rows, fields) => {
-		//                                 if (error) throw error;
-		//                                 let query4 = "UPDATE materia SET profesor_usuario = "
-		//                                 // res.redirect("/dashboard");
-		//                             }
-		//                         );
-		//                     }
-		//                 );
-		//             }
-		//         );
-		//     });
+		bcrypt.hash(password, salt, (err, encrypted) => {
+			password = encrypted;
+			let userquery = "INSERT INTO usuario (nombreUsuario,pass,avatar, contraseña_cambiada) VALUE (?,?,?,?)";
+			con.query(userquery, [nickname, password, "0", false], (error, rows, fields) => {
+				if (error) throw error;
+				let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
+				con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
+					if (error) throw error;
+					let profequery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
+					con.query(profequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, ingreso, estado], (error, rows, fields) => {
+						// Crear las materias reales en la DB para que funcione todo bien
+						// if (error) throw error;
+						// for (let i = 0; i < nombreMateria.length; i++) {
+						// 	let materiaQuery = `UPDATE materia SET profesor_usuario = ? WHERE nombreMateria = ${nombreMateria[i]}`;
+						// 	con.query(materiaQuery, [nickname], (error, rows, fields) => {
+						// 		if (error) throw error;
+						// 	});
+						// }
+						// res.redirect("/dashboard");
+					});
+				});
+			});
+		});
 	} else {
 		res.redirect("/");
 	}
@@ -935,14 +925,7 @@ app.post("/login", (req, res) => {
 							res.locals.toastrFlag = true;
 							req.session.toastrFlag = true;
 
-							let query3 = "SELECT frase,autor FROM frasesinspiradoras";
-							con.query(query3, (error, rows, fields) => {
-								i = Math.floor(Math.random() * rows.length);
-								aux = rows[i]["autor"].replace(/\b\w/g, (l) => l.toUpperCase());
-								res.locals.inspirationalPhrase = [rows[i]["frase"], aux, rows[i]["frase"].length];
-								req.session.inspirationalPhrase = [rows[i]["frase"], aux, rows[i]["frase"].length];
-								res.json("loginOk");
-							});
+							res.json("loginOk");
 						});
 					} else {
 						res.json("changePassword");
@@ -957,15 +940,24 @@ app.post("/login", (req, res) => {
 	});
 });
 
-/* app.get("/crearNotificaciones", (req, res) => {
-	let query = "SELECT * FROM notificaciones";
-	con.query(query, (error, rows) => {
-		console.log(rows);
-		res.render("addNotificacions.ejs", {
-			title: "Notificaciones",
-			data: rows,
-		});
-	});
+app.get("/crearNotificaciones", (req, res) => {
+	if (!req.session.logged) {
+		res.redirect("/");
+	} else {
+		let rol = res.locals.rol;
+
+		flagRol = false;
+		for (let i = 0; i < rol.length; i++) {
+			if (rol[i] == "administrador") {
+				flagRol = true;
+			}
+		}
+		if (flagRol) {
+			res.render("addNotificacions.ejs");
+		} else {
+			res.redirect("/dashboard");
+		}
+	}
 });
 
 app.post("/crearNotificaciones", (req, res) => {
@@ -973,7 +965,7 @@ app.post("/crearNotificaciones", (req, res) => {
 	let fechaEvento = req.body.fechaEvento;
 	let fechaLanzamiento = req.body.fechaLanzamiento;
 	let tags = req.body.tags;
-	let dia = new Date().toISOString().slice(0, 10).replace('T', ' ');
+	let dia = new Date().toISOString().slice(0, 10).replace("T", " ");
 
 	titulo = titulo.toLowerCase();
 	tags = tags.toLowerCase();
@@ -981,22 +973,17 @@ app.post("/crearNotificaciones", (req, res) => {
 
 	let querySelect = "SELECT count(*) FROM notificaciones";
 	con.query(querySelect, (error, rows) => {
-		console.log(rows[0]['count(*)'])
-
-		if (rows[0]['count(*)'] < 6){
+		if (rows[0]["count(*)"] < 6) {
 			let query = "INSERT INTO notificaciones (titulo,fechaEvento,fechaLanzamiento,tags) VALUES (?,?,?,?);";
-			console.log(titulo, fechaEvento, fechaLanzamiento, tags);
 			con.query(query, [titulo, fechaEvento, fechaLanzamiento, tags], (error, rows, fields) => {
 				if (error) throw error;
 				res.json("crearNotificacion");
-
 			});
-		}
-		else{
+		} else {
 			res.json("limiteAlcanzado");
 		}
 	});
-}); */
+});
 
 app.get("/noLogueado", (req, res) => {
 	res.render("loggedOut.ejs");
