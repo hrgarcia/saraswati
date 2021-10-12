@@ -1,67 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
-		<title>ERROR 505</title>
-		<meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>505</title>
 
-		<!--     Fonts and icons     -->
-		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css" />
 
-		<!-- Bootstrap -->
-		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+        <!-- CSS Files -->
+        <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
 
-		<!-- Iconos Font Awesome -->
-		<script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
-
-		<!-- Nuestros estilos -->
-		<link rel="stylesheet" href="/stylesheets/style.css" />
-
-		<!-- Estilos de las tarjetas de los espacios curriculares -->
-		<link rel="stylesheet" href="/stylesheets/cardsStyle.css" />
-
-		<!-- CSS Files -->
-		<link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
-
-		<!-- Animate css -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
-
-		<!-- Cards 2.0  -->
-		<link href="/stylesheets/hipster_cards.css" rel="stylesheet" />
-
-		<!--     Cards 2.0 Fonts and icons     -->
-		<link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
-		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
-		<link href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:700,100,400|Roboto:400,700|Playfair+Display+SC:400,700" rel="stylesheet" type="text/css" />
-
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
-
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/css/uikit.min.css" />
-
-		<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit-icons.min.js"></script>
-		<%- include('fragment/background'); -%>
-	</head>
-
+        <link href="/stylesheets/404.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+    </head>
 	<body>
-		<div class="main-panel">
+		<div id="content">
 			<div class="content">
-				<div class="container">
-					<div style="margin: auto; margin-top: 7%" class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
-						<h3 style="text-align: center" class="uk-card-title">ERROR</h3>
-						<p>La informacion que intenta obtener no se encuentra</p>
-						<a style="float: right" class="uk-button uk-button-primary" href="http://localhost:2500/dashboard">Volver al inicio</a>
-					</div>
-				</div>
+				<h1 id="error">500</h1>
+				<h2>La informacion que intenta obtener no se encuentra</h2>
+				<div id="boton">
+                    <a class="btn btn-danger" href="/dashboard" role="button">Inicio</a>
+                </div>
 			</div>
-			<%- include('fragment/footer'); -%>
 		</div>
-
-		<%- include('fragment/scripts'); -%>
-
-		<!-- Jquery -->
-		<script src="/javascripts/plugins/jquery-3.5.1.js"></script>
 	</body>
 </html>
