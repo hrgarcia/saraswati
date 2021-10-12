@@ -239,7 +239,7 @@ app.get("/agregarProfesor", (req, res) => {
 		}
 	}
 	if (flagRol) {
-		let todas_materias = ["matematica", "fvt", "programacion 5", "testing"];
+		let todas_materias = ["matematica", "formacion para la vida y el trabajo", "programacion 5", "testing", "lengua y literatura", "biologia", "fisica", "ingles", "ingles aplicado", "filosofia", "historia", "ciudadania y politica", "teatro", "quimica", "algoritmos y programacion" ,"robotica", "club de deportes", "educacion fisica","club de ciencias","desarrollo de aplicaciones moviles","ciudadania y participacion",  ];
 		let query = "SELECT nombreMateria FROM materia ";
 		con.query(query, (error, rows, fields) => {
 			let materias_db = [];
@@ -856,14 +856,16 @@ app.post("/agregar", (req, res) => {
 		let ingreso = req.body.ingreso.toLowerCase();
 		let fecha_nacimiento = req.body.fecha_nacimiento.toLowerCase();
 		let dni = req.body.dni.toLowerCase();
-		let telefono = req.body.telefono.toLowerCase();
+		let telefono = req.body.telefono;
 		let genero = req.body.genero.toLowerCase();
 		let estado = req.body.estado.toLowerCase();
 		let password = generatePassword(12);
 		let nombre = "profesor";
 		let salt = 10; // Standar value
-		// let nombreMateria = req.body.materias;
-
+		let nombreMateria = req.body.materias;
+        let img = "/public/images/espacios/imgnodisponible.jpg"
+        let horas_catedra = req.body.horas_catedra;
+        let curso = req.body.curso;
 		bcrypt.hash(password, salt, (err, encrypted) => {
 			password = encrypted;
 			let userquery = "INSERT INTO usuario (nombreUsuario,pass,avatar, contraseña_cambiada) VALUE (?,?,?,?)";
@@ -875,14 +877,13 @@ app.post("/agregar", (req, res) => {
 					let profequery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
 					con.query(profequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, ingreso, estado], (error, rows, fields) => {
 						// Crear las materias reales en la DB para que funcione todo bien
-						// if (error) throw error;
-						// for (let i = 0; i < nombreMateria.length; i++) {
-						// 	let materiaQuery = `UPDATE materia SET profesor_usuario = ? WHERE nombreMateria = ${nombreMateria[i]}`;
-						// 	con.query(materiaQuery, [nickname], (error, rows, fields) => {
-						// 		if (error) throw error;
-						// 	});
-						// }
-						// res.redirect("/dashboard");
+						if (error) throw error;					
+						let materiaQuery = "INSERT INTO materia(nombreMateria, imagen, horasCatedra, profesor_usuario, curso_descripcion) VALUES (?,?,?,?,?)";
+							con.query(materiaQuery, [nombreMateria[0],img,horas_catedra, nickname, curso], (error, rows, fields) => {
+								if (error) throw error;
+							});
+						
+						res.redirect("/dashboard");
 					});
 				});
 			});
