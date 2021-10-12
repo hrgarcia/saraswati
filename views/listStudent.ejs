@@ -38,9 +38,9 @@
             <div class="content">
                 <!--Contenido principal acá -->
                 <div class="jumbotron customJumbotron" style="margin-top: 45px;">
-                    <div class="row head-table">
+                    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark" style="font-size: 250px;">
                         <div class="col-md-10">
-                            <h1 class="display-4 tituloSecundario">Lista de estudiantes</h1>
+                            <h1 class="display-4 tituloSecundario" style="font-size: -95px;">Lista de estudiantes</h1>
                             
                             <h4 class="text-table tituloSecundario" id="subjectName" data-value="<%- data[0].id_materia -%>" data-value2="<%- data[0].nombreMateria -%>" data-value3="<%- data[0].curso_descripcion -%>" >
                                 Estudiantes del espacio curricular: <%- data[0].nombreMateria -%>
@@ -107,6 +107,9 @@
                                 </th>
                                 <th data-field="actions" data-formatter="operateFormatter" data-events="operateEvents">
                                     Acciones
+                                </th>
+                                <th data-field="nota">
+                                    Nota
                                 </th>
                             </thead>
                             <form id="notesForm" method="post">
