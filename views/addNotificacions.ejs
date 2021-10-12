@@ -1,39 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>Crear Notificacion</title>
+        <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
 
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Crear Notificacion</title>
-    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+        <!-- Fonts and icons -->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700%7CRoboto+Slab:400,700%7CMaterial+Icons" />
 
-    <!-- Fonts and icons -->
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700%7CRoboto+Slab:400,700%7CMaterial+Icons" />
+        <!-- Iconos Font Awesome -->
+        <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
 
-    <!-- Iconos Font Awesome -->
-    <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css" />
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+        <!-- CSS Files -->
+        <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
 
-    <!-- CSS Files -->
-    <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+        <!-- uikit -->
+        <link rel="stylesheet" href="/stylesheets/uikit.min.css" />
 
-    <!-- uikit -->
-    <link rel="stylesheet" href="/stylesheets/uikit.min.css" />
+        <link rel="stylesheet" href="/stylesheets/jquery.tag.css" />
 
-    <link rel="stylesheet" href="/stylesheets/jquery.tag.css" />
+        <%- include('fragment/background'); -%>
+    </head>
 
-    <%- include('fragment/background'); -%>
-</head>
-
-<body>
-    <div class="main-panel">
-        <%- include('fragment/navbar'); -%>
+    <body>
+        <div class="main-panel">
+            <%- include('fragment/navbar'); -%>
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
+                        <div class="col-md-2"></div>
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header card-header-danger">
@@ -45,41 +44,36 @@
                                         <div class="form-group">
                                             <label>Titulo <small>obligatorio</small></label>
                                             <br />
-                                            <input class="uk-input uk-form-width-large" type="text" name="titulo"
-                                                id="title" placeholder="Dia del estudiante..." />
+                                            <input class="uk-input uk-form-width-large" type="text" name="titulo" id="title" placeholder="Dia del estudiante..." />
                                         </div>
                                         <div class="form-group">
                                             <label>Tags <small>obligatorio</small></label>
                                             <br />
                                             <div>
-                                                <div id="testtag1" tagname="test1" name="tags">
-                                                </div>
+                                                <div id="testtag1" tagname="test1" name="tags"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Fecha del evento <small>obligatorio</small></label>
                                             <br />
-                                            <input class="uk-input uk-form-width-large" type="date" name="fechaEvento"
-                                                id="fE" placeholder="11/08/2003" />
+                                            <input class="uk-input uk-form-width-large" type="date" name="fechaEvento" id="fE" placeholder="11/08/2003" />
                                         </div>
                                         <div class="form-group">
                                             <label>Fecha de lanzamiento <small>obligatorio</small></label>
                                             <br />
-                                            <input class="uk-input uk-form-width-large" type="date"
-                                                name="fechaLanzamiento" id="fL" placeholder="11/08/2003" />
+                                            <input class="uk-input uk-form-width-large" type="date" name="fechaLanzamiento" id="fL" placeholder="11/08/2003" />
                                         </div>
-                                        <button type="button" class="btn btn-primary">Cargar</button>
+                                        <button type="button" class="uk-button btn btn-danger" id="saveChange" style="margin-top: 10px">Cargar notificación</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-2"></div>
                     </div>
                 </div>
             </div>
-            <%- include('fragment/footer'); -%>
-    </div>
-
-    <%- include('fragment/scripts'); -%>
+        </div>
+        <%- include('fragment/footer'); -%> <%- include('fragment/scripts'); -%>
         <script src="/javascripts/jquery-2.2.4.min.js"></script>
         <script src="/javascripts/jquery.tag.js"></script>
         <script src="javascripts/jquery.validate.min.js" type="text/javascript"></script>
@@ -93,7 +87,7 @@
             $("#testtag1").tagsInit({
                 inputNote: "Festejo...",
                 max: 4,
-                theme: 'red',
+                theme: "red",
                 beforeInput: function (tagValue) {
                     let count = 0;
                     if (tags.length != 0) {
@@ -105,11 +99,10 @@
                         if (count == 0) {
                             tags.push(tagValue);
                         }
-                    }
-                    else {
+                    } else {
                         tags.push(tagValue);
                     }
-                }
+                },
             });
 
             $("#evento").validate({
@@ -121,7 +114,7 @@
                     },
                     tags: {
                         require: true,
-                    }
+                    },
                 },
                 messages: {
                     titulo: {
@@ -131,7 +124,7 @@
                     },
                     tags: {
                         required: "Ingrese al menos un tag",
-                    }
+                    },
                 },
             });
 
@@ -145,10 +138,10 @@
                     let aux = "";
                     let titulo = $.trim($("#title").val());
                     let fechaEvento = $.trim($("#fE").val());
-                    let fechaLanzamiento = $.trim($("#fL").val())
+                    let fechaLanzamiento = $.trim($("#fL").val());
                     for (let i = 0; i < tags.length; i++) {
-                        aux += tags[i] + " "
-                    };
+                        aux += tags[i] + " ";
+                    }
                     console.log(aux);
                     console.log(titulo, fechaEvento, fechaLanzamiento, aux);
                     $.ajax({
@@ -158,16 +151,14 @@
                         data: { titulo: titulo, fechaEvento: fechaEvento, fechaLanzamiento: fechaLanzamiento, tags: aux },
                     }).done((d) => {
                         if (d === "crearNotificacion") {
-                            successAlert("se inserto la informacion")
+                            successAlert("se inserto la informacion");
                             setTimeout(reloadPage, 2000);
                         } else if (d === "limiteAlcanzado") {
                             errorAlert("Hay mas de 5 notifiaciones, debe borrar alguna para crear otra");
                         }
                     });
                 }
-
             });
         </script>
-</body>
-
+    </body>
 </html>
