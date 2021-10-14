@@ -195,6 +195,11 @@
                                         <td><%-Student['email']%></td>
                                         <td><%-Student['telefono']%></td>
                                         <td></td>
+                                        <td>
+                                            <a style="background-color:inherit !important;" rel="tooltip" title="Generar" class="table-action"  title="Like">
+                                                <i uk-margin type="button" title="Notas" href="#modal-group-<%-Student['dni']%>" uk-toggle style="color:black; font-size:27px;margin-left:5px;" class="material-icons">class</i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 <% }); %>
                             </form>
@@ -478,27 +483,23 @@
 
                 "click .excel": function (e, value, row, index) {
                     let idSubject = document.getElementById("subjectName").getAttribute("data-value");
-                    console.log(idSubject)
                     $.get(`generarReporteExcel/${row.dni}/${idSubject}`, res => {
+                        successAlert("Su archivo fue creado");
                     });
                 },
             };
             function operateFormatter(value, row, index) {
                 return [
-                    '<a style="background-color:inherit !important;" rel="tooltip" title="Generar informe" class="table-action like" href="javascript:pdf()" title="Like">',
+                    '<a style="background-color:inherit !important;" rel="tooltip" title="Generar PDF" class="table-action like" href="javascript:pdf()" title="Like">',
                         '<i style="color:red; font-size:27px; margin-left:5px;" class="material-icons">picture_as_pdf</i>',
                     "</a>",
-                    '<a style="background-color:inherit !important;" rel="tooltip" title="Editar" class="table-action edit" href="javascript:void(0)" title="Edit" data-toggle="modal" data-target="#learningsStudent">',
-                        '<i style="color:black; font-size:27px; margin-left:5px;" class="material-icons">assignment</i>',
-                    "</a>",
-                    //<i class="far fa-file-excel"></i>
-                    '<a style="background-color:inherit !important;" rel="tooltip" title="Excel" class="table-action excel" href="javascript:crearExcel" title="Excel" data-toggle="modal">',
+                    '<a style="background-color:inherit !important;" rel="tooltip" title="Geerar Excel" class="table-action excel" href="javascript:crearExcel" title="Excel" data-toggle="modal">',
                         '<i style="color:green; font-size:27px; margin-left:5px;" class="material-icons">web_asset</i>',
                     "</a>",
-                    '<a style="background-color:inherit !important;" rel="tooltip" title="Generar" class="table-action"  title="Like">',
-                        // 
-                        `<i uk-margin type="button" title="Notas" href="#modal-group-${row.dni}" uk-toggle style="color:black; font-size:27px;margin-left:5px;" class="material-icons">class</i>`,
-                    "</a>",
+                    '<a style="background-color:inherit !important;" rel="tooltip" title="Editar apredizajes" class="table-action edit" href="javascript:void(0)" title="Edit" data-toggle="modal" data-target="#learningsStudent">',
+                        '<i style="color:black; font-size:27px; margin-left:5px;" class="material-icons">assignment</i>',
+                    "</a>"
+                    //<i class="far fa-file-excel"></i>
                 ].join("");
             }
             $(function () {

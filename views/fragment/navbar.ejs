@@ -25,7 +25,15 @@
 				</a>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
 					<% for(let i = 0; i < notificaciones.length; i++) { %>
-                        <a class="dropdown-item" href="#"><i class="material-icons" style="position: relative; left: -5px">event_note</i><%-notificaciones[i]['titulo']-%>, <%-notificaciones[i]['fechaEvento']-%></i><i class="tags"><%-notificaciones[i]['tags']-%></i></a>
+						<% if(rol[0] == 'administrador'){ %>
+							<div id="<%- notificaciones[i].id -%>" class= "borrarNotificacion">
+								<a class="dropdown-item"><i class="borrarNotificacion material-icons" style="position: relative; left: -5px">delete</i><i class="material-icons" style="position: relative; left: -5px">event_note</i><%-notificaciones[i]['titulo']-%>, <%-notificaciones[i]['fechaEvento']-%></i><i class="tags"><%-notificaciones[i]['tags']-%></i></a>
+							</div>
+							
+						<% } else{ %>
+							<a class="dropdown-item" href="#"><i class="material-icons" style="position: relative; left: -5px">event_note</i><%-notificaciones[i]['titulo']-%>, <%-notificaciones[i]['fechaEvento']-%></i><i class="tags"><%-notificaciones[i]['tags']-%></i></a>
+						<% } %>
+						
                     <% } %>
 				</div>
 			</li>

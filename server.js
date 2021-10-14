@@ -628,7 +628,6 @@ app.get("/generarReporteExcel/:dni/:idMateria", (req, res) => {
             }
         }
         if (flagRol) {
-            console.log("puedo acceder");
             let dni = req.params.dni;
             let idMateria = req.params.idMateria;
             let query =
@@ -640,6 +639,7 @@ app.get("/generarReporteExcel/:dni/:idMateria", (req, res) => {
                 xlsx.utils.book_append_sheet(wb, ws, "Notas");
                 // Hacer que se descargue donde lo eliga el usuario
                 xlsx.writeFile(wb, `notas_${notasAlumno[0].nombre}_${notasAlumno[0].apellido}.xlsx`);
+                res.json("");
             });
         } else {
             res.redirect("/dashboard");
@@ -1006,6 +1006,17 @@ app.post("/crearNotificaciones", (req, res) => {
         } else {
             res.json("limiteAlcanzado");
         }
+    });
+});
+
+app.get("/borrarNotificacion/:id", (req, res) => {
+    let id = req.params.id;
+    console.log(id);
+    let query = "DELETE FROM notificaciones WHERE id = ?";
+    con.query(query, [id], (error, rows, fields) => {
+        if (error) throw error;
+        console.log("se borro");
+        res.json("");
     });
 });
 

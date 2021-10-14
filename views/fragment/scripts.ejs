@@ -12,10 +12,27 @@
 	<script src="/javascripts/plugins/fullcalendar.min.js"></script>
 	<!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-	<!--  Notifications Plugin    -->
+	<!-- Notifications Plugin     -->
 	<script src="/javascripts/plugins/bootstrap-notify.js"></script>
 	<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 	<script src="/javascripts/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
+	
+	<script>
+		function reloadPage() {
+            location.reload();
+        }
+
+		$(document).ready(() => {
+            $(".borrarNotificacion").on("click", e => {
+				let id = e.currentTarget.id
+                $.get(`borrarNotificacion/${id}`,  res => {
+					successAlert("Se borro el evento");
+					setTimeout(reloadPage, 2200);
+
+                });
+            });
+        });
+	</script>
 	<script>
 		$(document).ready(function () {
 			$().ready(function () {
