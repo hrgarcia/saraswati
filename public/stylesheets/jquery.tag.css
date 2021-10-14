@@ -40,6 +40,6 @@
 .red.tag-contain a{color:#000;padding-left:5px;text-decoration:none;cursor:pointer}
 .red.tag-contain .tag-input{border:1px solid rgb(0, 0, 0);color:rgb(0, 0, 0)}
 /**color**/
-.red.tag-contain ul li{background:rgb(105, 105, 105);-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;color:rgb(255, 255, 255);float:left;height:22px;line-height:22px;margin:0 5px 5px 0;padding:0 5px;list-style:none}
+.red.tag-contain ul li{background:#f44336;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;color:rgb(255, 255, 255);float:left;height:22px;line-height:22px;margin:0 5px 5px 0;padding:0 5px;list-style:none}
 /**contenedor**/
 .red.tag-contain .tag-input-blur{color:rgb(0, 0, 0)}

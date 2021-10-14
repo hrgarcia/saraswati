@@ -961,6 +961,17 @@ app.post("/crearNotificaciones", (req, res) => {
     titulo = titulo.toLowerCase();
     tags = tags.toLowerCase();
     fechaEvento = fechaEvento.substring(8, 10) + "-" + fechaEvento.substring(5, 7) + "-" + fechaEvento.substring(0, 4);
+	tags = tags.replace(/ /g, '-');
+
+	for (let i = 0; i < tags.length; i++) 
+	{
+		if(tags[i] != '-')
+		{
+			tags = tags.substring([i]);
+		}
+    }
+	
+	console.log(tags);
 
     let querySelect = "SELECT count(*) FROM notificaciones";
     con.query(querySelect, (error, rows) => {
