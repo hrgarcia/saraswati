@@ -17611,10 +17611,11 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .card .card-header-primary .card-text {
     background: linear-gradient(60deg, #f79823, #ff2d2d);
 }
+
 .card .card-header-primary:not(.card-header-icon):not(.card-header-text),
 .card.bg-primary .card.card-rotate.bg-primary .front,
 .card.card-rotate.bg-primary .back {
-    background: linear-gradient(60deg, #fd4e00, #2a7aff);
+    background-color: #343a40 !important;
 }
 
 .card .card-header-info .card-icon,
@@ -17650,7 +17651,8 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .card.bg-danger,
 .card.card-rotate.bg-danger .front,
 .card.card-rotate.bg-danger .back {
-    background: linear-gradient(60deg, #fd4e00, #2a7aff);
+    /* background: linear-gradient(60deg, #fd4e00, #2a7aff); */
+    background-color: #343a40 !important
 }
 
 .card .card-header-rose .card-icon,
@@ -17665,12 +17667,6 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .card .card-header-primary .card-icon,
 .card .card-header-primary:not(.card-header-icon):not(.card-header-text),
 .card .card-header-primary .card-text {
-    box-shadow: -11px 11px 20px 0px rgb(49 56 255 / 0%), 20px -15px 10px -5px rgb(195 7 7 / 21%);
-}
-
-.card .card-header-danger .card-icon,
-.card .card-header-danger:not(.card-header-icon):not(.card-header-text),
-.card .card-header-danger .card-text {
     box-shadow: -11px 11px 20px 0px rgb(49 56 255 / 0%), 20px -15px 10px -5px rgb(195 7 7 / 21%);
 }
 

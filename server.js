@@ -839,15 +839,6 @@ app.post("/changePassword", (req, res) => {
 
 app.post("/agregar", (req, res) => {
     if (req.session.logged) {
-        function generatePassword(length) {
-            let pass = "";
-            let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            for (i = 0; i < length; i++) {
-                pass += characters.charAt(Math.floor(Math.random() * characters.length));
-            }
-            return pass;
-        }
-
         let nickname = req.body.nickname.toLowerCase();
         let firstname = req.body.firstname.toLowerCase();
         let lastname = req.body.lastname.toLowerCase();
@@ -858,14 +849,14 @@ app.post("/agregar", (req, res) => {
         let telefono = req.body.telefono;
         let genero = req.body.genero.toLowerCase();
         let estado = req.body.estado.toLowerCase();
-        //let password = generatePassword(12);
-        let password = "123";
+        let password = "argentina2022";
         let nombre = "profesor";
         let salt = 10; // Standar value
         let nombreMateria = req.body.materias;
-        let img = "/public/images/espacios/imgnodisponible.jpg";
         let horas_catedra = req.body.horas_catedra;
-        let curso = req.body.curso;
+        let curso = req.body.curso.toLowerCase();
+        let cursoImagenTexto = curso.split(" ").join("_");
+        let imgMateria = `/images/espacios/${cursoImagenTexto}/${nombreMateria}.jpg`;
         bcrypt.hash(password, salt, (err, encrypted) => {
             password = encrypted;
             let userquery = "INSERT INTO usuario (nombreUsuario,pass,avatar, contraseña_cambiada) VALUE (?,?,?,?)";
@@ -879,11 +870,10 @@ app.post("/agregar", (req, res) => {
                         // Crear las materias reales en la DB para que funcione todo bien
                         if (error) throw error;
                         let materiaQuery = "INSERT INTO materia(nombreMateria, imagen, horasCatedra, profesor_usuario, curso_descripcion) VALUES (?,?,?,?,?)";
-                        con.query(materiaQuery, [nombreMateria[0], img, horas_catedra, nickname, curso], (error, rows, fields) => {
+                        con.query(materiaQuery, [nombreMateria[0], imgMateria, horas_catedra, nickname, curso], (error, rows, fields) => {
                             if (error) throw error;
+                            res.redirect("/dashboard");
                         });
-
-                        res.redirect("/dashboard");
                     });
                 });
             });
