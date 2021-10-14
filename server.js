@@ -1030,7 +1030,7 @@ app.use((req, res, next) => {
 
 app.use(function (err, req, res, next) {
     console.error(err.stack);
-    res.status(500).render("505");
+    res.status(500).render("500");
 });
 
 // End routes
