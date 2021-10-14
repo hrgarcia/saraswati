@@ -294,30 +294,7 @@ app.get("/agregarUsuario", (req, res) => {
     }
 });
 
-app.get("/agregarMateria", (req, res) => {
-    let rol = res.locals.rol;
-    if (!req.session.logged) {
-        res.redirect("/");
-    } else {
-        let flagRol = false;
-        for (let i = 0; i < rol.length; i++) {
-            if (rol[i] == "preceptor") {
-                flagRol = true;
-            }
-        }
-        if (flagRol) {
-            let query = "SELECT usuario FROM profesor";
-            con.query(query, (error, rows, fields) => {
-                res.render("addSubject.ejs", {
-                    title: "Teachers",
-                    data: rows,
-                });
-            });
-        } else {
-            res.redirect("/dashboard");
-        }
-    }
-});
+
 
 app.get("/agregarPreceptor", (req, res) => {
     let rol = res.locals.rol;
