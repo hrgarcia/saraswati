@@ -692,7 +692,8 @@ input[type="button"]:focus {
   color: #FFFFFF;
   background-color:#bf4041;
   opacity: 1;
-  margin-left: 43em;
+  margin-left: 41em;
+  border-radius: 0px;
   filter: alpha(opacity=100);
 }
 .navbar .navbar-nav > li > a.btn.btn-warning.btn-fill:hover, .navbar .navbar-nav > li > a.btn.btn-warning.btn-fill:focus, .navbar .navbar-nav > li > a.btn.btn-warning.btn-fill:active, .navbar .navbar-nav > li > a.btn.btn-warning.btn-fill.active, .open > .navbar .navbar-nav > li > a.btn.btn-warning.btn-fill.dropdown-toggle, .btn-warning.btn-fill:hover, .btn-warning.btn-fill:focus, .btn-warning.btn-fill:active, .btn-warning.btn-fill.active, .open > .btn-warning.btn-fill.dropdown-toggle {
