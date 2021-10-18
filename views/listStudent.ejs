@@ -41,8 +41,8 @@
                     <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark" style="font-size: 250px;">
                         <div class="col-md-10">
                             <h1 class="display-4 tituloSecundario" style="font-size: -95px;">Lista de estudiantes</h1>
-                            
-                            <h4 class="text-table tituloSecundario" id="subjectName" data-value="<%- data[0].id_materia -%>" data-value2="<%- data[0].nombreMateria -%>" data-value3="<%- data[0].curso_descripcion -%>" >
+                            <i class="bi bi-file-earmark-excel"></i>   
+                            <h4 class="text-table tituloSecundario" id="subjectName" data-value="<%- data.id_materia -%>" data-value2="<%- data.nombreMateria -%>" data-value3="<%- data.curso_descripcion -%>" >
                                 Estudiantes del espacio curricular: <%- data[0].nombreMateria -%>
                             </h4>
                         </div>
@@ -63,7 +63,7 @@
                                 </div>
                                 <br>
                                 <form action="/cargarAprendizaje" method="post" enctype="multipart/form-data">
-                                    <input style="display:none;" name="idSubject" value="<%- data[0].id -%>"></input>
+                                    <input style="display:none;" name="idSubject" value="<%- data.id -%>"></input>
                                     <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid" style="margin-left: 3.1%;">
                                         <p>Cuatrimestre</p>
                                         <label><input class="uk-radio" style="border-color: black;" type="radio" value="1" name="quarter" checked> 1</label>
@@ -82,6 +82,7 @@
                                 </form>
                             </div>
                         </div>
+                        
                         <table id="fresh-table" class="uk-table uk-table-responsive uk-table-shrink uk-table-hover uk-table-justify uk-table-striped uk-table-small" style="width: 100%">
                             <thead>
                                 <th >

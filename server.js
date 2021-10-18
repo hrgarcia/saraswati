@@ -734,11 +734,11 @@ app.post("/estudianteMateria", (req, res) => {
     if (req.session.logged) {
         let subjectName = req.body.subjectName;
         let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.nombreMateria = ? AND materia.curso_descripcion = estudiante.descripcion_curso INNER JOIN nota ON nota.dni_alumno = estudiante.dni AND nota.id_materia  = materia.id";
-        con.query(query, [subjectName, subjectName], (error, rows, fields) => {
+        con.query(query, [subjectName], (error, rows, fields) => {
             if (error) throw error;
             res.render("listStudent.ejs", {
                 title: "Student",
-                data: rows,
+                data: rows, 
             });
         });
     } else {
