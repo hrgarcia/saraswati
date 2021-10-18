@@ -64,7 +64,7 @@
                         <h2>Curso: <%- InfoUser['descripcion_curso']%></h2>
                     </div>
 
-                    <% }); %> <% dataNotas[0].forEach(function(NotasEstu){ %>
+                    <% }); %> <% dataNotas.forEach(function(NotasEstu){ %>
                     <div class="container">
                         <div class="row">
                             <div class="col-sm">
@@ -78,6 +78,20 @@
                         </div>
                     </div>
                     <% }); %>
+                    <% datosApren.forEach(function(Aprendizajes){ %>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h2>
+                                        Aprendizaje: <%- Aprendizajes['descripcion']%>
+                                    </h2>
+                                </div>
+                                <div class="col-sm">
+                                    <h2>Estado: <%- Aprendizajes['estado']%></h2>
+                                </div>
+                            </div>
+                        </div>
+                        <% }); %>
                 </div>
             </div>
         </div>

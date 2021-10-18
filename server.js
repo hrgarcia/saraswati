@@ -562,11 +562,15 @@ app.get("/generarReporte/:dni", (req, res) => {
         let nombreMateria = req.body.nombreMateria;
         let query1 = "SELECT * FROM estudiante WHERE dni = ?";
         let query2 = "SELECT nombreMateria, nota1, nota2, nota3, nota4, nota5, nota6, nota7, nota8 FROM materia INNER JOIN nota ON materia.id = nota.id_materia WHERE nota.dni_alumno = ?";
+        let query3 = "SELECT periodo_id, descripcion, estado FROM estudianteaprendizaje WHERE estudiante_dni = ?";
         con.query(query1, [dni], (error, infoAlumno, fields) => {
             con.query(query2, [dni], (error, notasAlumno, fields) => {
+                con.query(query3, [dni], (error, aprendizajeAlumno, fields) => {
                 if (error) throw error;
                 console.log(notasAlumno);
-                ejs.renderFile("views/GenerateReport.ejs", { datosAlumno: infoAlumno, dataNotas: notasAlumno }, (err, html) => {
+                console.log(aprendizajeAlumno);
+
+                ejs.renderFile("views/GenerateReport.ejs", { datosAlumno: infoAlumno, dataNotas: notasAlumno, datosApren : aprendizajeAlumno}, (err, html) => {
                     if (err) throw err;
                     const options = {
                         format: "A4",
@@ -589,8 +593,11 @@ app.get("/generarReporte/:dni", (req, res) => {
             //     res.redirect("/");
             // }
         });
+    });
     }
+    
 });
+
 
 app.get("/generarReporteExcel/:dni/:idMateria", (req, res) => {
     if (!req.session.logged) {
