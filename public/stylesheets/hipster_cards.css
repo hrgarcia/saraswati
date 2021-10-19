@@ -753,7 +753,7 @@ fieldset[disabled] .btn-neutral.active {
 
 /*           Labels & Progress-bar              */
 .label {
-    padding: 10px 13px;
+    padding: 5px 10px;
     border-radius: 2px;
     font-weight: 500;
     font-size: 11px;
@@ -1439,7 +1439,7 @@ fieldset[disabled] .btn-neutral.active {
     padding: 15px 15px 5px 15px;
 }
 .card .content .title {
-    margin: 10px 0 20px 0;
+    margin: 10px 0 2px 0;
 }
 .card .content .category ~ .title {
     margin-top: 0px;

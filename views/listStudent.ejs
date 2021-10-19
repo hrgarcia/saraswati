@@ -83,8 +83,15 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="contenedor-boton">
-                            <button class="boton uno"><span> <img src="/images/iconoExel.png" class="imagen"></span></button>
+                        <div class="uk-overflow-auto">
+                            <div>
+                                <button class="uk-button arrow-icon" type="button" uk-toggle="target: #toggle-usage" aria-expanded="false">Descargar Exel de todos los estudiante</button>
+                                <div id="toggle-usage" class="divToggle-Usage" hidden>
+                                    <div class="contenedor-boton">
+                                        <button class="boton uno"><span> <img src="/images/iconoExel.png" class="imagen"></span></button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <table id="fresh-table" class="uk-table uk-table-responsive uk-table-shrink uk-table-hover uk-table-justify uk-table-striped uk-table-small" style="width: 100%">
                             <thead>
