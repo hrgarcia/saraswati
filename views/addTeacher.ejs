@@ -178,13 +178,25 @@
                                 <input type="button" class="btn btn-previous btn-default btn-wd" name="volver" value="Volver" />
                             </div>
                             <div class="tab-pane" id="address">
-                                <div class="row">
-                                    <% for(var i = 0; i < data.length; i++) { %>
-                                        <p style="color: black;"><%- data[i] -%></p>
-                                        <input type="radio" name="materias[]" value="<%- data[i] -%>"/>
-                                        <br>
-                                        <br>
-                                    <% } %>
+                                <div class="content">
+                                    <br>
+                                    <br>
+                                    <div class="row">
+                                        <% for(var i = 0; i < data.length; i++) { %>
+                                            <div class="col-md-2">
+                                                <input type="radio" name="materias[]" value="<%- data[i] -%>">
+                                                <p style="display:inline; color: black;"><%- data[i] -%></p>
+                                                <br>
+                                            </div>
+                                            
+                                        <% } %>
+                                    </div>
+                                    
+                                    
+    
+    
+        
+                                    
                                 </div>
                                 <input type="submit" class="btn btn-finish btn-fill btn-warning btn-wd" name="cargar" value="Cargar" />
                                 <input type="button" class="btn btn-previous btn-default btn-wd" name="volver" value="Volver" />
