@@ -22,16 +22,6 @@
             location.reload();
         }
 
-		$(document).ready(() => {
-            $(".borrarNotificacion").on("click", e => {
-				let id = e.currentTarget.id
-                $.get(`borrarNotificacion/${id}`,  res => {
-					successAlert("Se borro el evento");
-					setTimeout(reloadPage, 2200);
-
-                });
-            });
-        });
 	</script>
 	<script>
 		$(document).ready(function () {

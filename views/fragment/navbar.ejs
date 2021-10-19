@@ -27,7 +27,7 @@
 					<% for(let i = 0; i < notificaciones.length; i++) { %>
 						<% if(rol[0] == 'administrador'){ %>
 							<div id="<%- notificaciones[i].id -%>" class= "borrarNotificacion">
-								<a class="dropdown-item"><i class="borrarNotificacion material-icons" style="position: relative; left: -5px">delete</i><i class="material-icons" style="position: relative; left: -5px">event_note</i><%-notificaciones[i]['titulo']-%>, <%-notificaciones[i]['fechaEvento']-%></i><i class="tags"><%-notificaciones[i]['tags']-%></i></a>
+								<a class="dropdown-item"><i onclick="borrar(this.parentElement.parentElement)" class="borrarNotificacion material-icons" style="position: relative; left: -5px">delete</i><i class="material-icons" style="position: relative; left: -5px">event_note</i><%-notificaciones[i]['titulo']-%>, <%-notificaciones[i]['fechaEvento']-%></i><i class="tags"><%-notificaciones[i]['tags']-%></i></a>
 							</div>
 							
 						<% } else{ %>
@@ -81,3 +81,22 @@
 		</ul>
 	</div>
 </nav>
+<script>
+	function borrar(elementFather) {
+		
+		Swal.fire({
+  			title: '¿Esta seguro que quiere borrar la notificacion?',
+  			showDenyButton: true,
+  			confirmButtonText: 'Si',
+  			denyButtonText: `No`,
+			html:elementFather,
+		}).then((result) => {
+  			if (result.isConfirmed) {
+				successAlert("Se borro el evento");
+    			$.get(`borrarNotificacion/${elementFather.id}`,  res => {
+					setTimeout(reloadPage, 2200);
+       			 }); 
+ 			} 
+		})
+	}
+</script>
