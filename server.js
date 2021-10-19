@@ -294,8 +294,6 @@ app.get("/agregarUsuario", (req, res) => {
     }
 });
 
-
-
 app.get("/agregarPreceptor", (req, res) => {
     let rol = res.locals.rol;
     for (let i = 0; i < rol.length; i++) {
@@ -314,29 +312,6 @@ app.get("/agregarPreceptor", (req, res) => {
 app.get("/datatable", (req, res) => {
     if (req.session.logged) {
         res.render("datatable.ejs");
-    } else {
-        res.redirect("/");
-    }
-});
-
-app.get("/cargarVistaEstudiante", (req, res) => {
-    if (req.session.logged) {
-        let username = res.locals.username;
-        let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.curso_descripcion = estudiante.descripcion_curso AND materia.profesor_usuario = ?";
-        let cursos = [];
-        con.query(query, [username], (error, rows, fields) => {
-            if (error) throw error;
-            for (let index = 0; index < rows.length; index++) {
-                if (!cursos.includes(rows[index].curso_descripcion)) {
-                    cursos.push(rows[index].curso_descripcion);
-                }
-            }
-            res.render("allStudents.ejs", {
-                title: "Student",
-                data: rows,
-                data2: cursos,
-            });
-        });
     } else {
         res.redirect("/");
     }
@@ -566,38 +541,36 @@ app.get("/generarReporte/:dni", (req, res) => {
         con.query(query1, [dni], (error, infoAlumno, fields) => {
             con.query(query2, [dni], (error, notasAlumno, fields) => {
                 con.query(query3, [dni], (error, aprendizajeAlumno, fields) => {
-                if (error) throw error;
-                console.log(notasAlumno);
-                console.log(aprendizajeAlumno);
+                    if (error) throw error;
+                    console.log(notasAlumno);
+                    console.log(aprendizajeAlumno);
 
-                ejs.renderFile("views/GenerateReport.ejs", { datosAlumno: infoAlumno, dataNotas: notasAlumno, datosApren : aprendizajeAlumno}, (err, html) => {
-                    if (err) throw err;
-                    const options = {
-                        format: "A4",
-                        border: {
-                            right: "8",
-                        },
-                    };
-                    pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
-                        if (err) {
-                            res.send(err);
-                        } else {
-                            console.log("Pdf creado");
-                        }
+                    ejs.renderFile("views/GenerateReport.ejs", { datosAlumno: infoAlumno, dataNotas: notasAlumno, datosApren: aprendizajeAlumno }, (err, html) => {
+                        if (err) throw err;
+                        const options = {
+                            format: "A4",
+                            border: {
+                                right: "8",
+                            },
+                        };
+                        pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
+                            if (err) {
+                                res.send(err);
+                            } else {
+                                console.log("Pdf creado");
+                            }
+                        });
+                        res.type("pdf");
+                        res.download("uploads/report.pdf");
                     });
-                    res.type("pdf");
-                    res.download("uploads/report.pdf");
                 });
+                // } else {
+                //     res.redirect("/");
+                // }
             });
-            // } else {
-            //     res.redirect("/");
-            // }
         });
-    });
     }
-    
 });
-
 
 app.get("/generarReporteExcel/:dni/:idMateria", (req, res) => {
     if (!req.session.logged) {
@@ -738,7 +711,7 @@ app.post("/estudianteMateria", (req, res) => {
             if (error) throw error;
             res.render("listStudent.ejs", {
                 title: "Student",
-                data: rows, 
+                data: rows,
             });
         });
     } else {
@@ -968,17 +941,15 @@ app.post("/crearNotificaciones", (req, res) => {
     titulo = titulo.toLowerCase();
     tags = tags.toLowerCase();
     fechaEvento = fechaEvento.substring(8, 10) + "-" + fechaEvento.substring(5, 7) + "-" + fechaEvento.substring(0, 4);
-	tags = tags.replace(/ /g, '-');
+    tags = tags.replace(/ /g, "-");
 
-	for (let i = 0; i < tags.length; i++) 
-	{
-		if(tags[i] != '-')
-		{
-			tags = tags.substring([i]);
-		}
+    for (let i = 0; i < tags.length; i++) {
+        if (tags[i] != "-") {
+            tags = tags.substring([i]);
+        }
     }
-	
-	console.log(tags);
+
+    console.log(tags);
 
     let querySelect = "SELECT count(*) FROM notificaciones";
     con.query(querySelect, (error, rows) => {
