@@ -180,15 +180,10 @@
                             <div class="tab-pane" id="address">
                                 <div class="row">
                                     <% for(var i = 0; i < data.length; i++) { %>
-                                    <div class="col-sm-4">
-                                        <div class="radio" data-toggle="wizard-checkbox">
-                                            <input type="radio" name="materias[]" value="<%- data[i] -%>" />
-                                            <div style="border: solid 1px black" class="card card-checkboxes card-hover-effect">
-                                                <i class="fas fa-graduation-cap"></i>
-                                                <p><%- data[i] -%></p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <p style="color: black;"><%- data[i] -%></p>
+                                        <input type="radio" name="materias[]" value="<%- data[i] -%>"/>
+                                        <br>
+                                        <br>
                                     <% } %>
                                 </div>
                                 <input type="submit" class="btn btn-finish btn-fill btn-warning btn-wd" name="cargar" value="Cargar" />
