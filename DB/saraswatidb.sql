@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-10-2021 a las 17:13:08
--- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 8.0.10
+-- Tiempo de generación: 19-10-2021 a las 20:22:45
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 8.0.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,20 +33,6 @@ CREATE TABLE `aprendizajes` (
   `id_materia` int(50) NOT NULL,
   `id_periodo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `aprendizajes`
---
-
-INSERT INTO `aprendizajes` (`id`, `descripcion`, `id_materia`, `id_periodo`) VALUES
-(24, 'aprendizaje 1', 1, 1),
-(25, 'aprendizaje 2', 1, 1),
-(26, 'aprendizaje 3', 1, 1),
-(27, 'aprendizaje 4', 1, 1),
-(28, 'aprendizaje 5', 1, 1),
-(29, 'aprendizaje 5', 1, 1),
-(30, 'aprendizaje 6', 1, 1),
-(31, 'aprendizaje 7', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -94,15 +80,14 @@ CREATE TABLE `estudiante` (
 --
 
 INSERT INTO `estudiante` (`dni`, `nombre`, `apellido`, `genero`, `fecha_nacimiento`, `legajo`, `email`, `telefono`, `descripcion_curso`, `nombreUsuario`) VALUES
-(35311932, 'seven', 'monzon', 'm', '11/10/2002', '12312312', 'seven monzon', '3513327875', 'cuarto año', 'sevemonzon'),
-(35311971, 'josue', 'lorenzo', 'm', '08/5/2003', '32132131', 'jouselorenzo@gmail.com', '3511597479', 'sexto año', 'jolorenzo'),
-(35321158, 'amelia', 'nieto', 'f', '06/4/2003', '23232324', 'amelianieto@gmail.com', '3514327852', 'sexto año', 'amenieto'),
-(35321871, 'lucina', 'romero', 'f', '13/12/2003', '32132131', 'lucinaromero@gmail.com', '3513507449', 'sexto año', 'luromero'),
-(44785621, 'laia', 'quinteros', 'f', '11/10/2002', '987654', 'laiaquintero@gmail.com', '3511597423', 'sexto año', 'laiaquiros'),
-(45215181, 'paola', 'albert', 'f', '13/12/2003', '2131232', 'paolalbert@gmail.com', '3514324762', 'cuarto año', 'paoalbert'),
-(45215981, 'juan', 'torre', 'm', '02/1/2003', '567890', 'juantorre@gmail.com', '3513487665', 'sexto año', 'juantorre'),
-(88888881, 'kaka', 'estebanez', 'm', '13/12/2003', 'fwawdwa', 'kaka@gmail.com', '323232322', 'sexto año', 'kaestebanez'),
-(88888883, 'ian', 'luciano', 'm', '13/12/2003', 'fwawdwa', 'luciano@gmail.com', '323232232', 'cuarto año', 'ianluciano');
+(44897788, 'nahuel', 'petrocelli', 'masculino', '09/08/2003', '0101', 'npetrocelli@escuelasproa.edu.ar', '351279610', 'sexto año', 'npetrocelli'),
+(44970733, 'lara', 'santillan', 'femenino', '11/08/2003', '0088', 'mgalanmartinez@escuelasproa.edu.ar', '3512151744', 'sexto año', 'mgalanmartinez'),
+(45081861, 'fabrizio', 'meloni', 'masculino', '17/11/2003', '0096', 'fmeloni@escuelasproa.edu.ar', '35126323900', 'sexto año', 'fmeloni'),
+(45081873, 'santiago', 'ortega', 'masculino', '18/11/2003', '0097', 'saortega@escuelasproa.edu.ar', '35164458', 'sexto año', 'saortega'),
+(45083228, 'luciano', 'guzman', 'masculino', '22/11/2003', '0090', 'lguzman@escuelasproa.edu.ar', '3516519107', 'sexto año', 'lguzman'),
+(45086525, 'sofia', 'diaz', 'femenino', '19/11/2003', '0087', 'sbdiaz@escuelasproa.edu.ar', '3517670894', 'sexto año', 'sbdiaz'),
+(45154109, 'milena', 'juarez', 'femenino', '06/10/2003', '0093', 'majuarez@escuelasproa.edu.ar', '3517875449', 'sexto año', 'majuarez'),
+(45488236, 'morena', 'martinez', 'femenino', '22/11/2003', '0088', 'mgalanmartinez@escuelasproa.edu.ar', '3512151744', 'sexto año', 'mgalanmartinez');
 
 -- --------------------------------------------------------
 
@@ -118,60 +103,6 @@ CREATE TABLE `estudianteaprendizaje` (
   `periodo_id` int(11) NOT NULL,
   `materia_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
---
--- Volcado de datos para la tabla `estudianteaprendizaje`
---
-
-INSERT INTO `estudianteaprendizaje` (`id`, `descripcion`, `estado`, `estudiante_dni`, `periodo_id`, `materia_id`) VALUES
-(103, 'aprendizaje 1', 'proceso', 35311971, 1, 1),
-(104, 'aprendizaje 1', 'pendiente', 35321158, 1, 1),
-(105, 'aprendizaje 1', 'pendiente', 35321871, 1, 1),
-(107, 'aprendizaje 1', 'pendiente', 44785621, 1, 1),
-(108, 'aprendizaje 1', 'pendiente', 45215981, 1, 1),
-(109, 'aprendizaje 1', 'pendiente', 88888881, 1, 1),
-(110, 'aprendizaje 2', 'aprobado', 35311971, 1, 1),
-(111, 'aprendizaje 2', 'pendiente', 35321158, 1, 1),
-(112, 'aprendizaje 2', 'pendiente', 35321871, 1, 1),
-(114, 'aprendizaje 2', 'pendiente', 44785621, 1, 1),
-(115, 'aprendizaje 2', 'pendiente', 45215981, 1, 1),
-(116, 'aprendizaje 2', 'pendiente', 88888881, 1, 1),
-(117, 'aprendizaje 3', 'aprobado', 35311971, 1, 1),
-(118, 'aprendizaje 3', 'pendiente', 35321158, 1, 1),
-(119, 'aprendizaje 3', 'pendiente', 35321871, 1, 1),
-(121, 'aprendizaje 3', 'pendiente', 44785621, 1, 1),
-(122, 'aprendizaje 3', 'pendiente', 45215981, 1, 1),
-(123, 'aprendizaje 3', 'pendiente', 88888881, 1, 1),
-(124, 'aprendizaje 4', 'proceso', 35311971, 1, 1),
-(125, 'aprendizaje 4', 'pendiente', 35321158, 1, 1),
-(126, 'aprendizaje 4', 'pendiente', 35321871, 1, 1),
-(128, 'aprendizaje 4', 'pendiente', 44785621, 1, 1),
-(129, 'aprendizaje 4', 'pendiente', 45215981, 1, 1),
-(130, 'aprendizaje 4', 'pendiente', 88888881, 1, 1),
-(131, 'aprendizaje 5', 'pendiente', 35311971, 1, 1),
-(132, 'aprendizaje 5', 'pendiente', 35321158, 1, 1),
-(133, 'aprendizaje 5', 'pendiente', 35321871, 1, 1),
-(135, 'aprendizaje 5', 'pendiente', 44785621, 1, 1),
-(136, 'aprendizaje 5', 'pendiente', 45215981, 1, 1),
-(137, 'aprendizaje 5', 'pendiente', 88888881, 1, 1),
-(138, 'aprendizaje 5', 'pendiente', 35311971, 1, 1),
-(139, 'aprendizaje 5', 'pendiente', 35321158, 1, 1),
-(140, 'aprendizaje 5', 'pendiente', 35321871, 1, 1),
-(142, 'aprendizaje 5', 'pendiente', 44785621, 1, 1),
-(143, 'aprendizaje 5', 'pendiente', 45215981, 1, 1),
-(144, 'aprendizaje 5', 'pendiente', 88888881, 1, 1),
-(145, 'aprendizaje 6', 'pendiente', 35311971, 1, 1),
-(146, 'aprendizaje 6', 'pendiente', 35321158, 1, 1),
-(147, 'aprendizaje 6', 'pendiente', 35321871, 1, 1),
-(149, 'aprendizaje 6', 'pendiente', 44785621, 1, 1),
-(150, 'aprendizaje 6', 'pendiente', 45215981, 1, 1),
-(151, 'aprendizaje 6', 'pendiente', 88888881, 1, 1),
-(152, 'aprendizaje 7', 'pendiente', 35311971, 1, 1),
-(153, 'aprendizaje 7', 'pendiente', 35321158, 1, 1),
-(154, 'aprendizaje 7', 'pendiente', 35321871, 1, 1),
-(156, 'aprendizaje 7', 'pendiente', 44785621, 1, 1),
-(157, 'aprendizaje 7', 'pendiente', 45215981, 1, 1),
-(158, 'aprendizaje 7', 'pendiente', 88888881, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -200,7 +131,8 @@ INSERT INTO `materia` (`id`, `nombreMateria`, `imagen`, `horasCatedra`, `profeso
 (13, 'estructuras de almacenamiento de datos I', '/images/espacios/tercer_año/estructuras_de_almacenamiento_de_datos_I.jpg', '43', 'hrgarcia', 'tercer año'),
 (14, 'programacion 1', '/images/espacios/tercer_año/programacion_1.jpg', '53', 'hrgarcia', 'tercer año'),
 (17, 'estructuras y almacenamiento de datos II', '/images/espacios/cuarto_año/estructuras_y_almacenamiento_de_datos_II.jpg', '32', 'hrgarcia', 'cuarto año'),
-(18, 'programacion 5', '/images/espacios/quinto_año/robotica.jpg', '32', 'hrgarcia', 'sexto año');
+(18, 'programacion 5', '/images/espacios/quinto_año/robotica.jpg', '32', 'hrgarcia', 'sexto año'),
+(19, 'ciudadania y participacion', '/images/espacios/cuarto_año/ciudadania y participacion.jpg', '12', 'asd', 'cuarto año');
 
 -- --------------------------------------------------------
 
@@ -223,18 +155,6 @@ CREATE TABLE `nota` (
   `descripcion_curso` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `dni_alumno` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
---
--- Volcado de datos para la tabla `nota`
---
-
-INSERT INTO `nota` (`id`, `nota1`, `nota2`, `nota3`, `nota4`, `nota5`, `nota6`, `nota7`, `nota8`, `nota_definitiva`, `id_materia`, `descripcion_curso`, `dni_alumno`) VALUES
-(51, '10', '3', '8', '6', '5', '6', '8', '9', '10', 1, 'sexto año', 35321158),
-(52, '9', '3', '4', '6', '10', '0', '0', '0', '0', 1, 'sexto año', 35321871),
-(53, '6', '2', '3', '2', '6', '8', '9', '2', '0', 1, 'sexto año', 88888881),
-(54, '10', '10', '10', '10', '10', '9', '8', '7', '10', 1, 'sexto año', 35311971),
-(55, '5', '8', '5', '5', '8', '6', '9', '9', '8', 18, 'sexto año', 35321158),
-(56, '10', '7', '7', '8', '6', '9', '8', '7', '10', 17, 'cuarto año', 35311932);
 
 -- --------------------------------------------------------
 
@@ -300,6 +220,7 @@ CREATE TABLE `profesor` (
 --
 
 INSERT INTO `profesor` (`nombreUsuario`, `nombre`, `apellido`, `dni`, `telefono`, `email`, `genero`, `nacimiento`, `ingreso`, `estado`) VALUES
+('asd', 'ddd', 'aas', '13213123', '3512345353', 'gabmat@live.com.ar', 'indefinido', '2021-10-29', '2021-10-16', 'titular'),
 ('cmendoza', 'camila', 'mendoza', '38594413', '3513871092', 'cmendoza@escuelasproa.edu.ar', 'femenino', '09/04/1995', '01/05/1995', 'interino'),
 ('hrgarcia', 'hector', 'garcia', '23146758', '3513507865', 'dreamallica@gmail.com', 'femenino', '23/09/2000', '07/03/2015', 'titular'),
 ('lmazzola', 'lucas', 'mazzola', '23232322', '3514467892', 'lucasmazz@gmail.com', 'indefinido', '23/09/2000', '07/03/2015', 'titular');
@@ -321,6 +242,7 @@ CREATE TABLE `rol` (
 --
 
 INSERT INTO `rol` (`id`, `nombre`, `nombreUsuario`) VALUES
+(0, 'profesor', 'asd'),
 (5, 'preceptor', 'lmazzola'),
 (6, 'profesor', 'hrgarcia'),
 (7, 'profesor', 'lmazzola'),
@@ -349,7 +271,7 @@ CREATE TABLE `tutor` (
 --
 
 CREATE TABLE `usuario` (
-  `nombreUsuario` varchar(11) COLLATE utf8_spanish_ci NOT NULL,
+  `nombreUsuario` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `pass` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
   `avatar` varchar(155) COLLATE utf8_spanish_ci NOT NULL,
   `contraseña_cambiada` varchar(50) COLLATE utf8_spanish_ci NOT NULL
@@ -361,17 +283,21 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`nombreUsuario`, `pass`, `avatar`, `contraseña_cambiada`) VALUES
 ('admin', '$2b$10$fvHSEyookLoc0IYKLjoLXuq0Xt5jMMMeiILHHYb4MaUHArV1PqZdy', '0', 'true'),
-('amenieto', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
+('agueroorellano', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
+('asd', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '0', '0'),
+('dmiturriza', '', '', ''),
+('fmeloni', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
+('fnreynoso', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
+('gaheredia', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy\r\n\r\n', '', ''),
 ('hrgarcia', '$2b$10$cKAmCISSlauwz6VXCnqD.O1YGz8ZpspSCg1cahnDKD8.EdbTu8S8.', 'avatar_hrgarcia.jpg', 'true'),
-('ianluciano', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
-('jolorenzo', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
-('juantorre', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
-('kaestebanez', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
-('laiaquiros', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
 ('lmazzola', '$2b$10$TvFydFnH7Ut4z9wlP218vOIV.jtKPDhtsRQmD9i2fyEQmdxWWTphK', '0', 'true'),
-('luromero', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
-('paoalbert', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false'),
-('sevemonzon', '$2b$10$.nN/lf7L.NAQMq2YPgmeLO4GCEUo3eSpjNGTAXTtkcRtaCW/dsof.', '0', 'false');
+('lsantillan', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
+('majuarez', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
+('mezarate', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
+('mgalanmartinez', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
+('npetrocelli', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
+('saortega', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
+('sbdiaz', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', '');
 
 --
 -- Índices para tablas volcadas
@@ -483,84 +409,7 @@ ALTER TABLE `estudianteaprendizaje`
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- AUTO_INCREMENT de la tabla `nota`
---
-ALTER TABLE `nota`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
-
---
--- AUTO_INCREMENT de la tabla `notificaciones`
---
-ALTER TABLE `notificaciones`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `periodo`
---
-ALTER TABLE `periodo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `rol`
---
-ALTER TABLE `rol`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `aprendizajes`
---
-ALTER TABLE `aprendizajes`
-  ADD CONSTRAINT `aprendizajes_ibfk_1` FOREIGN KEY (`id_materia`) REFERENCES `materia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `aprendizajes_ibfk_2` FOREIGN KEY (`id_periodo`) REFERENCES `periodo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `estudiante`
---
-ALTER TABLE `estudiante`
-  ADD CONSTRAINT `estudiante_ibfk_1` FOREIGN KEY (`descripcion_curso`) REFERENCES `curso` (`descripcion`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `estudiante_ibfk_2` FOREIGN KEY (`nombreUsuario`) REFERENCES `usuario` (`nombreUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `estudianteaprendizaje`
---
-ALTER TABLE `estudianteaprendizaje`
-  ADD CONSTRAINT `estudianteaprendizaje_ibfk_1` FOREIGN KEY (`estudiante_dni`) REFERENCES `estudiante` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `estudianteaprendizaje_ibfk_2` FOREIGN KEY (`periodo_id`) REFERENCES `periodo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `estudianteaprendizaje_ibfk_3` FOREIGN KEY (`materia_id`) REFERENCES `materia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `materia`
---
-ALTER TABLE `materia`
-  ADD CONSTRAINT `materia_ibfk_1` FOREIGN KEY (`profesor_usuario`) REFERENCES `profesor` (`nombreUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `materia_ibfk_2` FOREIGN KEY (`curso_descripcion`) REFERENCES `curso` (`descripcion`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `nota`
---
-ALTER TABLE `nota`
-  ADD CONSTRAINT `nota_ibfk_2` FOREIGN KEY (`id_materia`) REFERENCES `materia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `nota_ibfk_3` FOREIGN KEY (`dni_alumno`) REFERENCES `estudiante` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `nota_ibfk_4` FOREIGN KEY (`descripcion_curso`) REFERENCES `curso` (`descripcion`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `rol`
---
-ALTER TABLE `rol`
-  ADD CONSTRAINT `rol_ibfk_1` FOREIGN KEY (`nombreUsuario`) REFERENCES `usuario` (`nombreUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `tutor`
---
-ALTER TABLE `tutor`
-  ADD CONSTRAINT `tutor_ibfk_1` FOREIGN KEY (`estudiante_dni`) REFERENCES `estudiante` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
