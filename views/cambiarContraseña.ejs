@@ -76,7 +76,7 @@
                     let newPassword = $.trim($("#inputPass").val());
 
                     $.ajax({
-                        url: "/changePassword",
+                        url: "/cambiarContraseña",
                         method: "post",
                         dataType: "json",
                         data: { pass: newPassword },

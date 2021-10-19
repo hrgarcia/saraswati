@@ -450,7 +450,7 @@
                     aux2 = JSON.stringify(aux2);
                     console.log("hubo modificaciones");
                     $.ajax({
-                        url: "/changeInfoProfile",
+                        url: "/cambiarInfoPerfil",
                         method: "post",
                         dataType: "json",
                         data: { info: `${aux2}` },

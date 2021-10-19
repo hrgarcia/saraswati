@@ -90,7 +90,7 @@
                     let username = $.trim($("#inputUser").val());
                     let password = $.trim($("#inputPass").val());
                     $.ajax({
-                        url: "/login",
+                        url: "/loguearse",
                         method: "post",
                         dataType: "json",
                         data: { user: username, pass: password },
@@ -100,7 +100,7 @@
                         } else if (d === "wrongPass") {
                             errorAlert("La constraseña es incorrecta");
                         } else if (d === "loginOk") {
-                            window.location.replace("/dashboard");
+                            window.location.replace("/panelDeInicio");
                         } else if (d === "changePassword") {
                             Swal.fire({
                                 title: "¿ Primera vez intentado ingresar ?",

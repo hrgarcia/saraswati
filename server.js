@@ -139,10 +139,10 @@ app.set("view engine", "ejs");
 // Routes
 app.get("/", (req, res) => {
     req.session.logged = false;
-    res.render("login.ejs");
+    res.render("loguearse.ejs");
 });
 
-app.get("/dashboard", (req, res) => {
+app.get("/panelDeInicio", (req, res) => {
     if (req.session.logged) {
         let rol = res.locals.rol;
         let username = res.locals.username;
@@ -197,7 +197,7 @@ app.get("/dashboard", (req, res) => {
                 aux = await Promise.all(peticionNotificacion);
                 res.locals.notificaciones = aux[0];
                 req.session.notificaciones = aux[0];
-                res.render("dashboard.ejs", {
+                res.render("panelDeInicio.ejs", {
                     title: "InfoUser",
                     data: result,
                 });
@@ -220,7 +220,7 @@ app.get("/formularioImagen", (req, res) => {
     }
 });
 
-app.get("/logout", (req, res) => {
+app.get("/desloguearse", (req, res) => {
     req.session.destroy();
     res.redirect("/");
 });
@@ -270,12 +270,12 @@ app.get("/agregarProfesor", (req, res) => {
             }
 
             let diferencia = todas_materias.filter((i) => !materias_db.includes(i));
-            res.render("addTeacher.ejs", {
+            res.render("agregarProfesor.ejs", {
                 data: diferencia,
             });
         });
     } else {
-        res.redirect("/dashboard");
+        res.redirect("/panelDeInicio");
     }
 });
 
@@ -286,7 +286,7 @@ app.get("/agregarUsuario", (req, res) => {
             if (rol[i] == "administrador") {
                 res.render("addUser.ejs");
             } else {
-                res.redirect("/dashboard");
+                res.redirect("/panelDeInicio");
             }
         } else {
             res.redirect("/");
@@ -301,7 +301,7 @@ app.get("/agregarPreceptor", (req, res) => {
             if (rol[i] == "administrador") {
                 res.render("addPreceptor.ejs");
             } else {
-                res.redirect("/dashboard");
+                res.redirect("/panelDeInicio");
             }
         } else {
             res.redirect("/");
@@ -309,13 +309,6 @@ app.get("/agregarPreceptor", (req, res) => {
     }
 });
 
-app.get("/datatable", (req, res) => {
-    if (req.session.logged) {
-        res.render("datatable.ejs");
-    } else {
-        res.redirect("/");
-    }
-});
 
 app.get("/agregarEstudiante", (req, res) => {
     let rol = res.locals.rol;
@@ -331,9 +324,9 @@ app.get("/agregarEstudiante", (req, res) => {
         }
     }
     if (flagRol) {
-        res.render("addStudent.ejs");
+        res.render("agregarEstudiante.ejs");
     } else {
-        res.redirect("/dashboard");
+        res.redirect("/panelDeInicio");
     }
 });
 
@@ -434,7 +427,7 @@ app.get("/miPerfil", (req, res) => {
         async function sequentialQueries() {
             try {
                 const result = await Promise.all(auxData);
-                res.render("myProfile.ejs", {
+                res.render("miPerfil.ejs", {
                     title: "Profile",
                     data: result,
                 });
@@ -599,7 +592,7 @@ app.get("/generarReporteExcel/:dni/:idMateria", (req, res) => {
                 res.json("");
             });
         } else {
-            res.redirect("/dashboard");
+            res.redirect("/panelDeInicio");
         }
     }
 });
@@ -617,7 +610,7 @@ app.get("/estadoToastr", (req, res) => {
 app.get("/generarImagen", (req, res) => {
     let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ?";
     con.query(query, [res.locals.username], (error, rows) => {
-        res.render("changePassword.ejs", {
+        res.render("cambiarContraseña.ejs", {
             title: "User",
             data: rows,
         });
@@ -630,7 +623,7 @@ app.get("/crearSlider", (req, res) => {
 
 app.get("/estadisticasEstudiante", (req, res) => {
     if (req.session.logged) {
-        res.render("studentStadistics.ejs");
+        res.render("estadisticaEstudiante.ejs");
     } else {
         res.redirect("/");
     }
@@ -673,7 +666,7 @@ app.get("/obtenerEstadisiticasEstudiates", (req, res) => {
 });
 
 // Post
-app.post("/changeInfoProfile", (req, res) => {
+app.post("/cambiarInfoPerfil", (req, res) => {
     let infoToChange = JSON.parse(req.body.info);
     let rol = res.locals.rol;
     let username = res.locals.username;
@@ -690,7 +683,7 @@ app.post("/changeInfoProfile", (req, res) => {
     res.json("infoUpdated");
 });
 
-app.post("/changeNumbersNotes", (req, res) => {
+app.post("/cambiarNotas", (req, res) => {
     let infoToChange = JSON.parse(req.body.info);
     for (let i = 0; i < infoToChange["data"].length; i++) {
         let aux = infoToChange["data"][i]["namefield"];
@@ -709,7 +702,7 @@ app.post("/estudianteMateria", (req, res) => {
         let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.nombreMateria = ? AND materia.curso_descripcion = estudiante.descripcion_curso INNER JOIN nota ON nota.dni_alumno = estudiante.dni AND nota.id_materia  = materia.id";
         con.query(query, [subjectName], (error, rows, fields) => {
             if (error) throw error;
-            res.render("listStudent.ejs", {
+            res.render("listaEstudianteMateria.ejs", {
                 title: "Student",
                 data: rows,
             });
@@ -773,7 +766,7 @@ app.post("/crearMateria", (req, res) => {
         let query = "INSERT INTO materia (nombre,imagen,horasCatedra,profesor_usuario) VALUES (?,?,?,?);";
         con.query(query, [name, image, teachingHours, teacherUser], (error, rows, fields) => {
             if (error) throw error;
-            res.redirect("/dashboard");
+            res.redirect("/panelDeInicio");
         });
     } else {
         res.redirect("/");
@@ -787,13 +780,13 @@ app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
         let file = req.body.file;
 
         //teacherFunctions.loadLearnings(req.file.path, con, typeOFile, trimester, idSubject);
-        res.redirect("/dashboard");
+        res.redirect("/panelDeInicio");
     } else {
         res.redirect("/");
     }
 });
 
-app.post("/changePassword", (req, res) => {
+app.post("/cambiarContraseña", (req, res) => {
     let salt = 10;
     let newPass = req.body.pass;
 
@@ -852,7 +845,7 @@ app.post("/agregar", (req, res) => {
                         let materiaQuery = "INSERT INTO materia(nombreMateria, imagen, horasCatedra, profesor_usuario, curso_descripcion) VALUES (?,?,?,?,?)";
                         con.query(materiaQuery, [nombreMateria[0], imgMateria, horas_catedra, nickname, curso], (error, rows, fields) => {
                             if (error) throw error;
-                            res.redirect("/dashboard");
+                            res.redirect("/panelDeInicio");
                         });
                     });
                 });
@@ -863,8 +856,8 @@ app.post("/agregar", (req, res) => {
     }
 });
 
-//I compare the password entered to the one encrypted in the DB to be able to access the dashboard
-app.post("/login", (req, res) => {
+//I compare the password entered to the one encrypted in the DB to be able to access the panelDeInicio
+app.post("/loguearse", (req, res) => {
     let username = req.body.user;
     let password = req.body.pass;
     let query = "SELECT * FROM usuario WHERE nombreUsuario = ?";
@@ -924,9 +917,9 @@ app.get("/crearNotificaciones", (req, res) => {
             }
         }
         if (flagRol) {
-            res.render("addNotificacions.ejs");
+            res.render("agregarNotificaciones.ejs");
         } else {
-            res.redirect("/dashboard");
+            res.redirect("/panelDeInicio");
         }
     }
 });
@@ -977,7 +970,7 @@ app.get("/borrarNotificacion/:id", (req, res) => {
 });
 
 app.get("/noLogueado", (req, res) => {
-    res.render("loggedOut.ejs");
+    res.render("desloguearse.ejs");
 });
 
 app.use((req, res, next) => {
