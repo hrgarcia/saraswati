@@ -67,21 +67,14 @@ $(document).ready(function () {
             },
 
             dni: {
-                required: true,
                 minlength: 8,
                 maxlength: 8,
             },
             dniestudiante: {
-                required: true,
                 minlength: 8,
                 maxlength: 8,
             },
-            telephone: {
-                minlength: 10,
-                maxlength: 15,
-            },
-            movil:{
-                required:true,
+            telefono: {
                 minlength: 10,
                 maxlength: 15,
             },
@@ -92,7 +85,21 @@ $(document).ready(function () {
             entry:{
                 required:true,
                 date:true,
-            }
+            },
+            fecha_nacimiento:{
+                required:true,
+                date:true,
+                minlength: 10,
+                maxlength: 10,
+            },
+            
+            nickname:{
+                required:true,
+                minlength: 5,
+                maxlength: 20,
+            },
+
+
         },
     });
 
