@@ -2,7 +2,7 @@
 <nav uk-sticky class="navbar navbar-expand-lg bg-dark navbar-absolute fixed-top navbarBackground">
 	<div class="container-fluid">
 		<div style="padding-top: inherit; margin-bottom: -13px; margin-top: -15px" class="logo animate__animated animate__bounce">
-			<a href="http://localhost:2500/dashboard" class="hoverRemoved" target="">
+			<a href="http://localhost:2500/panelDeInicio" class="hoverRemoved" target="">
 				<img class="dashboardIcon" src="/images/logoOficial.png" title="Volver al inicio" height="200" width="200" alt="" />
 			</a>
 		</div>
@@ -87,12 +87,13 @@
 </nav>
 <script>
 	function borrar(elementFather) {
+		let notificacion = elementFather.cloneNode(true);
 		Swal.fire({
 			title: '¿Esta seguro que quiere borrar la notificacion?',
 			showDenyButton: true,
 			confirmButtonText: 'Si',
 			denyButtonText: `No`,
-			html:elementFather,
+			html:notificacion,
 		}).then((result) => {
 			if (result.isConfirmed) {
 				Swal.fire({
@@ -105,7 +106,7 @@
 					position: "top-end",
 				});
 				$.get(`borrarNotificacion/${elementFather.id}`,  res => {
-					setTimeout(reloadPage, 1500);
+					setTimeout(reloadPage, 2500);
 				}); 
 			} 
 		})
