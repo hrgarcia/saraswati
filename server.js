@@ -14,6 +14,7 @@ const cron = require("node-cron");
 const xlsx = require("xlsx");
 
 const dump = require("mysqldump");
+const { request } = require("http");
 
 // Obtain the name of the file
 const storage = multer.diskStorage({
@@ -1013,6 +1014,41 @@ app.post("/crearNotificaciones", (req, res) => {
 	});
 });
 
+app.get("/crearEstudiante", (req, res) => {
+	if (req.session.logged) {
+		let salt = 10; // Standar value
+		let nickname = req.body.nickname.toLowerCase();
+		let firstname = req.body.firstname.toLowerCase();
+		let lastname = req.body.lastname.toLowerCase();
+		let password = "argentina2022";
+		let email = req.body.email.toLowerCase();
+		let fecha_nacimiento = req.body.fecha_nacimiento.toLowerCase();
+		let dni = req.body.dni.toLowerCase();
+		let telefono = req.body.telefono;
+		let genero = req.body.genero.toLowerCase();		
+		let legajo = req.body.legajo.toLowerCase();
+		let rol = req.body.rol.toLowerCase();
+		let descripcion_curso = req.body.descripcion_curso.toLowerCase();
+		bcrypt.hash(password, salt, (err, encrypted) => {
+			password = encrypted;
+			let userquery = "INSERT INTO usuario (nombreUsuario, pass, avatar, contraseña_cambiada) VALUE (?,?,?,?)";
+			con.query(userquery, [nickname, password, "public/imgEstudiante/default-avatar.jpg", false], (error, rows, fields) => {
+				if (error) throw error;
+				rolquery = "INSERT INTO rol (nombreUsuario, nombre)"
+				con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
+					if (error) throw error;
+					let estudiantequery = "INSERT INTO estudiante (nombreUsuario, nombre, apellido, dni, telefono, email, genero,nacimiento) VALUES (?,?,?,?,?,?,?,?)";
+					con.query(estudiantequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento], (error, rows, fields) => {
+					});
+				});	
+			});
+		});
+							
+	} else {
+		res.redirect("/");
+	}
+});
+
 app.get("/borrarNotificacion/:id", (req, res) => {
 	let id = req.params.id;
 	let query = "DELETE FROM notificaciones WHERE id = ?";
@@ -1025,6 +1061,8 @@ app.get("/borrarNotificacion/:id", (req, res) => {
 app.get("/noLogueado", (req, res) => {
 	res.render("desloguearse.ejs");
 });
+
+
 
 app.use((req, res, next) => {
 	res.status(404).render("404");
