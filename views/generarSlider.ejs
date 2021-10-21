@@ -15,6 +15,9 @@
 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="/css/bootstrap.min.css" />
+        
+        <!-- Nuestros estilos -->
+        <link rel="stylesheet" href="/stylesheets/style.css" />
 
         <!-- CSS Files -->
         <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
@@ -23,76 +26,83 @@
         <!-- uikit -->
         <link rel="stylesheet" href="/stylesheets/uikit.min.css" />
 
+        <!-- Animate css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
+
         <%- include('fragment/background'); -%>
     </head>
 
     <body>
-        <div class="main-panel" data-value="<%-username%>" id="main-panel">
+        <div class="main-panel">
+            <%- include('fragment/navbar'); -%>
             <div class="container">
-                <%- include('fragment/navbar'); -%>
-                <!--   Big container   -->
-                <br />
-                <br />
-                <br />
-                <br />
-                <div class="cardStudent wizard-card" data-color="orange" id="wizardProfile">
-                    <form action="/agregar" method="post">
-                        <!--        You can switch " data-color="orange" "  with one of the next bright colors: "blue", "green", "orange", "red", "azure"          -->
+                <div class="main-panel" data-value="<%-username%>" id="main-panel">
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <div class="cardStudent wizard-card" data-color="orange" id="wizardProfile">
+                        <form action="/agregar" method="post">
+                            <!--        You can switch " data-color="orange" "  with one of the next bright colors: "blue", "green", "orange", "red", "azure"          -->
 
-                        <div class="wizard-header text-center">
-                            <h3 class="wizard-title">Noticia slider</h3>
-                            <p class="category"></p>
-                        </div>
-
-                        <div class="wizard-navigation">
-                            <div class="progress-with-circle">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 21%"></div>
+                            <div class="wizard-header text-center" >
+                                <h3 class="p-4 p-md-5 mb-4 text-white rounded bg-dark">Noticia slider</h3>
+                                <p class="category"></p>
                             </div>
-                            <ul>
-                                <li>
-                                    <a href="#about" data-toggle="tab">
-                                        <div class="icon-circle">
-                                            <i class="ti-user"></i>
+
+                            
+
+                            <div class="wizard-navigation">
+                                <div class="progress-with-circle">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 21%"></div>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <a href="#about" data-toggle="tab">
+                                            <div class="icon-circle">
+                                                <i class="ti-user"></i>
+                                            </div>
+                                            Generar Noticia
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+                                <div class="tab-pane" id="about">
+                                    <div class="row">
+                                        <br>
+                                        <div class="col-sm-10 col-sm-offset-1" align="center">
+                                            <div class="form-group">
+                                                <label>Titulo <small>opcional</small></label>
+                                                <br />
+                                                <input name="nickname" class="uk-input uk-form-width-large" type="text" placeholder="Juan" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Subtitulo <small>opcional</small></label>
+                                                <br />
+                                                <input name="firstname" class="uk-input uk-form-width-large" type="text" placeholder="Juan" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Texto <small>opcional</small></label>
+                                                <br />
+                                                <input name="lastname" class="uk-input uk-form-width-large" type="text" placeholder="Gomez" />
+                                            </div>
                                         </div>
-                                        Generar Noticia
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="tab-content">
-                            <div class="tab-pane" id="about">
-                                <div class="row">
-                                    <br>
-                                    <div class="col-sm-10 col-sm-offset-1" align="center">
-                                        <div class="form-group">
-                                            <label>Titulo <small>opcional</small></label>
-                                            <br />
-                                            <input name="nickname" class="uk-input uk-form-width-large" type="text" placeholder="Juan" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Subtitulo <small>opcional</small></label>
-                                            <br />
-                                            <input name="firstname" class="uk-input uk-form-width-large" type="text" placeholder="Juan" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Texto <small>opcional</small></label>
-                                            <br />
-                                            <input name="lastname" class="uk-input uk-form-width-large" type="text" placeholder="Gomez" />
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-10 col-sm-offset-1" align="center">
-                                        <div class="form-group">
-                                            <label>Noticia <small>obligatorio</small></label>
-                                            <br />
-                                            <input name="Ingreso" class="uk-input uk-form-width-large" type="date" placeholder="11/08/2003" />
+                                        <div class="col-sm-10 col-sm-offset-1" align="center">
+                                            <div class="form-group">
+                                                <label>Noticia <small>obligatorio</small></label>
+                                                <br />
+                                                <input name="Ingreso" class="uk-input uk-form-width-large" type="date" placeholder="11/08/2003" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-
             <%- include('fragment/footer'); -%>
         </div>
         <%- include('fragment/scripts'); -%>
