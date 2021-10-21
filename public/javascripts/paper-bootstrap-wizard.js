@@ -67,6 +67,7 @@ $(document).ready(function () {
             },
 
             dni: {
+                required:true,
                 minlength: 8,
                 maxlength: 8,
             },
@@ -75,6 +76,7 @@ $(document).ready(function () {
                 maxlength: 8,
             },
             telefono: {
+                required:true,
                 minlength: 10,
                 maxlength: 15,
             },
@@ -89,6 +91,10 @@ $(document).ready(function () {
             fecha_nacimiento:{
                 required:true,
                 date:true,
+                minlength: 10,
+                maxlength: 10,
+            },
+            ingreso:{
                 minlength: 10,
                 maxlength: 10,
             },
