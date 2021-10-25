@@ -5,17 +5,28 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title>Listado de profesores</title>
         <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-        <!--     Fonts and icons     -->
+         <!--     Fonts and icons     -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 
-        <!-- Iconos Font Awesome -->
+         <!-- Iconos Font Awesome -->
         <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+         <!-- Nuestros estilos -->
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+ 
+        <link rel="stylesheet" href="/stylesheets/modal.css" />
+        <link rel="stylesheet" href="/stylesheets/boton.css" />
+ 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet" />
+ 
 
-        <!-- Bootstrap -->
-        <link rel="stylesheet" href="/css/bootstrap.min.css" />
+        <!-- Estilo de la datatable --> 
+       <link rel="stylesheet" href="/stylesheets/uikit.min.css" />
 
         <!-- CSS Files -->
         <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+
         <%- include('fragment/background'); -%>
     </head>
 
@@ -23,70 +34,67 @@
         <div class="main-panel">
             <%- include('fragment/navbar'); -%>
             <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header card-header-primary">
-                                    <h4 class="card-title">Profesores</h4>
-                                    <p class="card-category">Listado de profesores cargados en el sistema</p>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <!-----tabla profesores------>
-                                        <table class="table table-bordered">
-                                            <thead class="text-primary">
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Dni</th>
-                                                    <th>Nombre</th>
-                                                    <th>Apellido</th>
-                                                    <th>Telefono</th>
-                                                    <th>Email</th>
-                                                    <th>Genero</th>
-                                                    <th>Nacimiento</th>
-                                                    <th>Ingreso</th>
-                                                    <th>Estado</th>
-                                                    <th class="text-right">Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <!------cargo los datos de la db hacia la tabla------>
-                                                <% data.forEach(function(profesor){ %>
-                                                <tr>
-                                                    <!---modificar esto para que aparezca el numero segun el profe creado--->
-                                                    <td>1</td>
-                                                    <td><%- profesor['dni'] %></td>
-                                                    <td><%- profesor['nombre'] %></td>
-                                                    <td><%- profesor['apellido'] %></td>
-                                                    <td><%- profesor['telefono'] %></td>
-                                                    <td><%- profesor['email'] %></td>
-                                                    <td><%- profesor['genero'] %></td>
-                                                    <td><%- profesor['nacimiento'] %></td>
-                                                    <td><%- profesor['ingreso'] %></td>
-                                                    <td><%- profesor['estado'] %></td>
-
-                                                    <!-----botones para las acciones--->
-                                                    <td class="td-actions text-right">
-                                                        <button type="button" rel="tooltip" data-placement="right" title="Perfil del profesor" class="btn btn-info">
-                                                            <i class="material-icons">person</i>
-                                                        </button>
-                                                        <button type="button" rel="tooltip" data-placement="right" title="Retirar profesor" class="btn btn-success">
-                                                            <i class="material-icons">edit</i>
-                                                        </button>
-                                                        <button type="button" rel="tooltip" data-placement="right" title="Retirar profesor" class="btn btn-danger">
-                                                            <i class="material-icons">close</i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <% }); %>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="jumbotron customJumbotron" style="margin-top: 25px;">
+                    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark" style="font-size: 250px;margin-top:-80px">
+                        <div class="col-md-10">
+                            <h1 class="display-4 tituloSecundario" style="font-size: -95px;margin-top: -40px;">Lista de profesores</h1>
+                            <h4 class="text-table tituloSecundario" style="margin-bottom: -30px;" >
+                                Profesores 
+                            </h4>
                         </div>
                     </div>
+                    <div class="uk-overflow-auto">
+                        <table id="fresh-table" class="uk-table uk-table-responsive uk-table-shrink uk-table-hover uk-table-justify uk-table-striped uk-table-small" style="width: 100%">
+                            <thead>
+                                <th >
+                                </th>
+                                <th data-field="name">
+                                    Nombre
+                                </th>
+
+                                <th data-field="surname">
+                                    Apellido
+                                </th>
+                                
+                                <th data-field="dni">
+                                    DNI
+                                </th>
+
+                                <th data-field="email ">
+                                    Email
+                                </th>
+                                
+                                <th data-field="telephone">
+                                    Telefono
+                                </th>
+                                <th data-field="ingreso">
+                                    Ingreso
+                                </th>
+                                <th data-field="estado">
+                                    Estado
+                                </th>
+                            </thead>
+                            <form id="notesForm" method="post">
+                                <% data.forEach(function(profesor){ %>    
+                                    <tr>
+                                        <td></td>
+                                        <td><%-profesor['nombre']%></td>
+                                        <td><%-profesor['apellido']%></td>
+                                        <td><%-profesor['dni']%></td>
+                                        <td><%-profesor['email']%></td>
+                                        <td><%-profesor['telefono']%></td>
+                                        <td><%-profesor['ingreso']%></td>
+                                        <td><%-profesor['estado']%></td>
+                                    </tr>
+                                <% }); %>
+                            </form>
+                        </table>
+                    </div>    
+                    <a href="#" style="float:right;" uk-totop uk-scroll></a>         
                 </div>
             </div>
             <%- include('fragment/footer'); -%>
