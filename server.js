@@ -263,27 +263,30 @@ app.get("/agregarProfesor", (req, res) => {
     }
     if (flagRol) {
         let todas_materias = [
-            "matematica",
-            "formacion para la vida y el trabajo",
-            "programacion 5",
-            "testing",
-            "lengua y literatura",
-            "biologia",
-            "fisica",
-            "ingles",
-            "ingles aplicado",
-            "filosofia",
-            "historia",
-            "ciudadania y politica",
-            "teatro",
-            "quimica",
-            "algoritmos y programacion",
-            "robotica",
-            "club de deportes",
-            "educacion fisica",
-            "club de ciencias",
-            "desarrollo de aplicaciones moviles",
-            "ciudadania y participacion",
+            "Matematica",
+            "Formacion para la vida y el trabajo",
+            "Programacion 5",
+            "Testing",
+            "Lengua y literatura",
+            "Biologia",
+            "Fisica",
+            "Ingles",
+            "Ingles aplicado",
+            "Filosofia",
+            "Historia",
+            "Ciudadania y politica",
+            "Teatro",
+            "Quimica",
+            "Geografia",
+            "Entornos digitales",
+            "Algoritmos y programacion",
+            "Robotica",
+            "Sistemas operativos y software de aplicacion",
+            "Club de deportes",
+            "Educacion fisica",
+            "Club de ciencias",
+            "Desarrollo de aplicaciones moviles",
+            "Ciudadania y participacion",
         ];
         let query = "SELECT nombreMateria FROM materia ";
         con.query(query, (error, rows, fields) => {
@@ -980,6 +983,10 @@ app.post("/agregar", (req, res) => {
         let nombre = "profesor";
         let salt = 10; // Standar value
         let nombreMateria = req.body.materias;
+        nombreMateria = nombreMateria[0].toLowerCase()
+        nombreMateria = nombreMateria.split(" ").join("_");
+
+        console.log(nombreMateria);
         let horas_catedra = req.body.horas_catedra;
         let curso = req.body.curso.toLowerCase();
         let cursoImagenTexto = curso.split(" ").join("_");
@@ -997,7 +1004,7 @@ app.post("/agregar", (req, res) => {
                         // Crear las materias reales en la DB para que funcione todo bien
                         if (error) throw error;
                         let materiaQuery = "INSERT INTO materia(nombreMateria, imagen, horasCatedra, profesor_usuario, curso_descripcion) VALUES (?,?,?,?,?)";
-                        con.query(materiaQuery, [nombreMateria[0], imgMateria, horas_catedra, nickname, curso], (error, rows, fields) => {
+                        con.query(materiaQuery, [nombreMateria, imgMateria, horas_catedra, nickname, curso], (error, rows, fields) => {
                             if (error) throw error;
                             res.redirect("/panelDeInicio");
                         });
