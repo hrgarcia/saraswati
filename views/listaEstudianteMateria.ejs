@@ -43,7 +43,7 @@
                         <div class="col-md-10">
                             <h1 class="display-4 tituloSecundario" style="font-size: -95px;margin-top: -40px;">Lista de estudiantes</h1>
                             <i class="bi bi-file-earmark-excel"></i>   
-                            <h4 class="text-table tituloSecundario" style="margin-bottom: -30px;" id="subjectName" data-value="<%- data.id_materia -%>" data-value2="<%- data.nombreMateria -%>" data-value3="<%- data.curso_descripcion -%>" >
+                            <h4 class="text-table tituloSecundario" style="margin-bottom: -30px;" id="subjectName" data-value="<%- data[0].id_materia -%>" data-value2="<%- data[0].nombreMateria -%>" data-value3="<%- data[0].curso_descripcion -%>" >
                                 Estudiantes del espacio curricular: <%- data[0].nombreMateria -%>
                             </h4>
                         </div>
@@ -85,10 +85,10 @@
                         </div>
                         <div class="uk-overflow-auto">
                             <div>
-                                <button class="uk-button arrow-icon" type="button" uk-toggle="target: #toggle-usage" aria-expanded="false">Descargar Exel de todos los estudiante</button>
-                                <div id="toggle-usage" class="divToggle-Usage" hidden>
+                                <button class="uk-button arrow-icon" type="button" uk-toggle="target: #toggle-excel" aria-expanded="false">Descargar Exel de todos los estudiante</button>
+                                <div id="toggle-excel" class="divToggle-Usage" hidden>
                                     <div class="contenedor-boton">
-                                        <button class="boton uno"><span> <img src="/images/iconoExel.png" class="imagen"></span></button>
+                                        <button onclick="generarExcelParaTodos()"  class="boton uno"><span> <img src="/images/iconoExel.png" class="imagen"></span></button>
                                     </div>
                                 </div>
                             </div>
@@ -673,6 +673,15 @@
                         errorAlert("No se modifico ningun dato");
                     }
                 }
+            }
+        </script>
+
+        <script>
+            function generarExcelParaTodos() {
+                let idSubject = document.getElementById("subjectName").getAttribute("data-value");
+                $.get(`generarReporteExcelTodos/${idSubject}`, res => {
+                    successAlert("Su archivo fue creado");
+                });
             }
         </script>
     </body>

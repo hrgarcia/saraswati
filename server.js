@@ -602,16 +602,148 @@ app.get("/generarReporteExcel/:dni/:idMateria", (req, res) => {
 		if (flagRol) {
 			let dni = req.params.dni;
 			let idMateria = req.params.idMateria;
-			let query =
-				"SELECT dni, nombre, apellido, email, telefono, nombreMateria, nota1, nota2, nota3, nota4, nota5, nota6, nota7, nota8, nota_definitiva FROM materia INNER JOIN nota ON materia.id = ? AND nota.dni_alumno = ? AND nota.id_materia = ? INNER JOIN estudiante ON dni = ?";
+			let query = "SELECT * FROM materia INNER JOIN nota ON materia.id = ? AND nota.dni_alumno = ? AND nota.id_materia = ? INNER JOIN estudiante ON dni = ?";
 			con.query(query, [idMateria, dni, idMateria, dni], (error, notasAlumno, fields) => {
 				if (error) throw error;
-				const ws = xlsx.utils.json_to_sheet(notasAlumno);
+				// const ws = xlsx.utils.json_to_sheet(notasAlumno);
+				let ciclo;
+				if (notasAlumno[0].descripcion_curso == "cuarto año" || notasAlumno[0].descripcion_curso == "quinto año" || notasAlumno[0].descripcion_curso == "sexto año") {
+					ciclo = "ciclo orientado";
+				} else {
+					ciclo = "ciclo basico";
+				}
+				console.log(notasAlumno[0]);
+				let aux = {
+					A1: { t: "s", v: notasAlumno[0].nombre },
+					B1: { t: "s", v: notasAlumno[0].apellido },
+					C1: { t: "s", v: "-" },
+					D1: { t: "s", v: notasAlumno[0].nombreMateria },
+					E1: { t: "s", v: "-" },
+					F1: { t: "s", v: notasAlumno[0].descripcion_curso },
+					G1: { t: "s", v: "-" },
+					H1: { t: "s", v: ciclo },
+
+					C3: { t: "s", v: "1er timestre" },
+					A4: { t: "s", v: "nota 1" },
+					B4: { t: "s", v: "nota 2" },
+					C4: { t: "s", v: "nota 3" },
+					D4: { t: "s", v: "nota 4" },
+					E4: { t: "s", v: "nota definitiva" },
+					H3: { t: "s", v: "2er timestre" },
+					G4: { t: "s", v: "nota 1" },
+					H4: { t: "s", v: "nota 2" },
+					I4: { t: "s", v: "nota 3" },
+					J4: { t: "s", v: "nota 4" },
+					K4: { t: "s", v: "nota definitiva" },
+
+					A5: { t: "s", v: notasAlumno[0].nota1 },
+					B5: { t: "s", v: notasAlumno[0].nota2 },
+					C5: { t: "s", v: notasAlumno[0].nota3 },
+					D5: { t: "s", v: notasAlumno[0].nota4 },
+					// nota definitiva 1
+					E5: { t: "s", v: notasAlumno[0].nota_definitiva },
+					G5: { t: "s", v: notasAlumno[0].nota5 },
+					H5: { t: "s", v: notasAlumno[0].nota6 },
+					I5: { t: "s", v: notasAlumno[0].nota7 },
+					J5: { t: "s", v: notasAlumno[0].nota8 },
+					// nota definitiva 2
+					K5: { t: "s", v: notasAlumno[0].nota_definitiva },
+
+					"!ref": "A1:O6",
+				};
+
 				const wb = xlsx.utils.book_new();
-				xlsx.utils.book_append_sheet(wb, ws, "Notas");
+				xlsx.utils.book_append_sheet(wb, aux, "Notas");
 				// Hacer que se descargue donde lo eliga el usuario
 				xlsx.writeFile(wb, `notas_${notasAlumno[0].nombre}_${notasAlumno[0].apellido}.xlsx`);
 				res.json("");
+			});
+		} else {
+			res.redirect("/panelDeInicio");
+		}
+	}
+});
+
+app.get("/generarReporteExcelTodos/:idMateria", (req, res) => {
+	if (!req.session.logged) {
+		res.redirect("/");
+	} else {
+		let rol = res.locals.rol;
+
+		flagRol = false;
+		for (let i = 0; i < rol.length; i++) {
+			if (rol[i] == "profesor") {
+				flagRol = true;
+			}
+		}
+		if (flagRol) {
+			let cont = 0;
+			let idMateria = req.params.idMateria;
+			let query = "SELECT dni FROM estudiante INNER JOIN materia ON materia.id = ? AND materia.curso_descripcion = estudiante.descripcion_curso INNER JOIN nota ON nota.dni_alumno = estudiante.dni AND nota.id_materia = materia.id";
+			con.query(query, [idMateria], (error, dniAlumnos, fields) => {
+				if (error) throw error;
+				for (let i = 0; i < dniAlumnos.length; i++) {
+					let dni = dniAlumnos[i].dni;
+					console.log(dni);
+					let query = "SELECT * FROM materia INNER JOIN nota ON materia.id = ? AND nota.dni_alumno = ? AND nota.id_materia = ? INNER JOIN estudiante ON dni = ?";
+					con.query(query, [idMateria, dni, idMateria, dni], (error, notasAlumno, fields) => {
+						if (error) throw error;
+						let ciclo;
+						if (notasAlumno[0].descripcion_curso == "cuarto año" || notasAlumno[0].descripcion_curso == "quinto año" || notasAlumno[0].descripcion_curso == "sexto año") {
+							ciclo = "ciclo orientado";
+						} else {
+							ciclo = "ciclo basico";
+						}
+						let aux = {
+							A1: { t: "s", v: notasAlumno[0].nombre },
+							B1: { t: "s", v: notasAlumno[0].apellido },
+							// C1: { t: "s", v: "-" },
+							// D1: { t: "s", v: notasAlumno[0].nombreMateria },
+							// E1: { t: "s", v: "-" },
+							// F1: { t: "s", v: notasAlumno[0].descripcion_curso },
+							// G1: { t: "s", v: "-" },
+							// H1: { t: "s", v: ciclo },
+
+							// C3: { t: "s", v: "1er timestre" },
+							// A4: { t: "s", v: "nota 1" },
+							// B4: { t: "s", v: "nota 2" },
+							// C4: { t: "s", v: "nota 3" },
+							// D4: { t: "s", v: "nota 4" },
+							// E4: { t: "s", v: "nota definitiva" },
+							// H3: { t: "s", v: "2er timestre" },
+							// G4: { t: "s", v: "nota 1" },
+							// H4: { t: "s", v: "nota 2" },
+							// I4: { t: "s", v: "nota 3" },
+							// J4: { t: "s", v: "nota 4" },
+							// K4: { t: "s", v: "nota definitiva" },
+
+							// A5: { t: "s", v: notasAlumno[0].nota1 },
+							// B5: { t: "s", v: notasAlumno[0].nota2 },
+							// C5: { t: "s", v: notasAlumno[0].nota3 },
+							// D5: { t: "s", v: notasAlumno[0].nota4 },
+							// // nota definitiva 1
+							// E5: { t: "s", v: notasAlumno[0].nota_definitiva },
+							// G5: { t: "s", v: notasAlumno[0].nota5 },
+							// H5: { t: "s", v: notasAlumno[0].nota6 },
+							// I5: { t: "s", v: notasAlumno[0].nota7 },
+							// J5: { t: "s", v: notasAlumno[0].nota8 },
+							// // nota definitiva 2
+							// K5: { t: "s", v: notasAlumno[0].nota_definitiva },
+							"!ref": "A1:O6",
+						};
+						console.log(aux, "antes");
+						let key = `C${cont}`;
+						aux[`${key}`] = { t: "uuu" };
+						console.log(aux, "des");
+						cont++;
+
+						// const wb = xlsx.utils.book_new();
+						// xlsx.utils.book_append_sheet(wb, aux, "Notas");
+						// // Hacer que se descargue donde lo eliga el usuario
+						// xlsx.writeFile(wb, `notas_${notasAlumno[0].nombre}_${notasAlumno[0].apellido}.xlsx`);
+						// res.json("");
+					});
+				}
 			});
 		} else {
 			res.redirect("/panelDeInicio");
@@ -1025,7 +1157,7 @@ app.get("/crearEstudiante", (req, res) => {
 		let fecha_nacimiento = req.body.fecha_nacimiento.toLowerCase();
 		let dni = req.body.dni.toLowerCase();
 		let telefono = req.body.telefono;
-		let genero = req.body.genero.toLowerCase();		
+		let genero = req.body.genero.toLowerCase();
 		let legajo = req.body.legajo.toLowerCase();
 		let rol = req.body.rol.toLowerCase();
 		let descripcion_curso = req.body.descripcion_curso.toLowerCase();
@@ -1034,16 +1166,14 @@ app.get("/crearEstudiante", (req, res) => {
 			let userquery = "INSERT INTO usuario (nombreUsuario, pass, avatar, contraseña_cambiada) VALUE (?,?,?,?)";
 			con.query(userquery, [nickname, password, "public/imgEstudiante/default-avatar.jpg", false], (error, rows, fields) => {
 				if (error) throw error;
-				rolquery = "INSERT INTO rol (nombreUsuario, nombre)"
+				rolquery = "INSERT INTO rol (nombreUsuario, nombre)";
 				con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
 					if (error) throw error;
 					let estudiantequery = "INSERT INTO estudiante (nombreUsuario, nombre, apellido, dni, telefono, email, genero,nacimiento) VALUES (?,?,?,?,?,?,?,?)";
-					con.query(estudiantequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento], (error, rows, fields) => {
-					});
-				});	
+					con.query(estudiantequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento], (error, rows, fields) => {});
+				});
 			});
 		});
-							
 	} else {
 		res.redirect("/");
 	}
@@ -1061,8 +1191,6 @@ app.get("/borrarNotificacion/:id", (req, res) => {
 app.get("/noLogueado", (req, res) => {
 	res.render("desloguearse.ejs");
 });
-
-
 
 app.use((req, res, next) => {
 	res.status(404).render("404");
