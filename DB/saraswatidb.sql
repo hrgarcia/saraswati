@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-10-2021 a las 14:34:28
+-- Tiempo de generación: 25-10-2021 a las 15:03:25
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -80,11 +80,15 @@ CREATE TABLE `estudiante` (
 --
 
 INSERT INTO `estudiante` (`dni`, `nombre`, `apellido`, `genero`, `fecha_nacimiento`, `legajo`, `email`, `telefono`, `descripcion_curso`, `nombreUsuario`) VALUES
+(4569047, 'maximo', 'orellano', 'masculino', '02/06/2003', '0110', 'agueroorellano@escuelasproa.edu.ar', '3564512295', 'sexto año', 'agueroorellano'),
+(44580035, 'giuliana', 'heredia', 'femenino', '20/08/2003', '0091', 'gaheredia@escuelasproa.edu.ar', '3513416663', 'sexto año', 'gaheredia'),
+(44872737, 'denis ', 'iturriza', 'masculino', '15/07/2003', '0092', 'dmiturriza@escuelasproa.edu.ar', '3517537836', 'sexto año', 'dmiturriza'),
 (44897788, 'nahuel', 'petrocelli', 'masculino', '09/08/2003', '0101', 'npetrocelli@escuelasproa.edu.ar', '351279610', 'sexto año', 'npetrocelli'),
 (44970733, 'lara', 'santillan', 'femenino', '11/08/2003', '0088', 'lsantillan@escuelasproa.edu.ar', '3512334340', 'sexto año', 'lsantillan'),
 (45081861, 'fabrizio', 'meloni', 'masculino', '17/11/2003', '0096', 'fmeloni@escuelasproa.edu.ar', '35126323900', 'sexto año', 'fmeloni'),
 (45081873, 'santiago', 'ortega', 'masculino', '18/11/2003', '0097', 'saortega@escuelasproa.edu.ar', '35164458', 'sexto año', 'saortega'),
 (45083228, 'luciano', 'guzman', 'masculino', '22/11/2003', '0090', 'lguzman@escuelasproa.edu.ar', '3516519107', 'sexto año', 'lguzman'),
+(45086251, 'francisco', 'reynoso', 'masculino', '20/10/2003', '0109', 'fnreynoso@escuelasproa.edu.ar', '3517673217', 'sexto año', 'fnreynoso'),
 (45086525, 'sofia', 'diaz', 'femenino', '19/11/2003', '0087', 'sbdiaz@escuelasproa.edu.ar', '3517670894', 'sexto año', 'sbdiaz'),
 (45154109, 'milena', 'juarez', 'femenino', '06/10/2003', '0093', 'majuarez@escuelasproa.edu.ar', '3517875449', 'sexto año', 'majuarez'),
 (45488236, 'morena', 'martinez', 'femenino', '22/11/2003', '0088', 'mgalanmartinez@escuelasproa.edu.ar', '3512151744', 'sexto año', 'mgalanmartinez');
@@ -175,7 +179,16 @@ INSERT INTO `nota` (`id`, `nota1`, `nota2`, `nota3`, `nota4`, `nota5`, `nota6`, 
 (12, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 1, 'sexto año', 45081861),
 (13, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 2, 'sexto año', 45081861),
 (14, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 11, 'sexto año', 45081861),
-(15, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 12, 'sexto año', 45081861);
+(15, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 12, 'sexto año', 45081861),
+(16, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 1, 'sexto año', 45081873),
+(17, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 1, 'sexto año', 45083228),
+(18, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 1, 'sexto año ', 45086525),
+(19, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 1, 'sexto año ', 45154109),
+(20, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 1, 'sexto año ', 45488236),
+(21, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 1, 'sexto año ', 44872737),
+(22, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 1, 'sexto año', 45086251),
+(23, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 1, 'sexto año', 44580035),
+(24, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 1, 'sexto año', 4569047);
 
 -- --------------------------------------------------------
 
@@ -306,10 +319,10 @@ INSERT INTO `usuario` (`nombreUsuario`, `pass`, `avatar`, `contraseña_cambiada`
 ('admin', '$2b$10$fvHSEyookLoc0IYKLjoLXuq0Xt5jMMMeiILHHYb4MaUHArV1PqZdy', '0', 'true'),
 ('agueroorellano', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
 ('asd', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '0', '0'),
-('dmiturriza', '', '', ''),
+('dmiturriza', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
 ('fmeloni', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
 ('fnreynoso', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
-('gaheredia', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy\r\n\r\n', '', ''),
+('gaheredia', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy\n\n', '', ''),
 ('hrgarcia', '$2b$10$cKAmCISSlauwz6VXCnqD.O1YGz8ZpspSCg1cahnDKD8.EdbTu8S8.', 'avatar_hrgarcia.jpg', 'true'),
 ('lmazzola', '$2b$10$TvFydFnH7Ut4z9wlP218vOIV.jtKPDhtsRQmD9i2fyEQmdxWWTphK', '0', 'true'),
 ('lsantillan', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
@@ -436,7 +449,7 @@ ALTER TABLE `materia`
 -- AUTO_INCREMENT de la tabla `nota`
 --
 ALTER TABLE `nota`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
