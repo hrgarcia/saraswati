@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>Listado de estudiantes</title>
+        <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+         <!--     Fonts and icons     -->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+
+         <!-- Iconos Font Awesome -->
+        <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+         <!-- Nuestros estilos -->
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+ 
+        <link rel="stylesheet" href="/stylesheets/modal.css" />
+        <link rel="stylesheet" href="/stylesheets/boton.css" />
+ 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet" />
+ 
+
+        <!-- Estilo de la datatable --> 
+       <link rel="stylesheet" href="/stylesheets/uikit.min.css" />
+
+        <!-- CSS Files -->
+        <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+
+        <%- include('fragment/background'); -%>
+    </head>
+
+    <body>
+        <div class="main-panel">
+            <%- include('fragment/navbar'); -%>
+            <div class="content">
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="jumbotron customJumbotron" style="margin-top: 25px;">
+                    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark" style="font-size: 250px;margin-top:-80px">
+                        <div class="col-md-10">
+                            <h1 class="display-4 tituloSecundario" style="font-size: -95px;margin-top: -40px;">Lista de estudiantes</h1>
+                            <h4 class="text-table tituloSecundario" style="margin-bottom: -30px;" >
+                                Estudiantes
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="uk-overflow-auto">
+                        <table id="fresh-table" class="uk-table uk-table-responsive uk-table-shrink uk-table-hover uk-table-justify uk-table-striped uk-table-small" style="width: 100%">
+                            <thead>
+                                <th >
+                                </th>
+                                <th data-field="name">
+                                    Nombre
+                                </th>
+
+                                <th data-field="surname">
+                                    Apellido
+                                </th>
+                                
+                                <th data-field="dni">
+                                    DNI
+                                </th>
+
+                                <th data-field="email ">
+                                    Email
+                                </th>
+                                
+                                <th data-field="telephone">
+                                    Telefono
+                                </th>
+                                <th data-field="gender">
+                                    Genero
+                                </th>
+                                <th data-field="fecha nacimiento">
+                                    Nacimiento
+                                </th>
+                                <th data-field="legajo">
+                                    Legajo
+                                </th>
+                                <th data-field="curso">
+                                    Curso
+                                </th>
+                                <th data-field="actions" data-formatter="operateFormatter" data-events="operateEvents">
+                                    Acciones
+                                </th>
+                            </thead>
+                            <form id="notesForm" method="post">
+                                <% data.forEach(function(estudiante){ %>    
+                                    <tr>
+                                        <td></td>
+                                        <td><%-estudiante['nombre']%></td>
+                                        <td><%-estudiante['apellido']%></td>
+                                        <td><%-estudiante['dni']%></td>
+                                        <td><%-estudiante['email']%></td>
+                                        <td><%-estudiante['telefono']%></td>
+                                        <td><%-estudiante['genero']%></td>
+                                        <td><%-estudiante['fecha_nacimiento']%></td>
+                                        <td><%-estudiante['legajo']%></td>
+                                        <td><%-estudiante['descripcion_curso']%></td>
+                                        <td></td>
+                                        <td>
+                                            <i uk-margin type="button" title="eliminar" href="borrar" uk-toggle style="color:black; font-size:27px;margin-left:5px;" class="material-icons">delete</i>
+                                            <i uk-margin type="button" title="editar" href="editar" uk-toggle style="color:black; font-size:27px;margin-left:5px;" class="material-icons">create</i>
+                                        </td>
+                                    </tr>
+                                <% }); %>
+                            </form>
+                        </table>
+                    </div>    
+                    <a href="#" style="float:right;" uk-totop uk-scroll></a>         
+                </div>
+            </div>
+            <%- include('fragment/footer'); -%>
+        </div>
+        <%- include('fragment/scripts'); -%>
+
+        <script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.0/locale/bootstrap-table-es-AR.min.js"></script>
+    
+        <script>
+            var $table = $("#fresh-table");
+    
+            $(function () {
+                    $table.bootstrapTable({
+                        classes: "table table-hover table-striped",
+                        toolbar: ".toolbar",
+                        search: true,
+                        showRefresh: true,
+                        showToggle: true,
+                        showColumns: true,
+                        pagination: true,
+                        striped: true,
+                        sortable: true,
+                        pageSize: 8,
+                        pageList: [8, 10, 25, 50, 100],
+                        formatShowingRows: function (pageFrom, pageTo, totalRows) {
+                            return "";
+                        },
+                        formatRecordsPerPage: function (pageNumber) {
+                            return pageNumber + " Filas visibles";
+                        },
+                    });
+                });
+        </script>
+    </body>
+</html>

@@ -160,7 +160,11 @@ app.get("/panelDeInicio", (req, res) => {
                     let query = "SELECT * FROM notificaciones";
                     return new Promise((resolve, reject) => {
                         con.query(query, (error, rows) => {
-                            return resolve(rows);
+                            let x = rows.map(a =>{ 
+                                a.tags = a.tags.split(/\s+/);
+                                return a
+                            })
+                            return x        
                         });
                     });
                 }
@@ -362,6 +366,21 @@ app.get("/listarProfesores", (req, res) => {
             if (error) throw error;
             res.render("listTeacher.ejs", {
                 title: "Profesores",
+                data: rows,
+            });
+        });
+    } else {
+        res.redirect("/");
+    }
+});
+
+app.get("/listarEstudiante", (req, res) => {
+    if (req.session.logged) {
+        let query = "SELECT * FROM estudiante";
+        con.query(query, (error, rows, fields) => {
+            if (error) throw error;
+            res.render("listarEstudiantes.ejs", {
+                title: "Estudiantes",
                 data: rows,
             });
         });

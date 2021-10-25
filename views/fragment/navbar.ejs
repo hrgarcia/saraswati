@@ -28,7 +28,13 @@
 						<% for(let i = 0; i < notificaciones.length; i++) { %>
 							<% if(rol[0] == 'administrador'){ %>
 								<div id="<%- notificaciones[i].id -%>" class= "borrarNotificacion">
-									<a class="dropdown-item"><i onclick="borrar(this.parentElement.parentElement)" class="borrarNotificacion material-icons" style="position: relative; left: -5px">delete</i><i class="material-icons" style="position: relative; left: -5px">event_note</i><%-notificaciones[i]['titulo']-%>, <%-notificaciones[i]['fechaEvento']-%></i><i class="tags"><%-notificaciones[i]['tags']-%></i></a>
+									<a class="dropdown-item">
+										<i onclick="borrar(this.parentElement.parentElement)" class="borrarNotificacion material-icons" style="position: relative; left: -5px">delete</i>
+										<i class="material-icons" style="position: relative; left: -5px">event_note</i><%-notificaciones[i]['titulo']-%>, <%-notificaciones[i]['fechaEvento']-%></i>
+										<% for (let j = 0; j < notificaciones[i]['tags'].length -1; j++) { %>
+											<i class="tags"><%-notificaciones[i]['tags'][j]-%></i>
+										<% } %>
+									</a>
 								</div>
 								
 							<% } else{ %>
@@ -54,7 +60,7 @@
 					<a class="dropdown-item" href="agregarProfesor"><i class="material-icons" style="position: relative; left: -5px">add_box</i>Agregar profesor</a>
 					<a class="dropdown-item" href="agregarEstudiante"><i class="material-icons" style="position: relative; left: -5px">face</i>Agregar estudiante</a>
 					<a class="dropdown-item" href="listarProfesores"><i class="material-icons" style="position: relative; left: -5px">format_list_numbered</i>Listar profesores</a>
-					<a class="dropdown-item" href="listarEstudiantes"><i class="material-icons" style="position: relative; left: -5px">view_comfy</i>Listar estudiantes</a>
+					<a class="dropdown-item" href="listarEstudiante"><i class="material-icons" style="position: relative; left: -5px">view_comfy</i>Listar estudiantes</a>
 					<% } %> <% if (rol[i] == 'administrador') { %>
 					<a class="dropdown-item" href="backupDB"><i class="material-icons" style="position: relative; left: -5px">file_download</i>Backup de la DB</a>
 					<a class="dropdown-item" href="generarImagen"><i class="material-icons" style="position: relative; left: -5px">feedback</i>Multer</a>
