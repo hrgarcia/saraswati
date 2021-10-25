@@ -18,9 +18,9 @@ const { request } = require("http");
 
 // Obtain the name of the file
 const storage = multer.diskStorage({
-	filename: (req, file, cb) => {
-		cb(null, file.originalname);
-	},
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    },
 });
 
 // create an historial for DB versions
@@ -63,39 +63,39 @@ const storage = multer.diskStorage({
 
 // Upload contains storage and verify that the storage content comes from the formImagen.ejs file, limits its upload to 1 MB and that it is the appropriate format
 var uploads = multer({
-	storage: storage,
-	limits: { fileSize: 1 * 1024 * 1024 },
-	fileFilter: (req, file, cb) => {
-		if (path.extname(file.originalname) !== ".png" && path.extname(file.originalname) !== ".jpg" && path.extname(file.originalname) !== ".gif" && path.extname(file.originalname) !== ".jpeg") {
-			cb(new Error("goes wrong on the mimetype!"), false);
-		} else {
-			cb(null, true);
-		}
-	},
+    storage: storage,
+    limits: { fileSize: 1 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+        if (path.extname(file.originalname) !== ".png" && path.extname(file.originalname) !== ".jpg" && path.extname(file.originalname) !== ".gif" && path.extname(file.originalname) !== ".jpeg") {
+            cb(new Error("goes wrong on the mimetype!"), false);
+        } else {
+            cb(null, true);
+        }
+    },
 }).single("document");
 
 const storageAprendizajes = multer.diskStorage({
-	filename: (req, file, cb) => {
-		cb(null, file.originalname);
-	},
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    },
 });
 
 var aprendizajesExcel = multer({
-	storage: storageAprendizajes,
-	fileFilter: (req, file, cb) => {
-		if (path.extname(file.originalname) == ".xlsx") {
-			cb(null, true);
-		} else if (path.extname(file.originalname) == ".txt") {
-			cb(null, true);
-		}
-	},
+    storage: storageAprendizajes,
+    fileFilter: (req, file, cb) => {
+        if (path.extname(file.originalname) == ".xlsx") {
+            cb(null, true);
+        } else if (path.extname(file.originalname) == ".txt") {
+            cb(null, true);
+        }
+    },
 }).single("learnings");
 
 // Parse application/x-www-form-urlencoded
 app.use(
-	bodyParser.urlencoded({
-		extended: true,
-	})
+    bodyParser.urlencoded({
+        extended: true,
+    })
 );
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -107,28 +107,28 @@ app.use("/js", express.static(__dirname + "/node_modules/popper.js/dist"));
 app.use("/js", express.static(__dirname + "/node_modules/bootstrap/dist/js"));
 
 app.use(
-	session({
-		secret: "secret",
-		resave: true,
-		saveUninitialized: true,
-		logged: false,
-	})
+    session({
+        secret: "secret",
+        resave: true,
+        saveUninitialized: true,
+        logged: false,
+    })
 );
 
 // Global variables
 app.use((req, res, next) => {
-	res.locals.rol = req.session.rol;
-	res.locals.username = req.session.username;
-	res.locals.toastrFlag = req.session.toastrFlag;
-	res.locals.routeAvatar = req.session.routeAvatar;
-	res.locals.inspirationalPhrase = req.session.inspirationalPhrase;
-	res.locals.logged = req.session.logged;
-	res.locals.notificaciones = req.session.notificaciones;
-	res.locals.flagNotificaciones = req.session.flagNotificaciones;
-	next();
+    res.locals.rol = req.session.rol;
+    res.locals.username = req.session.username;
+    res.locals.toastrFlag = req.session.toastrFlag;
+    res.locals.routeAvatar = req.session.routeAvatar;
+    res.locals.inspirationalPhrase = req.session.inspirationalPhrase;
+    res.locals.logged = req.session.logged;
+    res.locals.notificaciones = req.session.notificaciones;
+    res.locals.flagNotificaciones = req.session.flagNotificaciones;
+    next();
 });
 var urlencodedParser = bodyParser.urlencoded({
-	extended: false,
+    extended: false,
 });
 
 var con = conection.connection();
@@ -140,1068 +140,1068 @@ app.set("view engine", "ejs");
 
 // Routes
 app.get("/", (req, res) => {
-	req.session.logged = false;
-	res.render("loguearse.ejs");
+    req.session.logged = false;
+    res.render("loguearse.ejs");
 });
 
 app.get("/panelDeInicio", (req, res) => {
-	if (req.session.logged) {
-		let rol = res.locals.rol;
-		let username = res.locals.username;
-		var auxData = [];
-		let peticionNotificacion = [];
+    if (req.session.logged) {
+        let rol = res.locals.rol;
+        let username = res.locals.username;
+        var auxData = [];
+        let peticionNotificacion = [];
 
-		res.locals.notificaciones = [];
-		req.session.notificaciones = [];
+        res.locals.notificaciones = [];
+        req.session.notificaciones = [];
 
-		if (res.locals.flagNotificaciones) {
-			if (rol[0] == "administrador") {
-				async function obtenerNotificaciones() {
-					let query = "SELECT * FROM notificaciones";
-					return new Promise((resolve, reject) => {
-						con.query(query, (error, rows) => {
-							return resolve(rows);
-						});
-					});
-				}
-				peticionNotificacion.push(obtenerNotificaciones());
-			} else {
-				async function obtenerNotificaciones() {
-					let dia = new Date();
-					dia = dia.toLocaleString("es-AR").substring(0, 10).split("/").join("-");
-					let query = "SELECT * FROM notificaciones WHERE fechaLanzamiento = ?";
-					return new Promise((resolve, reject) => {
-						con.query(query, [dia], (error, rows) => {
-							return resolve(rows);
-						});
-					});
-				}
-				peticionNotificacion.push(obtenerNotificaciones());
-			}
-		}
+        if (res.locals.flagNotificaciones) {
+            if (rol[0] == "administrador") {
+                async function obtenerNotificaciones() {
+                    let query = "SELECT * FROM notificaciones";
+                    return new Promise((resolve, reject) => {
+                        con.query(query, (error, rows) => {
+                            return resolve(rows);
+                        });
+                    });
+                }
+                peticionNotificacion.push(obtenerNotificaciones());
+            } else {
+                async function obtenerNotificaciones() {
+                    let dia = new Date();
+                    dia = dia.toLocaleString("es-AR").substring(0, 10).split("/").join("-");
+                    let query = "SELECT * FROM notificaciones WHERE fechaLanzamiento = ?";
+                    return new Promise((resolve, reject) => {
+                        con.query(query, [dia], (error, rows) => {
+                            return resolve(rows);
+                        });
+                    });
+                }
+                peticionNotificacion.push(obtenerNotificaciones());
+            }
+        }
 
-		for (let i = 0; i < rol.length; i++) {
-			if (rol[i] == "administrador") {
-				console.log("soy administrador");
-			}
-			if (rol[i] == "preceptor") {
-				// async function getSubjects() {
-				//     let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
-				//     return new Promise((resolve, reject) => {
-				//         con.query(query, [username], (error, rows) => {
-				//             return resolve(rows);
-				//         });
-				//     });
-				// }
-				// auxData.push(getSubjects());
-				console.log("soy preceptor");
-			}
-			if (rol[i] == "profesor") {
-				async function getSubjects() {
-					let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
-					return new Promise((resolve, reject) => {
-						con.query(query, [username], (error, rows) => {
-							return resolve(rows);
-						});
-					});
-				}
-				auxData.push(getSubjects());
-			}
-			if (rol[i] == "estudiante") {
-				console.log("soy estudiante");
-			}
-		}
+        for (let i = 0; i < rol.length; i++) {
+            if (rol[i] == "administrador") {
+                console.log("soy administrador");
+            }
+            if (rol[i] == "preceptor") {
+                // async function getSubjects() {
+                //     let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
+                //     return new Promise((resolve, reject) => {
+                //         con.query(query, [username], (error, rows) => {
+                //             return resolve(rows);
+                //         });
+                //     });
+                // }
+                // auxData.push(getSubjects());
+                console.log("soy preceptor");
+            }
+            if (rol[i] == "profesor") {
+                async function getSubjects() {
+                    let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
+                    return new Promise((resolve, reject) => {
+                        con.query(query, [username], (error, rows) => {
+                            return resolve(rows);
+                        });
+                    });
+                }
+                auxData.push(getSubjects());
+            }
+            if (rol[i] == "estudiante") {
+                console.log("soy estudiante");
+            }
+        }
 
-		async function sequentialQueries() {
-			try {
-				const result = await Promise.all(auxData);
-				aux = await Promise.all(peticionNotificacion);
-				if (res.locals.flagNotificaciones) {
-					res.locals.notificaciones = aux[0];
-					req.session.notificaciones = aux[0];
-				}
-				res.render("panelDeInicio.ejs", {
-					title: "InfoUser",
-					data: result,
-				});
-			} catch (error) {
-				console.log(error);
-			}
-		}
+        async function sequentialQueries() {
+            try {
+                const result = await Promise.all(auxData);
+                aux = await Promise.all(peticionNotificacion);
+                if (res.locals.flagNotificaciones) {
+                    res.locals.notificaciones = aux[0];
+                    req.session.notificaciones = aux[0];
+                }
+                res.render("panelDeInicio.ejs", {
+                    title: "InfoUser",
+                    data: result,
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        }
 
-		sequentialQueries();
-	} else {
-		res.redirect("/");
-	}
+        sequentialQueries();
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get("/formularioImagen", (req, res) => {
-	if (req.session.logged) {
-		res.render("formularioImagen.ejs");
-	} else {
-		res.redirect("/");
-	}
+    if (req.session.logged) {
+        res.render("formularioImagen.ejs");
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get("/desloguearse", (req, res) => {
-	req.session.destroy();
-	res.redirect("/");
+    req.session.destroy();
+    res.redirect("/");
 });
 
 app.get("/agregarProfesor", (req, res) => {
-	let rol = res.locals.rol;
-	let flagRol;
-	if (!req.session.logged) {
-		res.redirect("/");
-	} else {
-		flagRol = false;
-		for (let i = 0; i < rol.length; i++) {
-			if (rol[i] == "preceptor") {
-				flagRol = true;
-			}
-		}
-	}
-	if (flagRol) {
-		let todas_materias = [
-			"matematica",
-			"formacion para la vida y el trabajo",
-			"programacion 5",
-			"testing",
-			"lengua y literatura",
-			"biologia",
-			"fisica",
-			"ingles",
-			"ingles aplicado",
-			"filosofia",
-			"historia",
-			"ciudadania y politica",
-			"teatro",
-			"quimica",
-			"algoritmos y programacion",
-			"robotica",
-			"club de deportes",
-			"educacion fisica",
-			"club de ciencias",
-			"desarrollo de aplicaciones moviles",
-			"ciudadania y participacion",
-		];
-		let query = "SELECT nombreMateria FROM materia ";
-		con.query(query, (error, rows, fields) => {
-			let materias_db = [];
-			for (let index = 0; index < rows.length; index++) {
-				materias_db.push(rows[index].nombreMateria);
-			}
+    let rol = res.locals.rol;
+    let flagRol;
+    if (!req.session.logged) {
+        res.redirect("/");
+    } else {
+        flagRol = false;
+        for (let i = 0; i < rol.length; i++) {
+            if (rol[i] == "preceptor") {
+                flagRol = true;
+            }
+        }
+    }
+    if (flagRol) {
+        let todas_materias = [
+            "matematica",
+            "formacion para la vida y el trabajo",
+            "programacion 5",
+            "testing",
+            "lengua y literatura",
+            "biologia",
+            "fisica",
+            "ingles",
+            "ingles aplicado",
+            "filosofia",
+            "historia",
+            "ciudadania y politica",
+            "teatro",
+            "quimica",
+            "algoritmos y programacion",
+            "robotica",
+            "club de deportes",
+            "educacion fisica",
+            "club de ciencias",
+            "desarrollo de aplicaciones moviles",
+            "ciudadania y participacion",
+        ];
+        let query = "SELECT nombreMateria FROM materia ";
+        con.query(query, (error, rows, fields) => {
+            let materias_db = [];
+            for (let index = 0; index < rows.length; index++) {
+                materias_db.push(rows[index].nombreMateria);
+            }
 
-			let diferencia = todas_materias.filter((i) => !materias_db.includes(i));
-			res.render("agregarProfesor.ejs", {
-				data: diferencia,
-			});
-		});
-	} else {
-		res.redirect("/panelDeInicio");
-	}
+            let diferencia = todas_materias.filter((i) => !materias_db.includes(i));
+            res.render("agregarProfesor.ejs", {
+                data: diferencia,
+            });
+        });
+    } else {
+        res.redirect("/panelDeInicio");
+    }
 });
 
 app.get("/agregarUsuario", (req, res) => {
-	let rol = res.locals.rol;
-	for (let i = 0; i < rol.length; i++) {
-		if (req.session.logged) {
-			if (rol[i] == "administrador") {
-				res.render("addUser.ejs");
-			} else {
-				res.redirect("/panelDeInicio");
-			}
-		} else {
-			res.redirect("/");
-		}
-	}
+    let rol = res.locals.rol;
+    for (let i = 0; i < rol.length; i++) {
+        if (req.session.logged) {
+            if (rol[i] == "administrador") {
+                res.render("addUser.ejs");
+            } else {
+                res.redirect("/panelDeInicio");
+            }
+        } else {
+            res.redirect("/");
+        }
+    }
 });
 
 app.get("/agregarPreceptor", (req, res) => {
-	let rol = res.locals.rol;
-	for (let i = 0; i < rol.length; i++) {
-		if (req.session.logged) {
-			if (rol[i] == "administrador") {
-				res.render("addPreceptor.ejs");
-			} else {
-				res.redirect("/panelDeInicio");
-			}
-		} else {
-			res.redirect("/");
-		}
-	}
+    let rol = res.locals.rol;
+    for (let i = 0; i < rol.length; i++) {
+        if (req.session.logged) {
+            if (rol[i] == "administrador") {
+                res.render("addPreceptor.ejs");
+            } else {
+                res.redirect("/panelDeInicio");
+            }
+        } else {
+            res.redirect("/");
+        }
+    }
 });
 
 app.get("/agregarEstudiante", (req, res) => {
-	let rol = res.locals.rol;
-	let flagRol;
-	if (!req.session.logged) {
-		res.redirect("/");
-	} else {
-		flagRol = false;
-		for (let i = 0; i < rol.length; i++) {
-			if (rol[i] == "preceptor") {
-				flagRol = true;
-			}
-		}
-	}
-	if (flagRol) {
-		res.render("agregarEstudiante.ejs");
-	} else {
-		res.redirect("/panelDeInicio");
-	}
+    let rol = res.locals.rol;
+    let flagRol;
+    if (!req.session.logged) {
+        res.redirect("/");
+    } else {
+        flagRol = false;
+        for (let i = 0; i < rol.length; i++) {
+            if (rol[i] == "preceptor") {
+                flagRol = true;
+            }
+        }
+    }
+    if (flagRol) {
+        res.render("agregarEstudiante.ejs");
+    } else {
+        res.redirect("/panelDeInicio");
+    }
 });
 
 app.get("/listarProfesores", (req, res) => {
-	if (req.session.logged) {
-		let query = "SELECT * FROM profesor";
-		con.query(query, (error, rows, fields) => {
-			if (error) throw error;
-			res.render("listTeacher.ejs", {
-				title: "Profesores",
-				data: rows,
-			});
-		});
-	} else {
-		res.redirect("/");
-	}
+    if (req.session.logged) {
+        let query = "SELECT * FROM profesor";
+        con.query(query, (error, rows, fields) => {
+            if (error) throw error;
+            res.render("listTeacher.ejs", {
+                title: "Profesores",
+                data: rows,
+            });
+        });
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get("/listarUsuarios", (req, res) => {
-	if (req.session.logged) {
-		let query = "SELECT * FROM usuario, materia";
-		con.query(query, (error, rows, fields) => {
-			if (error) throw error;
-			res.render("listUser.ejs", {
-				title: "Usuario",
-				data: rows,
-			});
-		});
-	} else {
-		res.redirect("/");
-	}
+    if (req.session.logged) {
+        let query = "SELECT * FROM usuario, materia";
+        con.query(query, (error, rows, fields) => {
+            if (error) throw error;
+            res.render("listUser.ejs", {
+                title: "Usuario",
+                data: rows,
+            });
+        });
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get("/miPerfil", (req, res) => {
-	let rol = res.locals.rol;
-	let username = res.locals.username;
-	var auxData = [];
-	if (req.session.logged) {
-		async function infoProfile() {
-			let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ?";
-			return new Promise((resolve, reject) => {
-				con.query(query, [username], (error, rows) => {
-					return resolve(rows);
-				});
-			});
-		}
-		auxData.push(infoProfile());
+    let rol = res.locals.rol;
+    let username = res.locals.username;
+    var auxData = [];
+    if (req.session.logged) {
+        async function infoProfile() {
+            let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ?";
+            return new Promise((resolve, reject) => {
+                con.query(query, [username], (error, rows) => {
+                    return resolve(rows);
+                });
+            });
+        }
+        auxData.push(infoProfile());
 
-		for (let i = 0; i < rol.length; i++) {
-			if (rol[i] == "administrador") {
-				// async function infoProfile() {
-				//     let query = "SELECT * FROM admin";
-				//     return new Promise((resolve, reject) => {
-				//         con.query(query, [username], (error, rows) => {
-				//             return resolve(rows);
-				//         });
-				//     });
-				// }
-				// auxData.push(infoProfile());
-				console.log("soy administrador");
-			}
-			if (rol[i] == "preceptor") {
-				// async function infoProfile() {
-				//     let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
-				//     return new Promise((resolve, reject) => {
-				//         con.query(query, [username], (error, rows) => {
-				//             return resolve(rows);
-				//         });
-				//     });
-				// }
-				// auxData.push(infoProfile());
-				console.log("soy preceptor");
-			}
-			if (rol[i] == "profesor") {
-				async function infoProfile() {
-					let query = "SELECT * FROM profesor WHERE nombreUsuario = ?";
-					return new Promise((resolve, reject) => {
-						con.query(query, [username], (error, rows) => {
-							return resolve(rows);
-						});
-					});
-				}
-				auxData.push(infoProfile());
-			}
-			if (rol[i] == "estudiante") {
-				// async function infoProfile() {
-				//     let query = "SELECT * FROM estudiate";
-				//     return new Promise((resolve, reject) => {
-				//         con.query(query, [username], (error, rows) => {
-				//             return resolve(rows);
-				//         });
-				//     });
-				// }
-				// auxData.push(infoProfile());
-				console.log("soy estudiante");
-			}
-		}
-		async function sequentialQueries() {
-			try {
-				const result = await Promise.all(auxData);
-				res.render("miPerfil.ejs", {
-					title: "Profile",
-					data: result,
-				});
-			} catch (error) {
-				console.log(error);
-			}
-		}
-		sequentialQueries();
-	} else {
-		res.redirect("/");
-	}
+        for (let i = 0; i < rol.length; i++) {
+            if (rol[i] == "administrador") {
+                // async function infoProfile() {
+                //     let query = "SELECT * FROM admin";
+                //     return new Promise((resolve, reject) => {
+                //         con.query(query, [username], (error, rows) => {
+                //             return resolve(rows);
+                //         });
+                //     });
+                // }
+                // auxData.push(infoProfile());
+                console.log("soy administrador");
+            }
+            if (rol[i] == "preceptor") {
+                // async function infoProfile() {
+                //     let query = "SELECT * FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario";
+                //     return new Promise((resolve, reject) => {
+                //         con.query(query, [username], (error, rows) => {
+                //             return resolve(rows);
+                //         });
+                //     });
+                // }
+                // auxData.push(infoProfile());
+                console.log("soy preceptor");
+            }
+            if (rol[i] == "profesor") {
+                async function infoProfile() {
+                    let query = "SELECT * FROM profesor WHERE nombreUsuario = ?";
+                    return new Promise((resolve, reject) => {
+                        con.query(query, [username], (error, rows) => {
+                            return resolve(rows);
+                        });
+                    });
+                }
+                auxData.push(infoProfile());
+            }
+            if (rol[i] == "estudiante") {
+                // async function infoProfile() {
+                //     let query = "SELECT * FROM estudiate";
+                //     return new Promise((resolve, reject) => {
+                //         con.query(query, [username], (error, rows) => {
+                //             return resolve(rows);
+                //         });
+                //     });
+                // }
+                // auxData.push(infoProfile());
+                console.log("soy estudiante");
+            }
+        }
+        async function sequentialQueries() {
+            try {
+                const result = await Promise.all(auxData);
+                res.render("miPerfil.ejs", {
+                    title: "Profile",
+                    data: result,
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        sequentialQueries();
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get("/obtenerAprendizajes", (req, res) => {
-	if (req.session.logged) {
-		let query = "SELECT * FROM estudianteaprendizaje WHERE estudianteaprendizaje.estudiante_dni = ?";
-		con.query(query, [req.query.dni], (error, rows, fields) => {
-			if (error) throw error;
-			res.send(rows);
-		});
-	} else {
-		res.redirect("/");
-	}
+    if (req.session.logged) {
+        let query = "SELECT * FROM estudianteaprendizaje WHERE estudianteaprendizaje.estudiante_dni = ?";
+        con.query(query, [req.query.dni], (error, rows, fields) => {
+            if (error) throw error;
+            res.send(rows);
+        });
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get("/guardarAprendizajes", (req, res) => {
-	let query = "UPDATE estudianteaprendizaje SET estado = ? WHERE estudianteaprendizaje.descripcion = ? AND estudianteaprendizaje.estudiante_dni = ?";
-	let dni = 0;
-	for (let key in req.query.data) {
-		if (key == "dni") {
-			dni = req.query.data[key];
-		} else {
-			for (let i = 0; i < req.query.data[key].length; i++) {
-				con.query(query, [key, req.query.data[key][i].name, dni], (error, rows, fields) => {
-					if (error) throw error;
-				});
-			}
-		}
-	}
+    let query = "UPDATE estudianteaprendizaje SET estado = ? WHERE estudianteaprendizaje.descripcion = ? AND estudianteaprendizaje.estudiante_dni = ?";
+    let dni = 0;
+    for (let key in req.query.data) {
+        if (key == "dni") {
+            dni = req.query.data[key];
+        } else {
+            for (let i = 0; i < req.query.data[key].length; i++) {
+                con.query(query, [key, req.query.data[key][i].name, dni], (error, rows, fields) => {
+                    if (error) throw error;
+                });
+            }
+        }
+    }
 
-	res.send("");
+    res.send("");
 });
 
 app.get("/agregarAprendizajes", (req, res) => {
-	if (req.session.logged) {
-		// Create the learning in the learning table
-		// (Positions) 0 = name L / 1 = period Name / 2 = subj id / 3 = subj name / 4 = course
-		let idPeriod = 1;
-		if (req.query.newLearningData[1] == "1er cuatrimestre") {
-			idPeriod = 1;
-		} else {
-			idPeriod = 2;
-		}
-		let query1 = "INSERT INTO aprendizajes (descripcion,id_materia,id_periodo) VALUES (?, ?, ?)";
-		con.query(query1, [req.query.newLearningData[0], req.query.newLearningData[2], idPeriod], (error, rows, fields) => {
-			if (error) throw error;
-		});
-		// Search for the IDs of all students in this subject
-		let query2 = "SELECT dni FROM estudiante WHERE descripcion_curso = ?";
-		con.query(query2, [req.query.newLearningData[4]], (error, rows, fields) => {
-			if (error) throw error;
-			// With a for I create each learning for each student
-			for (let i = 0; i < rows.length; i++) {
-				let query3 = "INSERT INTO estudianteaprendizaje (descripcion,estado,estudiante_dni,periodo_id,materia_id) VALUES (?,?,?,?,?)";
-				con.query(query3, [req.query.newLearningData[0], "pendiente", rows[i].dni, idPeriod, req.query.newLearningData[2]], (error, rows, fields) => {
-					if (error) throw error;
-				});
-			}
-		});
+    if (req.session.logged) {
+        // Create the learning in the learning table
+        // (Positions) 0 = name L / 1 = period Name / 2 = subj id / 3 = subj name / 4 = course
+        let idPeriod = 1;
+        if (req.query.newLearningData[1] == "1er cuatrimestre") {
+            idPeriod = 1;
+        } else {
+            idPeriod = 2;
+        }
+        let query1 = "INSERT INTO aprendizajes (descripcion,id_materia,id_periodo) VALUES (?, ?, ?)";
+        con.query(query1, [req.query.newLearningData[0], req.query.newLearningData[2], idPeriod], (error, rows, fields) => {
+            if (error) throw error;
+        });
+        // Search for the IDs of all students in this subject
+        let query2 = "SELECT dni FROM estudiante WHERE descripcion_curso = ?";
+        con.query(query2, [req.query.newLearningData[4]], (error, rows, fields) => {
+            if (error) throw error;
+            // With a for I create each learning for each student
+            for (let i = 0; i < rows.length; i++) {
+                let query3 = "INSERT INTO estudianteaprendizaje (descripcion,estado,estudiante_dni,periodo_id,materia_id) VALUES (?,?,?,?,?)";
+                con.query(query3, [req.query.newLearningData[0], "pendiente", rows[i].dni, idPeriod, req.query.newLearningData[2]], (error, rows, fields) => {
+                    if (error) throw error;
+                });
+            }
+        });
 
-		res.send("");
-	} else {
-		res.redirect("/");
-	}
+        res.send("");
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get("/borrarAprendizajes", (req, res) => {
-	if (req.session.logged) {
-		let query1 = "DELETE FROM aprendizajes WHERE descripcion = ?";
-		let query2 = "DELETE FROM estudianteaprendizaje WHERE descripcion = ?";
-		for (let i = 0; i < req.query.data.length; i++) {
-			con.query(query1, [req.query.data[i]], (error, rows, fields) => {
-				if (error) throw error;
-			});
+    if (req.session.logged) {
+        let query1 = "DELETE FROM aprendizajes WHERE descripcion = ?";
+        let query2 = "DELETE FROM estudianteaprendizaje WHERE descripcion = ?";
+        for (let i = 0; i < req.query.data.length; i++) {
+            con.query(query1, [req.query.data[i]], (error, rows, fields) => {
+                if (error) throw error;
+            });
 
-			con.query(query2, [req.query.data[i]], (error, rows, fields) => {
-				if (error) throw error;
-			});
-		}
+            con.query(query2, [req.query.data[i]], (error, rows, fields) => {
+                if (error) throw error;
+            });
+        }
 
-		res.send("");
-	} else {
-		res.redirect("/");
-	}
+        res.send("");
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get("/generarReporte/:dni", (req, res) => {
-	if (req.session.logged) {
-		let dni = req.params.dni;
-		let nombreMateria = req.body.nombreMateria;
-		let query1 = "SELECT * FROM estudiante WHERE dni = ?";
-		let query2 = "SELECT nombreMateria, nota1, nota2, nota3, nota4, nota5, nota6, nota7, nota8 FROM materia INNER JOIN nota ON materia.id = nota.id_materia WHERE nota.dni_alumno = ?";
-		let query3 = "SELECT periodo_id, descripcion, estado FROM estudianteaprendizaje WHERE estudiante_dni = ?";
-		con.query(query1, [dni], (error, infoAlumno, fields) => {
-			con.query(query2, [dni], (error, notasAlumno, fields) => {
-				con.query(query3, [dni], (error, aprendizajeAlumno, fields) => {
-					if (error) throw error;
-					console.log(notasAlumno);
-					console.log(aprendizajeAlumno);
+    if (req.session.logged) {
+        let dni = req.params.dni;
+        let nombreMateria = req.body.nombreMateria;
+        let query1 = "SELECT * FROM estudiante WHERE dni = ?";
+        let query2 = "SELECT nombreMateria, nota1, nota2, nota3, nota4, nota5, nota6, nota7, nota8 FROM materia INNER JOIN nota ON materia.id = nota.id_materia WHERE nota.dni_alumno = ?";
+        let query3 = "SELECT periodo_id, descripcion, estado FROM estudianteaprendizaje WHERE estudiante_dni = ?";
+        con.query(query1, [dni], (error, infoAlumno, fields) => {
+            con.query(query2, [dni], (error, notasAlumno, fields) => {
+                con.query(query3, [dni], (error, aprendizajeAlumno, fields) => {
+                    if (error) throw error;
+                    console.log(notasAlumno);
+                    console.log(aprendizajeAlumno);
 
-					ejs.renderFile("views/GenerateReport.ejs", { datosAlumno: infoAlumno, dataNotas: notasAlumno, datosApren: aprendizajeAlumno }, (err, html) => {
-						if (err) throw err;
-						const options = {
-							format: "A4",
-							border: {
-								right: "8",
-							},
-						};
-						pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
-							if (err) {
-								res.send(err);
-							} else {
-								console.log("Pdf creado");
-							}
-						});
-						res.type("pdf");
-						res.download("uploads/report.pdf");
-					});
-				});
-				// } else {
-				//     res.redirect("/");
-				// }
-			});
-		});
-	}
+                    ejs.renderFile("views/GenerateReport.ejs", { datosAlumno: infoAlumno, dataNotas: notasAlumno, datosApren: aprendizajeAlumno }, (err, html) => {
+                        if (err) throw err;
+                        const options = {
+                            format: "A4",
+                            border: {
+                                right: "8",
+                            },
+                        };
+                        pdf.create(html, options).toFile("uploads/report.pdf", (err, res) => {
+                            if (err) {
+                                res.send(err);
+                            } else {
+                                console.log("Pdf creado");
+                            }
+                        });
+                        res.type("pdf");
+                        res.download("uploads/report.pdf");
+                    });
+                });
+                // } else {
+                //     res.redirect("/");
+                // }
+            });
+        });
+    }
 });
 
 app.get("/generarReporteExcel/:dni/:idMateria", (req, res) => {
-	if (!req.session.logged) {
-		res.redirect("/");
-	} else {
-		let rol = res.locals.rol;
+    if (!req.session.logged) {
+        res.redirect("/");
+    } else {
+        let rol = res.locals.rol;
 
-		flagRol = false;
-		for (let i = 0; i < rol.length; i++) {
-			if (rol[i] == "profesor") {
-				flagRol = true;
-			}
-		}
-		if (flagRol) {
-			let dni = req.params.dni;
-			let idMateria = req.params.idMateria;
-			let query = "SELECT * FROM materia INNER JOIN nota ON materia.id = ? AND nota.dni_alumno = ? AND nota.id_materia = ? INNER JOIN estudiante ON dni = ?";
-			con.query(query, [idMateria, dni, idMateria, dni], (error, notasAlumno, fields) => {
-				if (error) throw error;
-				// const ws = xlsx.utils.json_to_sheet(notasAlumno);
-				let ciclo;
-				if (notasAlumno[0].descripcion_curso == "cuarto año" || notasAlumno[0].descripcion_curso == "quinto año" || notasAlumno[0].descripcion_curso == "sexto año") {
-					ciclo = "ciclo orientado";
-				} else {
-					ciclo = "ciclo basico";
-				}
-				console.log(notasAlumno[0]);
-				let aux = {
-					A1: { t: "s", v: notasAlumno[0].nombre },
-					B1: { t: "s", v: notasAlumno[0].apellido },
-					C1: { t: "s", v: "-" },
-					D1: { t: "s", v: notasAlumno[0].nombreMateria },
-					E1: { t: "s", v: "-" },
-					F1: { t: "s", v: notasAlumno[0].descripcion_curso },
-					G1: { t: "s", v: "-" },
-					H1: { t: "s", v: ciclo },
+        flagRol = false;
+        for (let i = 0; i < rol.length; i++) {
+            if (rol[i] == "profesor") {
+                flagRol = true;
+            }
+        }
+        if (flagRol) {
+            let dni = req.params.dni;
+            let idMateria = req.params.idMateria;
+            let query = "SELECT * FROM materia INNER JOIN nota ON materia.id = ? AND nota.dni_alumno = ? AND nota.id_materia = ? INNER JOIN estudiante ON dni = ?";
+            con.query(query, [idMateria, dni, idMateria, dni], (error, notasAlumno, fields) => {
+                if (error) throw error;
+                // const ws = xlsx.utils.json_to_sheet(notasAlumno);
+                let ciclo;
+                if (notasAlumno[0].descripcion_curso == "cuarto año" || notasAlumno[0].descripcion_curso == "quinto año" || notasAlumno[0].descripcion_curso == "sexto año") {
+                    ciclo = "ciclo orientado";
+                } else {
+                    ciclo = "ciclo basico";
+                }
+                console.log(notasAlumno[0]);
+                let aux = {
+                    A1: { t: "s", v: notasAlumno[0].nombre },
+                    B1: { t: "s", v: notasAlumno[0].apellido },
+                    C1: { t: "s", v: "-" },
+                    D1: { t: "s", v: notasAlumno[0].nombreMateria },
+                    E1: { t: "s", v: "-" },
+                    F1: { t: "s", v: notasAlumno[0].descripcion_curso },
+                    G1: { t: "s", v: "-" },
+                    H1: { t: "s", v: ciclo },
 
-					C3: { t: "s", v: "1er timestre" },
-					A4: { t: "s", v: "nota 1" },
-					B4: { t: "s", v: "nota 2" },
-					C4: { t: "s", v: "nota 3" },
-					D4: { t: "s", v: "nota 4" },
-					E4: { t: "s", v: "nota definitiva" },
-					H3: { t: "s", v: "2er timestre" },
-					G4: { t: "s", v: "nota 1" },
-					H4: { t: "s", v: "nota 2" },
-					I4: { t: "s", v: "nota 3" },
-					J4: { t: "s", v: "nota 4" },
-					K4: { t: "s", v: "nota definitiva" },
+                    C3: { t: "s", v: "1er timestre" },
+                    A4: { t: "s", v: "nota 1" },
+                    B4: { t: "s", v: "nota 2" },
+                    C4: { t: "s", v: "nota 3" },
+                    D4: { t: "s", v: "nota 4" },
+                    E4: { t: "s", v: "nota definitiva" },
+                    H3: { t: "s", v: "2er timestre" },
+                    G4: { t: "s", v: "nota 1" },
+                    H4: { t: "s", v: "nota 2" },
+                    I4: { t: "s", v: "nota 3" },
+                    J4: { t: "s", v: "nota 4" },
+                    K4: { t: "s", v: "nota definitiva" },
 
-					A5: { t: "s", v: notasAlumno[0].nota1 },
-					B5: { t: "s", v: notasAlumno[0].nota2 },
-					C5: { t: "s", v: notasAlumno[0].nota3 },
-					D5: { t: "s", v: notasAlumno[0].nota4 },
-					// nota definitiva 1
-					E5: { t: "s", v: notasAlumno[0].nota_definitiva },
-					G5: { t: "s", v: notasAlumno[0].nota5 },
-					H5: { t: "s", v: notasAlumno[0].nota6 },
-					I5: { t: "s", v: notasAlumno[0].nota7 },
-					J5: { t: "s", v: notasAlumno[0].nota8 },
-					// nota definitiva 2
-					K5: { t: "s", v: notasAlumno[0].nota_definitiva },
+                    A5: { t: "s", v: notasAlumno[0].nota1 },
+                    B5: { t: "s", v: notasAlumno[0].nota2 },
+                    C5: { t: "s", v: notasAlumno[0].nota3 },
+                    D5: { t: "s", v: notasAlumno[0].nota4 },
+                    // nota definitiva 1
+                    E5: { t: "s", v: notasAlumno[0].nota_definitiva },
+                    G5: { t: "s", v: notasAlumno[0].nota5 },
+                    H5: { t: "s", v: notasAlumno[0].nota6 },
+                    I5: { t: "s", v: notasAlumno[0].nota7 },
+                    J5: { t: "s", v: notasAlumno[0].nota8 },
+                    // nota definitiva 2
+                    K5: { t: "s", v: notasAlumno[0].nota_definitiva },
 
-					"!ref": "A1:O6",
-				};
+                    "!ref": "A1:O6",
+                };
 
-				const wb = xlsx.utils.book_new();
-				xlsx.utils.book_append_sheet(wb, aux, "Notas");
-				// Hacer que se descargue donde lo eliga el usuario
-				xlsx.writeFile(wb, `notas_${notasAlumno[0].nombre}_${notasAlumno[0].apellido}.xlsx`);
-				res.json("");
-			});
-		} else {
-			res.redirect("/panelDeInicio");
-		}
-	}
+                const wb = xlsx.utils.book_new();
+                xlsx.utils.book_append_sheet(wb, aux, "Notas");
+                // Hacer que se descargue donde lo eliga el usuario
+                xlsx.writeFile(wb, `notas_${notasAlumno[0].nombre}_${notasAlumno[0].apellido}.xlsx`);
+                res.json("");
+            });
+        } else {
+            res.redirect("/panelDeInicio");
+        }
+    }
 });
 
 app.get("/generarReporteExcelTodos/:idMateria", (req, res) => {
-	if (!req.session.logged) {
-		res.redirect("/");
-	} else {
-		let rol = res.locals.rol;
+    if (!req.session.logged) {
+        res.redirect("/");
+    } else {
+        let rol = res.locals.rol;
 
-		flagRol = false;
-		for (let i = 0; i < rol.length; i++) {
-			if (rol[i] == "profesor") {
-				flagRol = true;
-			}
-		}
-		if (flagRol) {
-			let cont = 0;
-			let idMateria = req.params.idMateria;
-			let query = "SELECT dni FROM estudiante INNER JOIN materia ON materia.id = ? AND materia.curso_descripcion = estudiante.descripcion_curso INNER JOIN nota ON nota.dni_alumno = estudiante.dni AND nota.id_materia = materia.id";
-			con.query(query, [idMateria], (error, dniAlumnos, fields) => {
-				if (error) throw error;
-				for (let i = 0; i < dniAlumnos.length; i++) {
-					let dni = dniAlumnos[i].dni;
-					console.log(dni);
-					let query = "SELECT * FROM materia INNER JOIN nota ON materia.id = ? AND nota.dni_alumno = ? AND nota.id_materia = ? INNER JOIN estudiante ON dni = ?";
-					con.query(query, [idMateria, dni, idMateria, dni], (error, notasAlumno, fields) => {
-						if (error) throw error;
-						let ciclo;
-						if (notasAlumno[0].descripcion_curso == "cuarto año" || notasAlumno[0].descripcion_curso == "quinto año" || notasAlumno[0].descripcion_curso == "sexto año") {
-							ciclo = "ciclo orientado";
-						} else {
-							ciclo = "ciclo basico";
-						}
-						let aux = {
-							A1: { t: "s", v: notasAlumno[0].nombre },
-							B1: { t: "s", v: notasAlumno[0].apellido },
-							// C1: { t: "s", v: "-" },
-							// D1: { t: "s", v: notasAlumno[0].nombreMateria },
-							// E1: { t: "s", v: "-" },
-							// F1: { t: "s", v: notasAlumno[0].descripcion_curso },
-							// G1: { t: "s", v: "-" },
-							// H1: { t: "s", v: ciclo },
+        flagRol = false;
+        for (let i = 0; i < rol.length; i++) {
+            if (rol[i] == "profesor") {
+                flagRol = true;
+            }
+        }
+        if (flagRol) {
+            let cont = 1;
+            let idMateria = req.params.idMateria;
+            let query = "SELECT dni FROM estudiante INNER JOIN materia ON materia.id = ? AND materia.curso_descripcion = estudiante.descripcion_curso INNER JOIN nota ON nota.dni_alumno = estudiante.dni AND nota.id_materia = materia.id";
+            con.query(query, [idMateria], (error, dniAlumnos, fields) => {
+                if (error) throw error;
+                for (let i = 0; i < dniAlumnos.length; i++) {
+                    let dni = dniAlumnos[i].dni;
+                    console.log(dni);
+                    let query = "SELECT * FROM materia INNER JOIN nota ON materia.id = ? AND nota.dni_alumno = ? AND nota.id_materia = ? INNER JOIN estudiante ON dni = ?";
+                    con.query(query, [idMateria, dni, idMateria, dni], (error, notasAlumno, fields) => {
+                        if (error) throw error;
+                        let ciclo;
+                        if (notasAlumno[0].descripcion_curso == "cuarto año" || notasAlumno[0].descripcion_curso == "quinto año" || notasAlumno[0].descripcion_curso == "sexto año") {
+                            ciclo = "ciclo orientado";
+                        } else {
+                            ciclo = "ciclo basico";
+                        }
+                        let aux = {
+                            A1: { t: "s", v: notasAlumno[0].nombre },
+                            B1: { t: "s", v: notasAlumno[0].apellido },
+                            // C1: { t: "s", v: "-" },
+                            // D1: { t: "s", v: notasAlumno[0].nombreMateria },
+                            // E1: { t: "s", v: "-" },
+                            // F1: { t: "s", v: notasAlumno[0].descripcion_curso },
+                            // G1: { t: "s", v: "-" },
+                            // H1: { t: "s", v: ciclo },
 
-							// C3: { t: "s", v: "1er timestre" },
-							// A4: { t: "s", v: "nota 1" },
-							// B4: { t: "s", v: "nota 2" },
-							// C4: { t: "s", v: "nota 3" },
-							// D4: { t: "s", v: "nota 4" },
-							// E4: { t: "s", v: "nota definitiva" },
-							// H3: { t: "s", v: "2er timestre" },
-							// G4: { t: "s", v: "nota 1" },
-							// H4: { t: "s", v: "nota 2" },
-							// I4: { t: "s", v: "nota 3" },
-							// J4: { t: "s", v: "nota 4" },
-							// K4: { t: "s", v: "nota definitiva" },
+                            // C3: { t: "s", v: "1er timestre" },
+                            // A4: { t: "s", v: "nota 1" },
+                            // B4: { t: "s", v: "nota 2" },
+                            // C4: { t: "s", v: "nota 3" },
+                            // D4: { t: "s", v: "nota 4" },
+                            // E4: { t: "s", v: "nota definitiva" },
+                            // H3: { t: "s", v: "2er timestre" },
+                            // G4: { t: "s", v: "nota 1" },
+                            // H4: { t: "s", v: "nota 2" },
+                            // I4: { t: "s", v: "nota 3" },
+                            // J4: { t: "s", v: "nota 4" },
+                            // K4: { t: "s", v: "nota definitiva" },
 
-							// A5: { t: "s", v: notasAlumno[0].nota1 },
-							// B5: { t: "s", v: notasAlumno[0].nota2 },
-							// C5: { t: "s", v: notasAlumno[0].nota3 },
-							// D5: { t: "s", v: notasAlumno[0].nota4 },
-							// // nota definitiva 1
-							// E5: { t: "s", v: notasAlumno[0].nota_definitiva },
-							// G5: { t: "s", v: notasAlumno[0].nota5 },
-							// H5: { t: "s", v: notasAlumno[0].nota6 },
-							// I5: { t: "s", v: notasAlumno[0].nota7 },
-							// J5: { t: "s", v: notasAlumno[0].nota8 },
-							// // nota definitiva 2
-							// K5: { t: "s", v: notasAlumno[0].nota_definitiva },
-							"!ref": "A1:O6",
-						};
-						console.log(aux, "antes");
-						let key = `C${cont}`;
-						aux[`${key}`] = { t: "uuu" };
-						console.log(aux, "des");
-						cont++;
+                            // A5: { t: "s", v: notasAlumno[0].nota1 },
+                            // B5: { t: "s", v: notasAlumno[0].nota2 },
+                            // C5: { t: "s", v: notasAlumno[0].nota3 },
+                            // D5: { t: "s", v: notasAlumno[0].nota4 },
+                            // // nota definitiva 1
+                            // E5: { t: "s", v: notasAlumno[0].nota_definitiva },
+                            // G5: { t: "s", v: notasAlumno[0].nota5 },
+                            // H5: { t: "s", v: notasAlumno[0].nota6 },
+                            // I5: { t: "s", v: notasAlumno[0].nota7 },
+                            // J5: { t: "s", v: notasAlumno[0].nota8 },
+                            // // nota definitiva 2
+                            // K5: { t: "s", v: notasAlumno[0].nota_definitiva },
+                            "!ref": "A1:O6",
+                        };
+                        console.log(aux, "antes");
+                        let key = `C${cont}`;
+                        aux[`${key}`] = { t: "uuu" };
+                        console.log(aux, "des");
+                        cont++;
 
-						// const wb = xlsx.utils.book_new();
-						// xlsx.utils.book_append_sheet(wb, aux, "Notas");
-						// // Hacer que se descargue donde lo eliga el usuario
-						// xlsx.writeFile(wb, `notas_${notasAlumno[0].nombre}_${notasAlumno[0].apellido}.xlsx`);
-						// res.json("");
-					});
-				}
-			});
-		} else {
-			res.redirect("/panelDeInicio");
-		}
-	}
+                        // const wb = xlsx.utils.book_new();
+                        // xlsx.utils.book_append_sheet(wb, aux, "Notas");
+                        // // Hacer que se descargue donde lo eliga el usuario
+                        // xlsx.writeFile(wb, `notas_${notasAlumno[0].nombre}_${notasAlumno[0].apellido}.xlsx`);
+                        // res.json("");
+                    });
+                }
+            });
+        } else {
+            res.redirect("/panelDeInicio");
+        }
+    }
 });
 
 app.get("/cambiarEstadoToastr", (req, res) => {
-	res.locals.toastrFlag = false;
-	req.session.toastrFlag = false;
-	res.send(res.locals.toastrFlag);
+    res.locals.toastrFlag = false;
+    req.session.toastrFlag = false;
+    res.send(res.locals.toastrFlag);
 });
 
 app.get("/estadoToastr", (req, res) => {
-	res.send(res.locals.toastrFlag);
+    res.send(res.locals.toastrFlag);
 });
 
 app.get("/generarImagen", (req, res) => {
-	let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ?";
-	con.query(query, [res.locals.username], (error, rows) => {
-		res.render("cambiarContraseña.ejs", {
-			title: "User",
-			data: rows,
-		});
-	});
+    let query = "SELECT * FROM usuario WHERE usuario.nombreUsuario = ?";
+    con.query(query, [res.locals.username], (error, rows) => {
+        res.render("cambiarContraseña.ejs", {
+            title: "User",
+            data: rows,
+        });
+    });
 });
 
 app.get("/crearSlider", (req, res) => {
-	res.render("generarSlider.ejs");
+    res.render("generarSlider.ejs");
 });
 
 app.get("/estadisticasEstudiante", (req, res) => {
-	if (req.session.logged) {
-		res.render("estadisticaEstudiante.ejs");
-	} else {
-		res.redirect("/");
-	}
+    if (req.session.logged) {
+        res.render("estadisticaEstudiante.ejs");
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get("/obtenerEstadisiticasEstudiates", (req, res) => {
-	let arr = {};
-	// let query = "SELECT nombreMateria, curso_descripcion FROM materia WHERE profesor_usuario = ?";
-	let query = "SELECT * FROM estudiante INNER JOIN materia ON profesor_usuario = ? AND materia.curso_descripcion = estudiante.descripcion_curso INNER JOIN nota ON nota.dni_alumno = estudiante.dni AND nota.id_materia = materia.id";
-	con.query(query, [res.locals.username], (error, rows, fields) => {
-		if (error) throw error;
+    let arr = {};
+    // let query = "SELECT nombreMateria, curso_descripcion FROM materia WHERE profesor_usuario = ?";
+    let query = "SELECT * FROM estudiante INNER JOIN materia ON profesor_usuario = ? AND materia.curso_descripcion = estudiante.descripcion_curso INNER JOIN nota ON nota.dni_alumno = estudiante.dni AND nota.id_materia = materia.id";
+    con.query(query, [res.locals.username], (error, rows, fields) => {
+        if (error) throw error;
 
-		for (let i = 0; i < rows.length; i++) {
-			let aux = rows[i]["descripcion_curso"].toString();
-			// Agregar lo aprendizajes
-			if (Object.keys(arr).includes(aux)) {
-				arr[aux].push({
-					subject: rows[i].nombreMateria,
-					subjectId: rows[i].id_materia,
-					dni: rows[i].dni,
-					nombre: rows[i].nombre,
-					apellido: rows[i].apellido,
-					notas: [rows[i].nota1, rows[i].nota2, rows[i].nota3, rows[i].nota4, rows[i].nota5, rows[i].nota6, rows[i].nota7, rows[i].nota8, rows[i].nota_definitiva],
-				});
-			} else {
-				arr[aux] = [
-					{
-						subject: rows[i].nombreMateria,
-						subjectId: rows[i].id,
-						dni: rows[i].dni,
-						nombre: rows[i].nombre,
-						apellido: rows[i].apellido,
-						notas: [rows[i].nota1, rows[i].nota2, rows[i].nota3, rows[i].nota4, rows[i].nota5, rows[i].nota6, rows[i].nota7, rows[i].nota8, rows[i].nota_definitiva],
-					},
-				];
-			}
-		}
-		res.send(arr);
-	});
+        for (let i = 0; i < rows.length; i++) {
+            let aux = rows[i]["descripcion_curso"].toString();
+            // Agregar lo aprendizajes
+            if (Object.keys(arr).includes(aux)) {
+                arr[aux].push({
+                    subject: rows[i].nombreMateria,
+                    subjectId: rows[i].id_materia,
+                    dni: rows[i].dni,
+                    nombre: rows[i].nombre,
+                    apellido: rows[i].apellido,
+                    notas: [rows[i].nota1, rows[i].nota2, rows[i].nota3, rows[i].nota4, rows[i].nota5, rows[i].nota6, rows[i].nota7, rows[i].nota8, rows[i].nota_definitiva],
+                });
+            } else {
+                arr[aux] = [
+                    {
+                        subject: rows[i].nombreMateria,
+                        subjectId: rows[i].id,
+                        dni: rows[i].dni,
+                        nombre: rows[i].nombre,
+                        apellido: rows[i].apellido,
+                        notas: [rows[i].nota1, rows[i].nota2, rows[i].nota3, rows[i].nota4, rows[i].nota5, rows[i].nota6, rows[i].nota7, rows[i].nota8, rows[i].nota_definitiva],
+                    },
+                ];
+            }
+        }
+        res.send(arr);
+    });
 });
 
 // Post
 app.post("/cambiarInfoPerfil", (req, res) => {
-	let infoToChange = JSON.parse(req.body.info);
-	let rol = res.locals.rol;
-	let username = res.locals.username;
+    let infoToChange = JSON.parse(req.body.info);
+    let rol = res.locals.rol;
+    let username = res.locals.username;
 
-	for (let i = 0; i < rol.length; i++) {
-		for (const key in infoToChange) {
-			let query = `UPDATE ${rol[i]} SET ${key} = ? WHERE nombreUsuario = ?`;
-			con.query(query, [infoToChange[key], username], (error, rows, fields) => {
-				if (error) throw error;
-			});
-		}
-	}
+    for (let i = 0; i < rol.length; i++) {
+        for (const key in infoToChange) {
+            let query = `UPDATE ${rol[i]} SET ${key} = ? WHERE nombreUsuario = ?`;
+            con.query(query, [infoToChange[key], username], (error, rows, fields) => {
+                if (error) throw error;
+            });
+        }
+    }
 
-	res.json("infoUpdated");
+    res.json("infoUpdated");
 });
 
 app.post("/cambiarNotas", (req, res) => {
-	let infoToChange = JSON.parse(req.body.info);
-	for (let i = 0; i < infoToChange["data"].length; i++) {
-		let aux = infoToChange["data"][i]["namefield"];
-		let query = `UPDATE nota SET ${aux} = ? WHERE dni_alumno = ? AND id_materia = ?`;
-		con.query(query, [infoToChange["data"][i]["value"], infoToChange["data"][i]["dni"], infoToChange["data"][i]["idSubject"]], (error, rows, fields) => {
-			if (error) throw error;
-		});
-	}
-	res.json("infoUpdated");
+    let infoToChange = JSON.parse(req.body.info);
+    for (let i = 0; i < infoToChange["data"].length; i++) {
+        let aux = infoToChange["data"][i]["namefield"];
+        let query = `UPDATE nota SET ${aux} = ? WHERE dni_alumno = ? AND id_materia = ?`;
+        con.query(query, [infoToChange["data"][i]["value"], infoToChange["data"][i]["dni"], infoToChange["data"][i]["idSubject"]], (error, rows, fields) => {
+            if (error) throw error;
+        });
+    }
+    res.json("infoUpdated");
 });
 
 // Returns all students of the selected subject
 app.post("/estudianteMateria", (req, res) => {
-	if (req.session.logged) {
-		let subjectName = req.body.subjectName;
-		let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.nombreMateria = ? AND materia.curso_descripcion = estudiante.descripcion_curso INNER JOIN nota ON nota.dni_alumno = estudiante.dni AND nota.id_materia  = materia.id";
-		con.query(query, [subjectName], (error, rows, fields) => {
-			if (error) throw error;
-			res.render("listaEstudianteMateria.ejs", {
-				title: "Student",
-				data: rows,
-			});
-		});
-	} else {
-		res.redirect("/");
-	}
+    if (req.session.logged) {
+        let subjectName = req.body.subjectName;
+        let query = "SELECT * FROM estudiante INNER JOIN materia ON materia.nombreMateria = ? AND materia.curso_descripcion = estudiante.descripcion_curso INNER JOIN nota ON nota.dni_alumno = estudiante.dni AND nota.id_materia  = materia.id";
+        con.query(query, [subjectName], (error, rows, fields) => {
+            if (error) throw error;
+            res.render("listaEstudianteMateria.ejs", {
+                title: "Student",
+                data: rows,
+            });
+        });
+    } else {
+        res.redirect("/");
+    }
 });
 
 // Resize avatar images
 app.post("/subirFotos", (req, res) => {
-	uploads(req, res, function (err) {
-		// FILE SIZE ERROR
-		if (err instanceof multer.MulterError) {
-			return res.json("overToSize");
-		}
+    uploads(req, res, function (err) {
+        // FILE SIZE ERROR
+        if (err instanceof multer.MulterError) {
+            return res.json("overToSize");
+        }
 
-		// INVALID FILE TYPE, message will return from fileFilter callback
-		else if (err) {
-			return res.json("invalidType");
-		}
+        // INVALID FILE TYPE, message will return from fileFilter callback
+        else if (err) {
+            return res.json("invalidType");
+        }
 
-		// SUCCESS
-		else {
-			function getFileExtension(filename) {
-				return /[.]/.exec(filename) ? /[^.]+$/.exec(filename)[0] : undefined;
-			}
+        // SUCCESS
+        else {
+            function getFileExtension(filename) {
+                return /[.]/.exec(filename) ? /[^.]+$/.exec(filename)[0] : undefined;
+            }
 
-			let width = 800;
-			let heigth = 600;
+            let width = 800;
+            let heigth = 600;
 
-			let usuario = res.locals.username;
-			let extension = getFileExtension(req.file.originalname);
+            let usuario = res.locals.username;
+            let extension = getFileExtension(req.file.originalname);
 
-			sharp(req.file.path)
-				.resize(width, heigth)
-				.toFile("public/images/upload/avatars/avatar_" + usuario + "." + extension, (err) => {
-					if (!err) {
-						let img = "avatar_" + usuario + "." + extension;
-						let query = "UPDATE usuario SET avatar = ? WHERE nombreUsuario = ?";
-						con.query(query, [img, usuario], (errs, result) => {
-							if (errs) throw errs;
-							res.locals.routeAvatar = img;
-							req.session.routeAvatar = img;
-							res.json("updatedAvatar");
-						});
-					}
-				});
-		}
-	});
+            sharp(req.file.path)
+                .resize(width, heigth)
+                .toFile("public/images/upload/avatars/avatar_" + usuario + "." + extension, (err) => {
+                    if (!err) {
+                        let img = "avatar_" + usuario + "." + extension;
+                        let query = "UPDATE usuario SET avatar = ? WHERE nombreUsuario = ?";
+                        con.query(query, [img, usuario], (errs, result) => {
+                            if (errs) throw errs;
+                            res.locals.routeAvatar = img;
+                            req.session.routeAvatar = img;
+                            res.json("updatedAvatar");
+                        });
+                    }
+                });
+        }
+    });
 });
 
 // Create subject
 app.post("/crearMateria", (req, res) => {
-	if (req.session.logged) {
-		let name = req.body.name;
-		let image = req.body.image;
-		let teachingHours = req.body.teachingHours;
-		let teacherUser = req.body.teacherUser;
+    if (req.session.logged) {
+        let name = req.body.name;
+        let image = req.body.image;
+        let teachingHours = req.body.teachingHours;
+        let teacherUser = req.body.teacherUser;
 
-		let query = "INSERT INTO materia (nombre,imagen,horasCatedra,profesor_usuario) VALUES (?,?,?,?);";
-		con.query(query, [name, image, teachingHours, teacherUser], (error, rows, fields) => {
-			if (error) throw error;
-			res.redirect("/panelDeInicio");
-		});
-	} else {
-		res.redirect("/");
-	}
+        let query = "INSERT INTO materia (nombre,imagen,horasCatedra,profesor_usuario) VALUES (?,?,?,?);";
+        con.query(query, [name, image, teachingHours, teacherUser], (error, rows, fields) => {
+            if (error) throw error;
+            res.redirect("/panelDeInicio");
+        });
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.post("/cargarAprendizaje", aprendizajesExcel, (req, res, next) => {
-	if (req.session.logged) {
-		let trimester = req.body.quarter;
-		let idSubject = req.body.idSubject;
-		let file = req.body.file;
+    if (req.session.logged) {
+        let trimester = req.body.quarter;
+        let idSubject = req.body.idSubject;
+        let file = req.body.file;
 
-		//teacherFunctions.loadLearnings(req.file.path, con, typeOFile, trimester, idSubject);
-		res.redirect("/panelDeInicio");
-	} else {
-		res.redirect("/");
-	}
+        //teacherFunctions.loadLearnings(req.file.path, con, typeOFile, trimester, idSubject);
+        res.redirect("/panelDeInicio");
+    } else {
+        res.redirect("/");
+    }
 });
 
-app.post("/cambiarContraseña", (req, res) => {
-	let salt = 10;
-	let newPass = req.body.pass;
+app.post("/cambiarClave", (req, res) => {
+    let salt = 10;
+    let newPass = req.body.pass;
 
-	let query = "SELECT pass FROM usuario WHERE nombreUsuario = ?";
-	con.query(query, [res.locals.username], (error, rows, fields) => {
-		if (error) throw error;
-		bcrypt.compare(newPass, rows[0]["pass"], (err, row) => {
-			if (!row) {
-				let query = "UPDATE usuario SET pass = ?, contraseña_cambiada = 'true' WHERE nombreUsuario = ?";
-				bcrypt.hash(newPass, salt, (err, encrypted) => {
-					newPass = encrypted;
-					con.query(query, [newPass, res.locals.username], (error, rows, fields) => {
-						if (error) throw error;
-						res.json("passwordChanged");
-					});
-				});
-			} else {
-				res.json("passwordNotChanged");
-			}
-		});
-	});
+    let query = "SELECT pass FROM usuario WHERE nombreUsuario = ?";
+    con.query(query, [res.locals.username], (error, rows, fields) => {
+        if (error) throw error;
+        bcrypt.compare(newPass, rows[0]["pass"], (err, row) => {
+            if (!row) {
+                let query = "UPDATE usuario SET pass = ?, contraseña_cambiada = 'true' WHERE nombreUsuario = ?";
+                bcrypt.hash(newPass, salt, (err, encrypted) => {
+                    newPass = encrypted;
+                    con.query(query, [newPass, res.locals.username], (error, rows, fields) => {
+                        if (error) throw error;
+                        res.json("passwordChanged");
+                    });
+                });
+            } else {
+                res.json("passwordNotChanged");
+            }
+        });
+    });
 });
 
 app.post("/agregar", (req, res) => {
-	if (req.session.logged) {
-		let nickname = req.body.nickname.toLowerCase();
-		let firstname = req.body.firstname.toLowerCase();
-		let lastname = req.body.lastname.toLowerCase();
-		let email = req.body.email.toLowerCase();
-		let ingreso = req.body.ingreso.toLowerCase();
-		let fecha_nacimiento = req.body.fecha_nacimiento.toLowerCase();
-		let dni = req.body.dni.toLowerCase();
-		let telefono = req.body.telefono;
-		let genero = req.body.genero.toLowerCase();
-		let estado = req.body.estado.toLowerCase();
-		let password = "argentina2022";
-		let nombre = "profesor";
-		let salt = 10; // Standar value
-		let nombreMateria = req.body.materias;
-		let horas_catedra = req.body.horas_catedra;
-		let curso = req.body.curso.toLowerCase();
-		let cursoImagenTexto = curso.split(" ").join("_");
-		let imgMateria = `/images/espacios/${cursoImagenTexto}/${nombreMateria}.jpg`;
-		bcrypt.hash(password, salt, (err, encrypted) => {
-			password = encrypted;
-			let userquery = "INSERT INTO usuario (nombreUsuario,pass,avatar, contraseña_cambiada) VALUE (?,?,?,?)";
-			con.query(userquery, [nickname, password, "0", false], (error, rows, fields) => {
-				if (error) throw error;
-				let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
-				con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
-					if (error) throw error;
-					let profequery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
-					con.query(profequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, ingreso, estado], (error, rows, fields) => {
-						// Crear las materias reales en la DB para que funcione todo bien
-						if (error) throw error;
-						let materiaQuery = "INSERT INTO materia(nombreMateria, imagen, horasCatedra, profesor_usuario, curso_descripcion) VALUES (?,?,?,?,?)";
-						con.query(materiaQuery, [nombreMateria[0], imgMateria, horas_catedra, nickname, curso], (error, rows, fields) => {
-							if (error) throw error;
-							res.redirect("/panelDeInicio");
-						});
-					});
-				});
-			});
-		});
-	} else {
-		res.redirect("/");
-	}
+    if (req.session.logged) {
+        let nickname = req.body.nickname.toLowerCase();
+        let firstname = req.body.firstname.toLowerCase();
+        let lastname = req.body.lastname.toLowerCase();
+        let email = req.body.email.toLowerCase();
+        let ingreso = req.body.ingreso.toLowerCase();
+        let fecha_nacimiento = req.body.fecha_nacimiento.toLowerCase();
+        let dni = req.body.dni.toLowerCase();
+        let telefono = req.body.telefono;
+        let genero = req.body.genero.toLowerCase();
+        let estado = req.body.estado.toLowerCase();
+        let password = "argentina2022";
+        let nombre = "profesor";
+        let salt = 10; // Standar value
+        let nombreMateria = req.body.materias;
+        let horas_catedra = req.body.horas_catedra;
+        let curso = req.body.curso.toLowerCase();
+        let cursoImagenTexto = curso.split(" ").join("_");
+        let imgMateria = `/images/espacios/${cursoImagenTexto}/${nombreMateria}.jpg`;
+        bcrypt.hash(password, salt, (err, encrypted) => {
+            password = encrypted;
+            let userquery = "INSERT INTO usuario (nombreUsuario,pass,avatar, contraseña_cambiada) VALUE (?,?,?,?)";
+            con.query(userquery, [nickname, password, "0", false], (error, rows, fields) => {
+                if (error) throw error;
+                let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
+                con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
+                    if (error) throw error;
+                    let profequery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                    con.query(profequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, ingreso, estado], (error, rows, fields) => {
+                        // Crear las materias reales en la DB para que funcione todo bien
+                        if (error) throw error;
+                        let materiaQuery = "INSERT INTO materia(nombreMateria, imagen, horasCatedra, profesor_usuario, curso_descripcion) VALUES (?,?,?,?,?)";
+                        con.query(materiaQuery, [nombreMateria[0], imgMateria, horas_catedra, nickname, curso], (error, rows, fields) => {
+                            if (error) throw error;
+                            res.redirect("/panelDeInicio");
+                        });
+                    });
+                });
+            });
+        });
+    } else {
+        res.redirect("/");
+    }
 });
 
 //I compare the password entered to the one encrypted in the DB to be able to access the panelDeInicio
 app.post("/loguearse", (req, res) => {
-	let username = req.body.user;
-	let password = req.body.pass;
-	let query = "SELECT * FROM usuario WHERE nombreUsuario = ?";
-	con.query(query, [username], (error, rows, fields) => {
-		if (rows.length > 0) {
-			bcrypt.compare(password, rows[0]["pass"], (err, row) => {
-				if (row) {
-					res.locals.username = username;
-					req.session.username = username;
-					req.session.logged = true;
+    let username = req.body.user;
+    let password = req.body.pass;
+    let query = "SELECT * FROM usuario WHERE nombreUsuario = ?";
+    con.query(query, [username], (error, rows, fields) => {
+        if (rows.length > 0) {
+            bcrypt.compare(password, rows[0]["pass"], (err, row) => {
+                if (row) {
+                    res.locals.username = username;
+                    req.session.username = username;
+                    req.session.logged = true;
 
-					if (rows[0]["contraseña_cambiada"] === "true") {
-						res.locals.logged = true;
-						req.session.logged = true;
+                    if (rows[0]["contraseña_cambiada"] === "true") {
+                        res.locals.logged = true;
+                        req.session.logged = true;
 
-						res.locals.routeAvatar = rows[0]["avatar"];
-						req.session.routeAvatar = rows[0]["avatar"];
+                        res.locals.routeAvatar = rows[0]["avatar"];
+                        req.session.routeAvatar = rows[0]["avatar"];
 
-						let query2 = "SELECT nombre FROM rol INNER JOIN usuario ON ? = rol.nombreUsuario AND rol.nombreUsuario = usuario.nombreUsuario ";
-						con.query(query2, [username], (error, rows, fields) => {
-							let arrRol = [];
-							for (let i = 0; i < rows.length; i++) {
-								arrRol.push(rows[i].nombre);
-							}
+                        let query2 = "SELECT nombre FROM rol INNER JOIN usuario ON ? = rol.nombreUsuario AND rol.nombreUsuario = usuario.nombreUsuario ";
+                        con.query(query2, [username], (error, rows, fields) => {
+                            let arrRol = [];
+                            for (let i = 0; i < rows.length; i++) {
+                                arrRol.push(rows[i].nombre);
+                            }
 
-							res.locals.rol = arrRol;
-							req.session.rol = arrRol;
+                            res.locals.rol = arrRol;
+                            req.session.rol = arrRol;
 
-							res.locals.toastrFlag = true;
-							req.session.toastrFlag = true;
+                            res.locals.toastrFlag = true;
+                            req.session.toastrFlag = true;
 
-							res.locals.flagNotificaciones = false;
-							req.session.flagNotificaciones = false;
+                            res.locals.flagNotificaciones = false;
+                            req.session.flagNotificaciones = false;
 
-							if (arrRol[0] == "administrador") {
-								let query = "SELECT * FROM notificaciones";
-								con.query(query, (error, rows) => {
-									if (rows.length > 0) {
-										res.locals.flagNotificaciones = true;
-										req.session.flagNotificaciones = true;
-										res.json("loginOk");
-									} else {
-										res.json("loginOk");
-									}
-								});
-							} else {
-								dia = new Date();
-								dia = dia.toLocaleString("es-AR").substring(0, 10).split("/").join("-");
-								let query = "SELECT * FROM notificaciones WHERE fechaLanzamiento = ?";
-								con.query(query, [dia], (error, rows) => {
-									if (rows.length > 0) {
-										res.locals.flagNotificaciones = true;
-										req.session.flagNotificaciones = true;
-										res.json("loginOk");
-									} else {
-										res.json("loginOk");
-									}
-								});
-							}
-						});
-					} else {
-						res.json("changePassword");
-					}
-				} else {
-					res.json("wrongPass");
-				}
-			});
-		} else {
-			res.json("userNotExist");
-		}
-	});
+                            if (arrRol[0] == "administrador") {
+                                let query = "SELECT * FROM notificaciones";
+                                con.query(query, (error, rows) => {
+                                    if (rows.length > 0) {
+                                        res.locals.flagNotificaciones = true;
+                                        req.session.flagNotificaciones = true;
+                                        res.json("loginOk");
+                                    } else {
+                                        res.json("loginOk");
+                                    }
+                                });
+                            } else {
+                                dia = new Date();
+                                dia = dia.toLocaleString("es-AR").substring(0, 10).split("/").join("-");
+                                let query = "SELECT * FROM notificaciones WHERE fechaLanzamiento = ?";
+                                con.query(query, [dia], (error, rows) => {
+                                    if (rows.length > 0) {
+                                        res.locals.flagNotificaciones = true;
+                                        req.session.flagNotificaciones = true;
+                                        res.json("loginOk");
+                                    } else {
+                                        res.json("loginOk");
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        res.json("changePassword");
+                    }
+                } else {
+                    res.json("wrongPass");
+                }
+            });
+        } else {
+            res.json("userNotExist");
+        }
+    });
 });
 
 app.get("/crearNotificaciones", (req, res) => {
-	if (!req.session.logged) {
-		res.redirect("/");
-	} else {
-		let rol = res.locals.rol;
+    if (!req.session.logged) {
+        res.redirect("/");
+    } else {
+        let rol = res.locals.rol;
 
-		flagRol = false;
-		for (let i = 0; i < rol.length; i++) {
-			if (rol[i] == "administrador") {
-				flagRol = true;
-			}
-		}
-		if (flagRol) {
-			res.render("agregarNotificaciones.ejs");
-		} else {
-			res.redirect("/panelDeInicio");
-		}
-	}
+        flagRol = false;
+        for (let i = 0; i < rol.length; i++) {
+            if (rol[i] == "administrador") {
+                flagRol = true;
+            }
+        }
+        if (flagRol) {
+            res.render("agregarNotificaciones.ejs");
+        } else {
+            res.redirect("/panelDeInicio");
+        }
+    }
 });
 
 app.post("/crearNotificaciones", (req, res) => {
-	let titulo = req.body.titulo;
-	let fechaEvento = req.body.fechaEvento;
-	let fechaLanzamiento = req.body.fechaLanzamiento;
-	let tags = req.body.tags;
+    let titulo = req.body.titulo;
+    let fechaEvento = req.body.fechaEvento;
+    let fechaLanzamiento = req.body.fechaLanzamiento;
+    let tags = req.body.tags;
 
-	titulo = titulo.toLowerCase();
-	tags = tags.toLowerCase();
-	fechaEvento = fechaEvento.substring(8, 10) + "-" + fechaEvento.substring(5, 7) + "-" + fechaEvento.substring(0, 4);
-	fechaLanzamiento = fechaLanzamiento.substring(8, 10) + "-" + fechaLanzamiento.substring(5, 7) + "-" + fechaLanzamiento.substring(0, 4);
+    titulo = titulo.toLowerCase();
+    tags = tags.toLowerCase();
+    fechaEvento = fechaEvento.substring(8, 10) + "-" + fechaEvento.substring(5, 7) + "-" + fechaEvento.substring(0, 4);
+    fechaLanzamiento = fechaLanzamiento.substring(8, 10) + "-" + fechaLanzamiento.substring(5, 7) + "-" + fechaLanzamiento.substring(0, 4);
 
-	let dia = new Date();
-	dia = dia.toLocaleString("es-AR").substring(0, 10).split("/").join("-");
+    let dia = new Date();
+    dia = dia.toLocaleString("es-AR").substring(0, 10).split("/").join("-");
 
-	tags = tags.replace(/ /g, "-");
+    tags = tags.replace(/ /g, "-");
 
-	for (let i = 0; i < tags.length; i++) {
-		if (tags[i] != "-") {
-			tags = tags.substring([i]);
-		}
-	}
+    for (let i = 0; i < tags.length; i++) {
+        if (tags[i] != "-") {
+            tags = tags.substring([i]);
+        }
+    }
 
-	let querySelect = "SELECT count(*) FROM notificaciones";
-	con.query(querySelect, (error, rows) => {
-		console.log(rows[0]["count(*)"]);
-		if (rows[0]["count(*)"] < 5) {
-			if (fechaLanzamiento == dia) {
-				res.locals.flagNotificaciones = true;
-				req.session.flagNotificaciones = true;
-			}
-			let query = "INSERT INTO notificaciones (titulo,fechaEvento,fechaLanzamiento,tags) VALUES (?,?,?,?);";
-			con.query(query, [titulo, fechaEvento, fechaLanzamiento, tags], (error, rows, fields) => {
-				if (error) throw error;
-				res.json("crearNotificacion");
-			});
-		} else {
-			res.json("limiteAlcanzado");
-		}
-	});
+    let querySelect = "SELECT count(*) FROM notificaciones";
+    con.query(querySelect, (error, rows) => {
+        console.log(rows[0]["count(*)"]);
+        if (rows[0]["count(*)"] < 5) {
+            if (fechaLanzamiento == dia) {
+                res.locals.flagNotificaciones = true;
+                req.session.flagNotificaciones = true;
+            }
+            let query = "INSERT INTO notificaciones (titulo,fechaEvento,fechaLanzamiento,tags) VALUES (?,?,?,?);";
+            con.query(query, [titulo, fechaEvento, fechaLanzamiento, tags], (error, rows, fields) => {
+                if (error) throw error;
+                res.json("crearNotificacion");
+            });
+        } else {
+            res.json("limiteAlcanzado");
+        }
+    });
 });
 
 app.get("/crearEstudiante", (req, res) => {
-	if (req.session.logged) {
-		let salt = 10; // Standar value
-		let nickname = req.body.nickname.toLowerCase();
-		let firstname = req.body.firstname.toLowerCase();
-		let lastname = req.body.lastname.toLowerCase();
-		let password = "argentina2022";
-		let email = req.body.email.toLowerCase();
-		let fecha_nacimiento = req.body.fecha_nacimiento.toLowerCase();
-		let dni = req.body.dni.toLowerCase();
-		let telefono = req.body.telefono;
-		let genero = req.body.genero.toLowerCase();
-		let legajo = req.body.legajo.toLowerCase();
-		let rol = req.body.rol.toLowerCase();
-		let descripcion_curso = req.body.descripcion_curso.toLowerCase();
-		bcrypt.hash(password, salt, (err, encrypted) => {
-			password = encrypted;
-			let userquery = "INSERT INTO usuario (nombreUsuario, pass, avatar, contraseña_cambiada) VALUE (?,?,?,?)";
-			con.query(userquery, [nickname, password, "public/imgEstudiante/default-avatar.jpg", false], (error, rows, fields) => {
-				if (error) throw error;
-				rolquery = "INSERT INTO rol (nombreUsuario, nombre)";
-				con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
-					if (error) throw error;
-					let estudiantequery = "INSERT INTO estudiante (nombreUsuario, nombre, apellido, dni, telefono, email, genero,nacimiento) VALUES (?,?,?,?,?,?,?,?)";
-					con.query(estudiantequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento], (error, rows, fields) => {});
-				});
-			});
-		});
-	} else {
-		res.redirect("/");
-	}
+    if (req.session.logged) {
+        let salt = 10; // Standar value
+        let nickname = req.body.nickname.toLowerCase();
+        let firstname = req.body.firstname.toLowerCase();
+        let lastname = req.body.lastname.toLowerCase();
+        let password = "argentina2022";
+        let email = req.body.email.toLowerCase();
+        let fecha_nacimiento = req.body.fecha_nacimiento.toLowerCase();
+        let dni = req.body.dni.toLowerCase();
+        let telefono = req.body.telefono;
+        let genero = req.body.genero.toLowerCase();
+        let legajo = req.body.legajo.toLowerCase();
+        let rol = req.body.rol.toLowerCase();
+        let descripcion_curso = req.body.descripcion_curso.toLowerCase();
+        bcrypt.hash(password, salt, (err, encrypted) => {
+            password = encrypted;
+            let userquery = "INSERT INTO usuario (nombreUsuario, pass, avatar, contraseña_cambiada) VALUE (?,?,?,?)";
+            con.query(userquery, [nickname, password, "public/imgEstudiante/default-avatar.jpg", false], (error, rows, fields) => {
+                if (error) throw error;
+                rolquery = "INSERT INTO rol (nombreUsuario, nombre)";
+                con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
+                    if (error) throw error;
+                    let estudiantequery = "INSERT INTO estudiante (nombreUsuario, nombre, apellido, dni, telefono, email, genero,nacimiento) VALUES (?,?,?,?,?,?,?,?)";
+                    con.query(estudiantequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento], (error, rows, fields) => {});
+                });
+            });
+        });
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get("/borrarNotificacion/:id", (req, res) => {
-	let id = req.params.id;
-	let query = "DELETE FROM notificaciones WHERE id = ?";
-	con.query(query, [id], (error, rows, fields) => {
-		if (error) throw error;
-		res.json("");
-	});
+    let id = req.params.id;
+    let query = "DELETE FROM notificaciones WHERE id = ?";
+    con.query(query, [id], (error, rows, fields) => {
+        if (error) throw error;
+        res.json("");
+    });
 });
 
 app.get("/noLogueado", (req, res) => {
-	res.render("desloguearse.ejs");
+    res.render("desloguearse.ejs");
 });
 
 app.use((req, res, next) => {
-	res.status(404).render("404");
+    res.status(404).render("404");
 });
 
 app.use(function (err, req, res, next) {
-	console.error(err.stack);
-	res.status(500).render("500");
+    console.error(err.stack);
+    res.status(500).render("500");
 });
 
 // End routes
 app.listen(2500, () => {
-	console.log("El servidor corriendo en el puerto 2500");
+    console.log("El servidor corriendo en el puerto 2500");
 });
