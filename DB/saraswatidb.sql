@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-10-2021 a las 20:22:45
--- Versión del servidor: 10.4.17-MariaDB
--- Versión de PHP: 8.0.2
+-- Tiempo de generación: 25-10-2021 a las 14:34:28
+-- Versión del servidor: 10.4.21-MariaDB
+-- Versión de PHP: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -81,7 +81,7 @@ CREATE TABLE `estudiante` (
 
 INSERT INTO `estudiante` (`dni`, `nombre`, `apellido`, `genero`, `fecha_nacimiento`, `legajo`, `email`, `telefono`, `descripcion_curso`, `nombreUsuario`) VALUES
 (44897788, 'nahuel', 'petrocelli', 'masculino', '09/08/2003', '0101', 'npetrocelli@escuelasproa.edu.ar', '351279610', 'sexto año', 'npetrocelli'),
-(44970733, 'lara', 'santillan', 'femenino', '11/08/2003', '0088', 'mgalanmartinez@escuelasproa.edu.ar', '3512151744', 'sexto año', 'mgalanmartinez'),
+(44970733, 'lara', 'santillan', 'femenino', '11/08/2003', '0088', 'lsantillan@escuelasproa.edu.ar', '3512334340', 'sexto año', 'lsantillan'),
 (45081861, 'fabrizio', 'meloni', 'masculino', '17/11/2003', '0096', 'fmeloni@escuelasproa.edu.ar', '35126323900', 'sexto año', 'fmeloni'),
 (45081873, 'santiago', 'ortega', 'masculino', '18/11/2003', '0097', 'saortega@escuelasproa.edu.ar', '35164458', 'sexto año', 'saortega'),
 (45083228, 'luciano', 'guzman', 'masculino', '22/11/2003', '0090', 'lguzman@escuelasproa.edu.ar', '3516519107', 'sexto año', 'lguzman'),
@@ -151,10 +151,31 @@ CREATE TABLE `nota` (
   `nota7` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
   `nota8` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
   `nota_definitiva` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nota_definitiva1` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
   `id_materia` int(11) NOT NULL,
   `descripcion_curso` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `dni_alumno` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `nota`
+--
+
+INSERT INTO `nota` (`id`, `nota1`, `nota2`, `nota3`, `nota4`, `nota5`, `nota6`, `nota7`, `nota8`, `nota_definitiva`, `nota_definitiva1`, `id_materia`, `descripcion_curso`, `dni_alumno`) VALUES
+(2, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 1, 'sexto año', 44897788),
+(3, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 2, 'sexto año', 44897788),
+(4, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 11, 'sexto año', 44897788),
+(5, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 12, 'sexto año', 44897788),
+(6, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 13, 'sexto año', 44897788),
+(7, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 14, 'sexto año', 44897788),
+(8, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 1, 'sexto año', 44970733),
+(9, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 2, 'sexto año', 44970733),
+(10, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 11, 'sexto año', 44970733),
+(11, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 12, 'sexto año', 44970733),
+(12, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 1, 'sexto año', 45081861),
+(13, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 2, 'sexto año', 45081861),
+(14, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 11, 'sexto año', 45081861),
+(15, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 12, 'sexto año', 45081861);
 
 -- --------------------------------------------------------
 
@@ -410,6 +431,12 @@ ALTER TABLE `estudianteaprendizaje`
 --
 ALTER TABLE `materia`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT de la tabla `nota`
+--
+ALTER TABLE `nota`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
