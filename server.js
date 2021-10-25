@@ -1193,7 +1193,21 @@ app.get("/borrarNotificacion/:id", (req, res) => {
         if (error) throw error;
         res.json("");
     });
+}); 
+
+app.get("/borrarProfesor/:nombreUsuario" , (req, res) => {
+	let nombreUsuario = req.params.nombreUsuario;
+    let query = "DELETE FROM profesor WHERE nombreUsuario = ?";
+    con.query(query, [nombreUsuario], (error, rows, fields) => {
+        if (error) throw error;
+            let query2 = "DELETE FROM usuario WHERE nombreUsuario = ?";
+	        con.query(query2, [nombreUsuario], (error, rows, fields) => {
+                if (error) throw error;
+                    res.redirect("/listarProfesor")
+                });
+    });
 });
+
 
 app.get("/noLogueado", (req, res) => {
     res.render("desloguearse.ejs");

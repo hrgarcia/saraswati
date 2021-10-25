@@ -52,6 +52,7 @@
                             <thead>
                                 <th >
                                 </th>
+
                                 <th data-field="name">
                                     Nombre
                                 </th>
@@ -77,6 +78,11 @@
                                 <th data-field="estado">
                                     Estado
                                 </th>
+                                
+                                <th data-field="acciones" >
+                                    
+                                </th>
+                                <th></th>
                             </thead>
                             <form id="notesForm" method="post">
                                 <% data.forEach(function(profesor){ %>    
@@ -89,6 +95,15 @@
                                         <td><%-profesor['telefono']%></td>
                                         <td><%-profesor['ingreso']%></td>
                                         <td><%-profesor['estado']%></td>
+                                        <td>
+                                            <div id="<%-profesor['nombreUsuario']%>" onclick="borrar(this.id)">
+                                                <i uk-margin type="button" title="Notas" uk-toggle style="color:black; font-size:27px;margin-left:5px;" class="material-icons">delete</i>
+                                               
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <i class="material-icons" id="<%-profesor['nombreUsuario']%>" onclick="agregarMateria(this.id)" data-toggle="modal" data-target="#learningsStudent"> create</i>
+                                        </td>
                                     </tr>
                                 <% }); %>
                             </form>
@@ -97,8 +112,66 @@
                     <a href="#" style="float:right;" uk-totop uk-scroll></a>         
                 </div>
             </div>
+            <div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" id="modal">
+                        <div class="modal-header" style="border-bottom: 1px solid #ffffff !important">
+                            <h5 class="modal-title tituloPrincipal" id="exampleModalLabel">Materias</h5>
+                            <h5 class="modal-title" id="isChangedLearnState" style="text-indent: 350px"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div> 
             <%- include('fragment/footer'); -%>
         </div>
         <%- include('fragment/scripts'); -%>
+
+                <!-- Own SweetAlert2 -->
+        <script src="/javascripts/sweetAlerts.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            function borrar(aux){
+                console.log("holaaa");
+                
+               /*  $.get(`borrarProfesor/${aux}`,  res => {
+                   setTimeout(reloadPage, 2500);
+                }); */
+                Swal.fire({
+                    title: '¿Esta seguro que quiere eliminar a este profesor?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Si',
+                    denyButtonText: `No`,
+                    html:aux
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Se elimino al profesor",
+                            showConfirmButton: false,
+                            timer: 1200,
+                            timerProgressBar: true,
+                            toast: true,
+                            position: "top-end",
+                        });
+                      /*   $.get(`borrarProfesor/${aux}`,  res => {
+                            setTimeout(reloadPage, 2500);
+                        });  */
+                    } 
+		        })
+             }
+
+             function agregarMateria(params) {
+                 console.log("entro");
+             }
+                
+        </script>
     </body>
 </html>
