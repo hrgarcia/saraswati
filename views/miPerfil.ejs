@@ -19,8 +19,12 @@
         <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 
+        
+        <!-- Nuestros estilos -->
+
         <link rel="stylesheet" href="/stylesheets/style.css" />
         <link rel="stylesheet" href="/stylesheets/uikit.min.css" />
+        <link rel="stylesheet" href="/stylesheets/tarjetaperfil.css"/>
 
         <%- include('fragment/background'); -%>
     </head>
@@ -32,238 +36,240 @@
                 <div class="main-body">
                     <div class="container emp-profile">
                         <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-8">
-                                <div class="card" style="margin-top: 60px">
-                                    <div class="card-body" align="center">
-                                        <% data[0].forEach(function(Profile){ %>
-                                        <div class="card-body">
-                                            <h4 class="card-title">Estimado <%-Profile['nombreUsuario'] %> a continuación se lista tu información personal.</h4>
-                                            <br />
-
-                                            <% if(Profile['avatar'] == "0" ){ %>
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="perfect-circle" width="150" />
-
-                                            <% } else{ %>
-                                            <img src="/images/upload/avatars/<%-Profile['avatar']%>" alt="Admin" class="rounded-circle" width="150" />
-                                            <% } %>
-
-                                            <form id="avatarForm" action="/subirFotos" method="post" enctype="multipart/form-data">
-                                                <input id="inputAvatar" type="file" name="document" accept="image/png, image/jpeg, image/gif, image/jpg" value="" />
-                                                <button id="saveAvatar" type="button">Guardar avatar</button>
-                                            </form>
-                                            <br />
-                                        </div>
-                                        <% }); %>
-                                        <div id="test1">
-                                            <form id="profileForm" method="post">
-                                                <% data[1].forEach(function(Profile){ %>
-                                                
-                                                    <div class="col-sm-10 col-sm-offset-1" align="center">
+                            <div class=""></div>
+                            <div class="">
+                                <div class="card2" style="margin-top: 60px">
+                                    <div class="conten">
+                                        <div align="center">
+                                            <% data[0].forEach(function(Profile){ %>
+                                            <div class="card-body">
+                                                <h4 class="card-title">Estimado <%-Profile['nombreUsuario'] %> a continuación se lista tu información personal.</h4>
+                                                <br />
+    
+                                                <% if(Profile['avatar'] == "0" ){ %>
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="perfect-circle" width="150" />
+    
+                                                <% } else{ %>
+                                                <img src="/images/upload/avatars/<%-Profile['avatar']%>" alt="Admin" class="rounded-circle" width="150" />
+                                                <% } %>
+    
+                                                <form id="avatarForm" action="/subirFotos" method="post" enctype="multipart/form-data">
+                                                    <input id="inputAvatar" type="file" name="document" accept="image/png, image/jpeg, image/gif, image/jpg" value="" />
+                                                    <button id="saveAvatar" type="button">Guardar avatar</button>
+                                                </form>
+                                                <br />
+                                            </div>
+                                            <% }); %>
+                                            <div id="test1">
+                                                <form id="profileForm" method="post">
+                                                    <% data[1].forEach(function(Profile){ %>
+                                                    
+                                                        <div class="col-sm-10 col-sm-offset-1" align="center">
+                                                            <div class="row">
+                                                            <div class="form-group">
+                                                                <label> Nombre </label>
+                                                                <br />
+                                                                <div class="uk-inline">
+                                                                    <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: info"></a>
+                                                                    <input
+                                                                        name="nombre"
+                                                                        class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
+                                                                        type="text"
+                                                                        readonly
+                                                                        onmousedown="return false;"
+                                                                        style="border: solid 2px #d2d2d2"
+                                                                        value="<%-Profile['nombre']%>"
+                                                                        placeholder="<%-Profile['nombre']%>"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         <div class="row">
-                                                        <div class="form-group">
-                                                            <label> Nombre </label>
-                                                            <br />
-                                                            <div class="uk-inline">
-                                                                <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: info"></a>
-                                                                <input
-                                                                    name="nombre"
-                                                                    class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
-                                                                    type="text"
-                                                                    readonly
-                                                                    onmousedown="return false;"
-                                                                    style="border: solid 2px #d2d2d2"
-                                                                    value="<%-Profile['nombre']%>"
-                                                                    placeholder="<%-Profile['nombre']%>"
-                                                                />
-                                                            </div>
+                                                            <div class="form-group">
+                                                                <label> Apellido </label>
+                                                                <br />
+                                                                <div class="uk-inline">
+                                                                    <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: settings"></a>
+                                                                    <input
+                                                                        name="apellido"
+                                                                        class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
+                                                                        type="text"
+                                                                        readonly
+                                                                        onmousedown="return false;"
+                                                                        style="border: solid 2px #d2d2d2"
+                                                                        value="<%-Profile['apellido']%>"
+                                                                        placeholder="<%-Profile['apellido']%>"
+                                                                    />
+                                                                </div>
                                                         </div>
                                                     </div>
+                                                    
+                                                        <div class="row"> 
+                                                            <div class="form-group">
+                                                                <label> Teléfono </label>
+                                                                <br />
+                                                                <div class="uk-inline">
+                                                                    <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: phone"></a>
+                                                                    <input
+                                                                        name="telefono"
+                                                                        class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
+                                                                        type="text"
+                                                                        style="border: solid 2px #d2d2d2"
+                                                                        value="<%-Profile['telefono']%>"
+                                                                        placeholder="<%-Profile['telefono']%>"
+                                                                    />
+                                                            </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label> Género </label>
+                                                                <br />
+                                                                <div class="uk-inline">
+                                                                    <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: users"></a>
+                                                                    <input
+                                                                        name="genero"
+                                                                        class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
+                                                                        type="text"
+                                                                        style="border: solid 2px #d2d2d2"
+                                                                        value="<%-Profile['genero']%>"
+                                                                        placeholder="<%-Profile['genero']%>"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                        <div class="row"> 
+                                                            <div class="form-group">
+                                                                <label> Dni </label>
+                                                                <br />
+                                                                <div class="uk-inline">
+                                                                    <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: credit-card"></a>
+                                                                    <input
+                                                                        name="dni"
+                                                                        class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
+                                                                        type="text"
+                                                                        readonly
+                                                                        onmousedown="return false;"
+                                                                        style="border: solid 2px #d2d2d2"
+                                                                        value="<%-Profile['dni']%>"
+                                                                        placeholder="<%-Profile['dni']%>"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label> Fecha de nacimiento </label>
+                                                                <br />
+                                                                <div class="uk-inline">
+                                                                    <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: calendar"></a>
+                                                                    <input
+                                                                        name="nacimiento"
+                                                                        class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
+                                                                        type="text"
+                                                                        readonly
+                                                                        onmousedown="return false;"
+                                                                        style="border: solid 2px #d2d2d2"
+                                                                        value="<%-Profile['nacimiento']%>"
+                                                                        placeholder="<%-Profile['nacimiento']%>"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label> Email </label>
+                                                                <br />
+                                                                <div class="uk-inline">
+                                                                    <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: mail"></a>
+                                                                    <input
+                                                                        name="email"
+                                                                        class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
+                                                                        type="text"
+                                                                        style="border: solid 2px #d2d2d2"
+                                                                        value="<%-Profile['email']%>"
+                                                                        placeholder="<%-Profile['email']%>"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    
+                                                    <% }); %> <% for(let i = 1; i <= rol.length; i++) { %>
+    
+                                                    <!-- Admin -->
+                                                    <% if (rol[i-1] == 'administrador') { %>
                                                     <div class="row">
-                                                        <div class="form-group">
-                                                            <label> Apellido </label>
-                                                            <br />
-                                                            <div class="uk-inline">
-                                                                <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: settings"></a>
-                                                                <input
-                                                                    name="apellido"
-                                                                    class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
-                                                                    type="text"
-                                                                    readonly
-                                                                    onmousedown="return false;"
-                                                                    style="border: solid 2px #d2d2d2"
-                                                                    value="<%-Profile['apellido']%>"
-                                                                    placeholder="<%-Profile['apellido']%>"
-                                                                />
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="bmd-label-floating">adminisitrador</label>
                                                             </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                
+                                                    <% } %>
+    
+                                                    <!-- preceptor -->
+                                                    <% if (rol[i-1] == 'preceptor') { %>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="bmd-label-floating">preceptor</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <% } %>
+    
+                                                    <!-- profesor -->
+                                                    <% if (rol[i-1] == 'profesor') { %> <% data[i].forEach(function(Profile){ %>
+                                                    <div class="col-sm-10 col-sm-offset-1" align="center">
                                                     <div class="row"> 
-                                                        <div class="form-group">
-                                                            <label> Teléfono </label>
-                                                            <br />
-                                                            <div class="uk-inline">
-                                                                <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: phone"></a>
-                                                                <input
-                                                                    name="telefono"
-                                                                    class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
-                                                                    type="text"
-                                                                    style="border: solid 2px #d2d2d2"
-                                                                    value="<%-Profile['telefono']%>"
-                                                                    placeholder="<%-Profile['telefono']%>"
-                                                                />
-                                                        </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label> Género </label>
-                                                            <br />
-                                                            <div class="uk-inline">
-                                                                <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: users"></a>
-                                                                <input
-                                                                    name="genero"
-                                                                    class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
-                                                                    type="text"
-                                                                    style="border: solid 2px #d2d2d2"
-                                                                    value="<%-Profile['genero']%>"
-                                                                    placeholder="<%-Profile['genero']%>"
-                                                                />
-                                                            </div>
+                                                    <div class="form-group">
+                                                        <label> Ingreso</label>
+                                                        <br />
+                                                        <div class="uk-inline">
+                                                            <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: sign-in"></a>
+                                                            <input
+                                                                name="telefono"
+                                                                class="uk-input uk transform-origin: 0px 0px; inputCanEditing profileTd uk-form-width-large"
+                                                                type="text"
+                                                                readonly
+                                                                onmousedown="return false;"
+                                                                style="border: solid 2px #d2d2d2"
+                                                                value="<%-Profile['ingreso']%>"
+                                                                placeholder="<%-Profile['ingreso']%>"
+                                                            />
                                                         </div>
                                                     </div>
-                                                
-                                                    <div class="row"> 
-                                                        <div class="form-group">
-                                                            <label> Dni </label>
-                                                            <br />
-                                                            <div class="uk-inline">
-                                                                <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: credit-card"></a>
-                                                                <input
-                                                                    name="dni"
-                                                                    class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
-                                                                    type="text"
-                                                                    readonly
-                                                                    onmousedown="return false;"
-                                                                    style="border: solid 2px #d2d2d2"
-                                                                    value="<%-Profile['dni']%>"
-                                                                    placeholder="<%-Profile['dni']%>"
-                                                                />
-                                                            </div>
+                                                    <div class="form-group">
+                                                        <label> Estado</label>
+                                                        <br />
+                                                        <div class="uk-inline">
+                                                            <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: grid"></a>
+                                                            <input
+                                                                name="telefono"
+                                                                class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
+                                                                type="text"
+                                                                readonly
+                                                                onmousedown="return false;"
+                                                                style="border: solid 2px #d2d2d2"
+                                                                value="<%-Profile['estado']%>"
+                                                                placeholder="<%-Profile['estado']%>"
+                                                            />
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label> Fecha de nacimiento </label>
-                                                            <br />
-                                                            <div class="uk-inline">
-                                                                <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: calendar"></a>
-                                                                <input
-                                                                    name="nacimiento"
-                                                                    class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
-                                                                    type="text"
-                                                                    readonly
-                                                                    onmousedown="return false;"
-                                                                    style="border: solid 2px #d2d2d2"
-                                                                    value="<%-Profile['nacimiento']%>"
-                                                                    placeholder="<%-Profile['nacimiento']%>"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label> Email </label>
-                                                            <br />
-                                                            <div class="uk-inline">
-                                                                <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: mail"></a>
-                                                                <input
-                                                                    name="email"
-                                                                    class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
-                                                                    type="text"
-                                                                    style="border: solid 2px #d2d2d2"
-                                                                    value="<%-Profile['email']%>"
-                                                                    placeholder="<%-Profile['email']%>"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                
-                                                <% }); %> <% for(let i = 1; i <= rol.length; i++) { %>
-
-                                                <!-- Admin -->
-                                                <% if (rol[i-1] == 'administrador') { %>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">adminisitrador</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <% } %>
-
-                                                <!-- preceptor -->
-                                                <% if (rol[i-1] == 'preceptor') { %>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">preceptor</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <% } %>
-
-                                                <!-- profesor -->
-                                                <% if (rol[i-1] == 'profesor') { %> <% data[i].forEach(function(Profile){ %>
-                                                <div class="col-sm-10 col-sm-offset-1" align="center">
-                                                <div class="row"> 
-                                                <div class="form-group">
-                                                    <label> Ingreso</label>
-                                                    <br />
-                                                    <div class="uk-inline">
-                                                        <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: sign-in"></a>
-                                                        <input
-                                                            name="telefono"
-                                                            class="uk-input uk transform-origin: 0px 0px; inputCanEditing profileTd uk-form-width-large"
-                                                            type="text"
-                                                            readonly
-                                                            onmousedown="return false;"
-                                                            style="border: solid 2px #d2d2d2"
-                                                            value="<%-Profile['ingreso']%>"
-                                                            placeholder="<%-Profile['ingreso']%>"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label> Estado</label>
-                                                    <br />
-                                                    <div class="uk-inline">
-                                                        <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: grid"></a>
-                                                        <input
-                                                            name="telefono"
-                                                            class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
-                                                            type="text"
-                                                            readonly
-                                                            onmousedown="return false;"
-                                                            style="border: solid 2px #d2d2d2"
-                                                            value="<%-Profile['estado']%>"
-                                                            placeholder="<%-Profile['estado']%>"
-                                                        />
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                                <% }); %> <% } %>
-                                                <!-- estudiante -->
-                                                <% if (rol[i-1] == 'estudiante') { %> <% data[i].forEach(function(Profile){ %>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating">Curso: <input style="text-align: center" type="text" name="curso" readonly onmousedown="return false;" value="<%-Profile['descripcion_curso']%>" /></label>
+                                                    <% }); %> <% } %>
+                                                    <!-- estudiante -->
+                                                    <% if (rol[i-1] == 'estudiante') { %> <% data[i].forEach(function(Profile){ %>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="bmd-label-floating">Curso: <input style="text-align: center" type="text" name="curso" readonly onmousedown="return false;" value="<%-Profile['descripcion_curso']%>" /></label>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <% }); %> <% } %> <% } %>
-                                            </form>
-                                            <br />
+                                                    <% }); %> <% } %> <% } %>
+                                                </form>
+                                                <br />
+                                            </div>
                                         </div>
                                     </div>
                                     <button class="uk-button btn btn-danger" id="saveChange">Guardar cambios</button>

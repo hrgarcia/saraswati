@@ -1,0 +1,34 @@
+.card2{
+    position: relative;
+    width: 100%;
+    height: 500p;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 25px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    transition: 1s;
+}
+
+.card2:hover{
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.card2::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background: rgba(52, 58, 64);
+
+}
+
+.card2 .conten{
+    position: relative;
+    display: flex;
+}
