@@ -680,7 +680,7 @@ app.get("/generarReporteExcel/:dni/:idMateria", (req, res) => {
 
 						// Aprendizajes
 						C7: { t: "s", v: "Aprendizajes", s: { font: { sz: 14, bold: true, color: "#FF00FF" } } },
-						I7: { t: "s", v: "Aprendizajes", s: { font: { sz: 14, bold: true, color: "#FF00FF" } } },
+						J7: { t: "s", v: "Aprendizajes", s: { font: { sz: 14, bold: true, color: "#FF00FF" } } },
 						A9: { t: "s", v: "Pendiente" },
 						C9: { t: "s", v: "Proceso" },
 						E9: { t: "s", v: "Aprobado" },
@@ -690,68 +690,72 @@ app.get("/generarReporteExcel/:dni/:idMateria", (req, res) => {
 						// 1er trimestre
 					};
 
-					let alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXZ";
-					let cont1 = 0;
-					let cont2 = 0;
-					let indexInicio1 = alfabeto.indexOf("A");
-					let indexInicio2 = alfabeto.indexOf("H");
-					let flagTodoPendiente = false;
-					let flagTodoProceso = false;
-					let flagEntreFor = 0;
+					if (aprendizajesAlumno.length > 0) {
+						let alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXZ";
+						let cont1 = 0;
+						let cont2 = 0;
+						let indexInicio1 = alfabeto.indexOf("A");
+						let indexInicio2 = alfabeto.indexOf("H");
+						let flagTodoPendiente = false;
+						let flagTodoProceso = false;
+						let flagEntreFor = 0;
 
-					while (aprendizajesAlumno.length > 0) {
-						if (flagEntreFor == 1) {
-							flagTodoPendiente = true;
-							cont1 = 0;
-							cont2 = 0;
-							flagEntreFor = 2;
-						} else if (flagEntreFor == 2) {
-							console.log("ENTRE");
-							flagTodoProceso = true;
-							cont1 = 0;
-							cont2 = 0;
-						}
-						for (let i = aprendizajesAlumno.length - 1; i >= 0; i--) {
-							flagEntreFor = 1;
-							console.log(aprendizajesAlumno[i].estado);
-							console.log(aprendizajesAlumno[i].descripcion);
-							if (aprendizajesAlumno[i].estado == "pendiente") {
-								if (aprendizajesAlumno[i].periodo_id == 1) {
-									console.log("primer cuatri");
-									aux[`${alfabeto[indexInicio1]}${10 + cont1}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
-									cont1++;
-									aprendizajesAlumno.splice(i, 1);
-								} else {
-									console.log("segundo cuatri");
-									aux[`${alfabeto[indexInicio2]}${10 + cont2}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
-									cont2++;
-									aprendizajesAlumno.splice(i, 1);
-								}
-							} else if (aprendizajesAlumno[i].estado == "proceso" && flagTodoPendiente) {
-								if (aprendizajesAlumno[i].periodo_id == 1) {
-									aux[`${alfabeto[indexInicio1 + 2]}${10 + cont1}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
-									cont1++;
-									aprendizajesAlumno.splice(i, 1);
-								} else {
-									aux[`${alfabeto[indexInicio2 + 2]}${10 + cont2}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
-									cont2++;
-									aprendizajesAlumno.splice(i, 1);
-								}
-							} else if (aprendizajesAlumno[i].estado == "aprobado" && flagTodoProceso) {
-								if (aprendizajesAlumno[i].periodo_id == 1) {
-									aux[`${alfabeto[indexInicio1 + 4]}${10 + cont1}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
-									cont1++;
-									aprendizajesAlumno.splice(i, 1);
-								} else {
-									aux[`${alfabeto[indexInicio2 + 4]}${10 + cont2}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
-									cont2++;
-									aprendizajesAlumno.splice(i, 1);
+						while (aprendizajesAlumno.length > 0) {
+							if (flagEntreFor == 1) {
+								console.log("termine todos los ap en pendientes");
+								flagTodoPendiente = true;
+								cont1 = 0;
+								cont2 = 0;
+							} else if (flagEntreFor == 2) {
+								console.log("termine todos los ap en proceso");
+								flagTodoProceso = true;
+								cont1 = 0;
+								cont2 = 0;
+							}
+							flagEntreFor++;
+							for (let i = aprendizajesAlumno.length - 1; i >= 0; i--) {
+								console.log("el ap " + aprendizajesAlumno[i].descripcion + " esta en estado: " + aprendizajesAlumno[i].estado);
+								if (aprendizajesAlumno[i].estado == "pendiente") {
+									if (aprendizajesAlumno[i].periodo_id == 1) {
+										console.log("inserte un aprendizaje pendiente en el primer cuatrimestre");
+										aux[`${alfabeto[indexInicio1]}${10 + cont1}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
+										cont1++;
+										aprendizajesAlumno.splice(i, 1);
+									} else {
+										console.log("inserte un aprendizaje pendiente en el primer cuatrimestre");
+										aux[`${alfabeto[indexInicio2]}${10 + cont2}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
+										cont2++;
+										aprendizajesAlumno.splice(i, 1);
+									}
+								} else if (aprendizajesAlumno[i].estado == "proceso" && flagTodoPendiente) {
+									if (aprendizajesAlumno[i].periodo_id == 1) {
+										console.log("inserte un aprendizaje en proceso en el primer cuatrimestre");
+										aux[`${alfabeto[indexInicio1 + 2]}${10 + cont1}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
+										cont1++;
+										aprendizajesAlumno.splice(i, 1);
+									} else {
+										console.log("inserte un aprendizaje en proceso en el primer cuatrimestre");
+										aux[`${alfabeto[indexInicio2 + 2]}${10 + cont2}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
+										cont2++;
+										aprendizajesAlumno.splice(i, 1);
+									}
+								} else if (aprendizajesAlumno[i].estado == "aprobado" && flagTodoProceso) {
+									if (aprendizajesAlumno[i].periodo_id == 1) {
+										console.log("inserte un aprendizaje aprobado en el primer cuatrimestre");
+										aux[`${alfabeto[indexInicio1 + 4]}${10 + cont1}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
+										cont1++;
+										aprendizajesAlumno.splice(i, 1);
+									} else {
+										console.log("inserte un aprendizaje aprobado en el primer cuatrimestre");
+										aux[`${alfabeto[indexInicio2 + 4]}${10 + cont2}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
+										cont2++;
+										aprendizajesAlumno.splice(i, 1);
+									}
 								}
 							}
 						}
 					}
 					aux["!ref"] = "A1:P60";
-					console.log(aux);
 					const wb = xlsx.utils.book_new();
 					xlsx.utils.book_append_sheet(wb, aux, "Notas");
 					// Hacer que se descargue donde lo eliga el usuario
