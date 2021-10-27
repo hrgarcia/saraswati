@@ -163,8 +163,10 @@ app.get("/panelDeInicio", (req, res) => {
 							// return resolve(rows);
 							let x = rows.map((a) => {
 								a.tags = a.tags.split(/\s+/);
-								return a;
+								console.log(a);
+								return a
 							});
+							
 							return resolve(x);
 						});
 					});
@@ -1231,13 +1233,6 @@ app.post("/crearNotificaciones", (req, res) => {
 	let dia = new Date();
 	dia = dia.toLocaleString("es-AR").substring(0, 10).split("/").join("-");
 
-	tags = tags.replace(/ /g, "-");
-
-	for (let i = 0; i < tags.length; i++) {
-		if (tags[i] != "-") {
-			tags = tags.substring([i]);
-		}
-	}
 
 	let querySelect = "SELECT count(*) FROM notificaciones";
 	con.query(querySelect, (error, rows) => {
