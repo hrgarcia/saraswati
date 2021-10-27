@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-10-2021 a las 15:03:25
+-- Tiempo de generación: 27-10-2021 a las 19:37:20
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -154,8 +154,8 @@ CREATE TABLE `nota` (
   `nota6` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
   `nota7` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
   `nota8` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `nota_definitiva` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
   `nota_definitiva1` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nota_definitiva2` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
   `id_materia` int(11) NOT NULL,
   `descripcion_curso` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `dni_alumno` int(11) NOT NULL
@@ -165,7 +165,7 @@ CREATE TABLE `nota` (
 -- Volcado de datos para la tabla `nota`
 --
 
-INSERT INTO `nota` (`id`, `nota1`, `nota2`, `nota3`, `nota4`, `nota5`, `nota6`, `nota7`, `nota8`, `nota_definitiva`, `nota_definitiva1`, `id_materia`, `descripcion_curso`, `dni_alumno`) VALUES
+INSERT INTO `nota` (`id`, `nota1`, `nota2`, `nota3`, `nota4`, `nota5`, `nota6`, `nota7`, `nota8`, `nota_definitiva1`, `nota_definitiva2`, `id_materia`, `descripcion_curso`, `dni_alumno`) VALUES
 (2, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 1, 'sexto año', 44897788),
 (3, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 2, 'sexto año', 44897788),
 (4, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 11, 'sexto año', 44897788),
@@ -256,7 +256,8 @@ CREATE TABLE `profesor` (
 INSERT INTO `profesor` (`nombreUsuario`, `nombre`, `apellido`, `dni`, `telefono`, `email`, `genero`, `nacimiento`, `ingreso`, `estado`) VALUES
 ('asd', 'ddd', 'aas', '13213123', '3512345353', 'gabmat@live.com.ar', 'indefinido', '2021-10-29', '2021-10-16', 'titular'),
 ('cmendoza', 'camila', 'mendoza', '38594413', '3513871092', 'cmendoza@escuelasproa.edu.ar', 'femenino', '09/04/1995', '01/05/1995', 'interino'),
-('hrgarcia', 'hector', 'garcia', '23146758', '3513507865', 'dreamallica@gmail.com', 'femenino', '23/09/2000', '07/03/2015', 'titular'),
+('hrgarcia', 'hector', 'garcia', '30883670', '3518151953', 'dreamallica@gmail.com', 'masculino', '30/03/1984', '11/8/2014', 'interino'),
+('lbassioviedo', 'lucia', 'bassi', '34768104', '3517328429', 'lbassioviedo@escuelasproa.edu.ar', 'femenino', '28/08/1989', '10/03/15', 'interino'),
 ('lmazzola', 'lucas', 'mazzola', '23232322', '3514467892', 'lucasmazz@gmail.com', 'indefinido', '23/09/2000', '07/03/2015', 'titular');
 
 -- --------------------------------------------------------
@@ -276,7 +277,7 @@ CREATE TABLE `rol` (
 --
 
 INSERT INTO `rol` (`id`, `nombre`, `nombreUsuario`) VALUES
-(0, 'profesor', 'asd'),
+(1, 'profesor', 'asd'),
 (5, 'preceptor', 'lmazzola'),
 (6, 'profesor', 'hrgarcia'),
 (7, 'profesor', 'lmazzola'),
@@ -317,21 +318,23 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`nombreUsuario`, `pass`, `avatar`, `contraseña_cambiada`) VALUES
 ('admin', '$2b$10$fvHSEyookLoc0IYKLjoLXuq0Xt5jMMMeiILHHYb4MaUHArV1PqZdy', '0', 'true'),
-('agueroorellano', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
+('agueroorellano', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('asd', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '0', '0'),
-('dmiturriza', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
-('fmeloni', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
-('fnreynoso', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
-('gaheredia', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy\n\n', '', ''),
+('dmiturriza', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
+('fmeloni', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
+('fnreynoso', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
+('gaheredia', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO\n\n', '', ''),
+('gmavalo', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('hrgarcia', '$2b$10$cKAmCISSlauwz6VXCnqD.O1YGz8ZpspSCg1cahnDKD8.EdbTu8S8.', 'avatar_hrgarcia.jpg', 'true'),
+('lbassioviedo', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('lmazzola', '$2b$10$TvFydFnH7Ut4z9wlP218vOIV.jtKPDhtsRQmD9i2fyEQmdxWWTphK', '0', 'true'),
-('lsantillan', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
-('majuarez', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
-('mezarate', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
-('mgalanmartinez', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
-('npetrocelli', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
-('saortega', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', ''),
-('sbdiaz', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '', '');
+('lsantillan', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
+('majuarez', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
+('mezarate', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
+('mgalanmartinez', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
+('npetrocelli', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
+('saortega', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
+('sbdiaz', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', '');
 
 --
 -- Índices para tablas volcadas
@@ -450,6 +453,18 @@ ALTER TABLE `materia`
 --
 ALTER TABLE `nota`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT de la tabla `notificaciones`
+--
+ALTER TABLE `notificaciones`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `rol`
+--
+ALTER TABLE `rol`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
