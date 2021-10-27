@@ -160,11 +160,12 @@ app.get("/panelDeInicio", (req, res) => {
 					let query = "SELECT * FROM notificaciones";
 					return new Promise((resolve, reject) => {
 						con.query(query, (error, rows) => {
+							// return resolve(rows);
 							let x = rows.map((a) => {
 								a.tags = a.tags.split(/\s+/);
 								return a;
 							});
-							return x;
+							return resolve(x);
 						});
 					});
 				}
@@ -359,10 +360,12 @@ app.get("/agregarEstudiante", (req, res) => {
 	}
 });
 
-app.get("/listarProfesores", (req, res) => {
+app.get("/listarProfesores/:nombreUsuario", (req, res) => {
 	if (req.session.logged) {
-		let query = "SELECT * FROM profesor";
-		con.query(query, (error, rows, fields) => {
+		let nombreUsuario = req.params.nombreUsuario;
+		let query = "SELECT * FROM profesor INNER JOIN materia WHERE materia.profesorUsuario == ?";
+		let query2 = "SELECT * FROM materia WHERE materia.profesorUsuario = profeX";
+		con.query(query, (error, [nombreUsuario], rows, fields) => {
 			if (error) throw error;
 			res.render("listTeacher.ejs", {
 				title: "Profesores",

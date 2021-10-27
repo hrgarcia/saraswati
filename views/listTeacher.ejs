@@ -139,11 +139,7 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             function borrar(aux){
-                console.log("holaaa");
-                
-               /*  $.get(`borrarProfesor/${aux}`,  res => {
-                   setTimeout(reloadPage, 2500);
-                }); */
+
                 Swal.fire({
                     title: '¿Esta seguro que quiere eliminar a este profesor?',
                     showDenyButton: true,
@@ -168,8 +164,10 @@
 		        })
              }
 
-             function agregarMateria(params) {
-                 console.log("entro");
+             function agregarMateria(profesor) {
+                 console.log(profesor)
+                 
+
              }
                 
         </script>
