@@ -356,7 +356,26 @@ app.get("/agregarEstudiante", (req, res) => {
 		}
 	}
 	if (flagRol) {
-		res.render("agregarEstudiante.ejs");
+		let cursos = [
+			"primer año",
+			"segundo año",
+			"tercer año",
+			"quinto año",
+			"sexto año"
+		]
+		let query = "SELECT descripcion FROM curso";
+		
+		con.query(query, (error, rows, fields) => {
+			let curso_db = [];
+			for (let index = 0; index < rows.length; index++) {
+				curso_db.push(rows[index].query);
+			}
+
+			let cursoEstudiante = cursos.filter((i) => !curso_db.includes(i));
+			res.render("agregarEstudiante.ejs", {
+				dataCurso: cursoEstudiante,
+			});
+		});
 	} else {
 		res.redirect("/panelDeInicio");
 	}
@@ -1253,31 +1272,44 @@ app.post("/crearNotificaciones", (req, res) => {
 	});
 });
 
-app.get("/crearEstudiante", (req, res) => {
+app.post("/crearEstudiante", (req, res) => {
 	if (req.session.logged) {
 		let salt = 10; // Standar value
-		let nickname = req.body.nickname.toLowerCase();
-		let firstname = req.body.firstname.toLowerCase();
-		let lastname = req.body.lastname.toLowerCase();
+		let nickname = req.body.nickname;
+		let firstname = req.body.firstname;
+		let lastname = req.body.lastname;
 		let password = "argentina2022";
-		let email = req.body.email.toLowerCase();
-		let fecha_nacimiento = req.body.fecha_nacimiento.toLowerCase();
-		let dni = req.body.dni.toLowerCase();
+		let email = req.body.email;
+		let fecha_nacimiento = req.body.fecha_nacimiento;
+		let dni = req.body.dni;
 		let telefono = req.body.telefono;
-		let genero = req.body.genero.toLowerCase();
-		let legajo = req.body.legajo.toLowerCase();
-		let rol = req.body.rol.toLowerCase();
-		let descripcion_curso = req.body.descripcion_curso.toLowerCase();
+		let genero = req.body.genero;
+		let legajo = req.body.legajo;
+		let descripcion_curso = req.body.descripcion_curso;
+		let nombre = "estudiante";
 		bcrypt.hash(password, salt, (err, encrypted) => {
 			password = encrypted;
 			let userquery = "INSERT INTO usuario (nombreUsuario, pass, avatar, contraseña_cambiada) VALUE (?,?,?,?)";
-			con.query(userquery, [nickname, password, "public/imgEstudiante/default-avatar.jpg", false], (error, rows, fields) => {
+			con.query(userquery, [nickname, password, "avatarDefault.jpg", false], (error, rows, fields) => {
 				if (error) throw error;
-				rolquery = "INSERT INTO rol (nombreUsuario, nombre)";
+				let rolquery = "INSERT INTO rol (nombre, nombreUsuario) VALUE (?,?)";				
 				con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
 					if (error) throw error;
-					let estudiantequery = "INSERT INTO estudiante (nombreUsuario, nombre, apellido, dni, telefono, email, genero,nacimiento) VALUES (?,?,?,?,?,?,?,?)";
-					con.query(estudiantequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento], (error, rows, fields) => {});
+					let estudiantequery = "INSERT INTO estudiante (nombreUsuario, nombre, apellido, dni, telefono, email, genero, fecha_nacimiento,descripcion_curso,legajo) VALUES (?,?,?,?,?,?,?,?,?,?)";
+					con.query(estudiantequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento,descripcion_curso, legajo], (error, rows, fields) => {
+						if (error) throw error;
+						// let materias ="SELECT nombreMateria, id FROM materia WHERE curso_descripcion = descripcion_curso"
+						// con.query(materias,[nombreMateria,id],(error,rows,fields)=> {
+
+						// }); 
+						
+						let notaEstudiante = "INSERT INTO nota (nota1, nota2, nota3, nota4, nota5, nota6, nota7, nota8, nota_definitiva, nota_definitiva1, descripcion_curso, dni_alumno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+						con.query(notaEstudiante, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, descripcion_curso, dni], (error, rows, fields) => {
+							if (error) throw error;
+							console.log(rows);
+							res.redirect("/panelDeInicio");
+						});
+					});
 				});
 			});
 		});
@@ -1285,6 +1317,7 @@ app.get("/crearEstudiante", (req, res) => {
 		res.redirect("/");
 	}
 });
+
 
 app.get("/borrarNotificacion/:id", (req, res) => {
 	let id = req.params.id;
