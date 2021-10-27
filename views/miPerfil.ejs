@@ -36,18 +36,18 @@
                 <div class="main-body">
                     <div class="container emp-profile">
                         <div class="row">
-                            <div class=""></div>
-                            <div class="">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
                                 <div class="card2" style="margin-top: 60px">
                                     <div class="conten">
-                                        <div align="center">
+                                        <div class="center">
                                             <% data[0].forEach(function(Profile){ %>
                                             <div class="card-body">
-                                                <h4 class="card-title">Estimado <%-Profile['nombreUsuario'] %> a continuación se lista tu información personal.</h4>
+                                                <h4 class="card-title" style="position: absolute; margin-top: 60px; color: white;">Estimado <%-Profile['nombreUsuario'] %> a continuación se lista tu información personal.</h4>
                                                 <br />
     
                                                 <% if(Profile['avatar'] == "0" ){ %>
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="perfect-circle" width="150" />
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="perfect-circle" width="150" style=""/>
     
                                                 <% } else{ %>
                                                 <img src="/images/upload/avatars/<%-Profile['avatar']%>" alt="Admin" class="rounded-circle" width="150" />
@@ -60,7 +60,7 @@
                                                 <br />
                                             </div>
                                             <% }); %>
-                                            <div id="test1">
+                                            <div id="test1" style="width: 360px;">
                                                 <form id="profileForm" method="post">
                                                     <% data[1].forEach(function(Profile){ %>
                                                     
