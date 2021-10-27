@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2021 a las 19:37:20
+-- Tiempo de generación: 27-10-2021 a las 20:53:16
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -136,7 +136,22 @@ INSERT INTO `materia` (`id`, `nombreMateria`, `imagen`, `horasCatedra`, `profeso
 (14, 'programacion 1', '/images/espacios/tercer_año/programacion_1.jpg', '53', 'hrgarcia', 'tercer año'),
 (17, 'estructuras y almacenamiento de datos II', '/images/espacios/cuarto_año/estructuras_y_almacenamiento_de_datos_II.jpg', '32', 'hrgarcia', 'cuarto año'),
 (18, 'programacion 5', '/images/espacios/quinto_año/robotica.jpg', '32', 'hrgarcia', 'sexto año'),
-(19, 'ciudadania y participacion', '/images/espacios/cuarto_año/ciudadania y participacion.jpg', '12', 'asd', 'cuarto año');
+(19, 'ciudadania y participacion', '/images/espacios/cuarto_año/ciudadania y participacion.jpg', '12', 'asd', 'cuarto año'),
+(20, 'filosofia', '', '23', '', 'sexto año'),
+(21, 'club de ciencias', '', '25', '', 'sexto año '),
+(22, 'ciudadania y politica', '', '33', 'lbassioviedo', 'sexto año'),
+(23, 'testing', '', '29', '', 'sexto año'),
+(24, 'desarrollo de aplicaciones moviles', '', '80', 'hrgarcia', 'sexto año'),
+(25, 'teatro', '', '12', '', 'sexto año'),
+(26, 'ingles', '', '22', 'mfernandez', 'sexto año'),
+(27, 'lengua y literatura', '', '29', 'cmendoza', 'sexto año'),
+(28, 'formacioin', '', '', '', ''),
+(29, 'formacion para la vida y el trabajo', '', '11', 'lmazzola', 'sexto año'),
+(30, 'quimica', '', '15', '', 'sexto año'),
+(31, 'educacion fisica', '', '29', '', 'sexto año'),
+(32, 'club de arte', '', '17', '', 'sexto año'),
+(33, 'club de deportes', '', '8', '', 'sexto año'),
+(34, 'matematica', '', '13', '', 'sexto año');
 
 -- --------------------------------------------------------
 
@@ -254,11 +269,14 @@ CREATE TABLE `profesor` (
 --
 
 INSERT INTO `profesor` (`nombreUsuario`, `nombre`, `apellido`, `dni`, `telefono`, `email`, `genero`, `nacimiento`, `ingreso`, `estado`) VALUES
+('amaekawa', 'alejandra', 'maekawa', '30180378', '3512145992', 'amaekawa@escuelasproa.edu.ar', 'femenino', '21/09/1983', '01/04/2014', 'interino'),
 ('asd', 'ddd', 'aas', '13213123', '3512345353', 'gabmat@live.com.ar', 'indefinido', '2021-10-29', '2021-10-16', 'titular'),
 ('cmendoza', 'camila', 'mendoza', '38594413', '3513871092', 'cmendoza@escuelasproa.edu.ar', 'femenino', '09/04/1995', '01/05/1995', 'interino'),
+('dpezzelato', 'daiana', 'pezzelato', '37594703', '3512544303', 'dpezzelato@escuelasproa.edu.ar', 'femenino', '28/04/1993', '04/09/2017', 'interino'),
 ('hrgarcia', 'hector', 'garcia', '30883670', '3518151953', 'dreamallica@gmail.com', 'masculino', '30/03/1984', '11/8/2014', 'interino'),
 ('lbassioviedo', 'lucia', 'bassi', '34768104', '3517328429', 'lbassioviedo@escuelasproa.edu.ar', 'femenino', '28/08/1989', '10/03/15', 'interino'),
-('lmazzola', 'lucas', 'mazzola', '23232322', '3514467892', 'lucasmazz@gmail.com', 'indefinido', '23/09/2000', '07/03/2015', 'titular');
+('lmazzola', 'lucas', 'mazzola', '23232322', '3514467892', 'lucasmazz@gmail.com', 'indefinido', '23/09/2000', '07/03/2015', 'titular'),
+('mifernandez', 'micaela', 'fernandez', '33359198', '3585097806', 'mifernandez@escuelasproa.edu.ar', 'femenino', '17/12/1987', '01/07/2018', 'interino');
 
 -- --------------------------------------------------------
 
@@ -319,8 +337,10 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`nombreUsuario`, `pass`, `avatar`, `contraseña_cambiada`) VALUES
 ('admin', '$2b$10$fvHSEyookLoc0IYKLjoLXuq0Xt5jMMMeiILHHYb4MaUHArV1PqZdy', '0', 'true'),
 ('agueroorellano', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
-('asd', '$2b$10$YtfY9ItByfldCOb8F6rgRO3wUADeaY9jG/8svwimbQIAek/bnv0Sy', '0', '0'),
+('amaekawa', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('dmiturriza', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
+('dpezzelato', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
+('feizenberg', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('fmeloni', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('fnreynoso', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('gaheredia', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO\n\n', '', ''),
@@ -332,6 +352,7 @@ INSERT INTO `usuario` (`nombreUsuario`, `pass`, `avatar`, `contraseña_cambiada`
 ('majuarez', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('mezarate', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('mgalanmartinez', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
+('mifernandez', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('npetrocelli', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('saortega', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('sbdiaz', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', '');
@@ -446,7 +467,7 @@ ALTER TABLE `estudianteaprendizaje`
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `nota`
