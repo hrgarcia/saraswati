@@ -1108,15 +1108,15 @@ app.post("/agregar", (req, res) => {
 		let password = "argentina2022";
 		let nombre = "profesor";
 		let salt = 10; // Standar value
-		let nombreMateria = req.body.materias;
-		nombreMateria = nombreMateria[0].toLowerCase();
-		nombreMateria = nombreMateria.split(" ").join("_");
+		let nombreMateria = req.body.materias[0];
+		let nombreMateriaCarta = nombreMateria[0].toLowerCase();
+		nombreMateriaCarta = nombreMateriaCarta.split(" ").join("_");
 
 		console.log(nombreMateria);
 		let horas_catedra = req.body.horas_catedra;
 		let curso = req.body.curso.toLowerCase();
 		let cursoImagenTexto = curso.split(" ").join("_");
-		let imgMateria = `/images/espacios/${cursoImagenTexto}/${nombreMateria}.jpg`;
+		let imgMateria = `${cursoImagenTexto}/${nombreMateriaCarta}.jpg`;
 		bcrypt.hash(password, salt, (err, encrypted) => {
 			password = encrypted;
 			let userquery = "INSERT INTO usuario (nombreUsuario,pass,avatar, contraseña_cambiada) VALUE (?,?,?,?)";
