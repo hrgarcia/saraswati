@@ -164,9 +164,9 @@ app.get("/panelDeInicio", (req, res) => {
 							let x = rows.map((a) => {
 								a.tags = a.tags.split(/\s+/);
 								console.log(a);
-								return a
+								return a;
 							});
-							
+
 							return resolve(x);
 						});
 					});
@@ -356,15 +356,9 @@ app.get("/agregarEstudiante", (req, res) => {
 		}
 	}
 	if (flagRol) {
-		let cursos = [
-			"primer año",
-			"segundo año",
-			"tercer año",
-			"quinto año",
-			"sexto año"
-		]
+		let cursos = ["primer año", "segundo año", "tercer año", "quinto año", "sexto año"];
 		let query = "SELECT descripcion FROM curso";
-		
+
 		con.query(query, (error, rows, fields) => {
 			let curso_db = [];
 			for (let index = 0; index < rows.length; index++) {
@@ -649,129 +643,216 @@ app.get("/generarReporteExcel/:dni/:idMateria", (req, res) => {
 			let dni = req.params.dni;
 			let idMateria = req.params.idMateria;
 
+			// Hago dos consultas para sacar las notas y los aprendizajes de cierto alumno
 			let query = "SELECT * FROM materia INNER JOIN nota ON materia.id = ? AND nota.dni_alumno = ? AND nota.id_materia = ? INNER JOIN estudiante ON dni = ?";
 			con.query(query, [idMateria, dni, idMateria, dni], (error, notasAlumno, fields) => {
 				if (error) throw error;
 				notasAlumno = notasAlumno[0];
-
 				let query2 = "SELECT * FROM estudianteaprendizaje WHERE estudiante_dni = ?";
 				con.query(query2, [dni], (error, aprendizajesAlumno, fields) => {
 					if (error) throw error;
 
+					// Verifico de que ciclo es el estudiante
 					let ciclo;
-
 					if (notasAlumno.descripcion_curso == "cuarto año" || notasAlumno.descripcion_curso == "quinto año" || notasAlumno.descripcion_curso == "sexto año") {
 						ciclo = "ciclo orientado";
 					} else {
 						ciclo = "ciclo basico";
 					}
 
+					// Recorro las diferentes tipos de nota y dependiendo si es menor o mayor a 6 les coloco un color de referencia
+					for (let i = 1; i < 9; i++) {
+						if (parseInt(notasAlumno[`nota${i}`]) <= 6) {
+							notasAlumno[`nota${i}`] = [notasAlumno[`nota${i}`], "FF9966"];
+						} else {
+							notasAlumno[`nota${i}`] = [notasAlumno[`nota${i}`], "99FF66"];
+						}
+					}
+
+					if (notasAlumno["nota_definitiva1"] <= 6) {
+						notasAlumno["nota_definitiva1"] = [notasAlumno["nota_definitiva1"], "FF9966"];
+					} else {
+						notasAlumno["nota_definitiva1"] = [notasAlumno["nota_definitiva1"], "99FF66"];
+					}
+
+					if (notasAlumno["nota_definitiva2"] <= 6) {
+						notasAlumno["nota_definitiva2"] = [notasAlumno["nota_definitiva2"], "FF9966"];
+					} else {
+						notasAlumno["nota_definitiva2"] = [notasAlumno["nota_definitiva2"], "99FF66"];
+					}
+
+					// JSON hecho a mano, el cual, el excel interpreta y va rellenando segun las celdas
 					let aux = {
-						A1: { t: "s", v: notasAlumno.nombre },
-						B1: { t: "s", v: notasAlumno.apellido },
-						C1: { t: "s", v: "-" },
-						D1: { t: "s", v: notasAlumno.nombreMateria },
-						E1: { t: "s", v: "-" },
-						F1: { t: "s", v: notasAlumno.descripcion_curso },
-						G1: { t: "s", v: "-" },
-						H1: { t: "s", v: ciclo },
+						C1: { t: "s", v: notasAlumno.nombre, s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						D1: { t: "s", v: notasAlumno.apellido, s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						E1: { t: "s", v: "-", s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						F1: { t: "s", v: notasAlumno.nombreMateria, s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						G1: { t: "s", v: "-", s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						H1: { t: "s", v: notasAlumno.descripcion_curso, s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						I1: { t: "s", v: "-", s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						J1: { t: "s", v: ciclo, s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
 
 						// Titulos
-						C3: { t: "s", v: "1er cuatrimestre", s: { font: { sz: 14, bold: true, color: "#FF00FF" } } },
-						A4: { t: "s", v: "nota 1", s: { fill: { patternType: "solid", fgColor: { rgb: "FF7051" } } } },
-						B4: { t: "s", v: "nota 2" },
-						C4: { t: "s", v: "nota 3" },
-						D4: { t: "s", v: "nota 4" },
-						E4: { t: "s", v: "nota definitiva" },
-						I3: { t: "s", v: "2er cuatrimestre", s: { font: { sz: 14, bold: true, color: "#FF00FF" } } },
-						H4: { t: "s", v: "nota 1" },
-						I4: { t: "s", v: "nota 2" },
-						J4: { t: "s", v: "nota 3" },
-						K4: { t: "s", v: "nota 4" },
-						L4: { t: "s", v: "nota definitiva" },
-						// 1er cuatimestre
-						A5: { t: "s", v: notasAlumno.nota1 },
-						B5: { t: "s", v: notasAlumno.nota2 },
-						C5: { t: "s", v: notasAlumno.nota3 },
-						D5: { t: "s", v: notasAlumno.nota4 },
-						E5: { t: "s", v: notasAlumno.nota_definitiva1 },
-						// 2er cuatimestre
-						H5: { t: "s", v: notasAlumno.nota5 },
-						I5: { t: "s", v: notasAlumno.nota6 },
-						J5: { t: "s", v: notasAlumno.nota7 },
-						K5: { t: "s", v: notasAlumno.nota8 },
-						L5: { t: "s", v: notasAlumno.nota_definitiva2 },
+						A3: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						B3: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						C3: { t: "s", v: "1er cuatrimestre", s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						D3: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						G3: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						H3: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						E3: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						J3: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						K3: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+
+						I3: { t: "s", v: "2er cuatrimestre", s: { font: { sz: 12, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+
+						A4: { t: "s", v: "Nota 1", s: { font: { sz: 12, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						B4: { t: "s", v: "Nota 2", s: { font: { sz: 12, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						C4: { t: "s", v: "Nota 3", s: { font: { sz: 12, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						D4: { t: "s", v: "Nota 4", s: { font: { sz: 12, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						E4: { t: "s", v: "Nota definitiva", s: { font: { sz: 12, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						G4: { t: "s", v: "Nota 1", s: { font: { sz: 12, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						H4: { t: "s", v: "Nota 2", s: { font: { sz: 12, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						I4: { t: "s", v: "Nota 3", s: { font: { sz: 12, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						J4: { t: "s", v: "Nota 4", s: { font: { sz: 12, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						K4: { t: "s", v: "Nota definitiva", s: { font: { sz: 12, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+
+						// Notas del 1er cuatimestre
+						A5: { t: "s", v: notasAlumno.nota1[0], s: { fill: { patternType: "solid", fgColor: { rgb: `${notasAlumno.nota1[1]}` } }, alignment: { vertical: "center", horizontal: "center" } } },
+						B5: { t: "s", v: notasAlumno.nota2[0], s: { fill: { patternType: "solid", fgColor: { rgb: `${notasAlumno.nota2[1]}` } }, alignment: { vertical: "center", horizontal: "center" } } },
+						C5: { t: "s", v: notasAlumno.nota3[0], s: { fill: { patternType: "solid", fgColor: { rgb: `${notasAlumno.nota3[1]}` } }, alignment: { vertical: "center", horizontal: "center" } } },
+						D5: { t: "s", v: notasAlumno.nota4[0], s: { fill: { patternType: "solid", fgColor: { rgb: `${notasAlumno.nota4[1]}` } }, alignment: { vertical: "center", horizontal: "center" } } },
+						E5: { t: "s", v: notasAlumno.nota_definitiva1[0], s: { fill: { patternType: "solid", fgColor: { rgb: `${notasAlumno.nota_definitiva1[1]}` } }, alignment: { vertical: "center", horizontal: "center" } } },
+
+						// Notas del 2do cuatimestre
+						G5: { t: "s", v: notasAlumno.nota5[0], s: { fill: { patternType: "solid", fgColor: { rgb: `${notasAlumno.nota5[1]}` } }, alignment: { vertical: "center", horizontal: "center" } } },
+						H5: { t: "s", v: notasAlumno.nota6[0], s: { fill: { patternType: "solid", fgColor: { rgb: `${notasAlumno.nota6[1]}` } }, alignment: { vertical: "center", horizontal: "center" } } },
+						I5: { t: "s", v: notasAlumno.nota7[0], s: { fill: { patternType: "solid", fgColor: { rgb: `${notasAlumno.nota7[1]}` } }, alignment: { vertical: "center", horizontal: "center" } } },
+						J5: { t: "s", v: notasAlumno.nota8[0], s: { fill: { patternType: "solid", fgColor: { rgb: `${notasAlumno.nota8[1]}` } }, alignment: { vertical: "center", horizontal: "center" } } },
+						K5: { t: "s", v: notasAlumno.nota_definitiva2[0], s: { fill: { patternType: "solid", fgColor: { rgb: `${notasAlumno.nota_definitiva2[1]}` } }, alignment: { vertical: "center", horizontal: "center" } } },
+
+						A6: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						B6: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						C6: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						D6: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						E6: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+
+						G6: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						H6: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						I6: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						J6: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						K6: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
 
 						// Aprendizajes
-						C7: { t: "s", v: "Aprendizajes", s: { font: { sz: 14, bold: true, color: "#FF00FF" } } },
-						J7: { t: "s", v: "Aprendizajes", s: { font: { sz: 14, bold: true, color: "#FF00FF" } } },
-						A9: { t: "s", v: "Pendiente" },
-						C9: { t: "s", v: "Proceso" },
-						E9: { t: "s", v: "Aprobado" },
-						H9: { t: "s", v: "Pendiente" },
-						J9: { t: "s", v: "Proceso" },
-						L9: { t: "s", v: "Aprobado" },
-						// 1er trimestre
+						A7: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						B7: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						C7: { t: "s", v: "Aprendizajes", s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						D7: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						E7: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						G7: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						H7: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						I7: { t: "s", v: "Aprendizajes", s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						J7: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						K7: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" }, alignment: { vertical: "center", horizontal: "center" } } },
+
+						A8: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						B8: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						C8: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						D8: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						E8: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						G8: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						H8: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						I8: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						J8: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						K8: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+
+						A9: { t: "s", v: "Pendiente", s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						B9: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						C9: { t: "s", v: "Proceso", s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						D9: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						E9: { t: "s", v: "Aprobado", s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						G9: { t: "s", v: "Pendiente", s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						H9: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } } } },
+						I9: { t: "s", v: "Proceso", s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
+						J9: { t: "s", v: " ", s: { fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } } } },
+						K9: { t: "s", v: "Aprobado", s: { font: { sz: 14, bold: true, color: "#FF00FF" }, fill: { patternType: "solid", fgColor: { rgb: "AEAAAA" } }, alignment: { vertical: "center", horizontal: "center" } } },
 					};
 
+					// Relleno el excel con los aprendizajes en su respectivo estado
 					if (aprendizajesAlumno.length > 0) {
 						let alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXZ";
 						let cont1 = 0;
 						let cont2 = 0;
 						let indexInicio1 = alfabeto.indexOf("A");
-						let indexInicio2 = alfabeto.indexOf("H");
+						let indexInicio2 = alfabeto.indexOf("G");
 						let flagTodoPendiente = false;
 						let flagTodoProceso = false;
 						let flagEntreFor = 0;
 
+						// Cada vez que coloco un aprendizaje en el excel lo elimino de mi lista
+						// Todo el proceso debe hacerse en 3 iteraciones, primero los ap pendientes, luego los ap en progreso y los ap logrados
 						while (aprendizajesAlumno.length > 0) {
 							if (flagEntreFor == 1) {
-								console.log("termine todos los ap en pendientes");
 								flagTodoPendiente = true;
 								cont1 = 0;
 								cont2 = 0;
 							} else if (flagEntreFor == 2) {
-								console.log("termine todos los ap en proceso");
 								flagTodoProceso = true;
 								cont1 = 0;
 								cont2 = 0;
 							}
 							flagEntreFor++;
 							for (let i = aprendizajesAlumno.length - 1; i >= 0; i--) {
-								console.log("el ap " + aprendizajesAlumno[i].descripcion + " esta en estado: " + aprendizajesAlumno[i].estado);
 								if (aprendizajesAlumno[i].estado == "pendiente") {
 									if (aprendizajesAlumno[i].periodo_id == 1) {
-										console.log("inserte un aprendizaje pendiente en el primer cuatrimestre");
-										aux[`${alfabeto[indexInicio1]}${10 + cont1}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
+										aux[`${alfabeto[indexInicio1]}${10 + cont1}`] = {
+											t: "s",
+											v: aprendizajesAlumno[i].descripcion,
+											s: { fill: { patternType: "solid", fgColor: { rgb: "FF9966" } }, alignment: { vertical: "center", horizontal: "center" } },
+										};
 										cont1++;
 										aprendizajesAlumno.splice(i, 1);
 									} else {
-										console.log("inserte un aprendizaje pendiente en el primer cuatrimestre");
-										aux[`${alfabeto[indexInicio2]}${10 + cont2}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
+										aux[`${alfabeto[indexInicio2]}${10 + cont2}`] = {
+											t: "s",
+											v: aprendizajesAlumno[i].descripcion,
+											s: { fill: { patternType: "solid", fgColor: { rgb: "FF9966" } }, alignment: { vertical: "center", horizontal: "center" } },
+										};
 										cont2++;
 										aprendizajesAlumno.splice(i, 1);
 									}
 								} else if (aprendizajesAlumno[i].estado == "proceso" && flagTodoPendiente) {
 									if (aprendizajesAlumno[i].periodo_id == 1) {
-										console.log("inserte un aprendizaje en proceso en el primer cuatrimestre");
-										aux[`${alfabeto[indexInicio1 + 2]}${10 + cont1}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
+										aux[`${alfabeto[indexInicio1 + 2]}${10 + cont1}`] = {
+											t: "s",
+											v: aprendizajesAlumno[i].descripcion,
+											s: { fill: { patternType: "solid", fgColor: { rgb: "FFFF99" } }, alignment: { vertical: "center", horizontal: "center" } },
+										};
 										cont1++;
 										aprendizajesAlumno.splice(i, 1);
 									} else {
-										console.log("inserte un aprendizaje en proceso en el primer cuatrimestre");
-										aux[`${alfabeto[indexInicio2 + 2]}${10 + cont2}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
+										aux[`${alfabeto[indexInicio2 + 2]}${10 + cont2}`] = {
+											t: "s",
+											v: aprendizajesAlumno[i].descripcion,
+											s: { fill: { patternType: "solid", fgColor: { rgb: "FFFF99" } }, alignment: { vertical: "center", horizontal: "center" } },
+										};
 										cont2++;
 										aprendizajesAlumno.splice(i, 1);
 									}
 								} else if (aprendizajesAlumno[i].estado == "aprobado" && flagTodoProceso) {
 									if (aprendizajesAlumno[i].periodo_id == 1) {
-										console.log("inserte un aprendizaje aprobado en el primer cuatrimestre");
-										aux[`${alfabeto[indexInicio1 + 4]}${10 + cont1}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
+										aux[`${alfabeto[indexInicio1 + 4]}${10 + cont1}`] = {
+											t: "s",
+											v: aprendizajesAlumno[i].descripcion,
+											s: { fill: { patternType: "solid", fgColor: { rgb: "99FF66" } }, alignment: { vertical: "center", horizontal: "center" } },
+										};
 										cont1++;
 										aprendizajesAlumno.splice(i, 1);
 									} else {
-										console.log("inserte un aprendizaje aprobado en el primer cuatrimestre");
-										aux[`${alfabeto[indexInicio2 + 4]}${10 + cont2}`] = { t: "s", v: aprendizajesAlumno[i].descripcion };
+										aux[`${alfabeto[indexInicio2 + 4]}${10 + cont2}`] = {
+											t: "s",
+											v: aprendizajesAlumno[i].descripcion,
+											s: { fill: { patternType: "solid", fgColor: { rgb: "99FF66" } }, alignment: { vertical: "center", horizontal: "center" } },
+										};
 										cont2++;
 										aprendizajesAlumno.splice(i, 1);
 									}
@@ -780,6 +861,8 @@ app.get("/generarReporteExcel/:dni/:idMateria", (req, res) => {
 						}
 					}
 					aux["!ref"] = "A1:P60";
+
+					aux["!cols"] = [{ width: 25 }, { width: 25 }, { width: 25 }, { width: 25 }, { width: 25 }, { width: 25 }, { width: 25 }, { width: 25 }, { width: 25 }, { width: 25 }, { width: 25 }];
 					const wb = xlsx.utils.book_new();
 					xlsx.utils.book_append_sheet(wb, aux, "Notas");
 					// Hacer que se descargue donde lo eliga el usuario
@@ -1252,7 +1335,6 @@ app.post("/crearNotificaciones", (req, res) => {
 	let dia = new Date();
 	dia = dia.toLocaleString("es-AR").substring(0, 10).split("/").join("-");
 
-
 	let querySelect = "SELECT count(*) FROM notificaciones";
 	con.query(querySelect, (error, rows) => {
 		console.log(rows[0]["count(*)"]);
@@ -1292,17 +1374,17 @@ app.post("/crearEstudiante", (req, res) => {
 			let userquery = "INSERT INTO usuario (nombreUsuario, pass, avatar, contraseña_cambiada) VALUE (?,?,?,?)";
 			con.query(userquery, [nickname, password, "avatarDefault.jpg", false], (error, rows, fields) => {
 				if (error) throw error;
-				let rolquery = "INSERT INTO rol (nombre, nombreUsuario) VALUE (?,?)";				
+				let rolquery = "INSERT INTO rol (nombre, nombreUsuario) VALUE (?,?)";
 				con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
 					if (error) throw error;
 					let estudiantequery = "INSERT INTO estudiante (nombreUsuario, nombre, apellido, dni, telefono, email, genero, fecha_nacimiento,descripcion_curso,legajo) VALUES (?,?,?,?,?,?,?,?,?,?)";
-					con.query(estudiantequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento,descripcion_curso, legajo], (error, rows, fields) => {
+					con.query(estudiantequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, descripcion_curso, legajo], (error, rows, fields) => {
 						if (error) throw error;
 						// let materias ="SELECT nombreMateria, id FROM materia WHERE curso_descripcion = descripcion_curso"
 						// con.query(materias,[nombreMateria,id],(error,rows,fields)=> {
 
-						// }); 
-						
+						// });
+
 						let notaEstudiante = "INSERT INTO nota (nota1, nota2, nota3, nota4, nota5, nota6, nota7, nota8, nota_definitiva, nota_definitiva1, descripcion_curso, dni_alumno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 						con.query(notaEstudiante, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, descripcion_curso, dni], (error, rows, fields) => {
 							if (error) throw error;
@@ -1317,7 +1399,6 @@ app.post("/crearEstudiante", (req, res) => {
 		res.redirect("/");
 	}
 });
-
 
 app.get("/borrarNotificacion/:id", (req, res) => {
 	let id = req.params.id;
