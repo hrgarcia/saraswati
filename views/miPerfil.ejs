@@ -23,7 +23,7 @@
         <!-- Nuestros estilos -->
 
         <link rel="stylesheet" href="/stylesheets/style.css" />
-        <link rel="stylesheet" href="/stylesheets/uikit.min.css" />
+        <link rel="stylesheet" href="/stylesheets/ukit2.min.css" />
         <link rel="stylesheet" href="/stylesheets/tarjetaperfil.css"/>
 
         <%- include('fragment/background'); -%>
@@ -40,10 +40,10 @@
                             <div class="col-md-8">
                                 <div class="card2" style="margin-top: 60px">
                                     <div class="conten">
-                                        <div class="center">
+                                        <div class="centern">
                                             <% data[0].forEach(function(Profile){ %>
-                                            <div class="card-body">
-                                                <h4 class="card-title" style="position: absolute; margin-top: 60px; color: white;">Estimado <%-Profile['nombreUsuario'] %> a continuación se lista tu información personal.</h4>
+                                            <div class="img">
+                                                <h4 class="card-title" style="position: cent; margin-top: -60px; color: white;">Estimado <%-Profile['nombreUsuario'] %> a continuación se lista tu información personal.</h4>
                                                 <br />
     
                                                 <% if(Profile['avatar'] == "0" ){ %>
@@ -58,8 +58,12 @@
                                                     <button id="saveAvatar" type="button">Guardar avatar</button>
                                                 </form>
                                                 <br />
-                                            </div>
+                                            </div>                                                                               
                                             <% }); %>
+                                        </div>
+                                    </div>
+                                    <div class="conten">
+                                        <div class="centen" >
                                             <div id="test1" style="width: 360px;">
                                                 <form id="profileForm" method="post">
                                                     <% data[1].forEach(function(Profile){ %>
@@ -69,8 +73,8 @@
                                                             <div class="form-group">
                                                                 <label> Nombre </label>
                                                                 <br />
-                                                                <div class="uk-inline">
-                                                                    <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px" href="#" uk-icon="icon: info"></a>
+                                                                <div class="uk-inline" >
+                                                                    <a class="uk-form-icon" style="pointer-events: none; margin-top: 5px;" href="#" uk-icon="icon: info"></a>
                                                                     <input
                                                                         name="nombre"
                                                                         class="uk-input uk transform-origin: 0px 0px; -form-width-medium inputCanEditing profileTd uk-form-width-large"
@@ -271,8 +275,8 @@
                                                 <br />
                                             </div>
                                         </div>
+                                        <button class="uk-button btn btn-danger" id="saveChange">Guardar cambios</button>
                                     </div>
-                                    <button class="uk-button btn btn-danger" id="saveChange">Guardar cambios</button>
                                 </div>
                             </div>
                         </div>
@@ -280,7 +284,6 @@
                     </div>
                 </div>
             </div>
-            <a href="#" uk-totop uk-scroll style="float: right; color: #fff"></a>
         </div>
         <%- include('fragment/footer'); -%> <%- include('fragment/scripts'); -%>
     </body>

@@ -1,7 +1,7 @@
 .card2{
     position: relative;
     width: 100%;
-    margin-top: 130px;
+    margin-top: 80px;
     border-radius: 6px;
     background: rgb(255, 255, 255);
     backdrop-filter: blur(10px);
@@ -28,4 +28,22 @@
 .card2 .conten{
     position: relative;
     display: flex;
+}
+
+.img{
+    position: relative;
+    top: 140px;
+    width: 100%;
+    height: 50px;
+}
+.centern{
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+}
+
+.card-title{
+    font-family: "Roboto Condensed", sans-serif;
 }
