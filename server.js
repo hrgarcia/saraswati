@@ -269,42 +269,11 @@ app.get("/agregarProfesor", (req, res) => {
 		}
 	}
 	if (flagRol) {
-		let todas_materias = [
-			"Matematica",
-			"Formacion para la vida y el trabajo",
-			"Programacion 5",
-			"Testing",
-			"Lengua y literatura",
-			"Biologia",
-			"Fisica",
-			"Ingles",
-			"Ingles aplicado",
-			"Filosofia",
-			"Historia",
-			"Ciudadania y politica",
-			"Teatro",
-			"Quimica",
-			"Geografia",
-			"Entornos digitales",
-			"Algoritmos y programacion",
-			"Robotica",
-			"Sistemas operativos y software de aplicacion",
-			"Club de deportes",
-			"Educacion fisica",
-			"Club de ciencias",
-			"Desarrollo de aplicaciones moviles",
-			"Ciudadania y participacion",
-		];
-		let query = "SELECT nombreMateria FROM materia ";
-		con.query(query, (error, rows, fields) => {
-			let materias_db = [];
-			for (let index = 0; index < rows.length; index++) {
-				materias_db.push(rows[index].nombreMateria);
-			}
-
-			let diferencia = todas_materias.filter((i) => !materias_db.includes(i));
+		let query = "SELECT nombreMateria FROM materia WHERE profesor_usuario = ?";
+		con.query(query, ["profeX"], (error, rows, fields) => {
+			console.log(rows);
 			res.render("agregarProfesor.ejs", {
-				data: diferencia,
+				data: rows,
 			});
 		});
 	} else {
