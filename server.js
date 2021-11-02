@@ -1192,14 +1192,14 @@ app.post("/agregar", (req, res) => {
 		let nombre = "profesor";
 		let salt = 10; // Standar value
 		let nombreMateria = req.body.materias[0];
-		let nombreMateriaCarta = nombreMateria[0].toLowerCase();
+		nombreMateria = nombreMateria.toLowerCase();
+		let nombreMateriaCarta = nombreMateria;
 		nombreMateriaCarta = nombreMateriaCarta.split(" ").join("_");
 
-		console.log(nombreMateria);
 		let horas_catedra = req.body.horas_catedra;
 		let curso = req.body.curso.toLowerCase();
 		let cursoImagenTexto = curso.split(" ").join("_");
-		let imgMateria = `${cursoImagenTexto}/${nombreMateriaCarta}.jpg`;
+		let imgMateria = `${cursoImagenTexto}/${nombreMateriaCarta}.jpg`;		
 		bcrypt.hash(password, salt, (err, encrypted) => {
 			password = encrypted;
 			let userquery = "INSERT INTO usuario (nombreUsuario,pass,avatar, contraseña_cambiada) VALUE (?,?,?,?)";
@@ -1208,7 +1208,7 @@ app.post("/agregar", (req, res) => {
 				let rolquery = "INSERT INTO rol(nombre,nombreUsuario) VALUE(?,?)";
 				con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
 					if (error) throw error;
-					let profequery = "INSERT INTO profesor (nombreUsuario,nombre, apellido,dni,telefono,email,genero,nacimiento,ingreso,estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
+					let profequery = "INSERT INTO profesor (nombreUsuario, nombre, apellido,dni, telefono, email, genero, nacimiento, ingreso, estado) VALUES (?,?,?,?,?,?,?,?,?,?)";
 					con.query(profequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, ingreso, estado], (error, rows, fields) => {
 						// Crear las materias reales en la DB para que funcione todo bien
 						if (error) throw error;
