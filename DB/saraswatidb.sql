@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2021 a las 20:53:16
--- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 8.0.12
+-- Tiempo de generación: 03-11-2021 a las 18:03:57
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 8.0.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -273,10 +273,13 @@ INSERT INTO `profesor` (`nombreUsuario`, `nombre`, `apellido`, `dni`, `telefono`
 ('asd', 'ddd', 'aas', '13213123', '3512345353', 'gabmat@live.com.ar', 'indefinido', '2021-10-29', '2021-10-16', 'titular'),
 ('cmendoza', 'camila', 'mendoza', '38594413', '3513871092', 'cmendoza@escuelasproa.edu.ar', 'femenino', '09/04/1995', '01/05/1995', 'interino'),
 ('dpezzelato', 'daiana', 'pezzelato', '37594703', '3512544303', 'dpezzelato@escuelasproa.edu.ar', 'femenino', '28/04/1993', '04/09/2017', 'interino'),
+('flopez', 'florencia', 'lopez', '36604775', '3517036468', 'flopez@escuelasproa.edu.ar', 'femenino', '25/10/1992', '01/05/2016', 'interino'),
 ('hrgarcia', 'hector', 'garcia', '30883670', '3518151953', 'dreamallica@gmail.com', 'masculino', '30/03/1984', '11/8/2014', 'interino'),
+('lacordoba', 'antonella', 'cordoba', '40681016', '3543604045', 'lacordoba@escuelasproa.edu.ar', 'femenino', '26/01/1998', '01/08/2021', 'interino'),
 ('lbassioviedo', 'lucia', 'bassi', '34768104', '3517328429', 'lbassioviedo@escuelasproa.edu.ar', 'femenino', '28/08/1989', '10/03/15', 'interino'),
 ('lmazzola', 'lucas', 'mazzola', '23232322', '3514467892', 'lucasmazz@gmail.com', 'indefinido', '23/09/2000', '07/03/2015', 'titular'),
-('mifernandez', 'micaela', 'fernandez', '33359198', '3585097806', 'mifernandez@escuelasproa.edu.ar', 'femenino', '17/12/1987', '01/07/2018', 'interino');
+('mifernandez', 'micaela', 'fernandez', '33359198', '3585097806', 'mifernandez@escuelasproa.edu.ar', 'femenino', '17/12/1987', '01/07/2018', 'interino'),
+('pmartinez', 'patricia', 'martinez', '18397471', '3516568721', 'pmartinez@escuelasproa.edu.ar', 'femenino', '27/11/1967', '01/05/2016', 'interino');
 
 -- --------------------------------------------------------
 
@@ -341,19 +344,24 @@ INSERT INTO `usuario` (`nombreUsuario`, `pass`, `avatar`, `contraseña_cambiada`
 ('dmiturriza', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('dpezzelato', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('feizenberg', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
+('flopez', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('fmeloni', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('fnreynoso', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('gaheredia', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO\n\n', '', ''),
 ('gmavalo', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('hrgarcia', '$2b$10$cKAmCISSlauwz6VXCnqD.O1YGz8ZpspSCg1cahnDKD8.EdbTu8S8.', 'avatar_hrgarcia.jpg', 'true'),
+('lacordoba', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
+('laltamirano', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('lbassioviedo', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('lmazzola', '$2b$10$TvFydFnH7Ut4z9wlP218vOIV.jtKPDhtsRQmD9i2fyEQmdxWWTphK', '0', 'true'),
 ('lsantillan', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('majuarez', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('mezarate', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('mgalanmartinez', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
+('mgiannone', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('mifernandez', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('npetrocelli', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
+('pmartinez', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('saortega', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', ''),
 ('sbdiaz', '$2b$10$jd5J24SKYWTiH9kWslXOtea69mdctYjAGPKvZOF5sRLEbJODJMPkO', '', '');
 
