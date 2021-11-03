@@ -1338,6 +1338,8 @@ app.post("/crearEstudiante", (req, res) => {
 		let legajo = req.body.legajo;
 		let descripcion_curso = req.body.descripcion_curso;
 		let nombre = "estudiante";
+		let nombreMateria = req.body.nombreMateria;
+		let id = req.body.id;
 		bcrypt.hash(password, salt, (err, encrypted) => {
 			password = encrypted;
 			let userquery = "INSERT INTO usuario (nombreUsuario, pass, avatar, contraseña_cambiada) VALUE (?,?,?,?)";
@@ -1349,21 +1351,34 @@ app.post("/crearEstudiante", (req, res) => {
 					let estudiantequery = "INSERT INTO estudiante (nombreUsuario, nombre, apellido, dni, telefono, email, genero, fecha_nacimiento,descripcion_curso,legajo) VALUES (?,?,?,?,?,?,?,?,?,?)";
 					con.query(estudiantequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, descripcion_curso, legajo], (error, rows, fields) => {
 						if (error) throw error;
-						// let materias ="SELECT nombreMateria, id FROM materia WHERE curso_descripcion = descripcion_curso"
-						// con.query(materias,[nombreMateria,id],(error,rows,fields)=> {
-
-						// });
-
-						let notaEstudiante = "INSERT INTO nota (nota1, nota2, nota3, nota4, nota5, nota6, nota7, nota8, nota_definitiva, nota_definitiva1, descripcion_curso, dni_alumno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-						con.query(notaEstudiante, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, descripcion_curso, dni], (error, rows, fields) => {
-							if (error) throw error;
+						let materias ="SELECT id,nombreMateria FROM materia WHERE curso_descripcion = ?"
+						con.query(materias,[descripcion_curso],(error,rows,fields)=> {
 							console.log(rows);
-							res.redirect("/panelDeInicio");
+							for (let i = 0; i < rows.length; i++) {
+								const notas_materias = rows[i];
+								let notaEstudianteperiodoUNO = "INSERT INTO nota (nota1, nota2, nota3, nota4, nota_definitiva1, descripcion_curso, dni_alumno) VALUES (?,?,?,?,?,?,?)";
+								con.query(notaEstudianteperiodoUNO, [0, 0, 0, 0, 0, descripcion_curso, dni], (error, rows, fields) => {
+									if (error) throw error;
+								});								
+							}
 						});
+						for (let i = 0; i < rows.length; i++) {
+							const notas_materiasdos = rows[i];
+							let notaEstudianteperiodoDOS = "INSERT INTO nota (nota5, nota6, nota7, nota8, nota_definitiva2, descripcion_curso, dni_alumno) VALUES (?,?,?,?,?,?,?)";
+							con.query(notaEstudianteperiodoDOS, [0, 0, 0, 0, 0, descripcion_curso, dni], (error, rows, fields) => {
+								if (error) throw error;
+								res.redirect("/panelDeInicio");
+							});								
+						};
 					});
 				});
-			});
-		});
+
+				});
+	
+
+					});
+				
+
 	} else {
 		res.redirect("/");
 	}
