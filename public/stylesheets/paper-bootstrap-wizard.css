@@ -692,7 +692,7 @@ input[type="button"]:focus {
   color: #FFFFFF;
   background-color:#bf4041;
   opacity: 1;
-  margin-left: 41em;
+  margin-left: 32em;
   border-radius: 0px;
   filter: alpha(opacity=100);
 }
