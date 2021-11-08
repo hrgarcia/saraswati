@@ -1,0 +1,16 @@
+.imagen{
+    height: 60px;
+    
+}
+
+.boton{
+    
+    border: none;
+     float: right;
+     margin-right: 90px;
+      
+    
+}
+.contenedor-boton{
+    background: transparent;
+}
