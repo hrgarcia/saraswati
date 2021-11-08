@@ -276,7 +276,7 @@
                                     </button>
                                 </div>
                                 <div class="col-md-3">
-                                    <button class="custom-btn btn-2" onclick="saveAlert()">
+                                    <button class="custom-btn btn-2" onclick="saveAlert('¿Estas seguro de guardar?')">
                                         <i class="fas fa-save"></i>
                                     </button>
                                 </div>
@@ -311,8 +311,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" onclick="addLearning([inputNameLearning.value, inputPeriodLearning.value])">Save changes</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="addLearning([inputNameLearning.value, inputPeriodLearning.value])">Guardar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
                     <a href="#" uk-totop uk-scroll style="float:right;color:#fff;"></a>
@@ -450,14 +450,36 @@
                 }
             }
             function addLearning(newLearningData) {
-                // Id materia
-                newLearningData.push(document.getElementById("subjectName").getAttribute("data-value"));
-                // Nombre de materia
-                newLearningData.push(document.getElementById("subjectName").getAttribute("data-value2"));
-                // Nombre del curso
-                newLearningData.push(document.getElementById("subjectName").getAttribute("data-value3"));
-                $.get("agregarAprendizajes", { newLearningData }, function (res) {
-                    $("#listPending").append("<div class='pendiente uk-margin uk-card uk-card-default uk-card-body uk-card-small' originLearn='listPending' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `<span class="text">${newLearningData[0]}</span></div>`);
+                Swal.fire({
+                    icon: "question",
+                    title: `¿Esta seguro de crear el aprendizaje`,
+                    showCancelButton: true,
+                    confirmButtonText: `Crear`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Id materia
+                        newLearningData.push(document.getElementById("subjectName").getAttribute("data-value"));
+                        // Nombre de materia
+                        newLearningData.push(document.getElementById("subjectName").getAttribute("data-value2"));
+                        // Nombre del curso
+                        newLearningData.push(document.getElementById("subjectName").getAttribute("data-value3"));
+                        if(newLearningData[0] != ""){
+                            if(newLearningData[0].length >= 5){
+                                $.get("agregarAprendizajes", { newLearningData }, function (res) {
+                                    $("#listPending").append("<div class='pendiente uk-margin uk-card uk-card-default uk-card-body uk-card-small' originLearn='listPending' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" + `<span class="text">${newLearningData[0]}</span></div>`);
+                                    document.getElementById("inputNameLearning").value = "";
+                                    successAlert("Se creo su aprendizaje");
+                                });
+
+                            }
+                            else{
+                            errorAlert("El nombre del aprendizaje debe ser mas largo")
+                            }
+                        }
+                        else{
+                            errorAlert("El nombre del aprendizaje no puede estar vacio")
+                        }
+                    }
                 });
             }
         </script>        

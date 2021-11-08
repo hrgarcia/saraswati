@@ -34,10 +34,10 @@ const successAlert = (text) => {
     });
 };
 
-const saveAlert = () => {
+const saveAlert = (texto) => {
     Swal.fire({
         icon: "question",
-        title: "¿Estas seguro de guardar?",
+        title: `${texto}`,
         showCancelButton: true,
         confirmButtonText: `Guardar`,
     }).then((result) => {

@@ -512,8 +512,9 @@ app.get("/agregarAprendizajes", (req, res) => {
         } else {
             idPeriod = 2;
         }
+        let nombreAprendizaje = req.query.newLearningData[0].trim();
         let query1 = "INSERT INTO aprendizajes (descripcion,id_materia,id_periodo) VALUES (?, ?, ?)";
-        con.query(query1, [req.query.newLearningData[0], req.query.newLearningData[2], idPeriod], (error, rows, fields) => {
+        con.query(query1, [nombreAprendizaje, req.query.newLearningData[2], idPeriod], (error, rows, fields) => {
             if (error) throw error;
         });
         // Search for the IDs of all students in this subject
@@ -523,7 +524,7 @@ app.get("/agregarAprendizajes", (req, res) => {
             // With a for I create each learning for each student
             for (let i = 0; i < rows.length; i++) {
                 let query3 = "INSERT INTO estudianteaprendizaje (descripcion,estado,estudiante_dni,periodo_id,materia_id) VALUES (?,?,?,?,?)";
-                con.query(query3, [req.query.newLearningData[0], "pendiente", rows[i].dni, idPeriod, req.query.newLearningData[2]], (error, rows, fields) => {
+                con.query(query3, [nombreAprendizaje, "pendiente", rows[i].dni, idPeriod, req.query.newLearningData[2]], (error, rows, fields) => {
                     if (error) throw error;
                 });
             }
