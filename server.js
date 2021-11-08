@@ -163,8 +163,11 @@ app.get("/panelDeInicio", (req, res) => {
                             // return resolve(rows);
                             let x = rows.map((a) => {
                                 a.tags = a.tags.split(/\s+/);
-                                console.log(a);
-                                return a;
+                                let d = a.titulo.charAt();
+                                d = d.toUpperCase();
+                                a.titulo = a.titulo.substring(1)
+                                a.titulo = d + a.titulo;
+                                return a
                             });
 
                             return resolve(x);
