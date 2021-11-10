@@ -98,6 +98,9 @@ app.use(
     })
 );
 
+// Llamando el express.json() para hacer parsearlo
+app.use(express.json());
+
 app.use(express.static(path.join(__dirname, "public")));
 
 // Bootstrap requirements
@@ -165,9 +168,9 @@ app.get("/panelDeInicio", (req, res) => {
                                 a.tags = a.tags.split(/\s+/);
                                 let d = a.titulo.charAt();
                                 d = d.toUpperCase();
-                                a.titulo = a.titulo.substring(1)
+                                a.titulo = a.titulo.substring(1);
                                 a.titulo = d + a.titulo;
-                                return a
+                                return a;
                             });
 
                             return resolve(x);
@@ -347,7 +350,6 @@ app.get("/agregarEstudiante", (req, res) => {
     }
 });
 
-
 app.get("/listarProfesores", (req, res) => {
     let query = "SELECT  * FROM profesor";
     con.query(query, (error, rows, fields) => {
@@ -355,27 +357,23 @@ app.get("/listarProfesores", (req, res) => {
             title: "profesor",
             data: rows,
         });
-    })
-    
-})
-
+    });
+});
 
 app.get("/listarProfesores/:nombreUsuario", (req, res) => {
     let nombreUsuario = req.params.nombreUsuario;
     let materias = {
-        profe:[],
-        profeX:[]
+        profe: [],
+        profeX: [],
     };
     // y que sea preceptor
     if (req.session.logged) {
         let query = "SELECT * FROM materia WHERE profesor_Usuario = ? OR profesor_Usuario = ?";
-        con.query(query, [nombreUsuario,"profeX"] ,(error, rows, fields) => {
+        con.query(query, [nombreUsuario, "profeX"], (error, rows, fields) => {
             for (let i = 0; i < rows.length; i++) {
-                
                 if (rows[i].profesor_usuario == nombreUsuario) {
                     materias.profe.push(rows[i].nombreMateria);
-                } 
-                else{
+                } else {
                     materias.profeX.push(rows[i].nombreMateria);
                 }
             }
@@ -387,7 +385,6 @@ app.get("/listarProfesores/:nombreUsuario", (req, res) => {
     } else {
         res.redirect("/");
     }
-    
 });
 
 app.get("/listarEstudiante", (req, res) => {
