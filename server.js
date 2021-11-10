@@ -347,21 +347,47 @@ app.get("/agregarEstudiante", (req, res) => {
     }
 });
 
+
+app.get("/listarProfesores", (req, res) => {
+    let query = "SELECT  * FROM profesor";
+    con.query(query, (error, rows, fields) => {
+        res.render("listTeacher.ejs", {
+            title: "profesor",
+            data: rows,
+        });
+    })
+    
+})
+
+
 app.get("/listarProfesores/:nombreUsuario", (req, res) => {
+    let nombreUsuario = req.params.nombreUsuario;
+    let materias = {
+        profe:[],
+        profeX:[]
+    };
+    // y que sea preceptor
     if (req.session.logged) {
-        let nombreUsuario = req.params.nombreUsuario;
-        let query = "SELECT * FROM profesor INNER JOIN materia WHERE materia.profesorUsuario == ?";
-        let query2 = "SELECT * FROM materia WHERE materia.profesorUsuario = profeX";
-        con.query(query, (error, [nombreUsuario], rows, fields) => {
-            if (error) throw error;
+        let query = "SELECT * FROM materia WHERE profesor_Usuario = ? OR profesor_Usuario = ?";
+        con.query(query, [nombreUsuario,"profeX"] ,(error, rows, fields) => {
+            for (let i = 0; i < rows.length; i++) {
+                
+                if (rows[i].profesor_usuario == nombreUsuario) {
+                    materias.profe.push(rows[i].nombreMateria);
+                } 
+                else{
+                    materias.profeX.push(rows[i].nombreMateria);
+                }
+            }
             res.render("listTeacher.ejs", {
-                title: "Profesores",
-                data: rows,
+                title: "materias",
+                materias: rows,
             });
         });
     } else {
         res.redirect("/");
     }
+    
 });
 
 app.get("/listarEstudiante", (req, res) => {

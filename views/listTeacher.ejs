@@ -5,24 +5,24 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title>Listado de profesores</title>
         <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-         <!--     Fonts and icons     -->
+        <!--     Fonts and icons     -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 
-         <!-- Iconos Font Awesome -->
+        <!-- Iconos Font Awesome -->
         <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
-         <!-- Nuestros estilos -->
+        <!-- Nuestros estilos -->
         <link rel="stylesheet" href="/stylesheets/style.css" />
- 
+
         <link rel="stylesheet" href="/stylesheets/modal.css" />
         <link rel="stylesheet" href="/stylesheets/boton.css" />
- 
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet" />
- 
+
 
         <!-- Estilo de la datatable --> 
-       <link rel="stylesheet" href="/stylesheets/uikit.min.css" />
+        <link rel="stylesheet" href="/stylesheets/uikit.min.css" />
 
         <!-- CSS Files -->
         <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
@@ -98,7 +98,7 @@
                                         <td>
                                             <div id="<%-profesor['nombreUsuario']%>" onclick="borrar(this.id)">
                                                 <i uk-margin type="button" title="Notas" uk-toggle style="color:black; font-size:27px;margin-left:5px;" class="material-icons">delete</i>
-                                               
+
                                             </div>
                                         </td>
                                         <td>
@@ -123,13 +123,36 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            
+                            <div class="tab-pane" id="address">
+                                <div class="content">
+                                    <br>
+                                    <br>
+                                    <div class = "row">
+                                        
+                                        <div class="col-md-6">
+                                            <h4 style="text-align:center;" class="tituloSecundario">Profe </h4>
+
+                                            <% data.forEach(function(item){%>
+                                                <div id="profe" class="row">
+                                                    <input type="radio" value= "<%- data -%>" id ="boton">
+                                                
+                                                </div>
+                                            <% }); %>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h4 style="text-align:center;" class="tituloSecundario">Materias sueltas</h4>
+                                            <div id="profeX" class="row">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 </div>
-            </div> 
+            </div>
             <%- include('fragment/footer'); -%>
         </div>
         <%- include('fragment/scripts'); -%>
@@ -139,7 +162,6 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             function borrar(aux){
-
                 Swal.fire({
                     title: '¿Esta seguro que quiere eliminar a este profesor?',
                     showDenyButton: true,
@@ -162,13 +184,21 @@
                         });  */
                     } 
 		        })
-             }
+            }
 
-             function agregarMateria(profesor) {
-                 console.log(profesor)
-                 
-
-             }
+            function agregarMateria(profesor) {
+                let nombreUsuario = profesor;
+                $.get(`listarProfesores/${nombreUsuario}`,  res => {
+                    let profe = document.getElementById("profe");
+                    let profeX = document.getElementById("profeX");
+                    $("#boton").append(res.profe) ;
+                    profeX.append(res.profeX);
+                }); 
+                $(".close").on("click", function(e) {
+                    profe.innerHTML = "";
+                    profeX.innerHTML = "";
+                });
+            }
                 
         </script>
     </body>
