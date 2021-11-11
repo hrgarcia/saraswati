@@ -360,6 +360,30 @@ app.get("/listarProfesores", (req, res) => {
     });
 });
 
+app.post("/listarProfesores", (req, res) => {
+    let quitarMateria = req.body.materiasAsignadas;
+    let materiaDisponible = req.body.materiasDisponibles;
+
+    // let query = "SELECT profesor_usuario FROM materia WHERE nombreMateria = ?";
+    // con.query(query, [], (error, rows, fields) => {
+    //     if (error) throw error;
+    // });
+
+    // Le quito una materia a un prof y se la asigno al profeX
+    if (quitarMateria != undefined) {
+        let query = "UPDATE materia SET profesor_usuario = 'profeX' WHERE nombreMateria = ?";
+        con.query(query, [quitarMateria], (error, rows, fields) => {
+            if (error) throw error;
+        });
+    }
+    if (materiaDisponible != undefined) {
+        let query = "UPDATE materia SET nombre_usuario = ?";
+        con.query(query, [usuarioProfesor], (error, rows, fields) => {
+            if (error) throw error;
+        });
+    }
+});
+
 app.get("/listarProfesores/:nombreUsuario", (req, res) => {
     let nombreUsuario = req.params.nombreUsuario;
     let materias = {
@@ -1569,44 +1593,43 @@ app.post("/crearEstudiante", (req, res) => {
     let descripcion_curso = req.body.descripcion_curso;
     let nombre = "estudiante";
     bcrypt.hash(password, salt, (err, encrypted) => {
-    password = encrypted;
-    let userquery = "INSERT INTO usuario (nombreUsuario, pass, avatar, contraseña_cambiada) VALUE (?,?,?,?)";
-    console.log(nickname);
-    console.log(firstname);
-    console.log(lastname);
-    console.log(telefono);
-    console.log(email);
-    console.log(fecha_nacimiento);
-    console.log(dni);
-    console.log(genero);
-    console.log(legajo);
-    console.log(descripcion_curso);
+        password = encrypted;
+        let userquery = "INSERT INTO usuario (nombreUsuario, pass, avatar, contraseña_cambiada) VALUE (?,?,?,?)";
+        console.log(nickname);
+        console.log(firstname);
+        console.log(lastname);
+        console.log(telefono);
+        console.log(email);
+        console.log(fecha_nacimiento);
+        console.log(dni);
+        console.log(genero);
+        console.log(legajo);
+        console.log(descripcion_curso);
 
-    con.query(userquery, [nickname, password, "avatarDefault.jpg", false], (error, rows, fields) => {
-        if (error) throw error;
-        let rolquery = "INSERT INTO rol (nombre, nombreUsuario) VALUE (?,?)";
-        con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
+        con.query(userquery, [nickname, password, "avatarDefault.jpg", false], (error, rows, fields) => {
             if (error) throw error;
-            let estudiantequery = "INSERT INTO estudiante (nombreUsuario, nombre, apellido, dni, telefono, email, genero, fecha_nacimiento,descripcion_curso,legajo) VALUES (?,?,?,?,?,?,?,?,?,?)";
-            con.query(estudiantequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, descripcion_curso, legajo], (error, rows, fields) => {
+            let rolquery = "INSERT INTO rol (nombre, nombreUsuario) VALUE (?,?)";
+            con.query(rolquery, [nombre, nickname], (error, rows, fields) => {
                 if (error) throw error;
-                let materias ="SELECT id FROM materia WHERE curso_descripcion = ?"
-                con.query(materias,[descripcion_curso],(error,rows,fields)=> {
-                    console.log(rows);
-                    for (let i = 0; i < rows.length; i++) {
-                        const id_materia = rows[i];
-                        let notaEstudianteperiodoUNO = "INSERT INTO nota (nota1, nota2, nota3, nota4, nota5, nota6, nota7, nota8, nota_definitiva1, nota_definitiva2, id_materia, descripcion_curso, dni_alumno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                        con.query(notaEstudianteperiodoUNO, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, id_materia ,descripcion_curso, dni], (error, notas, fields) => {
-                            console.log(id_materia);
-                            if (error) throw error;
-                            
-                        });                             
-                    }
+                let estudiantequery = "INSERT INTO estudiante (nombreUsuario, nombre, apellido, dni, telefono, email, genero, fecha_nacimiento,descripcion_curso,legajo) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                con.query(estudiantequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, descripcion_curso, legajo], (error, rows, fields) => {
+                    if (error) throw error;
+                    let materias = "SELECT id FROM materia WHERE curso_descripcion = ?";
+                    con.query(materias, [descripcion_curso], (error, rows, fields) => {
+                        console.log(rows);
+                        for (let i = 0; i < rows.length; i++) {
+                            const id_materia = rows[i];
+                            let notaEstudianteperiodoUNO = "INSERT INTO nota (nota1, nota2, nota3, nota4, nota5, nota6, nota7, nota8, nota_definitiva1, nota_definitiva2, id_materia, descripcion_curso, dni_alumno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                            con.query(notaEstudianteperiodoUNO, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, id_materia, descripcion_curso, dni], (error, notas, fields) => {
+                                console.log(id_materia);
+                                if (error) throw error;
+                            });
+                        }
+                    });
                 });
             });
         });
     });
-   });
 });
 
 app.get("/borrarNotificacion/:id", (req, res) => {

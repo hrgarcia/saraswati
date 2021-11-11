@@ -112,7 +112,7 @@
                     <a href="#" style="float:right;" uk-totop uk-scroll></a>         
                 </div>
             </div>
-            <div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content" id="modal">
                         <div class="modal-header" style="border-bottom: 1px solid #ffffff !important">
@@ -127,25 +127,21 @@
                                 <div class="content">
                                     <br>
                                     <br>
-                                    <div class = "row">
-                                        
-                                        <div class="col-md-6">
-                                            <h4 style="text-align:center;" class="tituloSecundario">Profe </h4>
-
-                                            <% data.forEach(function(item){%>
-                                                <div id="profe" class="row">
-                                                    <input type="radio" value= "<%- data -%>" id ="boton">
-                                                
+                                    <form action="/listarProfesores" method="POST">
+                                        <div class = "row">
+                                            <div class="col-md-6">
+                                                <h4 style="text-align:center;" class="tituloSecundario">Profe </h4>
+                                                <div id="profe">
+                                                </div>                                           
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h4 style="text-align:center;" class="tituloSecundario">Materias disponibles</h4>
+                                                <div id="profeX">
                                                 </div>
-                                            <% }); %>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <h4 style="text-align:center;" class="tituloSecundario">Materias sueltas</h4>
-                                            <div id="profeX" class="row">
-                                                
                                             </div>
                                         </div>
-                                    </div>
+                                        <input style="float:right"type="submit"></input>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -157,9 +153,10 @@
         </div>
         <%- include('fragment/scripts'); -%>
 
-                <!-- Own SweetAlert2 -->
+        <!-- Own SweetAlert2 -->
         <script src="/javascripts/sweetAlerts.js"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <script>
             function borrar(aux){
                 Swal.fire({
@@ -179,27 +176,58 @@
                             toast: true,
                             position: "top-end",
                         });
-                      /*   $.get(`borrarProfesor/${aux}`,  res => {
+                        /*   $.get(`borrarProfesor/${aux}`,  res => {
                             setTimeout(reloadPage, 2500);
                         });  */
                     } 
-		        })
+                })
             }
 
             function agregarMateria(profesor) {
                 let nombreUsuario = profesor;
                 $.get(`listarProfesores/${nombreUsuario}`,  res => {
+                    res = JSON.parse(res);
+                    
                     let profe = document.getElementById("profe");
                     let profeX = document.getElementById("profeX");
-                    $("#boton").append(res.profe) ;
-                    profeX.append(res.profeX);
+                    
+                    for (let i = 0; i < res.profe.length; i++) {
+                        let input = document.createElement("input");
+                        let span = document.createElement("span");
+
+                        span.innerHTML = res.profe[i]; 
+                        span.style = "color:white";
+                        input.type = "radio";
+                        input.name = "materiasAsignadas";
+                        input.value = res.profe[i];
+
+                        profe.append(input);
+                        profe.append(span);
+                        profe.insertAdjacentHTML('beforeend', "<br>");
+                    }
+                    let input = document.createElement("input");
+                    input.value = res.profe[i];
+                    profe.append(input);
+                    for (let i = 0; i < res.profeX.length; i++) {
+                        let input = document.createElement("input");
+                        let span = document.createElement("span");
+
+                        span.innerHTML = res.profeX[i]; 
+                        span.style = "color:white";
+                        input.type = "radio";
+                        input.name = "materiasDisponibles";
+                        input.value = res.profeX[i];
+
+                        profeX.append(input);
+                        profeX.append(span);
+                        profeX.insertAdjacentHTML('beforeend', "<br>");
+                    }
                 }); 
                 $(".close").on("click", function(e) {
                     profe.innerHTML = "";
                     profeX.innerHTML = "";
                 });
             }
-                
         </script>
     </body>
 </html>
