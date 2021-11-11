@@ -363,25 +363,28 @@ app.get("/listarProfesores", (req, res) => {
 app.post("/listarProfesores", (req, res) => {
     let quitarMateria = req.body.materiasAsignadas;
     let materiaDisponible = req.body.materiasDisponibles;
+    let materiaUsuario = req.body.auxMateria;
+    let query = "SELECT profesor_usuario FROM materia WHERE nombreMateria = ?";
+    con.query(query, [materiaUsuario], (error, nombreUsuario, fields) => {
+        if (error) throw error;
+        // Le quito una materia a un profe y se la asigno al profeX
+        if (quitarMateria != undefined) {
+            let query = "UPDATE materia SET profesor_usuario = 'profeX' WHERE nombreMateria = ?";
+            con.query(query, [quitarMateria], (error, rows, fields) => {
+                if (error) throw error;
+            });
+        }
+        //Le quito una materia al profeX y se la asigno a un profe
+        if (materiaDisponible != undefined) {
+            let query = "UPDATE materia SET profesor_usuario = ? WHERE nombreMateria = ?";
+            con.query(query, [nombreUsuario[0].profesor_usuario, materiaDisponible], (error, rows, fields) => {
+                if (error) throw error;
+            });
+        }
+        res.redirect("/listarProfesores");
+        
+    });
 
-    // let query = "SELECT profesor_usuario FROM materia WHERE nombreMateria = ?";
-    // con.query(query, [], (error, rows, fields) => {
-    //     if (error) throw error;
-    // });
-
-    // Le quito una materia a un prof y se la asigno al profeX
-    if (quitarMateria != undefined) {
-        let query = "UPDATE materia SET profesor_usuario = 'profeX' WHERE nombreMateria = ?";
-        con.query(query, [quitarMateria], (error, rows, fields) => {
-            if (error) throw error;
-        });
-    }
-    if (materiaDisponible != undefined) {
-        let query = "UPDATE materia SET nombre_usuario = ?";
-        con.query(query, [usuarioProfesor], (error, rows, fields) => {
-            if (error) throw error;
-        });
-    }
 });
 
 app.get("/listarProfesores/:nombreUsuario", (req, res) => {
@@ -401,10 +404,7 @@ app.get("/listarProfesores/:nombreUsuario", (req, res) => {
                     materias.profeX.push(rows[i].nombreMateria);
                 }
             }
-            res.render("listTeacher.ejs", {
-                title: "materias",
-                materias: rows,
-            });
+            res.send(JSON.stringify(materias))
         });
     } else {
         res.redirect("/");

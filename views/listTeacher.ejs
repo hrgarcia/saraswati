@@ -205,9 +205,7 @@
                         profe.append(span);
                         profe.insertAdjacentHTML('beforeend', "<br>");
                     }
-                    let input = document.createElement("input");
-                    input.value = res.profe[i];
-                    profe.append(input);
+                    
                     for (let i = 0; i < res.profeX.length; i++) {
                         let input = document.createElement("input");
                         let span = document.createElement("span");
@@ -222,6 +220,11 @@
                         profeX.append(span);
                         profeX.insertAdjacentHTML('beforeend', "<br>");
                     }
+                    let input = document.createElement("input");
+                    input.type = "hidden";
+                    input.value = res.profe[0];
+                    input.name = "auxMateria"
+                    profe.append(input);
                 }); 
                 $(".close").on("click", function(e) {
                     profe.innerHTML = "";
