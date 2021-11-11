@@ -1567,7 +1567,7 @@ app.post("/crearEstudiante", (req, res) => {
     let genero = req.body.genero;
     let legajo = req.body.legajo;
     let descripcion_curso = req.body.descripcion_curso;
-    let nombre = "estudiante";          
+    let nombre = "estudiante";
     bcrypt.hash(password, salt, (err, encrypted) => {
     password = encrypted;
     let userquery = "INSERT INTO usuario (nombreUsuario, pass, avatar, contraseña_cambiada) VALUE (?,?,?,?)";
@@ -1594,32 +1594,21 @@ app.post("/crearEstudiante", (req, res) => {
                 con.query(materias,[descripcion_curso],(error,rows,fields)=> {
                     console.log(rows);
                     for (let i = 0; i < rows.length; i++) {
-                        const notas_materias = rows[i];
-                        let notaEstudianteperiodoUNO = "INSERT INTO nota (nota1, nota2, nota3, nota4,nota_definitiva1, id_materia, descripcion_curso, dni_alumno) VALUES (?,?,?,?,?,?,?,?)";
-                        con.query(notaEstudianteperiodoUNO, [0, 0, 0, 0, 0,notas_materias , descripcion_curso, dni], (error, notas, fields) => {
+                        const id_materia = rows[i];
+                        let notaEstudianteperiodoUNO = "INSERT INTO nota (nota1, nota2, nota3, nota4, nota5, nota6, nota7, nota8, nota_definitiva1, nota_definitiva2, id_materia, descripcion_curso, dni_alumno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                        con.query(notaEstudianteperiodoUNO, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, id_materia ,descripcion_curso, dni], (error, notas, fields) => {
+                            console.log(id_materia);
                             if (error) throw error;
-                            console.log(notas);
+                            
                         });                             
                     }
                 });
-                for (let i = 0; i < rows.length; i++) {
-                    const notas_materiasdos = rows[i];
-                    let notaEstudianteperiodoDOS = "INSERT INTO nota (nota5, nota6, nota7, nota8, nota_definitiva2, id_materia,descripcion_curso, dni_alumno) VALUES (?,?,?,?,?,?,?,?)";
-                    con.query(notaEstudianteperiodoDOS, [0, 0, 0, 0, 0,rows, descripcion_curso, dni], (error, rows, fields) => {
-                        if (error) throw error;
-                        res.redirect("/panelDeInicio");
-                    });                             
-                };
             });
         });
-
-        });
-
-
-            });
-        
-
+    });
+   });
 });
+
 app.get("/borrarNotificacion/:id", (req, res) => {
     let id = req.params.id;
     let query = "DELETE FROM notificaciones WHERE id = ?";
