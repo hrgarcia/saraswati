@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+        <title>Lista de previas</title>
+        <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+        <!--     Fonts and icons     -->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+
+        <!-- Iconos Font Awesome -->
+        <script src="https://kit.fontawesome.com/c49c6935a4.js" crossorigin="anonymous"></script>
+        <!-- Nuestros estilos -->
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+
+        <link rel="stylesheet" href="/stylesheets/modal.css" />
+        <link rel="stylesheet" href="/stylesheets/boton.css" />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet" />
+
+        <!-- Estilo de la datatable -->
+        <link rel="stylesheet" href="/stylesheets/uikit.min.css" />
+
+        <!-- CSS Files -->
+        <link href="/stylesheets/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+        <!-- Animate css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
+        <%- include('fragment/background'); -%>
+    </head>
+
+    <body>
+        <div class="main-panel">
+            <%- include('fragment/navbar'); -%>
+            <div class="content">
+                <!--Contenido principal acá -->
+                <div class="jumbotron customJumbotron" style="margin-top: 25px">
+                    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark" style="font-size: 250px; margin-top: -80px">
+                        <div class="col-md-10">
+                            <h1 class="display-4 tituloSecundario" style="font-size: -95px; margin-top: -40px">Lista los estudiante con previas</h1>
+                            <i class="bi bi-file-earmark-excel"></i>
+                            <h4 class="text-table tituloSecundario" style="margin-bottom: -30px" id="subjectName" data-value="<%- data[0].id_materia -%>" data-value2="<%- data[0].materia -%>">
+                                Estudiantes del espacio curricular: <%- data[0].materia -%>
+                            </h4>
+                        </div>
+                    </div>
+                    <hr class="my-4" />
+                    <div class="uk-overflow-auto">
+                        <table id="fresh-table" class="uk-table uk-table-responsive uk-table-shrink uk-table-hover uk-table-justify uk-table-striped uk-table-small" style="width: 100%">
+                            <thead>
+                                <th></th>
+                                <th data-field="name">Nombre</th>
+
+                                <th data-field="surname">Apellido</th>
+
+                                <th data-field="dni">Dni</th>
+
+                                <th data-field="email ">Email</th>
+
+                                <th data-field="año">Año</th>
+
+                                <th data-field="actions" data-formatter="operateFormatter" data-events="operateEvents">Acciones</th>
+                                <th data-field="nota">Notas</th>
+                            </thead>
+                            <form id="notesForm" method="post">
+                                <% data.forEach(function(Student){ %>
+                                <tr>
+                                    <td>
+                                        <div id="modal-group-<%-Student['dni']%>" uk-modal>
+                                            <div id="notesDiv" data-value="<%-Student['dni']%>" class="uk-modal-dialog uk-margin-auto-vertical">
+                                                <button class="uk-modal-close-default" type="button" uk-close></button>
+                                                <div class="uk-modal-header">
+                                                    <h2 style="color: black" class="uk-modal-title">Notas del estudiante...</h2>
+                                                </div>
+                                                <div class="uk-modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6" id="firstQuarter" data-value="1">
+                                                            <ul class="uk-nav uk-dropdown-nav">
+                                                                <span>1er Cuatrimestre</span>
+                                                                <li>
+                                                                    <br />
+                                                                    <input class="inputCanEditing" placeholder="<%-Student['notaDefinitiva']%>" value="<%-Student['notaDefinitiva']%>" type="text" name="notaDefinitiva" />
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="uk-modal-footer uk-text-right">
+                                                    <button class="uk-button uk-button-default uk-modal-close" type="button">Cancelar</button>
+                                                    <button class="uk-button uk-button-default" style="float: right" onclick="test()">Guardar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><%-Student['nombre']%></td>
+                                    <td><%-Student['apellido']%></td>
+                                    <td><%-Student['dni']%></td>
+
+                                    <td><%-Student['email']%></td>
+                                    <td><%-Student['añoLectivo']%></td>
+                                    <td></td>
+                                    <td>
+                                        <a style="background-color: inherit !important" rel="tooltip" title="Generar" class="table-action" title="Like">
+                                            <i uk-margin type="button" title="Notas" href="#modal-group-<%-Student['dni']%>" uk-toggle style="color: black; font-size: 27px; margin-left: 5px" class="material-icons">class</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                            </form>
+                        </table>
+                    </div>
+                    <a href="#" style="float: right" uk-totop uk-scroll></a>
+                </div>
+            </div>
+
+            <!-- Learnings popup -->
+            <div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" id="modal">
+                        <div class="modal-header" style="border-bottom: 1px solid #ffffff !important">
+                            <h5 class="modal-title tituloPrincipal" id="exampleModalLabel">Listado de aprendizajes actuales</h5>
+                            <h5 class="modal-title" id="isChangedLearnState" style="text-indent: 350px"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row" style="margin-left: 37px !important">
+                                <div class="col-md-4">
+                                    <h4 style="text-align: center" class="tituloSecundario">Pendiente</h4>
+                                    <div class="sortable-learnings">
+                                        <div id="listPending" class="pendiente" uk-sortable="group: sortable-group, handle: .uk-sortable-handle"></div>
+                                    </div>
+                                    <br />
+                                </div>
+                                <div class="col-md-4">
+                                    <h4 style="text-align: center" class="tituloSecundario">Proceso</h4>
+                                    <div class="sortable-learnings">
+                                        <div id="listProcess" class="proceso" uk-sortable="group: sortable-group, handle: .uk-sortable-handle"></div>
+                                    </div>
+                                    <br />
+                                </div>
+                                <div class="col-md-4">
+                                    <h4 style="text-align: center" class="tituloSecundario">Aprobado</h4>
+                                    <div class="sortable-learnings">
+                                        <div id="listApproved" class="aprobado" uk-sortable="group: sortable-group, handle: .uk-sortable-handle"></div>
+                                        <br />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div id="trashLearnings" class="col-md-3" uk-sortable="group: sortable-group, handle: .uk-sortable-handle">
+                                        <button class="trash custom-btn btn-2">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="custom-btn btn-2">
+                                            <i class="fas fa-undo-alt"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="custom-btn btn-2" data-toggle="modal" data-target="#newLearning">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="custom-btn btn-2" onclick="saveAlert('¿Estas seguro de guardar?')">
+                                            <i class="fas fa-save"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Create learnings popup -->
+            <div class="modal fade bd-example-modal-lg" id="newLearning" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" id="modal">
+                        <div class="modal-header">
+                            <h5 style="color: rgb(255, 255, 255)" class="modal-title tituloPrincipal">Ingrese el nombre del aprendizaje</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <small class="tituloSecundario" style="font-weight: bold; color: rgb(255, 255, 255)">Complete los campos para crear un aprendizaje</small>
+                        <div class="modal-body">
+                            <input type="text" name="learningName" id="inputNameLearning" placeholder="Ingrese nombre" required />
+                            <br />
+                            <br />
+                            <br />
+                            <small class="tituloSecundario" style="font-weight: bold; color: rgb(255, 255, 255)">seleccione periodo</small>
+                            <div class="input-group">
+                                <select class="custom-select" id="inputPeriodLearning" placeholder="Ingrese el trimestre" required>
+                                    <option>1er cuatrimestre</option>
+                                    <option>2er cuatrimestre</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" onclick="addLearning([inputNameLearning.value, inputPeriodLearning.value])">Guardar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                    <a href="#" uk-totop uk-scroll style="float: right; color: #fff"></a>
+                </div>
+            </div>
+            <%- include('fragment/footer'); -%>
+        </div>
+
+        <%- include('fragment/scripts'); -%>
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
+        <!-- datatable js -->
+        <script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.0/locale/bootstrap-table-es-AR.min.js"></script>
+
+        <!-- Estilo de la datatable -->
+        <script src="/javascripts/uikit.min.js"></script>
+        <script src="/javascripts/uikit-icons.min.js"></script>
+
+        <!-- Jquery Validate -->
+        <script src="javascripts/jquery.validate.min.js" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
+
+        <!-- Own SweetAlert2 -->
+        <script src="/javascripts/sweetAlerts.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!-- Sortable Functions -->
+        <script type="text/javascript">
+            var deleteLearnings = [];
+            let sortableListPending = UIkit.sortable("#listPending");
+            UIkit.util.on(sortableListPending.$el, "added", function (item, sortable) {
+                let actualItem = item.detail[1];
+                let futureSide = item.detail[0].$el;
+                if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 0) {
+                    actualItem.setAttribute("data-value", "1");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                } else if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 1) {
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                    // document.getElementById("isChangedLearnState").innerHTML = "";
+                } else if (actualItem.getAttribute("originLearn") == futureSide.id) {
+                    actualItem.setAttribute("data-value", "0");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                }
+            });
+            let sortableListProcess = UIkit.sortable("#listProcess");
+            UIkit.util.on(sortableListProcess.$el, "added", function (item, sortable) {
+                let actualItem = item.detail[1];
+                let futureSide = item.detail[0].$el;
+                if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 0) {
+                    actualItem.setAttribute("data-value", "1");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                } else if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 1) {
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                } else if (actualItem.getAttribute("originLearn") == futureSide.id) {
+                    actualItem.setAttribute("data-value", "0");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                }
+            });
+            let sortableListApproved = UIkit.sortable("#listApproved");
+            UIkit.util.on(sortableListApproved.$el, "added", function (item, sortable) {
+                let actualItem = item.detail[1];
+                let futureSide = item.detail[0].$el;
+                if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 0) {
+                    actualItem.setAttribute("data-value", "1");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                } else if (actualItem.getAttribute("originLearn") != futureSide.id && actualItem.getAttribute("data-value") == 1) {
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                } else if (actualItem.getAttribute("originLearn") == futureSide.id) {
+                    actualItem.setAttribute("data-value", "0");
+                    actualItem.classList.replace(actualItem.classList[0], futureSide.classList[0]);
+                }
+            });
+            let sortableTrashLearnings = UIkit.sortable("#trashLearnings");
+            UIkit.util.on(sortableTrashLearnings.$el, "added", function (item, sortable) {
+                let actualItem = item.detail[1];
+                let futureSide = item.detail[0].$el;
+                $(actualItem).remove();
+                deleteLearnings.push(actualItem);
+            });
+            function saveLearnings() {
+                let dni = $("#learningsStudent").attr("data-value");
+                let listLearnings = [$(".pendiente"), $(".proceso"), $(".aprobado")];
+                let infoLearnings = {
+                    dni: dni,
+                    pendiente: [],
+                    proceso: [],
+                    aprobado: [],
+                };
+                let previusAlert = false;
+                for (let i = 0; i < listLearnings.length; i++) {
+                    for (let j = 1; j < listLearnings[i].length; j++) {
+                        if (listLearnings[i][j].getAttribute("data-value") == 1) {
+                            infoLearnings[listLearnings[i][j].classList[0]].push({ name: listLearnings[i][j].childNodes[1].innerHTML.toLowerCase() });
+
+                            listLearnings[i][j].setAttribute("data-value", "0");
+                            if (listLearnings[i][j].classList[0] == "pendiente") {
+                                listLearnings[i][j].setAttribute("originLearn", "listPending");
+                            }
+                            if (listLearnings[i][j].classList[0] == "proceso") {
+                                listLearnings[i][j].setAttribute("originLearn", "listProcess");
+                            }
+                            if (listLearnings[i][j].classList[0] == "aprobado") {
+                                listLearnings[i][j].setAttribute("originLearn", "listApproved");
+                            }
+                        }
+                    }
+                }
+
+                if (infoLearnings["pendiente"].length > 0 || infoLearnings["proceso"].length > 0 || infoLearnings["aprobado"].length > 0) {
+                    $.get("guardarAprendizajesPrevias", { data: infoLearnings }, function (res) {
+                        successAlert("Cambios guardados");
+                        previusAlert = true;
+                    });
+                }
+                if (deleteLearnings.length > 0) {
+                    for (let i = 0; i < deleteLearnings.length; i++) {
+                        deleteLearnings[i] = deleteLearnings[i].childNodes[1].innerHTML.toLowerCase();
+                    }
+                    $.get("borrarAprendizajes", { data: deleteLearnings }, function (res) {
+                        deleteLearnings = [];
+                        if (!previusAlert) {
+                            successAlert("Aprendizajes borrados");
+                        }
+                    });
+                } else {
+                    errorAlert("No hay cambios para realizar");
+                }
+            }
+            function addLearning(newLearningData) {
+                Swal.fire({
+                    icon: "question",
+                    title: `¿Esta seguro de crear el aprendizaje`,
+                    showCancelButton: true,
+                    confirmButtonText: `Crear`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Id materia
+                        newLearningData.push(document.getElementById("subjectName").getAttribute("data-value"));
+                        // Nombre de materia
+                        newLearningData.push(document.getElementById("subjectName").getAttribute("data-value2"));
+                        // Nombre del curso
+                        newLearningData.push(document.getElementById("subjectName").getAttribute("data-value3"));
+                        if (newLearningData[0] != "") {
+                            if (newLearningData[0].length >= 5) {
+                                $.get("agregarAprendizajes", { newLearningData }, function (res) {
+                                    $("#listPending").append(
+                                        "<div class='pendiente uk-margin uk-card uk-card-default uk-card-body uk-card-small' originLearn='listPending' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" +
+                                            `<span class="text">${newLearningData[0]}</span></div>`
+                                    );
+                                    document.getElementById("inputNameLearning").value = "";
+                                    successAlert("Se creo su aprendizaje");
+                                });
+                            } else {
+                                errorAlert("El nombre del aprendizaje debe ser mas largo");
+                            }
+                        } else {
+                            errorAlert("El nombre del aprendizaje no puede estar vacio");
+                        }
+                    }
+                });
+            }
+        </script>
+
+        <!-- Tabla de datos de Boostrap -->
+        <script type="text/javascript">
+            var $table = $("#fresh-table");
+            var $alertBtn = $("#alertBtn");
+
+            window.operateEvents = {
+                "click .edit": function (e, value, row, index) {
+                    $.get("obtenerAprendizajesPrevia", { dni: row.dni, nombreMateria: document.getElementById("subjectName").getAttribute("data-value2"), año: row.año }, (res) => {
+                        if ($("#learningsStudent").attr("data-value") != row.dni) {
+                            $("#listApproved").empty();
+                            $("#listProcess").empty();
+                            $("#listPending").empty();
+                            for (let i = 0; i < res.length; i++) {
+                                let allText = res[i].descripcion.charAt(0).toUpperCase();
+                                let restCh = res[i].descripcion.substring(1, res[i].descripcion.length);
+                                allText = allText.concat(restCh);
+                                if (res[i].estado == "aprobado") {
+                                    $("#listApproved").append(
+                                        "<div class='aprobado uk-margin uk-card uk-card-default uk-card-body uk-card-small' originLearn='listApproved' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" +
+                                            `<span class="text">${allText}</span></div>`
+                                    );
+                                } else if (res[i].estado == "proceso") {
+                                    $("#listProcess").append(
+                                        "<div class='proceso uk-margin uk-card uk-card-default uk-card-body uk-card-small' originLearn='listProcess' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" +
+                                            `<span class="text">${allText}</span></div>`
+                                    );
+                                } else {
+                                    $("#listPending").append(
+                                        "<div class='pendiente uk-margin uk-card uk-card-default uk-card-body uk-card-small' originLearn='listPending' data-value='0'><span class='uk-sortable-handle uk-margin-small-right uk-text-center' uk-icon='icon: table'></span>" +
+                                            `<span class="text">${allText}</span></div>`
+                                    );
+                                }
+                            }
+                            $("#learningsStudent").attr("data-value", row.dni);
+                        }
+                    });
+                },
+            };
+            function operateFormatter(value, row, index) {
+                return [
+                    '<a style="background-color:inherit !important;" rel="tooltip" title="Editar apredizajes" class="table-action edit" href="javascript:void(0)" title="Edit" data-toggle="modal" data-target="#learningsStudent">',
+                    '<i style="color:black; font-size:27px; margin-left:5px;" class="material-icons">assignment</i>',
+                    "</a>",
+                ].join("");
+            }
+            $(function () {
+                $table.bootstrapTable({
+                    classes: "table table-hover table-striped",
+                    toolbar: ".toolbar",
+                    search: true,
+                    showRefresh: true,
+                    showToggle: true,
+                    showColumns: true,
+                    pagination: true,
+                    striped: true,
+                    sortable: true,
+                    pageSize: 8,
+                    pageList: [8, 10, 25, 50, 100],
+                    formatShowingRows: function (pageFrom, pageTo, totalRows) {
+                        return "";
+                    },
+                    formatRecordsPerPage: function (pageNumber) {
+                        return pageNumber + " Filas visibles";
+                    },
+                });
+            });
+        </script>
+
+        <!-- Validacion de las notas -->
+        <script>
+            $("#notesForm").validate({
+                rules: {
+                    notaDefinitiva: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 2,
+                        digits: true,
+                    },
+                },
+                messages: {
+                    notaDefinitiva: {
+                        required: "Ingrese una nota",
+                        minlength: "Ingrese algun numero o un '-' ",
+                        maxlength: "Ingrese alguna nota valida",
+                    },
+                },
+            });
+
+            function test() {
+                if ($("#notesForm").valid()) {
+                    // e.preventDefault();
+                    let aux = $("#notesDiv input");
+                    let aux2 = { data: [] };
+                    let flag = false;
+                    idSubject = document.getElementById("subjectName").getAttribute("data-value");
+                    for (let i = aux.length - 1; i >= 0; i--) {
+                        if (aux[i].placeholder == aux[i].value) {
+                            aux.splice(i, 1);
+                        } else {
+                            let dni = aux[i].closest("#notesDiv").getAttribute("data-value");
+
+                            aux2["data"].push({ dni: dni, namefield: aux[i].name, value: aux[i].value, idSubject: idSubject });
+                            flag = true;
+                        }
+                    }
+
+                    if (flag) {
+                        aux2 = JSON.stringify(aux2);
+                        $.ajax({
+                            url: "/cambiarNotas",
+                            method: "post",
+                            dataType: "json",
+                            data: { info: `${aux2}` },
+                        }).done((d) => {
+                            for (let i = 0; i < aux.length; i++) {
+                                aux[i].placeholder = JSON.parse(aux2)["data"][i]["value"];
+                            }
+                            if (d === "infoUpdated") {
+                                successAlert("Su informacion fue actualizada");
+                            } else if (d === "infoNotUpdated") {
+                                errorAlert("Su informacion no pudo ser actualizada");
+                            }
+                        });
+                    } else {
+                        errorAlert("No se modifico ningun dato");
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>

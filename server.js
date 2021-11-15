@@ -382,9 +382,7 @@ app.post("/listarProfesores", (req, res) => {
             });
         }
         res.redirect("/listarProfesores");
-        
     });
-
 });
 
 app.get("/listarProfesores/:nombreUsuario", (req, res) => {
@@ -404,7 +402,7 @@ app.get("/listarProfesores/:nombreUsuario", (req, res) => {
                     materias.profeX.push(rows[i].nombreMateria);
                 }
             }
-            res.send(JSON.stringify(materias))
+            res.send(JSON.stringify(materias));
         });
     } else {
         res.redirect("/");
@@ -524,8 +522,23 @@ app.get("/miPerfil", (req, res) => {
 
 app.get("/obtenerAprendizajes", (req, res) => {
     if (req.session.logged) {
-        let query = "SELECT * FROM estudianteaprendizaje WHERE estudianteaprendizaje.estudiante_dni = ?";
-        con.query(query, [req.query.dni], (error, rows, fields) => {
+        let idMateria = req.query.idSubject;
+        let query = "SELECT * FROM estudianteaprendizaje WHERE estudiante_dni = ? AND materia_id = ?";
+        con.query(query, [req.query.dni, idMateria], (error, rows, fields) => {
+            if (error) throw error;
+            res.send(rows);
+        });
+    } else {
+        res.redirect("/");
+    }
+});
+
+app.get("/obtenerAprendizajesPrevia", (req, res) => {
+    if (req.session.logged) {
+        let nombreMateria = req.query.nombreMateria;
+        let año = req.query.año;
+        let query = "SELECT * FROM historialaprendizajes WHERE dni_estudiante = ? AND materia = ? AND añoLectivo = ?";
+        con.query(query, [req.query.dni, nombreMateria, año], (error, rows, fields) => {
             if (error) throw error;
             res.send(rows);
         });
@@ -536,6 +549,24 @@ app.get("/obtenerAprendizajes", (req, res) => {
 
 app.get("/guardarAprendizajes", (req, res) => {
     let query = "UPDATE estudianteaprendizaje SET estado = ? WHERE estudianteaprendizaje.descripcion = ? AND estudianteaprendizaje.estudiante_dni = ?";
+    let dni = 0;
+    for (let key in req.query.data) {
+        if (key == "dni") {
+            dni = req.query.data[key];
+        } else {
+            for (let i = 0; i < req.query.data[key].length; i++) {
+                con.query(query, [key, req.query.data[key][i].name, dni], (error, rows, fields) => {
+                    if (error) throw error;
+                });
+            }
+        }
+    }
+
+    res.send("");
+});
+
+app.get("/guardarAprendizajesPrevias", (req, res) => {
+    let query = "UPDATE historialaprendizajes SET estado = ? WHERE descripcion = ? AND dni_estudiante = ?";
     let dni = 0;
     for (let key in req.query.data) {
         if (key == "dni") {
@@ -1253,6 +1284,45 @@ app.get("/obtenerEstadisiticasEstudiates", (req, res) => {
         }
         res.send(arr);
     });
+});
+
+// Pagina donde el profesor puede ver a todos los estudiantes que tienen una previa
+app.post("/listaPreviasProfe", (req, res) => {
+    if (req.session.logged) {
+        let rol = res.locals.rol;
+        if (rol.includes("profesor")) {
+            let nombreMateria = req.body.subjectName;
+            let query = "SELECT * FROM previas INNER JOIN historialmaterias ON historialmaterias.añoLectivo = previas.añoLectivo AND historialmaterias.notaDefinitiva < 7 INNER JOIN estudiante ON estudiante.nombreUsuario = previas.usuario";
+            con.query(query, [nombreMateria], (error, rows, fields) => {
+                if (error) throw error;
+                res.render("listaPreviasProfe.ejs", {
+                    title: "Student",
+                    data: rows,
+                });
+            });
+        }
+    } else {
+        res.redirect("/");
+    }
+});
+
+app.get("/panelDePrevias", (req, res) => {
+    if (req.session.logged) {
+        let rol = res.locals.rol;
+        let username = res.locals.username;
+        if (rol.includes("profesor")) {
+            let query =
+                "SELECT id,nombreMateria,imagen,horasCatedra,profesor_usuario,curso_descripcion,nombreUsuario,nombre,apellido FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario INNER JOIN previas ON previas.materia = materia.nombreMateria";
+            con.query(query, [username], (error, rows) => {
+                res.render("panelDePrevias.ejs", {
+                    title: "InfoUser",
+                    data: rows,
+                });
+            });
+        }
+    } else {
+        res.redirect("/");
+    }
 });
 
 // Post

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-11-2021 a las 04:23:07
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.2.30
+-- Tiempo de generación: 15-11-2021 a las 02:23:51
+-- Versión del servidor: 10.4.21-MariaDB
+-- Versión de PHP: 7.3.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,6 +33,16 @@ CREATE TABLE `aprendizajes` (
   `id_materia` int(50) NOT NULL,
   `id_periodo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `aprendizajes`
+--
+
+INSERT INTO `aprendizajes` (`id`, `descripcion`, `id_materia`, `id_periodo`) VALUES
+(32, 'dwadaw', 1, 1),
+(33, 'dwadawg', 1, 1),
+(34, 'dawdawgfgr', 1, 1),
+(35, 'dwadwad a', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -108,6 +118,107 @@ CREATE TABLE `estudianteaprendizaje` (
   `materia_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `estudianteaprendizaje`
+--
+
+INSERT INTO `estudianteaprendizaje` (`id`, `descripcion`, `estado`, `estudiante_dni`, `periodo_id`, `materia_id`) VALUES
+(159, 'dwadaw', 'pendiente', 4569047, 1, 1),
+(160, 'dwadaw', 'pendiente', 44580035, 1, 1),
+(161, 'dwadaw', 'pendiente', 44872737, 1, 1),
+(162, 'dwadaw', 'pendiente', 44897788, 1, 1),
+(163, 'dwadaw', 'pendiente', 44970733, 1, 1),
+(164, 'dwadaw', 'pendiente', 45081861, 1, 1),
+(165, 'dwadaw', 'pendiente', 45081873, 1, 1),
+(166, 'dwadaw', 'pendiente', 45083228, 1, 1),
+(167, 'dwadaw', 'pendiente', 45086251, 1, 1),
+(168, 'dwadaw', 'pendiente', 45086525, 1, 1),
+(169, 'dwadaw', 'pendiente', 45154109, 1, 1),
+(170, 'dwadaw', 'pendiente', 45488236, 1, 1),
+(171, 'dwadawg', 'pendiente', 4569047, 1, 1),
+(172, 'dwadawg', 'pendiente', 44580035, 1, 1),
+(173, 'dwadawg', 'pendiente', 44872737, 1, 1),
+(174, 'dwadawg', 'pendiente', 44897788, 1, 1),
+(175, 'dwadawg', 'pendiente', 44970733, 1, 1),
+(176, 'dwadawg', 'pendiente', 45081861, 1, 1),
+(177, 'dwadawg', 'pendiente', 45081873, 1, 1),
+(178, 'dwadawg', 'pendiente', 45083228, 1, 1),
+(179, 'dwadawg', 'pendiente', 45086251, 1, 1),
+(180, 'dwadawg', 'pendiente', 45086525, 1, 1),
+(181, 'dwadawg', 'pendiente', 45154109, 1, 1),
+(182, 'dwadawg', 'pendiente', 45488236, 1, 1),
+(183, 'dawdawgfgr', 'pendiente', 4569047, 1, 1),
+(184, 'dawdawgfgr', 'pendiente', 44580035, 1, 1),
+(185, 'dawdawgfgr', 'pendiente', 44872737, 1, 1),
+(186, 'dawdawgfgr', 'pendiente', 44897788, 1, 1),
+(187, 'dawdawgfgr', 'pendiente', 44970733, 1, 1),
+(188, 'dawdawgfgr', 'pendiente', 45081861, 1, 1),
+(189, 'dawdawgfgr', 'pendiente', 45081873, 1, 1),
+(190, 'dawdawgfgr', 'pendiente', 45083228, 1, 1),
+(191, 'dawdawgfgr', 'pendiente', 45086251, 1, 1),
+(192, 'dawdawgfgr', 'pendiente', 45086525, 1, 1),
+(193, 'dawdawgfgr', 'pendiente', 45154109, 1, 1),
+(194, 'dawdawgfgr', 'pendiente', 45488236, 1, 1),
+(195, 'dwadwad a', 'pendiente', 4569047, 1, 1),
+(196, 'dwadwad a', 'pendiente', 44580035, 1, 1),
+(197, 'dwadwad a', 'pendiente', 44872737, 1, 1),
+(198, 'dwadwad a', 'pendiente', 44897788, 1, 1),
+(199, 'dwadwad a', 'pendiente', 44970733, 1, 1),
+(200, 'dwadwad a', 'pendiente', 45081861, 1, 1),
+(201, 'dwadwad a', 'pendiente', 45081873, 1, 1),
+(202, 'dwadwad a', 'pendiente', 45083228, 1, 1),
+(203, 'dwadwad a', 'pendiente', 45086251, 1, 1),
+(204, 'dwadwad a', 'pendiente', 45086525, 1, 1),
+(205, 'dwadwad a', 'pendiente', 45154109, 1, 1),
+(206, 'dwadwad a', 'pendiente', 45488236, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historialaprendizajes`
+--
+
+CREATE TABLE `historialaprendizajes` (
+  `dni_estudiante` varchar(11) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `descripcion` varchar(150) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `estado` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `materia` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `añoLectivo` varchar(15) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `id_periodo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `historialaprendizajes`
+--
+
+INSERT INTO `historialaprendizajes` (`dni_estudiante`, `descripcion`, `estado`, `materia`, `añoLectivo`, `id_periodo`) VALUES
+('44897788', 'variables', 'pendiente', 'programacion 4', '2021', 1),
+('44897788', 'unity', 'pendiente', 'programacion 4', '2021', 1),
+('44897788', 'unity 3d', 'pendiente', 'programacion 4', '2021', 2),
+('44897788', 'funciones recursivas', 'pendiente', 'programacion 4', '2020', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historialmaterias`
+--
+
+CREATE TABLE `historialmaterias` (
+  `dni_estudiante` int(11) NOT NULL,
+  `usuario` varchar(150) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `notaDefinitiva` int(11) NOT NULL,
+  `añoLectivo` varchar(150) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `id_materia` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `historialmaterias`
+--
+
+INSERT INTO `historialmaterias` (`dni_estudiante`, `usuario`, `notaDefinitiva`, `añoLectivo`, `id_materia`) VALUES
+(44897788, 'npetrocelli\r\n', 3, '2021', 1),
+(44897788, 'npetrocelli', 8, '2020', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -128,29 +239,29 @@ CREATE TABLE `materia` (
 --
 
 INSERT INTO `materia` (`id`, `nombreMateria`, `imagen`, `horasCatedra`, `profesor_usuario`, `curso_descripcion`) VALUES
-(1, 'programación 4', 'sexto_año/programacion_4.jpg', '72', 'hrgarcia', 'sexto año'),
+(1, 'programacion 4', 'sexto_año/programacion_4.jpg', '72', 'hrgarcia', 'sexto año'),
 (2, 'fvt', 'sexto_año/formacion_para_la_vida_y_el_trabajo.jpg', '13', 'lmazzola', 'sexto año'),
 (11, 'programacion 3', 'quinto_año/programacion_3.jpg', '65', 'hrgarcia', 'quinto año'),
 (12, 'robotica', 'quinto_año/robotica.jpg', '32', 'hrgarcia', 'quinto año'),
 (13, 'estructuras de almacenamiento de datos I', 'tercer_año/estructuras_de_almacenamiento_de_datos_I.jpg', '43', 'hrgarcia', 'tercer año'),
 (14, 'programacion 1', 'tercer_año/programacion_1.jpg', '53', 'hrgarcia', 'tercer año'),
 (17, 'estructuras y almacenamiento de datos II', 'cuarto_año/estructuras_y_almacenamiento_de_datos_II.jpg', '32', 'hrgarcia', 'cuarto año'),
-(18, 'programacion 5', 'quinto_año/robotica.jpg', '32', 'hrgarcia', 'sexto año'),
-(19, 'ciudadania y participacion', 'cuarto_año/ciudadania y participacion.jpg', '12', 'asd', 'cuarto año'),
-(20, 'filosofia', '', '23', '', 'sexto año'),
-(21, 'club de ciencias', '', '25', '', 'sexto año '),
+(18, 'programacion 5', 'quinto_año/robotica.jpg', '32', 'profeX', 'sexto año'),
+(19, 'ciudadania y participacion', 'cuarto_año/ciudadania y participacion.jpg', '12', 'profeX', 'cuarto año'),
+(20, 'filosofia', '', '23', 'profeX', 'sexto año'),
+(21, 'club de ciencias', '', '25', 'profeX', 'sexto año '),
 (22, 'ciudadania y politica', '', '33', 'lbassioviedo', 'sexto año'),
-(23, 'testing', '', '29', '', 'sexto año'),
-(24, 'desarrollo de aplicaciones moviles', 'sexto_año/desarrollo_de_aplicaciones_moviles.jpg', '80', 'hrgarcia', 'sexto año'),
-(25, 'teatro', '', '12', '', 'sexto año'),
+(23, 'testing', '', '29', 'profeX', 'sexto año'),
+(24, 'desarrollo de aplicaciones moviles', 'sexto_año/desarrollo_de_aplicaciones_moviles.jpg', '80', 'profeX', 'sexto año'),
+(25, 'teatro', '', '12', 'profeX', 'sexto año'),
 (26, 'ingles', '', '22', 'profeX', 'sexto año'),
 (27, 'lengua y literatura', '', '29', 'profeX', 'sexto año'),
 (29, 'formacion para la vida y el trabajo', 'quinto_año/formacion_para_la_vida_y_el_trabajo.jpg', '11', 'lmazzola', 'quinto año'),
-(30, 'quimica', '', '15', '', 'sexto año'),
-(31, 'educacion fisica', '', '29', '', 'sexto año'),
-(32, 'club de arte', '', '17', '', 'sexto año'),
-(33, 'club de deportes', '', '8', '', 'sexto año'),
-(34, 'matematica', '', '13', '', 'sexto año');
+(30, 'quimica', '', '15', 'profeX', 'sexto año'),
+(31, 'educacion fisica', '', '29', 'profeX', 'sexto año'),
+(32, 'club de arte', '', '17', 'profeX', 'sexto año'),
+(33, 'club de deportes', '', '8', 'profeX', 'sexto año'),
+(34, 'matematica', '', '13', 'profeX', 'sexto año');
 
 -- --------------------------------------------------------
 
@@ -247,6 +358,27 @@ INSERT INTO `periodo` (`id`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `previas`
+--
+
+CREATE TABLE `previas` (
+  `dni_estudiante` varchar(155) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `usuario` varchar(155) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `materia` varchar(155) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `añoLectivo` varchar(155) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `id_materia` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `previas`
+--
+
+INSERT INTO `previas` (`dni_estudiante`, `usuario`, `materia`, `añoLectivo`, `id_materia`) VALUES
+('44897788', 'npetrocelli', 'programación 4', '2021', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `profesor`
 --
 
@@ -269,7 +401,6 @@ CREATE TABLE `profesor` (
 
 INSERT INTO `profesor` (`nombreUsuario`, `nombre`, `apellido`, `dni`, `telefono`, `email`, `genero`, `nacimiento`, `ingreso`, `estado`) VALUES
 ('amaekawa', 'alejandra', 'maekawa', '30180378', '3512145992', 'amaekawa@escuelasproa.edu.ar', 'femenino', '21/09/1983', '01/04/2014', 'interino'),
-('asd', 'ddd', 'aas', '13213123', '3512345353', 'gabmat@live.com.ar', 'indefinido', '2021-10-29', '2021-10-16', 'titular'),
 ('cmendoza', 'camila', 'mendoza', '38594413', '3513871092', 'cmendoza@escuelasproa.edu.ar', 'femenino', '09/04/1995', '01/05/1995', 'interino'),
 ('dpezzelato', 'daiana', 'pezzelato', '37594703', '3512544303', 'dpezzelato@escuelasproa.edu.ar', 'femenino', '28/04/1993', '04/09/2017', 'interino'),
 ('flopez', 'florencia', 'lopez', '36604775', '3517036468', 'flopez@escuelasproa.edu.ar', 'femenino', '25/10/1992', '01/05/2016', 'interino'),
@@ -468,13 +599,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `aprendizajes`
 --
 ALTER TABLE `aprendizajes`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `estudianteaprendizaje`
 --
 ALTER TABLE `estudianteaprendizaje`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=207;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
