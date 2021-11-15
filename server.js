@@ -1506,11 +1506,17 @@ app.post("/agregar", (req, res) => {
                     con.query(profequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, ingreso, estado], (error, rows, fields) => {
                         // Crear las materias reales en la DB para que funcione todo bien
                         if (error) throw error;
-                        let materiaQuery = "INSERT INTO materia(nombreMateria, imagen, horasCatedra, profesor_usuario, curso_descripcion) VALUES (?,?,?,?,?)";
-                        con.query(materiaQuery, [nombreMateria, imgMateria, horas_catedra, nickname, curso], (error, rows, fields) => {
+                        let idQuery = "SELECT id FROM materia WHERE nombreMateria = ?";
+                        con.query(idQuery, [nombreMateria],(error, rows) => {
+                            console.log(rows[0].id)
                             if (error) throw error;
-                            res.redirect("/panelDeInicio");
-                        });
+                            // let materiaQuery = "UPDATE materia SET id="+ rows[0].id + "horasCatedra ="+horas_catedra + "profesor_usuario=" + nickname + "curso_descripcion =" + curso + " WHERE profesor_usuario = 'profeX'";
+                            let materiaQuery = `UPDATE materia SET id = ${rows[0].id}, horasCatedra = ${horas_catedra}, profesor_usuario = ${nickname}, curso_descripcion = ${curso}  WHERE profesor_usuario = 'profeX' `;
+                            con.query(materiaQuery, (error, rows, fields) => {
+                                if (error) throw error;
+                                res.redirect("/panelDeInicio");
+                            });
+                        });   
                     });
                 });
             });
