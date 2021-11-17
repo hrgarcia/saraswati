@@ -127,80 +127,82 @@
                                 <% data.forEach(function(Student){ %>    
                                     <tr>
                                         <td>
-                                            <div id="modal-group-<%-Student['dni_alumno']%>" uk-modal>
-                                                <div id="notesDiv" data-value="<%-Student['dni_alumno']%>" class="uk-modal-dialog uk-margin-auto-vertical">
+                                            <div id="modal-group-<%-Student['dni_alumno']%>" uk-modal >
+                                                <div id="notesDiv" data-value="<%-Student['dni_alumno']%>" class="uk-modal-dialog uk-margin-auto-vertical" >
                                                     <button class="uk-modal-close-default" type="button" uk-close></button>
-                                                    <div class="uk-modal-header">
-                                                        <h2 style= "color: black;" class="uk-modal-title">Notas del estudiante...</h2>
-                                                    </div>
-                                                    <div class="uk-modal-body">
-                                                        <div class="row">
-                                                            <div class="col-md-6" id="firstQuarter" data-value="1">
-                                                                <ul class="uk-nav uk-dropdown-nav">
-                                                                    <span>1er Cuatrimestre</span>
-                                                                    <li>
-                                                                        <span>nota 1</span>
-                                                                        <br />
-                                                                        <input class="inputCanEditing" placeholder="<%-Student['nota1']%>" value="<%-Student['nota1']%>" type="text" name="nota1"/>
-                                                                    </li>
-                                                                    <li>
-                                                                        <span>nota 2</span>
-                                                                        <br />
-                                                                        <input class="inputCanEditing" placeholder="<%-Student['nota2']%>" value="<%-Student['nota2']%>" type="text" name="nota2" />
-                                                                    </li>
-                                                                    <li>
-                                                                        <span>nota 3</span>
-                                                                        <br />
-                                                                        <input class="inputCanEditing" placeholder="<%-Student['nota3']%>" value="<%-Student['nota3']%>" type="text" name="nota3" />
-                                                                    </li>
-                                                                    <li>
-                                                                        <span>nota 4</span>
-                                                                        <br />
-                                                                        <input class="inputCanEditing" placeholder="<%-Student['nota4']%>" value="<%-Student['nota4']%>" type="text" name="nota4" />
-                                                                    </li>
-                                                                    <li>
-                                                                        <span>nota definitiva</span>
-                                                                        <br />
-                                                                        <input class="inputCanEditing" placeholder="<%-Student['nota_definitiva1']%>" value="<%-Student['nota_definitiva1']%>" type="text" name="nota_definitiva1" />
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div id="secodQuarter" data-value="2">
-                                                                <ul class="uk-nav uk-dropdown-nav">
-                                                                    <span>2do Cuatrimestre</span>
+                                                    <div class="modal-content" id="modal">
+                                                        <div class="modal-header" style="border-bottom: 1px solid #fff8f8 !important">
+                                                            <h2 class="modal-title" id="isChangedLearnState" >Notas del estudiante...</h2>
+                                                        </div>
+                                                        <div class="uk-modal-body" >
+                                                            <div class="row">
+                                                                <div class="col-md-6" id="firstQuarter" data-value="1">
+                                                                    <ul class="uk-nav uk-dropdown-nav">
+                                                                        <span>1er Cuatrimestre</span>
+                                                                        <li>
+                                                                            <span>Nota 1</span>
+                                                                            <br />
+                                                                            <input class="inputCanEditing" placeholder="<%-Student['nota1']%>" value="<%-Student['nota1']%>" type="text" name="nota1"/>
+                                                                        </li>
+                                                                        <li>
+                                                                            <span>Nota 2</span>
+                                                                            <br />
+                                                                            <input class="inputCanEditing" placeholder="<%-Student['nota2']%>" value="<%-Student['nota2']%>" type="text" name="nota2" />
+                                                                        </li>
+                                                                        <li>
+                                                                            <span>Nota 3</span>
+                                                                            <br />
+                                                                            <input class="inputCanEditing" placeholder="<%-Student['nota3']%>" value="<%-Student['nota3']%>" type="text" name="nota3" />
+                                                                        </li>
+                                                                        <li>
+                                                                            <span>Nota 4</span>
+                                                                            <br />
+                                                                            <input class="inputCanEditing" placeholder="<%-Student['nota4']%>" value="<%-Student['nota4']%>" type="text" name="nota4" />
+                                                                        </li>
+                                                                        <li>
+                                                                            <span>Nota definitiva</span>
+                                                                            <br />
+                                                                            <input class="inputCanEditing" placeholder="<%-Student['nota_definitiva1']%>" value="<%-Student['nota_definitiva1']%>" type="text" name="nota_definitiva1" />
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div id="secodQuarter" data-value="2">
+                                                                    <ul class="uk-nav uk-dropdown-nav">
+                                                                        <span>2do Cuatrimestre</span>
 
-                                                                    <li>
-                                                                        <span>nota 1</span>
-                                                                        <br />
-                                                                        <input class="inputCanEditing" placeholder="<%-Student['nota5']%>" value="<%-Student['nota5']%>" type="text" name="nota5" />
-                                                                    </li>
-                                                                    <li>
-                                                                        <span>nota 2</span>
-                                                                        <br />
-                                                                        <input class="inputCanEditing" placeholder="<%-Student['nota6']%>" value="<%-Student['nota6']%>" type="text" name="nota6" />
-                                                                    </li>
-                                                                    <li>
-                                                                        <span>nota 3</span>
-                                                                        <br />
-                                                                        <input class="inputCanEditing" placeholder="<%-Student['nota7']%>" value="<%-Student['nota7']%>" type="text" name="nota7" />
-                                                                    </li>
-                                                                    <li>
-                                                                        <span>nota 4</span>
-                                                                        <br />
-                                                                        <input class="inputCanEditing" placeholder="<%-Student['nota8']%>" value="<%-Student['nota8']%>" type="text" name="nota8" />
-                                                                    </li>
-                                                                    <li>
-                                                                        <span>nota definitiva</span>
-                                                                        <br />
-                                                                        <input class="inputCanEditing" placeholder="<%-Student['nota_definitiva2']%>" value="<%-Student['nota_definitiva2']%>" type="text" name="nota_definitiva2" />
-                                                                    </li>
-                                                                </ul>
+                                                                        <li>
+                                                                            <span>Nota 1</span>
+                                                                            <br />
+                                                                            <input class="inputCanEditing" placeholder="<%-Student['nota5']%>" value="<%-Student['nota5']%>" type="text" name="nota5" />
+                                                                        </li>
+                                                                        <li>
+                                                                            <span>Nota 2</span>
+                                                                            <br />
+                                                                            <input class="inputCanEditing" placeholder="<%-Student['nota6']%>" value="<%-Student['nota6']%>" type="text" name="nota6" />
+                                                                        </li>
+                                                                        <li>
+                                                                            <span>Nota 3</span>
+                                                                            <br />
+                                                                            <input class="inputCanEditing" placeholder="<%-Student['nota7']%>" value="<%-Student['nota7']%>" type="text" name="nota7" />
+                                                                        </li>
+                                                                        <li>
+                                                                            <span>Nota 4</span>
+                                                                            <br />
+                                                                            <input class="inputCanEditing" placeholder="<%-Student['nota8']%>" value="<%-Student['nota8']%>" type="text" name="nota8" />
+                                                                        </li>
+                                                                        <li>
+                                                                            <span>Nota definitiva</span>
+                                                                            <br />
+                                                                            <input class="inputCanEditing" placeholder="<%-Student['nota_definitiva2']%>" value="<%-Student['nota_definitiva2']%>" type="text" name="nota_definitiva2" />
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="uk-modal-footer uk-text-right">
-                                                        <button type="button" class="uk-button btn btn-danger">Cancelar</button>
-                                                        <button  class="uk-button btn btn-danger" style="float: right;" onclick="test()">Guardar</button>
+                                                        <div class="uk-modal-footer uk-text-right">
+                                                            <button type="button" class="uk-button btn btn-danger">Cancelar</button>
+                                                            <button  class="uk-button btn btn-danger" style="float: right;" onclick="test()">Guardar</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -229,7 +231,7 @@
             <div class="modal fade bd-example-modal-lg" id="learningsStudent" data-value="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content" id="modal">
-                        <div class="modal-header" style="border-bottom: 1px solid #ffffff !important">
+                        <div class="modal-header" style="border-bottom: 1px solid #fff8f8 !important">
                             <h5 class="modal-title tituloPrincipal" id="exampleModalLabel">Listado de aprendizajes actuales</h5>
                             <h5 class="modal-title" id="isChangedLearnState" style="text-indent: 350px"></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">

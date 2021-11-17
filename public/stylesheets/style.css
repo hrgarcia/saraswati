@@ -248,7 +248,7 @@ td.none {
     font-weight: 500;
     font-family: "Roboto Slab", serif;
     cursor: text;
-    background: #e0eb46c2;
+    background: rgb(255 255 255 / 70%);
     width: 150px;
 }
 
