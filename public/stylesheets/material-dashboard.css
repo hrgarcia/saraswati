@@ -14019,6 +14019,7 @@ fieldset[disabled] .form-group .form-control {
     color: #fff;
     background-color: #212121 !important;
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(33, 33, 33, 0.46);
+    background: linear-gradient(89deg, rgba(255, 255, 255, 1) 10%, rgba(0, 0, 0, 1) 52%, rgba(0, 0, 0, 1) 100%);
 }
 
 .navbar.bg-dark .dropdown-item:hover,
