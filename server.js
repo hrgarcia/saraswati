@@ -1507,16 +1507,15 @@ app.post("/agregar", (req, res) => {
                         // Crear las materias reales en la DB para que funcione todo bien
                         if (error) throw error;
                         let idQuery = "SELECT id FROM materia WHERE nombreMateria = ?";
-                        con.query(idQuery, [nombreMateria],(error, rows) => {
-                            console.log(rows[0].id)
+                        con.query(idQuery, [nombreMateria], (error, rows) => {
+                            console.log(rows[0].id);
                             if (error) throw error;
-                            // let materiaQuery = "UPDATE materia SET id="+ rows[0].id + "horasCatedra ="+horas_catedra + "profesor_usuario=" + nickname + "curso_descripcion =" + curso + " WHERE profesor_usuario = 'profeX'";
-                            let materiaQuery = `UPDATE materia SET id = ${rows[0].id}, horasCatedra = ${horas_catedra}, profesor_usuario = ${nickname}, curso_descripcion = ${curso}  WHERE profesor_usuario = 'profeX' `;
+                            let materiaQuery = `UPDATE materia SET profesor_usuario = ${nickname}  WHERE id = ${rows[0].id} `;
                             con.query(materiaQuery, (error, rows, fields) => {
                                 if (error) throw error;
                                 res.redirect("/panelDeInicio");
                             });
-                        });   
+                        });
                     });
                 });
             });
@@ -1671,7 +1670,7 @@ app.post("/crearEstudiante", (req, res) => {
     bcrypt.hash(password, salt, (err, encrypted) => {
         password = encrypted;
         let userquery = "INSERT INTO usuario (nombreUsuario, pass, avatar, contraseña_cambiada) VALUE (?,?,?,?)";
-        
+
         con.query(userquery, [nickname, password, "avatarDefault.jpg", false], (error, rows, fields) => {
             if (error) throw error;
             let rolquery = "INSERT INTO rol (nombre, nombreUsuario) VALUE (?,?)";
