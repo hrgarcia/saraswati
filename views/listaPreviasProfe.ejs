@@ -69,7 +69,7 @@
                                 <% data.forEach(function(Student){ %>
                                 <tr>
                                     <td>
-                                        <div id="modal-group-<%-Student['dni']%>" uk-modal>
+                                        <div id="modal-group-<%-Student['dni']%>" data-valu="<%-Student['añoLectivo']%>" uk-modal>
                                             <div id="notesDiv" data-value="<%-Student['dni']%>" class="uk-modal-dialog uk-margin-auto-vertical">
                                                 <button class="uk-modal-close-default" type="button" uk-close></button>
                                                 <div class="uk-modal-header">
@@ -461,40 +461,41 @@
                 if ($("#notesForm").valid()) {
                     // e.preventDefault();
                     let aux = $("#notesDiv input");
-                    let aux2 = { data: [] };
-                    let flag = false;
-                    idSubject = document.getElementById("subjectName").getAttribute("data-value");
-                    for (let i = aux.length - 1; i >= 0; i--) {
-                        if (aux[i].placeholder == aux[i].value) {
-                            aux.splice(i, 1);
-                        } else {
-                            let dni = aux[i].closest("#notesDiv").getAttribute("data-value");
+                    let aux2 = [];
+                    let idSubject = document.getElementById("subjectName").getAttribute("data-value");
 
-                            aux2["data"].push({ dni: dni, namefield: aux[i].name, value: aux[i].value, idSubject: idSubject });
-                            flag = true;
+                    let dni = aux[0].closest("#notesDiv").getAttribute("data-value");
+                    aux2.push({ dni: dni, namefield: aux[0].name, value: aux[0].value, idSubject: idSubject });
+                    data - value / "modal-group-<%-Student['dni']%>";
+                    let idSubject = document.getElementById(`modal-group-${dni}`).getAttribute("data-value");
+
+                    Swal.fire({
+                        icon: "question",
+                        title: `¿Esta seguro de cambiar la nota?`,
+                        showCancelButton: true,
+                        confirmButtonText: `Cambiar`,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            if (aux[0].value >= 7) {
+                                aux2 = JSON.stringify(aux2);
+                                $.ajax({
+                                    url: "/cambiarNotasPrevia",
+                                    method: "post",
+                                    dataType: "json",
+                                    data: { info: `${aux2}` },
+                                }).done((d) => {
+                                    aux[0].placeholder = JSON.parse(aux2)[0]["value"];
+                                    if (d === "infoUpdated") {
+                                        successAlert("Su informacion fue actualizada");
+                                    } else if (d === "infoNotUpdated") {
+                                        errorAlert("Su informacion no pudo ser actualizada");
+                                    }
+                                });
+                            } else {
+                                errorAlert("La nota debe ser 7 o mayor");
+                            }
                         }
-                    }
-
-                    if (flag) {
-                        aux2 = JSON.stringify(aux2);
-                        $.ajax({
-                            url: "/cambiarNotas",
-                            method: "post",
-                            dataType: "json",
-                            data: { info: `${aux2}` },
-                        }).done((d) => {
-                            for (let i = 0; i < aux.length; i++) {
-                                aux[i].placeholder = JSON.parse(aux2)["data"][i]["value"];
-                            }
-                            if (d === "infoUpdated") {
-                                successAlert("Su informacion fue actualizada");
-                            } else if (d === "infoNotUpdated") {
-                                errorAlert("Su informacion no pudo ser actualizada");
-                            }
-                        });
-                    } else {
-                        errorAlert("No se modifico ningun dato");
-                    }
+                    });
                 }
             }
         </script>

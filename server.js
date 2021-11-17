@@ -1312,7 +1312,7 @@ app.get("/panelDePrevias", (req, res) => {
         let username = res.locals.username;
         if (rol.includes("profesor")) {
             let query =
-                "SELECT id,nombreMateria,imagen,horasCatedra,profesor_usuario,curso_descripcion,nombreUsuario,nombre,apellido FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario INNER JOIN previas ON previas.materia = materia.nombreMateria";
+                "SELECT id,nombreMateria,imagen,horasCatedra,profesor_usuario,curso_descripcion,nombreUsuario,nombre,apellido FROM materia INNER JOIN profesor ON materia.profesor_usuario = profesor.nombreUsuario AND ? = materia.profesor_usuario INNER JOIN previas ON previas.materia = materia.nombreMateria INNER JOIN historialmaterias ON historialmaterias.notaDefinitiva < 7";
             con.query(query, [username], (error, rows) => {
                 res.render("panelDePrevias.ejs", {
                     title: "InfoUser",
@@ -1349,6 +1349,18 @@ app.post("/cambiarNotas", (req, res) => {
         let aux = infoToChange["data"][i]["namefield"];
         let query = `UPDATE nota SET ${aux} = ? WHERE dni_alumno = ? AND id_materia = ?`;
         con.query(query, [infoToChange["data"][i]["value"], infoToChange["data"][i]["dni"], infoToChange["data"][i]["idSubject"]], (error, rows, fields) => {
+            if (error) throw error;
+        });
+    }
+    res.json("infoUpdated");
+});
+
+app.post("/cambiarNotasPrevia", (req, res) => {
+    let infoToChange = JSON.parse(req.body.info);
+    for (let i = 0; i < infoToChange.length; i++) {
+        let aux = infoToChange[i]["namefield"];
+        let query = `UPDATE historialmaterias SET ${aux} = ? WHERE dni_estudiante = ? AND id_materia = ?`;
+        con.query(query, [infoToChange[i]["value"], infoToChange[i]["dni"], infoToChange[i]["idSubject"]], (error, rows, fields) => {
             if (error) throw error;
         });
     }
@@ -1506,15 +1518,10 @@ app.post("/agregar", (req, res) => {
                     con.query(profequery, [nickname, firstname, lastname, dni, telefono, email, genero, fecha_nacimiento, ingreso, estado], (error, rows, fields) => {
                         // Crear las materias reales en la DB para que funcione todo bien
                         if (error) throw error;
-                        let idQuery = "SELECT id FROM materia WHERE nombreMateria = ?";
-                        con.query(idQuery, [nombreMateria], (error, rows) => {
-                            console.log(rows[0].id);
+                        let materiaQuery = "INSERT INTO materia(nombreMateria, imagen, horasCatedra, profesor_usuario, curso_descripcion) VALUES (?,?,?,?,?)";
+                        con.query(materiaQuery, [nombreMateria, imgMateria, horas_catedra, nickname, curso], (error, rows, fields) => {
                             if (error) throw error;
-                            let materiaQuery = `UPDATE materia SET profesor_usuario = ${nickname}  WHERE id = ${rows[0].id} `;
-                            con.query(materiaQuery, (error, rows, fields) => {
-                                if (error) throw error;
-                                res.redirect("/panelDeInicio");
-                            });
+                            res.redirect("/panelDeInicio");
                         });
                     });
                 });
@@ -1670,6 +1677,16 @@ app.post("/crearEstudiante", (req, res) => {
     bcrypt.hash(password, salt, (err, encrypted) => {
         password = encrypted;
         let userquery = "INSERT INTO usuario (nombreUsuario, pass, avatar, contraseña_cambiada) VALUE (?,?,?,?)";
+        console.log(nickname);
+        console.log(firstname);
+        console.log(lastname);
+        console.log(telefono);
+        console.log(email);
+        console.log(fecha_nacimiento);
+        console.log(dni);
+        console.log(genero);
+        console.log(legajo);
+        console.log(descripcion_curso);
 
         con.query(userquery, [nickname, password, "avatarDefault.jpg", false], (error, rows, fields) => {
             if (error) throw error;
@@ -1681,14 +1698,15 @@ app.post("/crearEstudiante", (req, res) => {
                     if (error) throw error;
                     let materias = "SELECT id FROM materia WHERE curso_descripcion = ?";
                     con.query(materias, [descripcion_curso], (error, rows, fields) => {
+                        console.log(rows);
                         for (let i = 0; i < rows.length; i++) {
-                            const id_materia = rows[i].id;
+                            const id_materia = rows[i];
                             let notaEstudianteperiodoUNO = "INSERT INTO nota (nota1, nota2, nota3, nota4, nota5, nota6, nota7, nota8, nota_definitiva1, nota_definitiva2, id_materia, descripcion_curso, dni_alumno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
                             con.query(notaEstudianteperiodoUNO, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, id_materia, descripcion_curso, dni], (error, notas, fields) => {
+                                console.log(id_materia);
                                 if (error) throw error;
                             });
                         }
-                        res.render("panelDelInicio.ejs");
                     });
                 });
             });
