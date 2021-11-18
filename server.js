@@ -945,7 +945,7 @@ app.get("/generarReporteExcel/:dni/:idMateria", (req, res) => {
                         }
                         console.log("El archivo fue movido exitosamente...");
                     });
-                    res.json("");
+                    res.json(`${path1}`);
                 });
             });
         } else {

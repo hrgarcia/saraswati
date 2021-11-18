@@ -526,10 +526,12 @@
                 },
 
                 "click .excel": function (e, value, row, index) {
+                    
                     let idSubject = document.getElementById("subjectName").getAttribute("data-value");
                     $.get(`generarReporteExcel/${row.dni}/${idSubject}`, res => {
-                        successAlert("Su archivo esta");
-                    });
+                        successAlert("Su archivo esta" + res);
+                        setTimeout(1000);
+                    })
                 },
             };
             function operateFormatter(value, row, index) {
