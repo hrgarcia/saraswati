@@ -119,6 +119,7 @@
                             <h5 class="modal-title tituloPrincipal" id="exampleModalLabel">Materias</h5>
                             <h5 class="modal-title" id="isChangedLearnState" style="text-indent: 350px"></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span type="button" class="material-icons" data-toggle="tooltip" data-placement="bottom" title="Tilde la materia que desee cambiar de columna">info_outline</span>
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -130,7 +131,7 @@
                                     <form action="/listarProfesores" method="POST">
                                         <div class = "row">
                                             <div class="col-md-6">
-                                                <h4 style="text-align:center;" class="tituloSecundario">Profe </h4>
+                                                <h4 style="text-align:center;" class="tituloSecundario">Materias asignadas</h4>
                                                 <div id="profe">
                                                 </div>                                           
                                             </div>
@@ -140,7 +141,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input style="float:right"type="submit"></input>
+                                        <button style="float:right" type="submit" class="uk-button btn btn-danger">Guardar</button>
                                     </form>
                                 </div>
                             </div>
