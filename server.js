@@ -12,6 +12,7 @@ const pdf = require("html-pdf");
 const ejs = require("ejs");
 const cron = require("node-cron");
 const xlsx = require("xlsx-color");
+const fs = require("fs");
 
 const dump = require("mysqldump");
 const { request } = require("http");
@@ -934,6 +935,16 @@ app.get("/generarReporteExcel/:dni/:idMateria", (req, res) => {
                     xlsx.utils.book_append_sheet(wb, aux, "Notas");
                     // Hacer que se descargue donde lo eliga el usuario
                     xlsx.writeFile(wb, `notas_${notasAlumno.nombre}_${notasAlumno.apellido}.xlsx`);
+
+                    const path2 = __dirname + `\\notas_${notasAlumno.nombre}_${notasAlumno.apellido}.xlsx`;
+                    const path1 = __dirname + "\\.." + `\\notas_${notasAlumno.nombre}_${notasAlumno.apellido}.xlsx`;
+                    
+                    fs.rename(path2,path1, (err) =>{
+                        if (err) {
+                            throw(err);
+                        }
+                        console.log("El archivo fue movido exitosamente...");
+                    });
                     res.json("");
                 });
             });
@@ -1206,6 +1217,17 @@ app.get("/generarReporteExcelTodos/:idMateria", (req, res) => {
                             xlsx.utils.book_append_sheet(wb, aux, `${notasAlumno.nombre}_${notasAlumno.apellido}`);
                             if (dniAlumnos[i + 1] == undefined) {
                                 xlsx.writeFile(wb, `notas_${dniAlumnos[0].curso_descripcion}.xlsx`);
+                                
+                                const path2 = __dirname + `\\notas_${dniAlumnos[0].curso_descripcion}.xlsx`;
+                                const path1 = __dirname + "\\.." + `\\notas_${dniAlumnos[0].curso_descripcion}.xlsx`;
+                    
+                                fs.rename(path2,path1, (err) =>{
+                                    if (err) {
+                                        throw(err);
+                                    }
+                                    console.log("El archivo fue movido exitosamente...");
+                                });
+
                                 res.json("");
                             }
                         });

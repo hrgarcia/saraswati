@@ -528,7 +528,7 @@
                 "click .excel": function (e, value, row, index) {
                     let idSubject = document.getElementById("subjectName").getAttribute("data-value");
                     $.get(`generarReporteExcel/${row.dni}/${idSubject}`, res => {
-                        successAlert("Su archivo fue creado");
+                        successAlert("Su archivo esta");
                     });
                 },
             };
@@ -713,7 +713,7 @@
             function generarExcelParaTodos() {
                 let idSubject = document.getElementById("subjectName").getAttribute("data-value");
                 $.get(`generarReporteExcelTodos/${idSubject}`, res => {
-                    successAlert("Su archivo fue creado");
+                    successAlert("Su archivo esta");
                 });
             }
         </script>
